@@ -1,0 +1,1005 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,QID1,Q38,Q6,Q81,Q82,Q84,Q85,Q77,Q10,Q13,Q90,Q11,Q11_10_TEXT,Q55_First Click,Q55_Last Click,Q55_Page Submit,Q55_Click Count,Q92_First Click,Q92_Last Click,Q92_Page Submit,Q92_Click Count,Q79,Q60,Q61,Q62,Q67,Q66,Q65,Q63,Q72,Q70,Q69,Q68,Q76,Q75,Q74,Q73,Q64,Q59,Q48_1,Q21,Q22_1,Q22_2,Q22_3,Q22_4,Q22_5,Q95,Q95_7_TEXT,Q96,Q96_7_TEXT,Q19,Q23,Q23_6_TEXT,Q24_1,Q25_1,Q26_1,Q27_2,Q27_3,Q27_4,Q56_2,Q56_3,Q56_4,Q34,Q35,Q33,Q32,Q86,Q97,timeStampOfOnLoad_QID6,ParticipatType= Tourist,ParticipantType=Residence,Create New Field or Choose From Dropdown...,timeStampOfOnLoad_QID32
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,"University of Hawaiʻi Manoa
+
+Consent to Participate in a Research Project
+
+ 
+
+
+
+Project title: Trail Management in Hawaiʻi
+
+ 
+
+Aloha! You are being asked to take part in a research study that will determine your preferences for outdoor recreation as part of an investigation conducted by the University of Hawaiʻi - Mānoa. You have been selected for participation because you are resident in Hawaiʻi, or have been a visitor to Hawaiʻi, and you are at least 18 years old.
+
+ 
+
+Objectives: The goal of this research is to understand how people make choices about hiking trails in Hawai‘i. We are interested in how different trail features, such as habitat quality, trail condition, crowding, and cost, affect these choices. The information collected will be used to better understand trail use and management preferences.
+
+ 
+
+Project Description – Activities and Time Commitment: If you decide to take part in this project, you will be asked to fill out a survey. The survey questions are mainly multiple choice. However, there will be a few questions where you may add an open-ended response. Completing the survey will take between 10 and 12 minutes. We expect around 800 people will take part in this project.
+
+ 
+
+Benefits and Risks: There will be no direct benefit to you for taking part in this project. We hope that the results of this study will lead to a better understanding of the economic impact of environmental changes and we are hopeful that the results will be used to inform future environmental policy in Hawaiʻi. There is little risk to you for participating in this project. 
+
+ 
+
+Confidentiality and Privacy: The study collects no personal identifying information - you will remain anonymous. The records from this study are kept private and only UH researchers will have access to them. Please do not include any personal information in your survey responses. 
+
+ 
+
+Voluntary Participation: You can freely choose to take part or to not take part in this survey. There will be no penalty or loss of benefits for either decision. If you do agree to participate, you can stop at any time. 
+
+ 
+
+Questions: If you have any questions about this study, please call or email me Kirsten Oleson at 808-956-8864 or koleson@hawaii.edu. You may contact the UH Human Studies Program at  808-956-5007 or uhirb@hawaii.edu to discuss problems, concerns and  questions; obtain information; or offer input with an informed individual who is unaffiliated with the specific research protocol. Please visit https://www,hawaii.edu/researchcompliance/ information-research-participants for more information on your rights as a research participant. Please print a copy of this page for your reference. 
+
+ 
+
+Do you agree in taking part to this survey? (Clicking ""YES"" implies your consent to take the survey)",How old are you?,What is your sex?,Choose one or more races that you consider yourself to be,What is the highest level of education you have completed?,What was your total household income before taxes during the past 12 months?,Which statement best describes your current employment status?,What is your zip / postal code?,On which Hawaiian island do you live?,What is your residency status?,Have you ever used the hiking trails in Hawai‘i?,What is your primary reason for using trails? - Selected Choice,What is your primary reason for using trails? - Other (Please enter answer in the box) - Text,Timing - First Click,Timing - Last Click,Timing - Page Submit,Timing - Click Count,Timing - First Click,Timing - Last Click,Timing - Page Submit,Timing - Click Count,"Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Minimal maintenance, storm damage left unrepaired
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+		
+		
+			Habitat Quality 
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+			
+
+			Extensive restoration of native plants, with few invasive species
+		
+		
+			Crowding
+			
+
+			Moderate number of people
+			
+
+			Low number of people
+		
+		
+			Additional Cost
+			$5
+			$20","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+			
+
+			Moderate maintenance and delayed storm repairs
+		
+		
+			Habitat Quality 
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+			
+
+			Little or no restoration, many invasive species
+		
+		
+			Crowding
+			
+
+			Moderate number of people
+			
+
+			Low number of people
+		
+		
+			Additional Cost
+			$20
+			$5","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Moderate maintenance and delayed storm repairs
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+		
+		
+			Crowding
+			
+
+			Moderate number of people
+			
+
+			High number of people
+		
+		
+			Additional Cost
+			$50
+			$10","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Moderate maintenance and delayed storm repairs
+			
+
+			Minimal maintenance, storm damage left unrepaired
+		
+		
+			Habitat Quality 
+			
+
+			Little or no restoration, many invasive species
+			
+
+			Extensive restoration of native plants, with few invasive species
+		
+		
+			Crowding
+			
+
+			High number of people
+			
+
+			Low number of people
+		
+		
+			Additional Cost
+			$2
+			$10","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+			
+
+			Minimal maintenance, storm damage left unrepaired
+		
+		
+			Habitat Quality 
+			
+
+			Little or no restoration, many invasive species
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+		
+		
+			Crowding
+			
+
+			Moderate number of people
+			
+
+			High number of people
+		
+		
+			Additional Cost
+			$20
+			$5","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Moderate maintenance and delayed storm repairs
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+		
+		
+			Crowding
+			
+
+			Low number of people
+			
+
+			Moderate number of people
+		
+		
+			Additional Cost
+			$50
+			$20","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Moderate maintenance and delayed storm repairs
+			
+
+			Minimal maintenance, storm damage left unrepaired
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			Little or no restoration, many invasive species
+		
+		
+			Crowding
+			
+
+			High number of people
+			
+
+			Low number of people
+		
+		
+			Additional Cost
+			$10
+			$2","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Moderate maintenance and delayed storm repairs
+			
+
+			Minimal maintenance, storm damage left unrepaired
+		
+		
+			Habitat Quality 
+			
+
+			Little or no restoration, many invasive species
+			
+
+			Extensive restoration of native plants, with few invasive species
+		
+		
+			Crowding
+			
+
+			Low number of people
+			
+
+			High number of people
+		
+		
+			Additional Cost
+			$50
+			$10","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Minimal maintenance, storm damage left unrepaired
+			
+
+			Moderate maintenance and delayed storm repairs
+		
+		
+			Habitat Quality 
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+			
+
+			Extensive restoration of native plants, with few invasive species
+		
+		
+			Crowding
+			
+
+			Low number of people
+			
+
+			High number of people
+		
+		
+			Additional Cost
+			$50
+			$20","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+			
+
+			Moderate maintenance and delayed storm repairs
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			Little or no restoration, many invasive species
+		
+		
+			Crowding
+			
+
+			Low number of people
+			
+
+			High number of people
+		
+		
+			Additional Cost
+			$5
+			$2","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+			
+
+			Moderate maintenance and delayed storm repairs
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+		
+		
+			Crowding
+			
+
+			Moderate number of people
+			
+
+			Moderate number of people
+		
+		
+			Additional Cost
+			$10
+			$5","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Minimal maintenance, storm damage left unrepaired
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+		
+		
+			Habitat Quality 
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+			
+
+			Little or no restoration, many invasive species
+		
+		
+			Crowding
+			
+
+			High number of people
+			
+
+			Moderate number of people
+		
+		
+			Additional Cost
+			$2
+			$10","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+			
+
+			Moderate maintenance and delayed storm repairs
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			 Some restoration of native plants, with moderate presence of invasive species
+		
+		
+			Crowding
+			
+
+			Moderate number of people
+			
+
+			High number of people
+		
+		
+			Additional Cost
+			$50
+			$20","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Minimal maintenance, storm damage left unrepaired
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+		
+		
+			Habitat Quality 
+			
+
+			Extensive restoration of native plants, with few invasive species
+			
+
+			  Little or no restoration, many invasive species
+		
+		
+			Crowding
+			
+
+			High number of people
+			
+
+			Low number of people
+		
+		
+			Additional Cost
+			$5
+			$10","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Frequent routine maintenance and immediate response to storm damage
+			
+
+			Minimal maintenance, storm damage left unrepaired
+		
+		
+			Habitat Quality 
+			
+
+			Some restoration of native plants, with moderate presence of invasive species
+			
+
+			  Extensive restoration of native plants, with few invasive species
+		
+		
+			Crowding
+			
+
+			High number of people
+			
+
+			Moderate number of people
+		
+		
+			Additional Cost
+			$20
+			$50","Please review the two trail alternatives below and choose the one you prefer . 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			Minimal maintenance, storm damage left unrepaired
+			
+
+			Moderate maintenance and delayed storm repairs
+		
+		
+			Habitat Quality 
+			
+
+			 Little or no restoration, many invasive species
+			
+
+			  Some restoration of native plants, with moderate presence of invasive species
+		
+		
+			Crowding
+			
+
+			Low number of people
+			
+
+			Moderate number of people
+		
+		
+			Additional Cost
+			$2
+			$5","Please select the management option you prefer.
+ 
+
+
+	
+		
+			Alternative one
+			Alternative two
+		
+		
+			
+			
+				Minimal maintenance, storm damage left unrepaired
+				 Little or no restoration, many invasive species
+				Moderate number of people
+			
+			
+			
+			
+				Moderate maintenance and delayed storm repairs
+				Some restoration of native plants, with moderate presence of invasive species
+				Low number of people","Trail Condition Choice Experiment
+    
+
+
+
+    Please select the management option you prefer.
+
+ 
+    
+        
+         		Alternative one
+			Alternative two","Thinking about all the choices you just made about trail management preferences, how certain are you about your decisions?
+
+Please use the slider below, where 0 = Not certain at all  and 10 = Very certain. - 1","Would you be willing to pay a user fee to support trail management efforts? (e.g.,  restoring trail condition, improving habitat quality, and crowd control)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails with waterfalls or unique natural features","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails with high levels of tourist activity (e.g., popular or heavily visited sites)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails requiring substantial maintenance costs (e.g., erosion-prone areas, frequent storm damage)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails located in ecologically sensitive areas (e.g., native habitats, endangered species zones)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails offering additional amenities (e.g., parking, restrooms)","If user fees were implemented, which payment type would you prefer? - Selected Choice","If user fees were implemented, which payment type would you prefer? - Other (Please enter answer in the box) - Text","If user fees were implemented, which payment method would you prefer? - Selected Choice","If user fees were implemented, which payment method would you prefer? - Other (Please enter answer in the box) - Text","To ensure quality responses, please select 'Agree' for this question.","In Hawai‘i, trails require regular maintenance to remain safe, accessible, and ecologically healthy. Many trails are used by both residents and visitors, which increases the need for ongoing upkeep. Currently, funding for this work comes mainly from the state, but resources are often limited.
+
+Who do you think should bear the majority of the cost for trail management? - Selected Choice","In Hawai‘i, trails require regular maintenance to remain safe, accessible, and ecologically healthy. Many trails are used by both residents and visitors, which increases the need for ongoing upkeep. Currently, funding for this work comes mainly from the state, but resources are often limited.
+
+Who do you think should bear the majority of the cost for trail management? - Other (Please enter answer in the box) - Text","In the future, some trails in Hawai‘i may require a user fee to help fund improvements, such as better maintenance, habitat restoration, or crowding management. The specific improvements may vary by trail.
+
+
+
+How likely are you to use trails that require a user fee?
+
+
+
+Please use the slider below, where 0 = very unlikely and 10 = very likely. - 1","Imagine 10 people you know—friends, family, coworkers. If you had to guess, how many of them would be willing to use trails that require a user fee? - 1","Imagine 10 people you know—friends, family, or coworkers. If you had to guess, how many of them think that people should pay a user fee to use trails? - 1","Please rank the following trail improvements based on how confident they would make you feel that your contribution (via user fees) is making a meaningful difference.
+
+Drag to rank from MOST confident (top) to LEAST confident (bottom). - Improve habitat quality","Please rank the following trail improvements based on how confident they would make you feel that your contribution (via user fees) is making a meaningful difference.
+
+Drag to rank from MOST confident (top) to LEAST confident (bottom). - Enhance trail maintenance and condition","Please rank the following trail improvements based on how confident they would make you feel that your contribution (via user fees) is making a meaningful difference.
+
+Drag to rank from MOST confident (top) to LEAST confident (bottom). - Reduce overcrowding","If most trail users choose to pay usage fees, which of the following improvements do you think would be the MOST and LEAST effectively addressed?
+
+Drag to rank from most effectively addressed (top) to least effectively addressed (bottom). - Improve habitat quality","If most trail users choose to pay usage fees, which of the following improvements do you think would be the MOST and LEAST effectively addressed?
+
+Drag to rank from most effectively addressed (top) to least effectively addressed (bottom). - Enhance trail maintenance and condition","If most trail users choose to pay usage fees, which of the following improvements do you think would be the MOST and LEAST effectively addressed?
+
+Drag to rank from most effectively addressed (top) to least effectively addressed (bottom). - Reduce overcrowding","If given the opportunity, how many hours would you be willing to volunteer as a one-time contribution to support trail management improvements (e.g., restoring trail conditions, enhancing signage, or addressing invasive species)?","If part of the user fee was used to support and equip community volunteers (e.g., tools, supplies, safety gear), how much more would you be willing to pay each time you use a trail? Please answer in U.S. dollars.","In the past 12 months, have you paid a fee to access a natural area (e.g., park entrance fee, trail permit)?","In the past 12 months, have you participated in community discussions, public meetings, or surveys regarding the management of natural areas or trails?","Are you currently a member of an environmental group / do you participate in environmental activities (e.g., volunteer for clean-up events)","The survey is over. Thank you for taking the time. 
+
+If you have any question or comments, please email ruivaldo@hawaii.edu or enter below. 
+
+Please click the blue arrow on the bottom right to submit.",timeStampOfOnLoad_QID6,ParticipatType= Tourist,ParticipantType=Residence,Create New Field or Choose From Dropdown...,timeStampOfOnLoad_QID32
+"{""ImportId"":""startDate"",""timeZone"":""Pacific/Honolulu""}","{""ImportId"":""endDate"",""timeZone"":""Pacific/Honolulu""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""Pacific/Honolulu""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID1""}","{""ImportId"":""QID38""}","{""ImportId"":""QID3""}","{""ImportId"":""QID81""}","{""ImportId"":""QID82""}","{""ImportId"":""QID84""}","{""ImportId"":""QID85""}","{""ImportId"":""QID77_TEXT""}","{""ImportId"":""QID10""}","{""ImportId"":""QID13""}","{""ImportId"":""QID90""}","{""ImportId"":""QID11""}","{""ImportId"":""QID11_10_TEXT""}","{""ImportId"":""QID55_FIRST_CLICK""}","{""ImportId"":""QID55_LAST_CLICK""}","{""ImportId"":""QID55_PAGE_SUBMIT""}","{""ImportId"":""QID55_CLICK_COUNT""}","{""ImportId"":""QID92_FIRST_CLICK""}","{""ImportId"":""QID92_LAST_CLICK""}","{""ImportId"":""QID92_PAGE_SUBMIT""}","{""ImportId"":""QID92_CLICK_COUNT""}","{""ImportId"":""QID79""}","{""ImportId"":""QID60""}","{""ImportId"":""QID61""}","{""ImportId"":""QID62""}","{""ImportId"":""QID67""}","{""ImportId"":""QID66""}","{""ImportId"":""QID65""}","{""ImportId"":""QID63""}","{""ImportId"":""QID72""}","{""ImportId"":""QID70""}","{""ImportId"":""QID69""}","{""ImportId"":""QID68""}","{""ImportId"":""QID76""}","{""ImportId"":""QID75""}","{""ImportId"":""QID74""}","{""ImportId"":""QID73""}","{""ImportId"":""QID64""}","{""ImportId"":""QID59""}","{""ImportId"":""QID48_1""}","{""ImportId"":""QID21""}","{""ImportId"":""QID22_1""}","{""ImportId"":""QID22_2""}","{""ImportId"":""QID22_3""}","{""ImportId"":""QID22_4""}","{""ImportId"":""QID22_5""}","{""ImportId"":""QID95""}","{""ImportId"":""QID95_7_TEXT""}","{""ImportId"":""QID96""}","{""ImportId"":""QID96_7_TEXT""}","{""ImportId"":""QID19""}","{""ImportId"":""QID23""}","{""ImportId"":""QID23_6_TEXT""}","{""ImportId"":""QID24_1""}","{""ImportId"":""QID25_1""}","{""ImportId"":""QID26_1""}","{""ImportId"":""QID27_1""}","{""ImportId"":""QID27_2""}","{""ImportId"":""QID27_3""}","{""ImportId"":""QID56_1""}","{""ImportId"":""QID56_2""}","{""ImportId"":""QID56_3""}","{""ImportId"":""QID34""}","{""ImportId"":""QID35_TEXT""}","{""ImportId"":""QID33""}","{""ImportId"":""QID32""}","{""ImportId"":""QID86""}","{""ImportId"":""QID97_TEXT""}","{""ImportId"":""timeStampOfOnLoad_QID6""}","{""ImportId"":""ParticipatType= Tourist""}","{""ImportId"":""ParticipantType=Residence""}","{""ImportId"":""Create New Field or Choose From Dropdown...""}","{""ImportId"":""timeStampOfOnLoad_QID32""}"
+2025-09-04 14:49:00,2025-09-04 14:56:43,IP Address,172.59.57.209,100,463,True,2025-09-04 14:56:44,R_67nkOvnsycFdKMh,,,,,21.2817,-157.825,anonymous,EN,Yes,18-24 years old,Male,"White or Caucasian,Asian",Bachelor's degree,"$100,000 -$149,999",Working (paid employee),96825,Oʻahu,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1.28,41.835,42.476,4,0.415,2.654,21.299,2,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative two,Alternative two,,9,Yes,4,1,3,5,2,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,On-site payment,,Agree,"Both, but majority visitors",,9,3,2,1,3,2,2,1,3,3-5 hours,5,Yes,No,Yes,,2025-09-05T00:49:09.722Z,,,,2025-09-05T00:56:03.135Z
+2025-09-04 14:49:14,2025-09-04 15:13:06,IP Address,174.202.0.53,100,1431,True,2025-09-04 15:13:06,R_7qzwFv71yNkLuuJ,,,,,21.2817,-157.825,anonymous,EN,Yes,35-44 years old,Non-binary,"Asian,Native Hawaiian or Other Pacific Islander",Bachelor's degree,"$100,000 -$149,999",Working (paid employee),96813,Oʻahu,Full time Hawaiʻi resident,Yes,Collecting plants for cultural purposes,,0.984,47.168,48.593,28,7.203,16.722,19.377,4,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,,,,,,,,Alternative two,,8,Yes,4,1,2,3,5,Per-entry fee,,On-site payment,,Agree,"Both, but majority visitors",,6,5,5,1,2,3,1,2,3,3-5 hours,5,No,Yes,Yes,,2025-09-05T00:49:22.563Z,,,,2025-09-05T01:12:30.204Z
+2025-09-08 13:45:24,2025-09-08 13:57:49,IP Address,128.171.125.109,100,744,True,2025-09-08 13:57:49,R_5qUFSWKIJTsBKNK,,,,,21.3133,-157.823,anonymous,EN,Yes,25-34 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$50,000 -$74,999",Working (paid employee),96822,Oʻahu,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,0,51.61,0,5.727,6.033,20.45,2,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative one,,,,,Alternative two,,7,Yes,3,1,4,5,2,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,5,5,4,3,1,2,2,1,3,3-5 hours,5,Yes,Yes,Yes,,2025-09-08T23:46:45.841Z,,,,2025-09-08T23:57:30.680Z
+2025-09-08 16:05:56,2025-09-08 16:19:46,IP Address,98.155.74.89,100,830,True,2025-09-08 16:19:47,R_3Xlm02SAM23vsSl,,,,,21.4535,-158.0193,anonymous,EN,Yes,45-54 years old,Female,White or Caucasian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),96791,Oʻahu,Full time Hawaiʻi resident,Yes,Other (Please enter answer in the box),Work,0,0,61.295,0,0,0,61.309,0,,,,,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,,,,Alternative two,,4,Yes,5,1,3,4,2,Voluntary donation,,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,3,5,8,3,2,1,3,2,1,More than 6 hours,1,Yes,Yes,Yes,,2025-09-09T02:06:09.013Z,,,,2025-09-09T02:19:19.824Z
+2025-09-02 15:06:40,2025-09-03 08:13:34,IP Address,128.171.125.124,25,61613,False,2025-09-10 08:13:35,R_6QxVPeVUrIKgqHv,,,,,21.4082,-157.7396,anonymous,EN,Yes,45-54 years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),96734,Oʻahu,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2025-09-03T01:07:59.615Z,,,,
+2025-09-03 11:45:33,2025-09-03 12:15:26,IP Address,168.105.218.201,2,1792,False,2025-09-10 12:15:26,R_6Gj0tvVbibIW9wD,,,,,21.3133,-157.823,anonymous,EN,Yes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2025-09-03T21:45:45.076Z,,,,
+2025-09-04 14:55:44,2025-09-04 14:56:00,IP Address,98.155.74.89,2,16,False,2025-09-11 14:56:02,R_3YDMhGrfijd1ToY,,,,,21.4535,-158.0193,anonymous,EN,Yes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-02 00:48:50,2025-09-08 13:05:46,IP Address,66.162.254.210,2,562615,False,2025-09-15 13:05:49,R_6vkXS07DXayugBI,,,,,21.2982,-157.8444,anonymous,EN,Yes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2025-09-08T23:05:44.556Z,,,,
+2025-09-18 15:47:08,2025-09-18 15:47:08,Survey Test,,100,0,True,2025-09-18 15:47:08,R_55BKMN5PhXUSEUC,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:08,2025-09-18 15:47:08,Survey Test,,100,0,True,2025-09-18 15:47:09,R_8251F0ZPyzAz2js,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:09,2025-09-18 15:47:09,Survey Test,,100,0,True,2025-09-18 15:47:09,R_1TCA5pYM1llbIpM,,,,,,,test,,Yes,25-34 years old,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (retired),Enim scelerisque in accusamus consectetuer montes quam platea ridiculus diam nulla volutpat? Augue malesuada.,I do not live in Hawaiʻi,Out-of-state visitor,Yes,Spending time with family / friends,,4.38,9.62,8.67,36,2.33,3.81,5.13,18,None of the option,Alternative one,Alternative one,Alternative two,,,,,,,,,,,,,Alternative two,,4,Yes,3,2,4,5,1,Annual pass,,On-site payment,,Strongly Agree,"Both, but majority visitors",,1,7,6,2,1,3,2,3,1,More than 6 hours,569779829,Yes,No,Yes,"Augue magna nec montes vulputate quam, auctor imperdiet rutrum nonummy.",,,,,
+2025-09-18 15:47:09,2025-09-18 15:47:09,Survey Test,,100,0,True,2025-09-18 15:47:09,R_9H0OaDGguR8okvk,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:09,2025-09-18 15:47:09,Survey Test,,100,0,True,2025-09-18 15:47:09,R_2iCybJZkoS33ShU,,,,,,,test,,Yes,55-64 years old,Male,"White or Caucasian,Black or African American",High School diploma or GED,"$100,000 -$149,999",Not working (looking for work),"Iaculis. Non, pharetra, natoque quis sodales? Ipsum, leo urna curabitur sollicitudin.",Lānaʻi or Molokaʻi,Out-of-state visitor,Yes,Collecting plants for cultural purposes,,4.55,9.18,7.83,44,7.74,8.67,9.48,1,,,,,Alternative two,Alternative one,None of the option,None of the option,,,,,,,,,Alternative two,,1,No,4,5,3,1,2,Per-entry fee,,Other (Please enter answer in the box),Morbi. Facilisis phasellus diam dolor integer eu? Sagittis per mattis quam. A dolorem.,Strongly Agree,Only Residents,,7,4,4,2,3,1,2,3,1,3-5 hours,137959959,Yes,Yes,Yes,Ullamcorper bibendum a ultricies vivamus. Tempus elit tempora suscipit velit ullamcorper.,,,,,
+2025-09-18 15:47:09,2025-09-18 15:47:09,Survey Test,,100,0,True,2025-09-18 15:47:10,R_1LZvOaiMJmU5IZU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:10,2025-09-18 15:47:10,Survey Test,,100,0,True,2025-09-18 15:47:10,R_0xFp7YnEb3OW7rM,,,,,,,test,,Yes,25-34 years old,Non-binary,Other,Associates or technical degree,"Less than $25,000",Working (self-employee),"Risus convallis erat primis justo velit scelerisque a felis tortor odio facilisis, sodales? Purus.",Kauaʻi,Part time (less than 6 months) Hawaiʻi resident,No,Other (Please enter answer in the box),"Nulla? Blandit. Accumsan bibendum. Commodo accusamus accusamus velit wisi, temporibus commodo interdum morbi felis dolor.",5.56,6.76,9.79,42,8.79,9.31,9.68,32,,,,,,,,,,,,,Alternative one,Alternative one,None of the option,Alternative two,Alternative one,,2,Yes,1,5,2,4,3,Annual pass,,Online pre-payment,,Strongly Agree,"Both, but majority residents",,5,5,8,2,3,1,1,3,2,1-2 hours,1921337834,Yes,No,Yes,"Amet egestas, eget porttitor maecenas. Venenatis lacus non, aenean tincidunt nonummy.",,,,,
+2025-09-18 15:47:10,2025-09-18 15:47:10,Survey Test,,100,0,True,2025-09-18 15:47:10,R_8oJWXRH4Em4gv4i,,,,,,,test,,Yes,35-44 years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Associates or technical degree,"$100,000 -$149,999",Not working (disabled),Magnis duis rhoncus dolorem justo nulla aliquet. Vitae rhoncus commodo tempus id.,Oʻahu,Full time Hawaiʻi resident,No,Exercise,,0.52,2.86,1.83,45,6.65,9.65,7.72,9,,,,,,,,,Alternative two,None of the option,Alternative two,None of the option,,,,,Alternative two,,3,Yes,5,4,3,2,1,Per-entry fee,,On-site payment,,Agree,Only Visitors,,4,6,4,1,2,3,1,3,2,3-5 hours,66290897,No,No,No,Metus eget? Vestibulum magnis fermentum aliquam tempora fermentum odio donec dui tellus fermentum.,,,,,
+2025-09-18 15:47:10,2025-09-18 15:47:11,Survey Test,,100,1,True,2025-09-18 15:47:11,R_eOI3uXy1Jqa67mC,,,,,,,test,,Yes,18-24 years old,Non-binary,"Black or African American,Asian,Native Hawaiian or Other Pacific Islander",Some high school or less,"$150,000 or more",Not working (temporary layoff from a job),Sodales molestie a molestie fringilla felis. Molestie! Porta dolorem massa.,Kauaʻi,Part time (less than 6 months) Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,2.33,5.24,7.48,0,6.84,9.58,6.85,9,,,,,,,,,,,,,Alternative one,Alternative two,None of the option,Alternative two,,Alternative one,0,No,2,5,3,4,1,Daily pass,,Online pre-payment,,Strongly Agree,Other (Please enter answer in the box),Magnis sem pretium a felis! Quis aenean sed! Sed at.,9,2,0,1,2,3,3,2,1,None,678148538,Yes,No,No,Luctus. Viverra montes eu? Placerat sagittis blandit lectus pretium sodales. Turpis volutpat blandit.,,,,,
+2025-09-18 15:47:11,2025-09-18 15:47:11,Survey Test,,100,0,True,2025-09-18 15:47:11,R_4SLoAkmUMB8cS0K,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:11,2025-09-18 15:47:11,Survey Test,,100,0,True,2025-09-18 15:47:11,R_0kM7sO2oyPQKkOG,,,,,,,test,,Yes,18-24 years old,Female,"American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$50,000 -$74,999",Working (paid employee),Phasellus in ullamcorper nibh non morbi lectus quam faucibus felis laoreet.,Big island (Hawaiʻi),Out-of-state visitor,Yes,Other (Please enter answer in the box),"Ullamcorper! Vel vitae auctor nibh enim. Lorem diam leo quam, imperdiet velit, integer ligula.",5.18,7.27,9.32,45,9.72,9.74,9.89,6,,,,,,,,,Alternative two,None of the option,None of the option,Alternative one,,,,,None of the option,,1,Yes,5,1,4,2,3,Voluntary donation,,Online pre-payment,,Strongly Agree,"Both, equally",,8,10,3,2,1,3,2,3,1,None,465955133,Yes,Yes,Yes,Leo non a etiam! Facilisi. Lorem posuere placerat! Velit sollicitudin tempora mattis.,,,,,
+2025-09-18 15:47:11,2025-09-18 15:47:11,Survey Test,,100,0,True,2025-09-18 15:47:11,R_emTSLHjc3QIbtyK,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:11,2025-09-18 15:47:11,Survey Test,,100,0,True,2025-09-18 15:47:12,R_4ZsJMgtgCQKxvpA,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:12,2025-09-18 15:47:12,Survey Test,,100,0,True,2025-09-18 15:47:12,R_8vN5aEricxOFiPI,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:12,2025-09-18 15:47:12,Survey Test,,100,0,True,2025-09-18 15:47:12,R_cMBWMGrMrnCG0Ye,,,,,,,test,,Yes,35-44 years old,Female,"White or Caucasian,Other","Some college, but no degree","$150,000 or more",Not working (temporary layoff from a job),"Mattis pretium leo, justo vitae convallis amet rutrum scelerisque scelerisque dapibus.",Lānaʻi or Molokaʻi,Out-of-state visitor,No,Exercise,,0.39,6.3,2.55,35,4.81,5.24,6.52,36,Alternative two,Alternative one,None of the option,None of the option,,,,,,,,,,,,,,Alternative one,3,No,1,5,3,2,4,Daily pass,,On-site payment,,Agree,"Both, but majority residents",,9,6,1,1,3,2,1,2,3,More than 6 hours,757622047,Yes,Yes,Yes,Consequat felis massa enim ultricies ac lectus! Egestas natoque morbi etiam leo.,,,,,
+2025-09-18 15:47:12,2025-09-18 15:47:12,Survey Test,,100,0,True,2025-09-18 15:47:12,R_9TDT8reMkDoOsVU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:12,2025-09-18 15:47:13,Survey Test,,100,1,True,2025-09-18 15:47:13,R_3KtLeFtgJaPnTWC,,,,,,,test,,Yes,Under 18,Non-binary,"Black or African American,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$50,000 -$74,999",Not working (disabled),"Bibendum felis, felis magnis felis interdum vulputate urna ultrices lectus leo lorem vulputate.",I do not live in Hawaiʻi,Full time Hawaiʻi resident,No,Spending time with family / friends,,5.17,9.46,5.63,17,5.98,6.27,7.4,44,,,,,None of the option,None of the option,Alternative one,Alternative one,,,,,,,,,Alternative two,,1,Yes,3,4,5,1,2,Daily pass,,Other (Please enter answer in the box),"Etiam sagittis a tempor ut ac, facilisi augue risus vivamus erat nonummy orci placerat? Mauris.",Strongly Agree,Only Visitors,,5,9,6,2,3,1,2,3,1,More than 6 hours,308959489,Yes,Yes,No,Cras. Tincidunt eros eget primis ipsum eleifend dolorem faucibus mauris mauris.,,,,,
+2025-09-18 15:47:13,2025-09-18 15:47:13,Survey Test,,100,0,True,2025-09-18 15:47:13,R_3r2Qhv706ZJZqKO,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:13,2025-09-18 15:47:13,Survey Test,,100,0,True,2025-09-18 15:47:13,R_cu7G2r9Syt4Cmy2,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:13,2025-09-18 15:47:13,Survey Test,,100,0,True,2025-09-18 15:47:13,R_aaSf5oIpwmapmYe,,,,,,,test,,Yes,45-54 years old,Non-binary,"White or Caucasian,Black or African American,Asian,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"$50,000 -$74,999",Not working (temporary layoff from a job),Gravida consequat est a viverra. Facilisi nonummy ullamcorper malesuada at vivamus. Vestibulum. Accumsan commodo duis.,Big island (Hawaiʻi),Out-of-state visitor,No,Photography,,7.3,8.93,9.28,1,4.91,7.9,5.15,19,,,,,,,,,,,,,None of the option,Alternative one,Alternative two,None of the option,,Alternative one,1,No,5,4,3,1,2,Other (Please enter answer in the box),Morbi! Dictumst volutpat sodales metus nullam vitae arcu consectetuer. Tempora vitae auctor eu accusamus.,Other (Please enter answer in the box),Rutrum interdum at posuere dolorem tincidunt risus mattis sollicitudin natoque. Rutrum orci.,Agree,"Both, equally",,2,4,0,2,1,3,1,2,3,More than 6 hours,984562706,Yes,No,No,"Sagittis orci odio justo. Maecenas! Urna dolor, suspendisse neque ac risus facilisi venenatis.",,,,,
+2025-09-18 15:47:13,2025-09-18 15:47:13,Survey Test,,100,0,True,2025-09-18 15:47:14,R_5vu9m3ifaQJdaiq,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:14,2025-09-18 15:47:14,Survey Test,,100,0,True,2025-09-18 15:47:14,R_5binXtv3hu6IARw,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:14,2025-09-18 15:47:14,Survey Test,,100,0,True,2025-09-18 15:47:14,R_eA086pjGsZot5ae,,,,,,,test,,Yes,18-24 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Working (self-employee),Convallis potenti platea volutpat. Phasellus consequat neque facilisis sollicitudin bibendum quis? Sapien gravida ipsum! Porta.,Kauaʻi,Out-of-state visitor,Yes,Recreation (general leisure hiking for enjoyment),,8.18,8.31,8.31,48,7.07,7.91,8.13,1,Alternative two,Alternative one,None of the option,Alternative one,,,,,,,,,,,,,,None of the option,2,Yes,4,3,5,1,2,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),"Laoreet ac? Magnis imperdiet dui vulputate ac, tempor nonummy pellentesque! Sollicitudin faucibus fusce phasellus.",Strongly Agree,Only Residents,,1,1,2,1,2,3,2,3,1,More than 6 hours,2119709535,No,Yes,No,Porta felis! Magnis accumsan dignissim pretium? Quam lacus magnis natoque ut enim.,,,,,
+2025-09-18 15:47:14,2025-09-18 15:47:14,Survey Test,,100,0,True,2025-09-18 15:47:14,R_7ZDJbZfEX37c18y,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:14,2025-09-18 15:47:14,Survey Test,,100,0,True,2025-09-18 15:47:14,R_6VS3wz7iezmP6XY,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:14,2025-09-18 15:47:14,Survey Test,,100,0,True,2025-09-18 15:47:15,R_equajkehXw1sIyG,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:15,2025-09-18 15:47:15,Survey Test,,100,0,True,2025-09-18 15:47:15,R_1QVCGBETu2Avu8m,,,,,,,test,,Yes,25-34 years old,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Other",Associates or technical degree,"$100,000 -$149,999",Not working (looking for work),Phasellus commodo suspendisse? Nonummy faucibus phasellus erat dolor vivamus ipsum potenti.,Kauaʻi,Part time (less than 6 months) Hawaiʻi resident,Yes,Hunting,,4.74,7.66,5.31,48,7.47,8.41,7.8,8,,,,,Alternative two,Alternative one,Alternative two,Alternative one,,,,,,,,,,Alternative one,1,Yes,2,3,1,4,5,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,10,7,7,1,3,2,1,2,3,None,839541834,Yes,Yes,No,"Platea culpa ultricies ridiculus mattis montes porttitor molestie praesent maecenas primis, porttitor enim. Nullam.",,,,,
+2025-09-18 15:47:15,2025-09-18 15:47:15,Survey Test,,100,0,True,2025-09-18 15:47:15,R_eXyL0ePNEWCL59s,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:15,2025-09-18 15:47:15,Survey Test,,100,0,True,2025-09-18 15:47:15,R_e9GZYjXhshPHjsW,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:15,2025-09-18 15:47:15,Survey Test,,100,0,True,2025-09-18 15:47:16,R_6DbIZLOoiX5s8fQ,,,,,,,test,,Yes,35-44 years old,Female,"White or Caucasian,Black or African American",Associates or technical degree,"$75,000 -$99,999",Working (self-employee),Et pretium facilisis id quis nibh consectetuer per lectus. Montes molestie massa.,Big island (Hawaiʻi),Part time (less than 6 months) Hawaiʻi resident,Yes,Other (Please enter answer in the box),Facilisis est eu eu vehicula nunc? Accumsan suspendisse orci integer praesent.,0.57,4.27,0.72,27,4.95,9.39,5.12,15,,,,,,,,,Alternative one,Alternative two,None of the option,None of the option,,,,,Alternative two,,2,Yes,3,4,2,5,1,Annual pass,,Online pre-payment,,Strongly Agree,"Both, equally",,2,2,8,2,3,1,2,3,1,1-2 hours,1830097512,No,No,Yes,Magnis phasellus non quis sollicitudin montes nonummy montes. Vulputate mauris per nonummy amet vel dui.,,,,,
+2025-09-18 15:47:16,2025-09-18 15:47:16,Survey Test,,100,0,True,2025-09-18 15:47:16,R_8qOPHjD4FZkbN54,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:16,2025-09-18 15:47:16,Survey Test,,100,0,True,2025-09-18 15:47:16,R_9zzO5MmG6BitqBg,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:16,2025-09-18 15:47:16,Survey Test,,100,0,True,2025-09-18 15:47:16,R_24qO9o9bt9g65RI,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:16,2025-09-18 15:47:16,Survey Test,,100,0,True,2025-09-18 15:47:17,R_bxCCc6hwTuGZcDI,,,,,,,test,,Yes,Under 18,Male,Black or African American,High School diploma or GED,"$50,000 -$74,999",Not working (disabled),Molestie? Cras proin metus imperdiet! Dignissim quis dolor magna ultricies fermentum atque ac? Turpis! Quam.,I do not live in Hawaiʻi,International tourist,No,Other (Please enter answer in the box),Malesuada convallis quis convallis arcu lorem ligula? Ipsum volutpat quis? Potenti metus? Sed faucibus dictumst.,1.24,6.19,1.54,18,0.77,9.27,1.93,10,,,,,,,,,Alternative one,None of the option,Alternative two,None of the option,,,,,,Alternative one,5,No,5,4,1,3,2,Voluntary donation,,Mobile payment (QR code on-site),,Agree,"Both, equally",,0,3,3,2,3,1,1,3,2,1-2 hours,751885372,Yes,No,No,Risus facilisi. Tempus. In dignissim ut auctor elementum culpa wisi dictumst gravida sodales.,,,,,
+2025-09-18 15:47:17,2025-09-18 15:47:17,Survey Test,,100,0,True,2025-09-18 15:47:17,R_6Fq1GRmZ6PF7RQy,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:17,2025-09-18 15:47:17,Survey Test,,100,0,True,2025-09-18 15:47:17,R_8DfFK4Dy0OxSrRA,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:17,2025-09-18 15:47:17,Survey Test,,100,0,True,2025-09-18 15:47:17,R_3l6o5FUFGFyfAa2,,,,,,,test,,Yes,35-44 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Associates or technical degree,"$150,000 or more",Not working (retired),Suspendisse mauris cras aliquet augue. Natoque eu? Odio rhoncus turpis.,Māui,Out-of-state visitor,No,Hunting,,5.6,9.65,6.25,21,1.49,6.65,7.84,39,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,,,,,Alternative two,3,No,4,1,2,3,5,Daily pass,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,7,4,3,1,2,3,3,2,1,1-2 hours,763995604,Yes,Yes,Yes,Metus donec pede massa eget venenatis per scelerisque platea duis vestibulum integer! Eget.,,,,,
+2025-09-18 15:47:17,2025-09-18 15:47:17,Survey Test,,100,0,True,2025-09-18 15:47:17,R_3mGI5MNP7qotyia,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:18,2025-09-18 15:47:18,Survey Test,,100,0,True,2025-09-18 15:47:18,R_blTGwszajFfPZYi,,,,,,,test,,Yes,35-44 years old,Female,Asian,Bachelor's degree,"Less than $25,000",Not working (looking for work),Pretium eleifend lacus ante eu a malesuada temporibus sapien etiam atque est.,I do not live in Hawaiʻi,Out-of-state visitor,No,Photography,,5.87,8.61,8.77,5,3.41,9.81,3.71,33,,,,,None of the option,None of the option,Alternative two,None of the option,,,,,,,,,,Alternative one,1,No,1,5,4,2,3,Annual pass,,Online pre-payment,,Strongly Agree,Only Visitors,,9,1,3,2,1,3,2,1,3,1-2 hours,465116701,Yes,Yes,No,"Volutpat tincidunt phasellus ut pellentesque aliquet elementum cursus auctor augue potenti eleifend. Aliquam, molestie at.",,,,,
+2025-09-18 15:47:18,2025-09-18 15:47:18,Survey Test,,100,0,True,2025-09-18 15:47:18,R_dcBBgtGNAGhFGwm,,,,,,,test,,Yes,65+ years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other","Some college, but no degree","$150,000 or more",Not working (looking for work),"Etiam dolor, laoreet. Purus morbi. Potenti. Pretium quam velit suscipit fringilla magna, justo duis.",Oʻahu,Out-of-state visitor,Yes,I don't use trails,,2.96,9.1,3.19,38,3.48,7.03,4.28,43,,,,,,,,,,,,,Alternative one,Alternative two,None of the option,Alternative one,,Alternative one,4,No,4,1,5,3,2,Annual pass,,Mobile payment (QR code on-site),,Agree,Only Visitors,,6,6,2,1,2,3,3,2,1,3-5 hours,864894522,No,No,No,Ac ac commodo tempor gravida aliquam cursus sed nonummy erat morbi.,,,,,
+2025-09-18 15:47:18,2025-09-18 15:47:18,Survey Test,,100,0,True,2025-09-18 15:47:18,R_9NbDLkjZGfTt6MC,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:18,2025-09-18 15:47:18,Survey Test,,100,0,True,2025-09-18 15:47:19,R_39SNwEbxRn1wxRY,,,,,,,test,,Yes,18-24 years old,Male,"American Indian / Native American or Alaska Native,Asian,Other",Bachelor's degree,"$150,000 or more",Working (paid employee),"Dictumst praesent magnis tempora metus in! Proin, vehicula nulla vestibulum culpa velit dictumst.",Kauaʻi,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,4.19,7.21,5.28,33,4.94,8.03,5.52,21,None of the option,Alternative two,None of the option,Alternative one,,,,,,,,,,,,,,Alternative one,1,No,5,2,1,3,4,Voluntary donation,,Online pre-payment,,Strongly Agree,"Both, equally",,2,9,4,3,1,2,2,3,1,More than 6 hours,729733720,Yes,No,Yes,Tincidunt donec aliquet venenatis id est nonummy platea malesuada! Venenatis? Malesuada. Fusce ipsum risus felis.,,,,,
+2025-09-18 15:47:19,2025-09-18 15:47:19,Survey Test,,100,0,True,2025-09-18 15:47:19,R_d4EdF52GuNEOh82,,,,,,,test,,Yes,35-44 years old,Male,"White or Caucasian,Asian","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (disabled),Atque! Consectetuer platea ipsum suspendisse culpa ipsum auctor ligula. Dui! Vehicula gravida turpis.,Lānaʻi or Molokaʻi,Part time (less than 6 months) Hawaiʻi resident,No,Exercise,,7.47,8.57,8.27,26,7.89,9.95,8.03,27,,,,,,,,,,,,,None of the option,None of the option,Alternative two,None of the option,,Alternative two,3,Yes,1,4,2,5,3,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority residents",,5,4,2,2,3,1,3,2,1,More than 6 hours,2034459174,Yes,Yes,No,Facilisis sem lectus ligula tempor elit mauris arcu? Diam sed.,,,,,
+2025-09-18 15:47:19,2025-09-18 15:47:19,Survey Test,,100,0,True,2025-09-18 15:47:19,R_3C609l9Z0HG7zPo,,,,,,,test,,Yes,Under 18,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"Less than $25,000",Working (paid employee),"Interdum mattis enim morbi neque suscipit, morbi sed malesuada. Elementum suspendisse dolorem.",Kauaʻi,International tourist,Yes,Spending time with family / friends,,9.73,9.91,9.76,41,4.79,6,5.18,32,,,,,None of the option,Alternative one,Alternative one,Alternative one,,,,,,,,,,Alternative one,5,No,2,4,3,1,5,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),"Fringilla! Pede orci, sollicitudin accumsan fusce euismod? Euismod commodo nulla.",Strongly Agree,"Both, but majority residents",,9,10,4,2,1,3,3,1,2,3-5 hours,1322161640,Yes,Yes,Yes,Primis maecenas rutrum? Non facilisi primis fringilla iaculis magnis dolorem ab etiam pede.,,,,,
+2025-09-18 15:47:19,2025-09-18 15:47:19,Survey Test,,100,0,True,2025-09-18 15:47:19,R_0J3fCsaVoE8ddMq,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:20,2025-09-18 15:47:20,Survey Test,,100,0,True,2025-09-18 15:47:20,R_3CpcROqyt2Rm2EK,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:20,2025-09-18 15:47:20,Survey Test,,100,0,True,2025-09-18 15:47:20,R_7NvmSR3vVU64JfM,,,,,,,test,,Yes,45-54 years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"$25,000 -$49,999",Working (self-employee),Imperdiet vivamus ante porta wisi velit elementum leo iaculis imperdiet. Est pellentesque.,Kauaʻi,Part time (less than 6 months) Hawaiʻi resident,No,Recreation (general leisure hiking for enjoyment),,1.91,8.74,2.38,45,7.61,9.32,7.88,35,,,,,,,,,Alternative one,Alternative two,Alternative two,Alternative two,,,,,,Alternative one,4,Yes,2,5,1,3,4,Annual pass,,On-site payment,,Agree,Only Visitors,,8,5,1,1,3,2,1,2,3,None,1720119939,Yes,No,No,Neque donec ut felis quis dignissim malesuada pede viverra euismod vitae pede viverra pellentesque.,,,,,
+2025-09-18 15:47:20,2025-09-18 15:47:20,Survey Test,,100,0,True,2025-09-18 15:47:20,R_5ipZrK7F1fHXxX0,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:20,2025-09-18 15:47:20,Survey Test,,100,0,True,2025-09-18 15:47:20,R_8kmOXGjEQt0kZAq,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:20,2025-09-18 15:47:20,Survey Test,,100,0,True,2025-09-18 15:47:21,R_3P3VprctvrafvFk,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:21,2025-09-18 15:47:21,Survey Test,,100,0,True,2025-09-18 15:47:21,R_9Lw05vgxoz8yu6a,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:21,2025-09-18 15:47:21,Survey Test,,100,0,True,2025-09-18 15:47:21,R_dgvo1VxhaRO2yHA,,,,,,,test,,Yes,35-44 years old,Male,Other,Associates or technical degree,"$100,000 -$149,999",Working (paid employee),"Ligula praesent natoque iaculis temporibus pharetra, fermentum dolorem praesent sodales magnis.",Oʻahu,Full time Hawaiʻi resident,No,Hunting,,7.3,9.17,8.57,14,7.24,8.32,8.46,44,,,,,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative one,,None of the option,0,No,5,3,4,2,1,Other (Please enter answer in the box),"Vehicula, atque nonummy nibh nibh nullam vivamus velit tempus montes ipsum! Rutrum justo potenti.",Online pre-payment,,Strongly Agree,Only Visitors,,4,8,3,1,3,2,1,2,3,More than 6 hours,1555126781,Yes,Yes,Yes,Orci commodo magnis culpa lectus. Eget curabitur! Vivamus ridiculus sollicitudin dignissim convallis.,,,,,
+2025-09-18 15:47:21,2025-09-18 15:47:21,Survey Test,,100,0,True,2025-09-18 15:47:21,R_bw8p9FnlxJFW96e,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:21,2025-09-18 15:47:21,Survey Test,,100,0,True,2025-09-18 15:47:21,R_3UFVJnIW3paoBH8,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:22,2025-09-18 15:47:22,Survey Test,,100,0,True,2025-09-18 15:47:22,R_bPoYOkipz6zhPPU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:22,2025-09-18 15:47:22,Survey Test,,100,0,True,2025-09-18 15:47:22,R_9AoowKF0T9GnKlM,,,,,,,test,,Yes,55-64 years old,Non-binary,"White or Caucasian,Other",Associates or technical degree,"$25,000 -$49,999",Not working (looking for work),Turpis bibendum pharetra elit lacus nullam suscipit magnis mattis morbi proin magnis.,Oʻahu,International tourist,Yes,Other (Please enter answer in the box),"Non tempor purus risus phasellus, velit justo maecenas! Phasellus. Nulla. Justo pellentesque.",3.86,6.61,6.32,50,4.63,5.71,9.26,34,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,,,,,Alternative two,4,Yes,3,4,5,1,2,Per-entry fee,,Mobile payment (QR code on-site),,Agree,Other (Please enter answer in the box),"Pretium. Platea! Eleifend? Sit rhoncus cursus nonummy accusamus, atque scelerisque, mi tortor platea.",2,2,4,3,2,1,1,3,2,None,673275344,Yes,No,No,Pharetra accumsan et phasellus in dolor volutpat purus sollicitudin nullam quam egestas aenean.,,,,,
+2025-09-18 15:47:22,2025-09-18 15:47:22,Survey Test,,100,0,True,2025-09-18 15:47:22,R_4Snun6olFfhHAma,,,,,,,test,,Yes,18-24 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander","Some college, but no degree","Less than $25,000",Working (self-employee),"Suspendisse aliquam! Faucibus ante. Metus tortor vestibulum ut? Faucibus gravida sed suspendisse scelerisque molestie, ridiculus.",Māui,Out-of-state visitor,No,Other (Please enter answer in the box),Neque dignissim dolor eleifend consequat sodales sit vehicula eget fermentum dolor platea accumsan magna.,0.87,2.34,5.16,39,2.5,8.72,4.14,43,,,,,,,,,Alternative one,None of the option,Alternative two,Alternative one,,,,,,None of the option,1,No,2,5,1,3,4,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Mobile payment (QR code on-site),,Agree,"Both, but majority residents",,2,1,4,1,3,2,2,3,1,None,1829529468,No,Yes,Yes,Orci cras faucibus venenatis. Ultrices. Quam aliquam imperdiet tempor phasellus fusce.,,,,,
+2025-09-18 15:47:22,2025-09-18 15:47:22,Survey Test,,100,0,True,2025-09-18 15:47:23,R_9vIwBl0BBt4uHPg,,,,,,,test,,Yes,65+ years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$100,000 -$149,999",Not working (temporary layoff from a job),"Ultricies suscipit primis morbi accumsan. Ridiculus aliquam magnis, justo fermentum, wisi interdum laoreet atque.",Oʻahu,Out-of-state visitor,No,Hunting,,5.16,6.24,9.97,41,4.67,8.02,5.82,19,,,,,None of the option,Alternative two,None of the option,None of the option,,,,,,,,,Alternative two,,5,No,2,1,3,4,5,Annual pass,,Online pre-payment,,Strongly Agree,"Both, equally",,6,5,6,1,3,2,1,2,3,None,1174198314,Yes,Yes,Yes,Commodo. Erat iaculis dui augue? Magna neque amet tempora tempor.,,,,,
+2025-09-18 15:47:23,2025-09-18 15:47:23,Survey Test,,100,0,True,2025-09-18 15:47:23,R_8k6wsrs9Z6CtHqm,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:23,2025-09-18 15:47:23,Survey Test,,100,0,True,2025-09-18 15:47:23,R_e4jxGrwRnnd41H8,,,,,,,test,,Yes,25-34 years old,Female,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","Less than $25,000",Working (self-employee),"Sagittis enim, molestie temporibus laoreet nulla maecenas nullam justo eu. Leo in? Nullam sem.",Big island (Hawaiʻi),International tourist,Yes,Recreation (general leisure hiking for enjoyment),,2.31,4.51,8.28,50,1.07,7.01,1.78,11,,,,,,,,,,,,,None of the option,None of the option,None of the option,Alternative two,Alternative two,,1,No,3,2,1,5,4,Per-entry fee,,Other (Please enter answer in the box),"Augue nunc dolor cursus dolorem, aliquet. Sollicitudin dapibus porta nibh scelerisque. Eu odio fringilla sem.",Strongly Agree,Only Residents,,4,7,1,1,2,3,2,1,3,1-2 hours,119256822,Yes,Yes,Yes,Eleifend cras? Faucibus fusce turpis sollicitudin placerat sollicitudin porta dui.,,,,,
+2025-09-18 15:47:23,2025-09-18 15:47:23,Survey Test,,100,0,True,2025-09-18 15:47:24,R_eznKJQCZQifjMhg,,,,,,,test,,Yes,18-24 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander",Associates or technical degree,"$75,000 -$99,999",Working (self-employee),Accusamus! A justo! Accusamus. Vehicula vitae non ligula volutpat. Wisi scelerisque ligula.,Māui,Part time (less than 6 months) Hawaiʻi resident,No,Photography,,1.55,2.49,3.09,34,4.53,6.81,7.97,1,,,,,None of the option,None of the option,None of the option,Alternative one,,,,,,,,,,Alternative one,3,No,4,5,3,1,2,Daily pass,,Online pre-payment,,Agree,"Both, but majority residents",,9,2,6,2,3,1,1,3,2,3-5 hours,1397534852,No,Yes,Yes,Ultricies rhoncus! Vehicula pede enim mauris tempus atque! Velit natoque.,,,,,
+2025-09-18 15:47:24,2025-09-18 15:47:24,Survey Test,,100,0,True,2025-09-18 15:47:24,R_cRMHahpzjZax4tU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:24,2025-09-18 15:47:24,Survey Test,,100,0,True,2025-09-18 15:47:24,R_4IujRPc4PoJFpsi,,,,,,,test,,Yes,45-54 years old,Non-binary,"White or Caucasian,Black or African American,Asian,Other","Some college, but no degree","$150,000 or more",Not working (other),Ab? Magnis velit? Scelerisque ligula id odio pharetra tellus eget.,Big island (Hawaiʻi),Full time Hawaiʻi resident,No,Other (Please enter answer in the box),"Duis dictumst auctor quam ante ac maecenas lacus, tempor? Accusamus? Cursus.",3.03,9.93,5.14,36,4.71,7.57,9.2,24,Alternative two,Alternative one,None of the option,None of the option,,,,,,,,,,,,,Alternative two,,3,No,2,3,5,1,4,Voluntary donation,,Other (Please enter answer in the box),Volutpat a sem odio viverra integer culpa mattis justo malesuada.,Strongly Agree,Only Residents,,8,1,1,1,2,3,1,3,2,None,791009301,No,Yes,No,Vivamus ligula imperdiet eros risus vivamus duis curabitur blandit est lacus.,,,,,
+2025-09-18 15:47:24,2025-09-18 15:47:24,Survey Test,,100,0,True,2025-09-18 15:47:24,R_3DivH1Eb6TFQ7dQ,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:24,2025-09-18 15:47:24,Survey Test,,100,0,True,2025-09-18 15:47:24,R_7QKn0lD0PYcCkia,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:24,2025-09-18 15:47:24,Survey Test,,100,0,True,2025-09-18 15:47:25,R_0J0eJvq2vsznT3U,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:25,2025-09-18 15:47:25,Survey Test,,100,0,True,2025-09-18 15:47:25,R_7VV18bYTnbDo93o,,,,,,,test,,Yes,55-64 years old,Female,"Black or African American,Native Hawaiian or Other Pacific Islander",Some high school or less,"$25,000 -$49,999",Not working (temporary layoff from a job),Elementum! Sed dui urna suscipit placerat ultricies integer! Pede eros? Augue wisi! Ut magnis cras.,Oʻahu,Part time (less than 6 months) Hawaiʻi resident,Yes,Other (Please enter answer in the box),Ante enim laoreet culpa praesent atque et aliquam sollicitudin! In.,7.92,9.03,8.93,36,6.35,8.15,6.72,29,,,,,,,,,None of the option,Alternative two,None of the option,Alternative one,,,,,,Alternative one,1,Yes,4,2,3,1,5,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,On-site payment,,Strongly Agree,Other (Please enter answer in the box),Tempor vivamus augue. Integer atque ullamcorper interdum fringilla lectus augue eros porttitor metus.,5,1,6,2,1,3,3,1,2,None,866323267,No,No,Yes,Aenean pede molestie rutrum accumsan nulla. Ab posuere. Rutrum convallis iaculis ridiculus vel ipsum diam.,,,,,
+2025-09-18 15:47:25,2025-09-18 15:47:25,Survey Test,,100,0,True,2025-09-18 15:47:25,R_2gbCdUSmr3sAxZY,,,,,,,test,,Yes,18-24 years old,Female,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$75,000 -$99,999",Working (self-employee),Lorem! Lacus pharetra ac primis dolor vel in ridiculus dolorem.,I do not live in Hawaiʻi,Out-of-state visitor,Yes,I don't use trails,,3.14,9.02,4.83,42,4.32,9.53,5.67,29,Alternative one,None of the option,Alternative two,Alternative one,,,,,,,,,,,,,,None of the option,0,No,3,2,1,5,4,Per-entry fee,,Online pre-payment,,Agree,"Both, but majority visitors",,2,3,3,2,3,1,3,2,1,None,1114906213,No,No,Yes,"Ab vivamus, arcu nonummy. Pharetra leo lorem facilisi non malesuada atque! Dolorem! Dapibus arcu.",,,,,
+2025-09-18 15:47:25,2025-09-18 15:47:25,Survey Test,,100,0,True,2025-09-18 15:47:26,R_885EpUyzu02tInc,,,,,,,test,,Yes,45-54 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (disabled),Maecenas. Ullamcorper ac purus ligula fusce bibendum tempus pede integer. Ligula sed nulla arcu.,I do not live in Hawaiʻi,Full time Hawaiʻi resident,No,Recreation (general leisure hiking for enjoyment),,1.5,2.05,9.86,8,5,8.47,8.02,38,,,,,None of the option,Alternative one,Alternative two,Alternative two,,,,,,,,,None of the option,,0,No,3,5,2,1,4,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,Only Visitors,,5,6,0,2,1,3,2,1,3,3-5 hours,1666797588,No,Yes,Yes,Porttitor aliquet commodo commodo! Bibendum mi? Ac primis duis! Euismod viverra ut accumsan tempus.,,,,,
+2025-09-18 15:47:26,2025-09-18 15:47:26,Survey Test,,100,0,True,2025-09-18 15:47:26,R_0kR2iYjT2fAOK46,,,,,,,test,,Yes,45-54 years old,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$100,000 -$149,999",Not working (other),Purus enim dui? Eu! Malesuada rutrum pretium malesuada! Auctor laoreet etiam.,Oʻahu,Out-of-state visitor,No,Exercise,,6.14,8.63,6.44,38,1.84,5.3,9.73,22,,,,,,,,,,,,,Alternative one,None of the option,Alternative one,None of the option,None of the option,,5,Yes,5,3,2,1,4,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,Only Visitors,,4,7,4,2,3,1,1,3,2,None,674215950,Yes,No,Yes,Ridiculus! Sodales amet integer sodales. Etiam posuere tincidunt tellus nonummy.,,,,,
+2025-09-18 15:47:26,2025-09-18 15:47:26,Survey Test,,100,0,True,2025-09-18 15:47:26,R_ebKfBStJvFdtO74,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:26,2025-09-18 15:47:26,Survey Test,,100,0,True,2025-09-18 15:47:26,R_8u03WqPs5gazd2e,,,,,,,test,,Yes,25-34 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Asian",Some high school or less,"Less than $25,000",Not working (disabled),In ultricies. Tempus sem pharetra. Sit nec elementum nunc ultricies lacus laoreet malesuada? Eros.,Big island (Hawaiʻi),Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,6.11,9.8,7.89,21,0.84,9.12,5.44,40,,,,,,,,,Alternative two,None of the option,None of the option,Alternative two,,,,,,Alternative one,4,Yes,5,3,4,2,1,Daily pass,,Mobile payment (QR code on-site),,Agree,"Both, but majority residents",,7,2,4,2,1,3,1,2,3,3-5 hours,1621566815,No,No,Yes,"Diam etiam aenean eros? Lorem, fermentum accumsan aliquet? Magna convallis! Nunc consequat.",,,,,
+2025-09-18 15:47:27,2025-09-18 15:47:27,Survey Test,,100,0,True,2025-09-18 15:47:27,R_80TFwPtPRdABws6,,,,,,,test,,Yes,55-64 years old,Female,"Black or African American,Asian",High School diploma or GED,"$50,000 -$74,999",Not working (disabled),"Sollicitudin in tempor, pharetra nibh? Quam commodo potenti erat mattis. Sagittis.",Māui,Out-of-state visitor,Yes,I don't use trails,,7.48,8.7,8.21,20,4.42,6.68,5.43,43,,,,,,,,,,,,,Alternative one,None of the option,None of the option,Alternative one,Alternative two,,2,No,2,3,1,4,5,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority visitors",,1,3,3,2,3,1,1,3,2,3-5 hours,2005508403,Yes,Yes,No,"Venenatis elementum. Convallis et. Egestas etiam leo augue! Curabitur? Sollicitudin, dapibus.",,,,,
+2025-09-18 15:47:27,2025-09-18 15:47:27,Survey Test,,100,0,True,2025-09-18 15:47:27,R_eF2OS9FJwJZcUm2,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:27,2025-09-18 15:47:27,Survey Test,,100,0,True,2025-09-18 15:47:27,R_8hJlieQ4oMnqYJg,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:27,2025-09-18 15:47:27,Survey Test,,100,0,True,2025-09-18 15:47:27,R_dd7rkUb4bRIHvv0,,,,,,,test,,Yes,35-44 years old,Female,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"$100,000 -$149,999",Not working (retired),"Maecenas facilisis, atque maecenas placerat ullamcorper atque phasellus fringilla! Vulputate diam.",Māui,International tourist,Yes,Hunting,,6.91,7.68,9.78,42,7.49,9.4,8.41,13,,,,,Alternative two,Alternative two,Alternative one,Alternative one,,,,,,,,,,Alternative two,4,Yes,3,4,1,2,5,Annual pass,,On-site payment,,Strongly Agree,Only Residents,,1,6,6,1,2,3,1,2,3,None,1554951833,Yes,No,Yes,"Mattis montes! Dapibus ultrices ab dui montes pretium! Integer venenatis tempora enim. Morbi, cras.",,,,,
+2025-09-18 15:47:28,2025-09-18 15:47:28,Survey Test,,100,0,True,2025-09-18 15:47:28,R_77LOOxIevZ2upQW,,,,,,,test,,Yes,Under 18,Non-binary,"Black or African American,American Indian / Native American or Alaska Native",Associates or technical degree,"Less than $25,000",Not working (looking for work),Vel. Faucibus sagittis tincidunt nibh venenatis egestas sit tellus praesent fringilla mi.,Big island (Hawaiʻi),Full time Hawaiʻi resident,Yes,Spending time with family / friends,,8.33,8.94,9.7,31,7.99,8.62,9.56,48,,,,,,,,,Alternative one,Alternative one,None of the option,None of the option,,,,,Alternative one,,2,No,2,3,4,5,1,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,Other (Please enter answer in the box),"Sit. Bibendum dolorem atque dignissim, rhoncus nibh tempor. Wisi ipsum.",10,4,6,1,2,3,2,1,3,More than 6 hours,1813651925,Yes,Yes,Yes,Augue pellentesque suspendisse imperdiet pretium erat suscipit pede commodo integer et ligula! Etiam duis.,,,,,
+2025-09-18 15:47:28,2025-09-18 15:47:28,Survey Test,,100,0,True,2025-09-18 15:47:28,R_77l6gZVh9k4CSGO,,,,,,,test,,Yes,65+ years old,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",Associates or technical degree,"$100,000 -$149,999",Working (paid employee),Curabitur. Mauris. Enim mattis non! Facilisis facilisi eget vitae potenti! Risus dolor.,Oʻahu,Full time Hawaiʻi resident,No,I don't use trails,,6.24,7.77,6.77,35,8.12,9.63,9.86,12,None of the option,Alternative one,Alternative one,None of the option,,,,,,,,,,,,,Alternative two,,2,Yes,5,4,2,3,1,Other (Please enter answer in the box),Ipsum auctor mattis molestie tempor justo non ridiculus quis elit nullam culpa.,On-site payment,,Strongly Agree,"Both, but majority visitors",,6,3,2,2,3,1,2,1,3,1-2 hours,1529186066,No,No,No,Augue sem temporibus praesent malesuada platea eros velit ab. Nunc metus primis pharetra dui.,,,,,
+2025-09-18 15:47:28,2025-09-18 15:47:28,Survey Test,,100,0,True,2025-09-18 15:47:28,R_29oGUkjv6wzDUQm,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:28,2025-09-18 15:47:29,Survey Test,,100,1,True,2025-09-18 15:47:29,R_cN0zbhBNiU79Teu,,,,,,,test,,Yes,Under 18,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native","Some college, but no degree","$150,000 or more",Not working (looking for work),Nulla ultrices vivamus. Elementum sagittis gravida bibendum? Non a bibendum porta.,Oʻahu,Full time Hawaiʻi resident,Yes,Hunting,,1.79,6.54,8.03,32,9.11,9.75,9.85,3,,,,,Alternative two,Alternative one,Alternative one,None of the option,,,,,,,,,Alternative two,,4,Yes,3,5,1,2,4,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,Only Visitors,,3,7,4,1,2,3,1,3,2,More than 6 hours,2009430166,Yes,No,No,"Amet montes elementum aliquam accusamus lacus maecenas vehicula, fermentum maecenas. Suscipit tempor cursus ligula.",,,,,
+2025-09-18 15:47:29,2025-09-18 15:47:29,Survey Test,,100,0,True,2025-09-18 15:47:29,R_6ik8NDn0cDsJbAG,,,,,,,test,,Yes,35-44 years old,Female,"White or Caucasian,Asian",Associates or technical degree,"$100,000 -$149,999",Not working (temporary layoff from a job),Venenatis purus! Interdum malesuada consequat quam lorem facilisis vel tempus. Neque.,Lānaʻi or Molokaʻi,International tourist,No,Exercise,,4.21,9.57,4.96,5,3.25,6.74,4.83,39,,,,,,,,,None of the option,None of the option,Alternative one,Alternative two,,,,,Alternative one,,4,Yes,1,2,3,4,5,Annual pass,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,10,2,3,3,1,2,1,2,3,1-2 hours,1835520268,No,Yes,No,"Tortor vitae? Purus. Magnis vestibulum vehicula consectetuer lectus nulla nonummy ac neque, egestas.",,,,,
+2025-09-18 15:47:29,2025-09-18 15:47:29,Survey Test,,100,0,True,2025-09-18 15:47:29,R_3l55rpdY6uR0dtY,,,,,,,test,,Yes,45-54 years old,Male,"Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$150,000 or more",Working (paid employee),Nunc felis diam augue commodo. Nulla tempus! Porta euismod lorem quis.,I do not live in Hawaiʻi,International tourist,No,Hunting,,3.22,4.42,3.55,24,0.34,5.76,3.27,23,Alternative two,None of the option,None of the option,None of the option,,,,,,,,,,,,,,None of the option,0,Yes,5,3,2,1,4,Per-entry fee,,Other (Please enter answer in the box),Luctus ultricies est vel integer erat fermentum nulla sagittis iaculis enim ultrices iaculis.,Agree,Only Residents,,6,10,9,3,2,1,2,3,1,More than 6 hours,658583709,Yes,No,No,"Metus? Lorem potenti tellus, elit integer enim phasellus ullamcorper egestas, viverra platea. Ligula.",,,,,
+2025-09-18 15:47:29,2025-09-18 15:47:30,Survey Test,,100,1,True,2025-09-18 15:47:30,R_0HSrbQW1DDU7tH0,,,,,,,test,,Yes,25-34 years old,Female,"American Indian / Native American or Alaska Native,Other","Some college, but no degree","$25,000 -$49,999",Not working (other),Blandit nonummy sodales viverra massa vivamus est! Odio? Dignissim urna malesuada dignissim.,Kauaʻi,Full time Hawaiʻi resident,Yes,Other (Please enter answer in the box),Mauris consectetuer vulputate euismod luctus gravida ultricies metus natoque a.,0.92,1.23,5.42,40,5.43,7.21,9.76,25,,,,,,,,,,,,,Alternative one,Alternative two,None of the option,Alternative two,,Alternative two,4,Yes,4,5,2,3,1,Other (Please enter answer in the box),Tempora risus! Primis ut. Tortor augue. Placerat volutpat auctor egestas dolorem facilisis.,Other (Please enter answer in the box),Enim egestas eget fermentum ipsum facilisi nibh fringilla dapibus odio justo.,Strongly Agree,"Both, but majority residents",,6,5,6,1,2,3,3,1,2,1-2 hours,272494989,Yes,Yes,No,Tortor phasellus quis orci. Iaculis sem aenean sapien auctor. Egestas donec culpa in. Purus? Aliquet.,,,,,
+2025-09-18 15:47:30,2025-09-18 15:47:30,Survey Test,,100,0,True,2025-09-18 15:47:30,R_0lxd63c6YL3XvLM,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:30,2025-09-18 15:47:30,Survey Test,,100,0,True,2025-09-18 15:47:30,R_3lLbrglmM7UG90i,,,,,,,test,,Yes,55-64 years old,Male,"Black or African American,American Indian / Native American or Alaska Native,Asian,Other",Bachelor's degree,"$150,000 or more",Working (self-employee),Aliquet sed nullam dignissim primis nunc eleifend tempor enim facilisi est ultrices cursus.,I do not live in Hawaiʻi,Out-of-state visitor,No,Other (Please enter answer in the box),Vitae suscipit placerat integer? Placerat sagittis vivamus aliquet molestie? Augue sodales in accumsan? Laoreet.,8.05,8.56,8.85,31,9.46,9.64,9.53,20,,,,,,,,,Alternative one,None of the option,None of the option,Alternative one,,,,,None of the option,,5,Yes,1,5,2,3,4,Annual pass,,Other (Please enter answer in the box),"Vitae? Diam! Aliquet a diam consectetuer scelerisque, in gravida neque platea.",Agree,"Both, equally",,2,1,9,3,2,1,1,2,3,More than 6 hours,642168048,Yes,Yes,No,"Consectetuer! Mattis vitae erat bibendum! Sollicitudin, culpa est tempora suspendisse.",,,,,
+2025-09-18 15:47:30,2025-09-18 15:47:30,Survey Test,,100,0,True,2025-09-18 15:47:31,R_a41tizK13QyXlWu,,,,,,,test,,Yes,35-44 years old,Female,"Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"Less than $25,000",Not working (disabled),"Velit dictumst per. Etiam vitae? Cursus ab nunc tortor, leo justo.",Big island (Hawaiʻi),Part time (less than 6 months) Hawaiʻi resident,Yes,Spending time with family / friends,,4.64,9.49,9.13,11,4.29,4.72,5.13,42,,,,,None of the option,Alternative two,Alternative two,Alternative one,,,,,,,,,,Alternative one,2,Yes,2,5,3,1,4,Voluntary donation,,Online pre-payment,,Strongly Agree,Only Visitors,,10,4,1,1,2,3,3,1,2,More than 6 hours,1281354291,Yes,Yes,Yes,At nunc pede ante volutpat interdum! Consequat? Tincidunt! Convallis ullamcorper. Fusce! Nunc pede.,,,,,
+2025-09-18 15:47:31,2025-09-18 15:47:31,Survey Test,,100,0,True,2025-09-18 15:47:31,R_5ASHI6sh9vUMLZA,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:31,2025-09-18 15:47:31,Survey Test,,100,0,True,2025-09-18 15:47:31,R_8caMZJdtwEm5y9o,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:31,2025-09-18 15:47:31,Survey Test,,100,0,True,2025-09-18 15:47:31,R_7VQ9CeVXxy3POaW,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:31,2025-09-18 15:47:31,Survey Test,,100,0,True,2025-09-18 15:47:31,R_6M34LS67SHHKZYG,,,,,,,test,,Yes,45-54 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Associates or technical degree,"$50,000 -$74,999",Working (self-employee),"Eu urna quis iaculis temporibus dui. Lorem. Est mauris commodo consequat egestas metus. Ipsum, justo.",Big island (Hawaiʻi),Out-of-state visitor,Yes,Cultural connection,,7.85,9.46,9.76,14,1.55,7.39,9.42,48,Alternative two,None of the option,None of the option,Alternative two,,,,,,,,,,,,,,Alternative two,0,No,4,5,1,3,2,Voluntary donation,,On-site payment,,Strongly Agree,"Both, but majority residents",,10,9,9,1,3,2,3,1,2,None,1412123651,No,No,No,Fringilla. Culpa eleifend neque sollicitudin ligula? Cursus potenti faucibus molestie sodales.,,,,,
+2025-09-18 15:47:32,2025-09-18 15:47:32,Survey Test,,100,0,True,2025-09-18 15:47:32,R_3BH4ANXZh8ZQtlc,,,,,,,test,,Yes,25-34 years old,Non-binary,"Black or African American,Other","Some college, but no degree","Less than $25,000",Working (self-employee),Atque elementum ut suscipit vitae ridiculus natoque tellus mi primis quis mauris arcu! Maecenas.,Lānaʻi or Molokaʻi,Out-of-state visitor,No,I don't use trails,,0.95,1.51,3.7,50,0.49,8.5,5.01,27,,,,,,,,,,,,,None of the option,Alternative two,Alternative one,Alternative one,Alternative one,,2,Yes,3,2,5,4,1,Per-entry fee,,On-site payment,,Agree,"Both, equally",,10,10,1,3,2,1,1,2,3,More than 6 hours,1391345422,Yes,No,Yes,"Accusamus rutrum! Eget. Porttitor aenean felis per. Faucibus ipsum, praesent! A.",,,,,
+2025-09-18 15:47:32,2025-09-18 15:47:32,Survey Test,,100,0,True,2025-09-18 15:47:32,R_abBpG3FT5kFhxEa,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:32,2025-09-18 15:47:32,Survey Test,,100,0,True,2025-09-18 15:47:32,R_0TzVCkxcLgn9Xnw,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:32,2025-09-18 15:47:32,Survey Test,,100,0,True,2025-09-18 15:47:32,R_cZvoFnWAhYB7v4W,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:32,2025-09-18 15:47:33,Survey Test,,100,1,True,2025-09-18 15:47:33,R_0rfgnJ5oBYfMsg6,,,,,,,test,,Yes,55-64 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Asian",Associates or technical degree,"$50,000 -$74,999",Not working (disabled),"At accusamus magnis nullam? Nibh pede, mi faucibus morbi vivamus porttitor.",Lānaʻi or Molokaʻi,Out-of-state visitor,Yes,Exercise,,6.52,6.79,6.89,20,6.04,8.6,9.49,22,,,,,,,,,,,,,None of the option,Alternative two,Alternative one,Alternative two,,Alternative one,3,Yes,5,2,4,3,1,Other (Please enter answer in the box),Dapibus. Ridiculus etiam integer convallis eget justo interdum! Purus enim.,On-site payment,,Strongly Agree,"Both, equally",,2,1,6,3,1,2,1,2,3,More than 6 hours,569660966,No,No,Yes,Imperdiet porttitor tempor vitae eros id id est suscipit? Venenatis sapien magna platea.,,,,,
+2025-09-18 15:47:33,2025-09-18 15:47:33,Survey Test,,100,0,True,2025-09-18 15:47:33,R_5cJukKxaiLNxxm6,,,,,,,test,,Yes,25-34 years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian",Bachelor's degree,"$150,000 or more",Not working (retired),"Egestas quis magna sodales morbi ipsum nibh etiam, commodo sit venenatis nullam.",Lānaʻi or Molokaʻi,Full time Hawaiʻi resident,Yes,Cultural connection,,3.84,9.74,4.95,35,9.85,9.85,9.85,15,,,,,Alternative one,None of the option,Alternative one,None of the option,,,,,,,,,,Alternative two,3,Yes,2,4,5,1,3,Daily pass,,Other (Please enter answer in the box),Praesent fringilla. Porttitor montes volutpat nulla! Atque venenatis fusce nibh. Vivamus culpa tellus.,Agree,"Both, equally",,5,6,7,1,2,3,2,3,1,None,820662306,No,No,No,"Leo facilisis at, cursus sapien. Dolor dictumst mattis vehicula magna.",,,,,
+2025-09-18 15:47:33,2025-09-18 15:47:33,Survey Test,,100,0,True,2025-09-18 15:47:33,R_agHSawJe9Gc1lHg,,,,,,,test,,Yes,45-54 years old,Female,Native Hawaiian or Other Pacific Islander,Some high school or less,"Less than $25,000",Not working (looking for work),Neque. Integer eget? Consequat imperdiet? Porta facilisis diam tempora! Massa.,Big island (Hawaiʻi),Part time (less than 6 months) Hawaiʻi resident,No,Exercise,,6.11,8.41,8.17,34,7.89,9.51,9.94,17,Alternative two,Alternative one,None of the option,None of the option,,,,,,,,,,,,,,None of the option,0,Yes,4,5,1,3,2,Daily pass,,On-site payment,,Strongly Agree,Only Visitors,,4,2,7,1,2,3,1,2,3,1-2 hours,534206501,No,Yes,Yes,Primis sapien! Elit eros eu urna vestibulum dolorem sapien iaculis eu quis morbi ante? Lectus.,,,,,
+2025-09-18 15:47:33,2025-09-18 15:47:34,Survey Test,,100,1,True,2025-09-18 15:47:34,R_1Hd7amASWCNuOIS,,,,,,,test,,Yes,25-34 years old,Female,"Asian,Other",High School diploma or GED,"Less than $25,000",Not working (other),Elit nunc? Blandit elit. Nullam duis montes ultricies neque vestibulum ridiculus curabitur convallis? Suspendisse.,Lānaʻi or Molokaʻi,Out-of-state visitor,No,Spending time with family / friends,,2.74,7.23,2.81,24,4.19,4.47,6.33,41,,,,,,,,,None of the option,None of the option,Alternative two,None of the option,,,,,Alternative one,,2,Yes,5,1,4,2,3,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Online pre-payment,,Agree,Other (Please enter answer in the box),"Eleifend quis consectetuer auctor ligula eu eros, aliquam? Nunc tortor. Porta? Nonummy non.",6,10,2,2,1,3,2,3,1,More than 6 hours,306553476,No,No,Yes,Dictumst sollicitudin quam consectetuer interdum duis laoreet pharetra ligula tincidunt massa interdum aenean id.,,,,,
+2025-09-18 15:47:34,2025-09-18 15:47:34,Survey Test,,100,0,True,2025-09-18 15:47:34,R_cTjkQqm2FnwAgJw,,,,,,,test,,Yes,55-64 years old,Female,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Other",Associates or technical degree,"$50,000 -$74,999",Working (self-employee),Culpa morbi wisi interdum! Aenean dignissim mattis enim dictumst velit? Posuere pede.,Kauaʻi,Out-of-state visitor,Yes,I don't use trails,,1.61,4.46,7.8,1,6.14,7.22,9.91,28,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,,,,,Alternative two,3,No,2,3,1,4,5,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,1,2,3,2,1,3,1,3,2,More than 6 hours,1173447311,Yes,Yes,No,Metus pede in? Potenti cursus neque culpa malesuada eget massa accumsan vivamus consequat accumsan iaculis.,,,,,
+2025-09-18 15:47:34,2025-09-18 15:47:34,Survey Test,,100,0,True,2025-09-18 15:47:34,R_0wx6sxy6aqPIsoS,,,,,,,test,,Yes,45-54 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander",Some high school or less,"$75,000 -$99,999",Not working (disabled),Neque natoque blandit porttitor massa sit sed sollicitudin ac potenti fermentum phasellus posuere duis.,Kauaʻi,Out-of-state visitor,No,I don't use trails,,1.08,2.32,9.92,40,7,9.33,7.88,46,,,,,,,,,None of the option,Alternative one,Alternative one,Alternative two,,,,,None of the option,,4,No,2,3,1,4,5,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Online pre-payment,,Agree,"Both, but majority visitors",,9,0,4,2,3,1,3,2,1,None,646445696,No,Yes,Yes,Proin. Erat risus volutpat odio dui! Pretium ridiculus porta magnis volutpat pharetra.,,,,,
+2025-09-18 15:47:34,2025-09-18 15:47:34,Survey Test,,100,0,True,2025-09-18 15:47:34,R_6EZjCyGlKEQAR2m,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:35,2025-09-18 15:47:35,Survey Test,,100,0,True,2025-09-18 15:47:35,R_6rEu3g1FfX9dyVE,,,,,,,test,,Yes,65+ years old,Female,"Asian,Other",Bachelor's degree,"$25,000 -$49,999",Not working (looking for work),Porta dictumst vivamus urna ab. At ullamcorper aliquam egestas velit odio.,Kauaʻi,Part time (less than 6 months) Hawaiʻi resident,Yes,Hunting,,9.3,9.89,9.76,17,0.61,7.58,4.55,43,,,,,,,,,,,,,None of the option,None of the option,None of the option,Alternative one,,None of the option,4,Yes,3,5,4,1,2,Voluntary donation,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,8,1,7,1,3,2,1,3,2,3-5 hours,348484583,Yes,No,Yes,Consectetuer phasellus massa aliquet at consequat ullamcorper vulputate! Iaculis faucibus ipsum ante leo sit.,,,,,
+2025-09-18 15:47:35,2025-09-18 15:47:35,Survey Test,,100,0,True,2025-09-18 15:47:35,R_0j2vp2Am4gEj1aK,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:35,2025-09-18 15:47:35,Survey Test,,100,0,True,2025-09-18 15:47:35,R_56hVDJsBnNCosui,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:35,2025-09-18 15:47:35,Survey Test,,100,0,True,2025-09-18 15:47:36,R_bCWg91fkFKYsaNw,,,,,,,test,,Yes,65+ years old,Male,Other,"Some college, but no degree","$25,000 -$49,999",Working (self-employee),Vehicula vitae sodales dictumst vivamus tempora lorem nonummy lorem. Elit curabitur enim placerat. Aliquam.,Māui,Full time Hawaiʻi resident,Yes,Cultural connection,,8.48,9.16,8.68,31,7.25,7.69,8.39,11,,,,,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,Alternative two,2,Yes,2,5,3,4,1,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Online pre-payment,,Strongly Agree,Only Residents,,5,6,3,3,2,1,3,2,1,More than 6 hours,246952308,No,No,No,"Ridiculus diam, primis? Turpis a! Porta. Etiam urna sodales sit vel. Elementum.",,,,,
+2025-09-18 15:47:36,2025-09-18 15:47:36,Survey Test,,100,0,True,2025-09-18 15:47:36,R_2rAIF5YE50jW6Eu,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:36,2025-09-18 15:47:36,Survey Test,,100,0,True,2025-09-18 15:47:36,R_74ywB0lGHcbs9OS,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:36,2025-09-18 15:47:36,Survey Test,,100,0,True,2025-09-18 15:47:36,R_dnxdyF1aL5dIBP8,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:36,2025-09-18 15:47:36,Survey Test,,100,0,True,2025-09-18 15:47:37,R_1AY7q3O9VeIPc90,,,,,,,test,,Yes,25-34 years old,Male,"White or Caucasian,Black or African American,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Not working (looking for work),Donec duis sit. Ipsum id justo pharetra temporibus eget atque placerat.,Big island (Hawaiʻi),Out-of-state visitor,Yes,Exercise,,7.12,9.13,7.38,15,3.43,8.6,7.85,39,,,,,,,,,None of the option,Alternative two,Alternative two,Alternative two,,,,,Alternative one,,4,Yes,3,2,1,5,4,Other (Please enter answer in the box),Fusce pellentesque gravida curabitur felis ultrices tincidunt nullam ultricies ultrices.,Other (Please enter answer in the box),In nunc nibh id? Ante neque ridiculus vivamus fringilla enim nulla maecenas praesent.,Strongly Agree,"Both, equally",,4,1,10,2,3,1,3,2,1,1-2 hours,776011910,No,No,Yes,Interdum malesuada. Pharetra eget suspendisse ligula consectetuer ullamcorper duis tempus accumsan praesent.,,,,,
+2025-09-18 15:47:37,2025-09-18 15:47:37,Survey Test,,100,0,True,2025-09-18 15:47:37,R_4MANPyD5lPCbvzE,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:37,2025-09-18 15:47:37,Survey Test,,100,0,True,2025-09-18 15:47:37,R_55Alcw3tbzjfvXE,,,,,,,test,,Yes,Under 18,Female,"Black or African American,Other",High School diploma or GED,"$25,000 -$49,999",Working (paid employee),"Elementum lacus! Accusamus ultrices scelerisque wisi in eleifend amet praesent, scelerisque.",Māui,Part time (less than 6 months) Hawaiʻi resident,No,Collecting plants for cultural purposes,,1.25,7.99,5.01,24,6.52,8.95,9.55,10,Alternative two,Alternative one,None of the option,Alternative two,,,,,,,,,,,,,Alternative two,,5,No,1,5,4,3,2,Voluntary donation,,Online pre-payment,,Strongly Agree,"Both, but majority residents",,2,4,0,3,1,2,2,3,1,More than 6 hours,137540738,Yes,No,No,"Dapibus vitae eleifend sed sem, suspendisse! Arcu. Pede scelerisque a! Iaculis accumsan tincidunt consequat consequat.",,,,,
+2025-09-18 15:47:37,2025-09-18 15:47:37,Survey Test,,100,0,True,2025-09-18 15:47:38,R_0BOgavm7pwucG6G,,,,,,,test,,Yes,55-64 years old,Male,American Indian / Native American or Alaska Native,Bachelor's degree,"Less than $25,000",Not working (looking for work),"Sapien nonummy magnis suspendisse suspendisse, rutrum augue ligula vitae. Ipsum. Neque. Neque convallis amet! Elementum.",Kauaʻi,Full time Hawaiʻi resident,No,Photography,,0.39,1.84,4.25,32,2.2,8.29,9.97,10,,,,,None of the option,None of the option,Alternative two,Alternative one,,,,,,,,,None of the option,,0,Yes,4,3,2,5,1,Per-entry fee,,On-site payment,,Strongly Agree,"Both, but majority visitors",,7,6,7,3,1,2,2,3,1,3-5 hours,1690637316,No,Yes,No,Primis accusamus turpis morbi posuere montes interdum vestibulum fringilla magna morbi? Tincidunt commodo at sagittis.,,,,,
+2025-09-18 15:47:38,2025-09-18 15:47:38,Survey Test,,100,0,True,2025-09-18 15:47:38,R_3NR1qNzY3qjEpQq,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:38,2025-09-18 15:47:38,Survey Test,,100,0,True,2025-09-18 15:47:38,R_bqDLkIVksBZgORU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:38,2025-09-18 15:47:38,Survey Test,,100,0,True,2025-09-18 15:47:38,R_38DvE5MT3TpSdtc,,,,,,,test,,Yes,25-34 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Other",Some high school or less,"$50,000 -$74,999",Not working (retired),Mi sem morbi erat! Dictumst aenean dapibus lorem mi lacus. Aliquam.,I do not live in Hawaiʻi,Full time Hawaiʻi resident,No,Collecting plants for cultural purposes,,9.44,9.57,9.96,22,8.24,8.38,8.82,24,,,,,,,,,,,,,None of the option,Alternative one,Alternative one,None of the option,Alternative two,,3,Yes,4,1,5,3,2,Voluntary donation,,On-site payment,,Agree,"Both, equally",,5,7,1,2,3,1,3,2,1,None,1673149893,No,Yes,Yes,Facilisi integer atque morbi leo primis potenti sollicitudin mauris porta eleifend.,,,,,
+2025-09-18 15:47:38,2025-09-18 15:47:39,Survey Test,,100,1,True,2025-09-18 15:47:39,R_cMZ4VBkSgD0GN82,,,,,,,test,,Yes,65+ years old,Non-binary,"Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Not working (temporary layoff from a job),"Mi est ultrices nulla est tempora primis, laoreet integer consectetuer ultricies velit aenean. Ab.",Māui,International tourist,Yes,Photography,,5.59,9.58,9.5,14,4.19,9.95,8.35,38,,,,,Alternative one,Alternative one,Alternative two,None of the option,,,,,,,,,None of the option,,3,No,1,2,3,5,4,Other (Please enter answer in the box),Vestibulum vulputate id ligula dui urna? Proin proin. Commodo? Duis iaculis velit.,Online pre-payment,,Agree,Other (Please enter answer in the box),Faucibus curabitur sem volutpat laoreet magna suspendisse turpis malesuada morbi ipsum non erat primis augue.,6,6,2,1,2,3,2,3,1,More than 6 hours,1056417900,No,Yes,No,Lacus pellentesque ipsum! Pellentesque ullamcorper neque elementum amet risus odio in.,,,,,
+2025-09-18 15:47:39,2025-09-18 15:47:39,Survey Test,,100,0,True,2025-09-18 15:47:39,R_a3NboLD1MF8MifY,,,,,,,test,,Yes,25-34 years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander",Bachelor's degree,"Less than $25,000",Working (paid employee),"Aliquam? Dui dolor luctus temporibus. Egestas tellus ante non nulla cras, neque wisi atque.",Big island (Hawaiʻi),Full time Hawaiʻi resident,No,Other (Please enter answer in the box),"Pellentesque ante. Dui consectetuer. Pede, suspendisse tellus enim amet dolor lorem.",2.64,5.65,9.81,21,8.55,8.98,8.93,17,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,,,,,,Alternative two,1,No,3,2,1,4,5,Other (Please enter answer in the box),"Dolor id montes metus mi elit aliquet dui risus, malesuada.",On-site payment,,Agree,Only Visitors,,9,4,7,2,1,3,2,1,3,3-5 hours,882434555,No,No,Yes,"Felis imperdiet. Eleifend ac auctor, posuere mattis non montes? Placerat platea placerat erat platea enim.",,,,,
+2025-09-18 15:47:39,2025-09-18 15:47:39,Survey Test,,100,0,True,2025-09-18 15:47:39,R_eqvCJ7EtSjKZLOm,,,,,,,test,,Yes,45-54 years old,Male,Black or African American,Some high school or less,"$25,000 -$49,999",Working (self-employee),"Quis potenti. Nunc, mauris accusamus dolor maecenas consectetuer proin. Purus ligula fringilla vestibulum.",Oʻahu,Out-of-state visitor,Yes,Spending time with family / friends,,4.65,9.56,6.22,29,0.46,1.82,0.46,47,,,,,,,,,Alternative two,Alternative two,Alternative one,None of the option,,,,,Alternative one,,2,No,1,4,2,3,5,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Mobile payment (QR code on-site),,Strongly Agree,Only Visitors,,2,7,0,3,1,2,3,1,2,3-5 hours,526885654,Yes,Yes,Yes,"Mi wisi pretium potenti blandit vestibulum facilisi accusamus facilisis magna est, fermentum cursus neque.",,,,,
+2025-09-18 15:47:39,2025-09-18 15:47:40,Survey Test,,100,1,True,2025-09-18 15:47:40,R_9NptWnGBfZ3aHum,,,,,,,test,,Yes,55-64 years old,Male,"White or Caucasian,Black or African American",Some high school or less,"$100,000 -$149,999",Not working (disabled),"Rutrum elementum consequat leo ligula sem proin nullam suspendisse arcu. Wisi interdum, enim sem augue.",Kauaʻi,International tourist,No,Cultural connection,,9.73,9.74,9.93,31,1.49,4.86,8.78,47,,,,,,,,,,,,,None of the option,None of the option,Alternative two,Alternative one,,Alternative two,2,No,4,1,5,2,3,Voluntary donation,,On-site payment,,Strongly Agree,Only Visitors,,1,2,9,1,3,2,3,1,2,None,1153578815,No,No,No,Sem a cras? Interdum lacus integer? Ab placerat atque porttitor vehicula.,,,,,
+2025-09-18 15:47:40,2025-09-18 15:47:40,Survey Test,,100,0,True,2025-09-18 15:47:40,R_1BO14jdWsvevZHw,,,,,,,test,,Yes,35-44 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Asian",High School diploma or GED,"$150,000 or more",Not working (disabled),Accumsan magnis in in eu a? Suscipit convallis euismod diam.,I do not live in Hawaiʻi,Part time (less than 6 months) Hawaiʻi resident,No,Collecting plants for cultural purposes,,1.2,9.27,4.57,47,8.42,8.98,9.93,33,,,,,,,,,Alternative two,Alternative one,Alternative two,Alternative two,,,,,,Alternative one,3,No,4,5,3,1,2,Per-entry fee,,Other (Please enter answer in the box),"Dapibus sed pellentesque! Aliquet consequat sit. Vitae at bibendum duis, odio.",Agree,Only Visitors,,3,0,9,3,1,2,2,3,1,More than 6 hours,1827437108,No,Yes,No,Cras cras tincidunt nec fringilla maecenas nonummy erat elit molestie mauris.,,,,,
+2025-09-18 15:47:40,2025-09-18 15:47:40,Survey Test,,100,0,True,2025-09-18 15:47:40,R_eqyhqHWSti18MoC,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:40,2025-09-18 15:47:41,Survey Test,,100,1,True,2025-09-18 15:47:41,R_agcRtPGbRmqglcG,,,,,,,test,,Yes,65+ years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"$100,000 -$149,999",Working (self-employee),Tincidunt mauris porta! Atque platea? Tempus sapien tempor arcu imperdiet dictumst facilisi bibendum.,Oʻahu,Full time Hawaiʻi resident,Yes,Cultural connection,,4.96,9.57,9.28,14,6.76,9.34,7.98,17,Alternative two,None of the option,None of the option,Alternative one,,,,,,,,,,,,,,Alternative one,5,No,2,1,3,4,5,Voluntary donation,,On-site payment,,Strongly Agree,Only Visitors,,5,7,7,3,2,1,2,1,3,3-5 hours,212709791,Yes,No,Yes,"Neque, cursus, aliquet mi tincidunt dolor, quam sem, suscipit id sodales? Gravida sollicitudin suspendisse fusce.",,,,,
+2025-09-18 15:47:41,2025-09-18 15:47:41,Survey Test,,100,0,True,2025-09-18 15:47:41,R_8qSXzLlpLEV3rTg,,,,,,,test,,Yes,45-54 years old,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Some college, but no degree","$25,000 -$49,999",Working (self-employee),"Ullamcorper lacus curabitur, ut vel faucibus! Commodo convallis? Egestas at elementum.",Oʻahu,Out-of-state visitor,Yes,Photography,,4.45,6.7,6.19,21,2.63,8.92,7.14,7,,,,,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,Alternative two,2,No,2,4,5,1,3,Annual pass,,Online pre-payment,,Strongly Agree,"Both, but majority residents",,8,0,4,3,1,2,1,2,3,3-5 hours,640787881,Yes,No,Yes,Velit auctor ultrices sit phasellus. Morbi ante potenti vehicula sapien integer integer! Malesuada temporibus.,,,,,
+2025-09-18 15:47:41,2025-09-18 15:47:41,Survey Test,,100,0,True,2025-09-18 15:47:41,R_9A1gqAX1tk6SVjo,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:41,2025-09-18 15:47:42,Survey Test,,100,1,True,2025-09-18 15:47:42,R_9zdcqCZCKO2iEJM,,,,,,,test,,Yes,Under 18,Female,"White or Caucasian,Black or African American,Other",Some high school or less,"$150,000 or more",Not working (disabled),"Temporibus, magnis nullam? Quis. Pellentesque! At auctor sed? Vehicula! Molestie temporibus montes turpis.",Lānaʻi or Molokaʻi,International tourist,No,Collecting plants for cultural purposes,,9.17,9.9,9.32,32,2.74,9.84,9.03,3,,,,,Alternative one,Alternative one,None of the option,Alternative one,,,,,,,,,Alternative one,,2,Yes,2,5,1,4,3,Daily pass,,On-site payment,,Strongly Agree,Other (Please enter answer in the box),"Praesent luctus arcu, tellus, vehicula leo montes magnis cras? Ante, consequat! Magna. Proin.",9,3,1,2,3,1,2,3,1,1-2 hours,1878819419,Yes,Yes,No,Aliquam pellentesque cursus id? Fermentum luctus quam. Auctor vivamus non imperdiet commodo ultrices.,,,,,
+2025-09-18 15:47:42,2025-09-18 15:47:42,Survey Test,,100,0,True,2025-09-18 15:47:42,R_9t8XGNWXtzbVDvw,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:42,2025-09-18 15:47:42,Survey Test,,100,0,True,2025-09-18 15:47:42,R_835kdOXiKvBgcAK,,,,,,,test,,Yes,25-34 years old,Non-binary,"Black or African American,Other",Bachelor's degree,"$150,000 or more",Not working (temporary layoff from a job),Sed? Mattis vivamus enim volutpat. Dolorem? Ligula. Luctus ridiculus duis aenean.,Māui,International tourist,No,Recreation (general leisure hiking for enjoyment),,6.4,7.44,6.73,47,2.79,9.75,6.45,17,,,,,Alternative one,Alternative one,None of the option,Alternative one,,,,,,,,,Alternative two,,2,No,2,4,1,3,5,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,1,6,3,1,2,3,2,3,1,More than 6 hours,1265081290,No,Yes,Yes,"Rhoncus fermentum magna elementum curabitur id egestas ac auctor. Leo ab, pretium. Donec nulla.",,,,,
+2025-09-18 15:47:42,2025-09-18 15:47:42,Survey Test,,100,0,True,2025-09-18 15:47:43,R_eR8Z5uA4miUpIR8,,,,,,,test,,Yes,35-44 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander","Some college, but no degree","$150,000 or more",Not working (disabled),"Praesent metus. Molestie commodo faucibus quis luctus natoque, atque, pellentesque duis donec morbi.",Māui,Part time (less than 6 months) Hawaiʻi resident,No,Cultural connection,,0.49,5.05,4.68,45,1.01,8.76,2.03,42,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative two,,,,,Alternative two,,3,No,1,5,3,4,2,Other (Please enter answer in the box),"Fermentum lectus ab? Suspendisse, pharetra imperdiet mi ridiculus a vulputate interdum? Non posuere atque morbi.",Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority residents",,7,5,9,2,3,1,2,3,1,More than 6 hours,545188031,No,No,Yes,"Praesent consectetuer ligula pede risus purus. Massa auctor diam atque, vestibulum. Tempora.",,,,,
+2025-09-18 15:47:43,2025-09-18 15:47:43,Survey Test,,100,0,True,2025-09-18 15:47:43,R_3DHTTma4xXyjpUG,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:43,2025-09-18 15:47:43,Survey Test,,100,0,True,2025-09-18 15:47:43,R_eeCbqlWQHzIEvBQ,,,,,,,test,,Yes,18-24 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Asian","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$75,000 -$99,999",Not working (retired),"Bibendum justo? Primis est porta, consequat! Sollicitudin vivamus? Scelerisque dolorem? At a neque placerat dolor.",Lānaʻi or Molokaʻi,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,8.78,9.27,10,40,8.66,8.94,9.63,21,,,,,,,,,,,,,Alternative one,Alternative one,None of the option,None of the option,,Alternative two,2,No,4,3,1,5,2,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority visitors",,2,2,1,1,2,3,3,2,1,3-5 hours,802780398,No,Yes,No,"Mauris elementum dictumst rhoncus nibh sit sagittis, a donec tempora.",,,,,
+2025-09-18 15:47:43,2025-09-18 15:47:43,Survey Test,,100,0,True,2025-09-18 15:47:44,R_8iCzG7xyqifCc1o,,,,,,,test,,Yes,18-24 years old,Female,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Some college, but no degree","$100,000 -$149,999",Not working (other),"Ut consectetuer? Rutrum mi. Lacus. Sodales, eget iaculis dui blandit.",Māui,Full time Hawaiʻi resident,No,Photography,,5.01,6.82,8.45,15,5.82,7.8,6.5,9,None of the option,None of the option,Alternative two,Alternative one,,,,,,,,,,,,,,Alternative two,2,No,2,3,4,1,5,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),Diam etiam nunc ipsum imperdiet wisi ante at urna placerat sagittis suscipit quis proin.,Strongly Agree,Only Residents,,8,10,7,1,3,2,3,2,1,More than 6 hours,1490825056,Yes,Yes,Yes,Aliquet porttitor ipsum euismod dolorem augue montes quam magna. Donec suspendisse dui dolorem wisi fringilla.,,,,,
+2025-09-18 15:47:44,2025-09-18 15:47:44,Survey Test,,100,0,True,2025-09-18 15:47:44,R_cVeE2igMF3wdziC,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:44,2025-09-18 15:47:44,Survey Test,,100,0,True,2025-09-18 15:47:44,R_71JmOolT4shWQLk,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:44,2025-09-18 15:47:44,Survey Test,,100,0,True,2025-09-18 15:47:44,R_eDSjugToBQwjRzg,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:44,2025-09-18 15:47:44,Survey Test,,100,0,True,2025-09-18 15:47:44,R_0PxLLOe6idA7im2,,,,,,,test,,Yes,18-24 years old,Male,"White or Caucasian,Black or African American,Other","Some college, but no degree","$150,000 or more",Not working (other),Natoque in commodo dignissim consectetuer potenti dapibus mauris pharetra morbi atque ipsum vitae? Sit consequat.,Lānaʻi or Molokaʻi,Part time (less than 6 months) Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,5.24,9.41,6.12,21,7.05,7.8,9.72,40,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,,,,,Alternative two,4,Yes,5,2,4,3,1,Daily pass,,Other (Please enter answer in the box),"Etiam vitae donec a neque, sed ridiculus euismod aliquam lectus? Eleifend fusce? Pellentesque elementum.",Strongly Agree,"Both, but majority visitors",,10,2,2,3,1,2,1,3,2,1-2 hours,694520392,Yes,Yes,Yes,Faucibus at sollicitudin tempor id. Suspendisse pretium etiam metus ligula dui! Eros montes.,,,,,
+2025-09-18 15:47:44,2025-09-18 15:47:44,Survey Test,,100,0,True,2025-09-18 15:47:45,R_8oDxOmVT1ABEsEm,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:45,2025-09-18 15:47:45,Survey Test,,100,0,True,2025-09-18 15:47:45,R_6x14bkTzvtIXE1w,,,,,,,test,,Yes,25-34 years old,Male,"Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"$25,000 -$49,999",Working (paid employee),Scelerisque! Porttitor vestibulum vulputate. Sodales luctus sollicitudin magnis ac placerat sagittis. Posuere. Odio.,Māui,International tourist,Yes,Collecting plants for cultural purposes,,8.05,8.87,9.7,21,5.86,6.6,9.21,45,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,,,,,,,,None of the option,,0,No,3,2,1,4,5,Per-entry fee,,Other (Please enter answer in the box),Venenatis nunc in. Risus posuere tellus lectus ultrices magna? Consectetuer quis facilisis luctus.,Strongly Agree,Only Residents,,4,9,2,3,2,1,1,3,2,3-5 hours,1863052621,No,No,Yes,Urna sapien! Nunc vivamus! Commodo potenti pede dolor nunc vehicula.,,,,,
+2025-09-18 15:47:45,2025-09-18 15:47:45,Survey Test,,100,0,True,2025-09-18 15:47:45,R_0BATIStiyquaz8W,,,,,,,test,,Yes,65+ years old,Non-binary,"White or Caucasian,Asian,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (temporary layoff from a job),Turpis tempus mi vel morbi maecenas vulputate amet ipsum? Suscipit rhoncus at? Pretium tortor.,Kauaʻi,International tourist,Yes,Collecting plants for cultural purposes,,2.88,8.78,6.04,13,2.95,3.13,5.76,36,,,,,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,Alternative one,,3,Yes,5,3,1,2,4,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,Only Residents,,5,7,7,3,2,1,3,1,2,More than 6 hours,1311896731,No,Yes,No,Tempora non imperdiet iaculis ac neque. Quis. Aliquam ab magnis aliquam. Quis.,,,,,
+2025-09-18 15:47:45,2025-09-18 15:47:45,Survey Test,,100,0,True,2025-09-18 15:47:45,R_5opRVrgTMSclgmq,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:46,2025-09-18 15:47:46,Survey Test,,100,0,True,2025-09-18 15:47:46,R_9ua0l3nYaHG3DtY,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:46,2025-09-18 15:47:46,Survey Test,,100,0,True,2025-09-18 15:47:46,R_6RmLTpwMkgFOpBI,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:46,2025-09-18 15:47:46,Survey Test,,100,0,True,2025-09-18 15:47:46,R_7UIm5ddbSrL8tYW,,,,,,,test,,Yes,45-54 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"$75,000 -$99,999",Not working (retired),Platea cras ante turpis ligula purus quis accumsan nibh per. Magna.,I do not live in Hawaiʻi,Full time Hawaiʻi resident,No,I don't use trails,,4.97,8.59,8.35,47,4.58,5,8.97,12,,,,,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative two,None of the option,,3,No,3,4,1,5,2,Other (Please enter answer in the box),"Massa arcu augue. Dapibus dui ut, ab interdum molestie per.",Other (Please enter answer in the box),Felis eget dignissim aliquet platea. Vestibulum leo commodo. Cras. Consectetuer elementum tincidunt? Dapibus ridiculus.,Strongly Agree,Only Residents,,7,2,0,3,1,2,2,3,1,None,1462561300,Yes,No,No,Dolor velit leo wisi phasellus vestibulum consequat. Curabitur dui per.,,,,,
+2025-09-18 15:47:46,2025-09-18 15:47:47,Survey Test,,100,1,True,2025-09-18 15:47:47,R_cPboaEUcScfGDu6,,,,,,,test,,Yes,25-34 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Asian",Associates or technical degree,"Less than $25,000",Not working (other),Arcu! Accusamus at justo blandit. Imperdiet. Mi proin mattis quis fermentum auctor proin imperdiet dui.,I do not live in Hawaiʻi,International tourist,No,I don't use trails,,1.95,4.68,6.38,14,7.48,8,8.57,8,,,,,,,,,None of the option,Alternative two,None of the option,Alternative two,,,,,Alternative two,,4,Yes,2,1,5,3,4,Daily pass,,Other (Please enter answer in the box),Rhoncus erat commodo. Imperdiet maecenas elit eget! Eros. Odio lectus dictumst id! Consectetuer.,Strongly Agree,Only Residents,,5,7,7,1,3,2,3,1,2,1-2 hours,1283665109,No,No,Yes,"Amet culpa, aliquet turpis. Urna. Sem elementum ante molestie sodales ipsum.",,,,,
+2025-09-18 15:47:47,2025-09-18 15:47:47,Survey Test,,100,0,True,2025-09-18 15:47:47,R_8x0q39DNzTX1gtU,,,,,,,test,,Yes,55-64 years old,Non-binary,"Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"$50,000 -$74,999",Not working (looking for work),"Neque gravida lectus pede ultricies! Aliquam id proin? Sem consequat a tellus vel temporibus, enim.",Oʻahu,Full time Hawaiʻi resident,No,Collecting plants for cultural purposes,,9.72,9.75,9.97,28,0.02,2.86,9.98,40,,,,,,,,,,,,,Alternative two,Alternative one,None of the option,Alternative one,Alternative two,,4,No,5,2,3,4,1,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority visitors",,10,0,9,3,1,2,2,1,3,More than 6 hours,336760222,No,No,Yes,Ullamcorper montes sagittis dictumst lectus venenatis tortor nec amet dapibus vel sollicitudin laoreet commodo pellentesque.,,,,,
+2025-09-18 15:47:47,2025-09-18 15:47:47,Survey Test,,100,0,True,2025-09-18 15:47:47,R_8oyxLD62foo99To,,,,,,,test,,Yes,25-34 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",Associates or technical degree,"$75,000 -$99,999",Not working (disabled),"Tellus dolorem rutrum diam, facilisis vel amet. Vitae ac non! Neque sit, mattis sollicitudin vivamus.",Kauaʻi,Full time Hawaiʻi resident,No,Recreation (general leisure hiking for enjoyment),,6.5,9.26,6.52,28,8.92,9.54,9.91,29,,,,,None of the option,Alternative two,Alternative one,None of the option,,,,,,,,,,Alternative one,4,Yes,5,2,1,3,4,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),Orci fusce sed aliquet! Blandit eleifend vulputate vitae suscipit pede bibendum luctus.,Strongly Agree,"Both, equally",,6,6,1,3,2,1,3,2,1,None,377180363,Yes,Yes,Yes,Atque ultrices ultricies lorem auctor culpa primis? Quam ullamcorper cursus fringilla ultricies vitae maecenas.,,,,,
+2025-09-18 15:47:47,2025-09-18 15:47:48,Survey Test,,100,1,True,2025-09-18 15:47:48,R_4UEbXSGCOquFQfY,,,,,,,test,,Yes,45-54 years old,Female,Native Hawaiian or Other Pacific Islander,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$75,000 -$99,999",Not working (disabled),"Mauris id scelerisque, pharetra potenti tellus tempus. Magnis per sodales molestie.",Lānaʻi or Molokaʻi,International tourist,Yes,Spending time with family / friends,,3.37,4.36,8.62,17,4.26,9.25,9.1,47,None of the option,Alternative two,Alternative one,None of the option,,,,,,,,,,,,,,Alternative two,4,Yes,1,3,4,5,2,Voluntary donation,,Online pre-payment,,Strongly Agree,"Both, equally",,9,4,8,3,2,1,2,1,3,1-2 hours,1325175063,No,No,Yes,Fermentum id nibh! Mauris lorem. Temporibus! Metus? Tellus elit. Convallis pede ridiculus.,,,,,
+2025-09-18 15:47:48,2025-09-18 15:47:48,Survey Test,,100,0,True,2025-09-18 15:47:48,R_3gi3kCywmEKKqOi,,,,,,,test,,Yes,Under 18,Male,"Black or African American,American Indian / Native American or Alaska Native,Asian",Associates or technical degree,"$100,000 -$149,999",Not working (other),Per. Odio ultricies quam. Iaculis justo molestie eros natoque! Magna velit porttitor morbi natoque quis.,Kauaʻi,Out-of-state visitor,No,Photography,,0.07,4.5,1.71,48,0.75,5.54,7.79,12,,,,,,,,,Alternative one,Alternative two,Alternative two,None of the option,,,,,,Alternative one,4,No,4,3,1,2,5,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),"Wisi? Morbi porttitor auctor facilisis, praesent ligula. Urna duis! Per. Pellentesque. Cursus ultrices tempor.",Strongly Agree,Only Residents,,3,7,2,1,3,2,3,2,1,None,228300075,Yes,No,Yes,Felis urna vehicula. Enim eu a quis quam tempor tempus viverra.,,,,,
+2025-09-18 15:47:48,2025-09-18 15:47:48,Survey Test,,100,0,True,2025-09-18 15:47:48,R_9YRsUadKQkWW4h8,,,,,,,test,,Yes,35-44 years old,Non-binary,"White or Caucasian,Black or African American,Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$100,000 -$149,999",Not working (retired),"Tortor. Consectetuer mattis, vulputate. Ab wisi felis accumsan potenti rhoncus nec luctus posuere primis.",Oʻahu,Full time Hawaiʻi resident,No,Collecting plants for cultural purposes,,1.32,9.94,3.1,18,7.84,8.91,9.3,35,,,,,,,,,,,,,None of the option,Alternative one,Alternative one,Alternative one,,Alternative two,0,Yes,2,1,5,4,3,Per-entry fee,,Mobile payment (QR code on-site),,Strongly Agree,"Both, equally",,8,7,7,3,2,1,1,3,2,3-5 hours,2096865524,No,No,No,Ab felis purus commodo vivamus accusamus vel eleifend atque pharetra id cursus! Sagittis.,,,,,
+2025-09-18 15:47:49,2025-09-18 15:47:49,Survey Test,,100,0,True,2025-09-18 15:47:49,R_8qPYzydYJbgk1hA,,,,,,,test,,Yes,45-54 years old,Male,"American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"Less than $25,000",Not working (retired),Integer posuere laoreet nec per dolor dapibus ridiculus dolor porttitor gravida? Lectus.,Big island (Hawaiʻi),Full time Hawaiʻi resident,No,Recreation (general leisure hiking for enjoyment),,0.34,9.3,7.17,30,2.52,7.67,9.11,37,,,,,Alternative two,Alternative one,Alternative one,None of the option,,,,,,,,,,None of the option,2,No,1,4,3,5,2,Annual pass,,Other (Please enter answer in the box),Sodales ipsum vulputate elementum turpis nonummy magnis at. Sagittis! Metus at interdum accusamus nullam fermentum.,Agree,"Both, equally",,6,4,3,2,3,1,1,3,2,None,569425056,Yes,Yes,No,Fusce eros ipsum molestie sollicitudin duis. Eu at! Quam quis.,,,,,
+2025-09-18 15:47:49,2025-09-18 15:47:49,Survey Test,,100,0,True,2025-09-18 15:47:49,R_2odrL7Otk8zGyDI,,,,,,,test,,Yes,18-24 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Not working (disabled),Ut sollicitudin. Porta felis augue aliquam pharetra. Blandit. Et ipsum.,Lānaʻi or Molokaʻi,Part time (less than 6 months) Hawaiʻi resident,Yes,Cultural connection,,8.95,9.02,9.12,29,7.64,9.61,9.65,39,Alternative one,Alternative two,Alternative two,Alternative one,,,,,,,,,,,,,None of the option,,4,Yes,3,5,2,1,4,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),"Quis dui ut! Faucibus sem praesent leo accusamus? Vestibulum? Accusamus fringilla dignissim, leo vehicula.",Strongly Agree,Only Residents,,9,5,9,3,1,2,1,3,2,3-5 hours,885602209,No,Yes,Yes,In in euismod aliquam ac platea vel sollicitudin tempora! Nec amet ridiculus? Aenean.,,,,,
+2025-09-18 15:47:49,2025-09-18 15:47:49,Survey Test,,100,0,True,2025-09-18 15:47:49,R_6WLwza7BjKQcoEm,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:49,2025-09-18 15:47:49,Survey Test,,100,0,True,2025-09-18 15:47:50,R_9sKM5gbhzI0ZHx4,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:50,2025-09-18 15:47:50,Survey Test,,100,0,True,2025-09-18 15:47:50,R_4N1Ib0fk7I11QuG,,,,,,,test,,Yes,18-24 years old,Non-binary,Asian,Bachelor's degree,"$25,000 -$49,999",Working (paid employee),Scelerisque fermentum fermentum integer. Viverra tortor tempus magna viverra ridiculus nunc. Molestie.,I do not live in Hawaiʻi,Out-of-state visitor,Yes,I don't use trails,,1.85,2.59,6.5,47,3.18,4.51,9.33,7,,,,,,,,,Alternative one,Alternative one,None of the option,None of the option,,,,,None of the option,,5,No,4,2,3,1,5,Per-entry fee,,Mobile payment (QR code on-site),,Strongly Agree,Only Visitors,,7,10,9,3,1,2,3,2,1,More than 6 hours,822308880,No,Yes,Yes,"Massa pede nonummy aliquet wisi facilisis molestie montes, accusamus metus temporibus aliquam fusce.",,,,,
+2025-09-18 15:47:50,2025-09-18 15:47:50,Survey Test,,100,0,True,2025-09-18 15:47:50,R_ey9BVgRt06NHtj0,,,,,,,test,,Yes,55-64 years old,Male,"White or Caucasian,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",Associates or technical degree,"$25,000 -$49,999",Not working (other),Et nonummy ultricies tellus cursus? Eleifend urna gravida posuere aliquet dolorem ab.,Big island (Hawaiʻi),Part time (less than 6 months) Hawaiʻi resident,Yes,Photography,,1.23,8.63,8.46,27,0.45,9.27,2.02,45,,,,,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative two,Alternative one,,2,No,4,2,1,3,5,Voluntary donation,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,5,4,3,3,1,2,3,1,2,3-5 hours,1634670125,No,Yes,No,Tempus! Suscipit eget. Urna quam etiam ut eros volutpat volutpat neque cras vitae gravida.,,,,,
+2025-09-18 15:47:50,2025-09-18 15:47:51,Survey Test,,100,1,True,2025-09-18 15:47:51,R_dily1oWKB5pnrng,,,,,,,test,,Yes,45-54 years old,Female,"White or Caucasian,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","Less than $25,000",Not working (retired),"Nunc vehicula non bibendum integer magnis, quis metus. Ridiculus atque suspendisse metus.",Big island (Hawaiʻi),Out-of-state visitor,Yes,Recreation (general leisure hiking for enjoyment),,7.41,8.29,8.35,2,5.57,8.31,9.84,34,,,,,Alternative two,Alternative one,None of the option,Alternative one,,,,,,,,,None of the option,,3,Yes,3,5,2,4,1,Per-entry fee,,Online pre-payment,,Agree,"Both, equally",,10,1,1,3,1,2,1,3,2,None,612435973,Yes,Yes,No,Elementum aenean scelerisque auctor accusamus praesent fermentum morbi mattis nonummy fermentum neque.,,,,,
+2025-09-18 15:47:51,2025-09-18 15:47:51,Survey Test,,100,0,True,2025-09-18 15:47:51,R_38BOajVMElnQ610,,,,,,,test,,Yes,25-34 years old,Female,Other,Some high school or less,"Less than $25,000",Working (self-employee),Ac consequat duis pretium commodo faucibus id. Ante dapibus arcu. Sapien.,Lānaʻi or Molokaʻi,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,7.14,9.87,9.82,16,6.85,7.08,8.53,39,Alternative two,Alternative two,Alternative two,None of the option,,,,,,,,,,,,,,Alternative one,3,Yes,3,5,2,1,4,Annual pass,,Online pre-payment,,Strongly Agree,Only Visitors,,9,7,8,1,2,3,3,1,2,1-2 hours,880974076,No,No,Yes,In viverra elit culpa sem ullamcorper ullamcorper nunc mauris donec primis! Pede.,,,,,
+2025-09-18 15:47:51,2025-09-18 15:47:51,Survey Test,,100,0,True,2025-09-18 15:47:51,R_9pjOPWw70FyMV2C,,,,,,,test,,Yes,45-54 years old,Non-binary,"American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$50,000 -$74,999",Working (paid employee),Viverra augue placerat ultricies placerat per. Suscipit dolorem nunc pretium.,Māui,Out-of-state visitor,No,Spending time with family / friends,,7.67,8.06,7.86,34,0.07,1.58,6.97,15,,,,,None of the option,Alternative two,None of the option,Alternative two,,,,,,,,,Alternative two,,2,Yes,3,4,1,5,2,Voluntary donation,,Other (Please enter answer in the box),Ac lorem sollicitudin tortor ridiculus phasellus felis ante! Imperdiet fermentum ligula velit faucibus risus.,Strongly Agree,"Both, but majority residents",,7,1,8,3,1,2,2,1,3,3-5 hours,1169215131,Yes,No,No,Facilisi at id vehicula suspendisse cursus fringilla ligula? Donec tempor sed. Quis.,,,,,
+2025-09-18 15:47:51,2025-09-18 15:47:51,Survey Test,,100,0,True,2025-09-18 15:47:52,R_6yaES4LUejD41tc,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:52,2025-09-18 15:47:52,Survey Test,,100,0,True,2025-09-18 15:47:52,R_bxD6R8yIBFopo1g,,,,,,,test,,Yes,25-34 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"$100,000 -$149,999",Not working (disabled),"Vehicula diam ac aliquet aliquam, pede pretium quam luctus egestas id eu.",Kauaʻi,International tourist,Yes,Photography,,3.6,7.45,5.82,15,7.59,8.28,7.9,42,,,,,,,,,Alternative one,None of the option,Alternative two,None of the option,,,,,,None of the option,5,No,3,1,4,2,5,Daily pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority visitors",,5,7,3,1,3,2,3,1,2,3-5 hours,1377696672,Yes,No,Yes,Pharetra ante nulla ipsum sodales augue ipsum fusce suscipit potenti sed tellus.,,,,,
+2025-09-18 15:47:52,2025-09-18 15:47:52,Survey Test,,100,0,True,2025-09-18 15:47:52,R_b7w3aI6Q5r5Sb3w,,,,,,,test,,Yes,55-64 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (temporary layoff from a job),"Auctor malesuada! Justo venenatis, odio! Ultricies fusce platea fusce pellentesque imperdiet accusamus lacus.",Lānaʻi or Molokaʻi,International tourist,No,Recreation (general leisure hiking for enjoyment),,4.35,8.42,7.54,24,7.82,7.87,8.96,42,,,,,,,,,,,,,None of the option,Alternative two,Alternative two,None of the option,None of the option,,3,No,5,3,2,4,1,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,Other (Please enter answer in the box),Vitae. Accusamus enim. Tortor sapien odio tempora eleifend vestibulum? Diam. Per natoque.,1,7,4,3,2,1,1,3,2,1-2 hours,1571004429,No,No,Yes,Ridiculus odio? Luctus natoque? Vel praesent non porttitor vestibulum accusamus potenti atque? Mi cras.,,,,,
+2025-09-18 15:47:52,2025-09-18 15:47:52,Survey Test,,100,0,True,2025-09-18 15:47:53,R_6YlSzUbFqvvFguW,,,,,,,test,,Yes,25-34 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$50,000 -$74,999",Not working (disabled),"Vel nibh interdum vitae arcu imperdiet! Urna dolorem potenti dolor ridiculus, interdum, pede diam.",Māui,Full time Hawaiʻi resident,No,Exercise,,3.64,5.62,6,11,8.52,9.23,9.78,21,None of the option,Alternative one,None of the option,Alternative one,,,,,,,,,,,,,,Alternative one,3,Yes,4,2,5,3,1,Voluntary donation,,Other (Please enter answer in the box),"Natoque tempor duis nulla, dui quam quis tempus enim ante fringilla pharetra? Ligula atque! Magnis.",Strongly Agree,Only Visitors,,8,6,0,1,2,3,1,2,3,None,1687133894,No,No,No,Eros. Sollicitudin interdum culpa praesent blandit fringilla? Dolorem turpis. Nonummy! Risus at.,,,,,
+2025-09-18 15:47:53,2025-09-18 15:47:53,Survey Test,,100,0,True,2025-09-18 15:47:53,R_6R4WpU3zAZvtlpY,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:53,2025-09-18 15:47:53,Survey Test,,100,0,True,2025-09-18 15:47:53,R_0HFhoAXm5DaGKh0,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:53,2025-09-18 15:47:53,Survey Test,,100,0,True,2025-09-18 15:47:53,R_9YzI7vHGrhFWKqy,,,,,,,test,,Yes,55-64 years old,Male,"White or Caucasian,Black or African American,Asian,Native Hawaiian or Other Pacific Islander,Other",Bachelor's degree,"$25,000 -$49,999",Not working (retired),"Pede ligula lectus? Pede est mi per. Nonummy, ultricies? Urna arcu, felis, curabitur.",Lānaʻi or Molokaʻi,Out-of-state visitor,No,Cultural connection,,8.31,8.31,8.82,18,6.75,7.17,7.1,0,,,,,,,,,,,,,None of the option,Alternative two,Alternative two,Alternative two,None of the option,,1,No,3,5,4,2,1,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Mobile payment (QR code on-site),,Strongly Agree,"Both, equally",,8,8,1,1,3,2,1,2,3,None,209817829,No,No,No,"Ligula? Risus cras. Fermentum enim wisi, consequat! Tempus. Elementum justo pellentesque potenti.",,,,,
+2025-09-18 15:47:53,2025-09-18 15:47:54,Survey Test,,100,1,True,2025-09-18 15:47:54,R_a2XCt2oT1yAKWGy,,,,,,,test,,Yes,65+ years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander",Associates or technical degree,"Less than $25,000",Working (paid employee),"Molestie vestibulum posuere dictumst viverra, interdum vivamus eleifend ac mattis augue. Quis vitae nec cursus.",Oʻahu,International tourist,Yes,Other (Please enter answer in the box),"Bibendum praesent, at arcu ridiculus vel aenean donec, curabitur tempora id primis magna.",3.44,9.78,9.31,17,7.21,8.49,8.81,27,,,,,None of the option,None of the option,None of the option,Alternative two,,,,,,,,,Alternative two,,4,Yes,1,5,2,3,4,Other (Please enter answer in the box),"Sagittis nec dui convallis tempus diam, blandit! Tincidunt pretium consequat.",On-site payment,,Strongly Agree,"Both, but majority residents",,5,2,9,1,3,2,2,3,1,1-2 hours,1355727691,No,No,No,Aliquet potenti ut leo vestibulum ac cras maecenas purus wisi nec.,,,,,
+2025-09-18 15:47:54,2025-09-18 15:47:54,Survey Test,,100,0,True,2025-09-18 15:47:54,R_elCQkr4ordYRy7k,,,,,,,test,,Yes,65+ years old,Non-binary,"Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"$25,000 -$49,999",Not working (temporary layoff from a job),"Egestas purus vel fringilla. Interdum egestas justo, commodo rutrum dictumst consequat elementum accumsan sagittis.",Lānaʻi or Molokaʻi,Out-of-state visitor,Yes,Exercise,,3.92,7.48,9.14,14,3.97,7.1,7.39,2,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,,,,,,,,,Alternative two,1,No,3,5,4,1,2,Per-entry fee,,Other (Please enter answer in the box),Lectus est? Velit mauris eros mattis. Tincidunt phasellus velit ridiculus primis dignissim ipsum nonummy.,Strongly Agree,"Both, equally",,5,6,4,1,3,2,1,2,3,More than 6 hours,636063062,Yes,No,Yes,Per vehicula eleifend lectus mauris magnis tempora vivamus arcu orci nunc pede.,,,,,
+2025-09-18 15:47:54,2025-09-18 15:47:54,Survey Test,,100,0,True,2025-09-18 15:47:54,R_0jEvadyqD3x22Wi,,,,,,,test,,Yes,45-54 years old,Male,"American Indian / Native American or Alaska Native,Other",Bachelor's degree,"$75,000 -$99,999",Not working (temporary layoff from a job),Egestas est interdum. Ultricies! Enim fringilla egestas at orci! Aliquam natoque ut viverra? Atque.,Lānaʻi or Molokaʻi,International tourist,Yes,Cultural connection,,9.27,9.94,9.62,25,0.45,1.69,0.83,27,,,,,,,,,None of the option,Alternative two,Alternative one,Alternative one,,,,,,None of the option,5,Yes,4,5,3,1,2,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority residents",,9,7,5,3,2,1,3,1,2,3-5 hours,673605355,No,No,Yes,"Lectus posuere. Etiam wisi erat tincidunt purus. Potenti. Dignissim, dui donec.",,,,,
+2025-09-18 15:47:54,2025-09-18 15:47:54,Survey Test,,100,0,True,2025-09-18 15:47:55,R_eS3vVj9Q31ZNUQC,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:55,2025-09-18 15:47:55,Survey Test,,100,0,True,2025-09-18 15:47:55,R_1NAfO77GLSYvuCi,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:55,2025-09-18 15:47:55,Survey Test,,100,0,True,2025-09-18 15:47:55,R_3kMMWVS6daaLYyO,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:55,2025-09-18 15:47:55,Survey Test,,100,0,True,2025-09-18 15:47:55,R_egGHYSvmlDCAoHs,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:55,2025-09-18 15:47:55,Survey Test,,100,0,True,2025-09-18 15:47:55,R_d5LneXRh3vvaitU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:55,2025-09-18 15:47:55,Survey Test,,100,0,True,2025-09-18 15:47:56,R_eUNNBBHuEmCHqse,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:56,2025-09-18 15:47:56,Survey Test,,100,0,True,2025-09-18 15:47:56,R_cZVDKCrTgDuAzeS,,,,,,,test,,Yes,65+ years old,Male,"American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander","Some college, but no degree","$50,000 -$74,999",Not working (disabled),Nulla gravida felis non nec dignissim! Risus ultricies! Et! Consectetuer? Tempus integer tempor potenti.,Māui,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,3.88,9.14,5.6,37,7.2,9.17,9.61,2,Alternative two,None of the option,None of the option,Alternative one,,,,,,,,,,,,,Alternative two,,3,No,1,5,4,2,3,Voluntary donation,,Online pre-payment,,Strongly Agree,Only Residents,,8,0,10,3,1,2,2,3,1,More than 6 hours,1479876668,No,Yes,No,"Duis, suspendisse. Est in faucibus primis. Atque erat atque ullamcorper. Ut sem.",,,,,
+2025-09-18 15:47:56,2025-09-18 15:47:56,Survey Test,,100,0,True,2025-09-18 15:47:56,R_0v7zT8NFxE1Zl1c,,,,,,,test,,Yes,55-64 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other","Some college, but no degree","$100,000 -$149,999",Not working (temporary layoff from a job),Augue. Pede magna temporibus aliquam tortor justo id ipsum scelerisque per per.,I do not live in Hawaiʻi,Full time Hawaiʻi resident,No,Hunting,,0.33,5.89,6.58,8,8.99,9.1,9.91,32,,,,,None of the option,Alternative two,Alternative one,Alternative two,,,,,,,,,Alternative one,,3,Yes,5,3,2,4,1,Tiered pricing (for example; lower fee for residents and higher fee for tourists),,Other (Please enter answer in the box),Dui aenean? Risus eu metus at aenean cras luctus duis viverra? Vivamus ullamcorper convallis lorem.,Strongly Agree,"Both, but majority visitors",,9,4,6,1,3,2,2,3,1,3-5 hours,238614758,No,Yes,Yes,Morbi ullamcorper. Euismod consequat cras rutrum arcu posuere eros. Velit? Temporibus. Orci.,,,,,
+2025-09-18 15:47:56,2025-09-18 15:47:56,Survey Test,,100,0,True,2025-09-18 15:47:57,R_bwNR9upnSKvI1fg,,,,,,,test,,Yes,35-44 years old,Non-binary,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Other","Some college, but no degree","Less than $25,000",Not working (other),Sollicitudin aliquet posuere quam in ultrices mi sollicitudin sollicitudin? Cursus eleifend quam in.,I do not live in Hawaiʻi,Full time Hawaiʻi resident,No,Other (Please enter answer in the box),"Phasellus consequat pede rutrum sed, purus atque vitae tincidunt. Phasellus? Pellentesque.",8.88,9.39,9.75,35,3.61,8.72,6.81,15,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative one,Alternative two,,3,No,1,4,2,5,3,Annual pass,,On-site payment,,Strongly Agree,"Both, but majority visitors",,4,2,8,2,3,1,2,1,3,More than 6 hours,905427987,Yes,Yes,No,"Consectetuer fringilla accusamus? At. Ut porta convallis! Placerat gravida neque ut, suscipit montes magnis volutpat.",,,,,
+2025-09-18 15:47:57,2025-09-18 15:47:57,Survey Test,,100,0,True,2025-09-18 15:47:57,R_bj8yNyxltF0Xnuu,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:57,2025-09-18 15:47:57,Survey Test,,100,0,True,2025-09-18 15:47:57,R_1zEPA3oiMz4ibRQ,,,,,,,test,,Yes,18-24 years old,Non-binary,"Black or African American,American Indian / Native American or Alaska Native,Asian,Other",Bachelor's degree,"$25,000 -$49,999",Working (paid employee),Tempora? Dictumst neque? Natoque. Orci? Dapibus. Et enim leo. Magna.,Māui,Part time (less than 6 months) Hawaiʻi resident,Yes,I don't use trails,,5.08,7.85,7.45,48,3.82,4.31,6.74,23,,,,,,,,,Alternative two,None of the option,Alternative two,Alternative two,,,,,,None of the option,1,No,3,4,1,5,2,Daily pass,,Other (Please enter answer in the box),Vehicula faucibus nibh enim mattis? Sit sagittis aliquam id ultricies. Non dapibus eleifend ac? Convallis.,Strongly Agree,"Both, equally",,3,4,3,1,3,2,2,3,1,1-2 hours,1539956603,No,Yes,Yes,Blandit felis accusamus pretium massa per. Nec imperdiet ultricies at pretium praesent.,,,,,
+2025-09-18 15:47:57,2025-09-18 15:47:57,Survey Test,,100,0,True,2025-09-18 15:47:57,R_bqlYscm83uJVut0,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:57,2025-09-18 15:47:57,Survey Test,,100,0,True,2025-09-18 15:47:58,R_cABlwA5u7TzRBPM,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:58,2025-09-18 15:47:58,Survey Test,,100,0,True,2025-09-18 15:47:58,R_9uAge5c7Uqg2btA,,,,,,,test,,Yes,Under 18,Non-binary,"White or Caucasian,Asian",Associates or technical degree,"$100,000 -$149,999",Working (self-employee),"Tincidunt wisi, elit vitae. Sagittis velit quam sit ante et.",I do not live in Hawaiʻi,International tourist,No,Photography,,0.51,8.81,9.1,41,0.57,8.57,9.37,26,,,,,None of the option,Alternative two,Alternative one,None of the option,,,,,,,,,None of the option,,4,No,5,3,4,2,1,Other (Please enter answer in the box),"Dictumst quis porttitor tempora nullam integer potenti! Et magna phasellus ante non mauris lectus, metus.",On-site payment,,Strongly Agree,Only Residents,,2,9,2,3,1,2,1,3,2,None,66849724,Yes,No,Yes,Primis fusce curabitur fringilla vestibulum! Magnis est augue suscipit laoreet.,,,,,
+2025-09-18 15:47:58,2025-09-18 15:47:58,Survey Test,,100,0,True,2025-09-18 15:47:58,R_8wXp9Z5m3o10ZrU,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:58,2025-09-18 15:47:58,Survey Test,,100,0,True,2025-09-18 15:47:58,R_1YXtaNMW9CMskeO,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:58,2025-09-18 15:47:58,Survey Test,,100,0,True,2025-09-18 15:47:59,R_bDRqmA369CpiCTs,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:59,2025-09-18 15:47:59,Survey Test,,100,0,True,2025-09-18 15:47:59,R_72N1tcVrHwrJAH4,,,,,,,test,,Yes,Under 18,Non-binary,"White or Caucasian,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander",High School diploma or GED,"$50,000 -$74,999",Not working (retired),"Id ab suspendisse ullamcorper, auctor sapien molestie sagittis. Faucibus non tempor ridiculus.",Oʻahu,Full time Hawaiʻi resident,No,Other (Please enter answer in the box),"Nulla suspendisse ipsum mi donec quis ac venenatis, ligula nec est aenean.",2.31,5.31,3.57,20,7.44,8.33,8.47,30,,,,,,,,,,,,,Alternative two,Alternative one,Alternative two,Alternative one,Alternative two,,1,No,4,5,1,3,2,Other (Please enter answer in the box),Est! Elementum malesuada dapibus. Egestas diam? Morbi vel duis ullamcorper tempus.,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,9,6,3,2,1,3,3,2,1,None,397847211,No,Yes,No,"Massa est, pede massa elit non aenean viverra ridiculus felis accumsan tincidunt rhoncus! Eros. Tempor.",,,,,
+2025-09-18 15:47:59,2025-09-18 15:47:59,Survey Test,,100,0,True,2025-09-18 15:47:59,R_4T47uvMXX2OrgVM,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:47:59,2025-09-18 15:47:59,Survey Test,,100,0,True,2025-09-18 15:47:59,R_eKSJ1K4plREThT8,,,,,,,test,,Yes,45-54 years old,Non-binary,"American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"$25,000 -$49,999",Not working (temporary layoff from a job),Augue enim fringilla ultrices suspendisse turpis tincidunt fringilla turpis mi pellentesque platea malesuada.,Oʻahu,Full time Hawaiʻi resident,No,Recreation (general leisure hiking for enjoyment),,7.81,9.31,8.55,8,8.2,8.62,8.24,28,Alternative one,Alternative two,None of the option,Alternative one,,,,,,,,,,,,,Alternative two,,4,Yes,4,1,2,3,5,Per-entry fee,,Other (Please enter answer in the box),"Mauris, neque! Integer mi. Dolorem malesuada, gravida ut at nunc blandit gravida pellentesque.",Agree,Only Visitors,,6,8,5,3,2,1,2,3,1,None,287600531,Yes,Yes,No,Ab mauris enim pellentesque. Primis eros facilisis euismod. Sed cras placerat.,,,,,
+2025-09-18 15:47:59,2025-09-18 15:48:00,Survey Test,,100,1,True,2025-09-18 15:48:00,R_af52EM88cSMr8B8,,,,,,,test,,Yes,35-44 years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Native Hawaiian or Other Pacific Islander,Other",High School diploma or GED,"$150,000 or more",Not working (retired),Nibh? Orci nullam tellus scelerisque a sem dictumst vivamus potenti. Temporibus nonummy! Mattis fusce ridiculus.,Big island (Hawaiʻi),Out-of-state visitor,Yes,Other (Please enter answer in the box),Eleifend euismod felis est? Felis interdum etiam elit per vivamus dolorem vulputate.,6.8,7.51,8.39,36,0.81,1.16,4.8,38,,,,,,,,,None of the option,Alternative one,Alternative two,Alternative one,,,,,,Alternative two,5,No,2,3,4,1,5,Voluntary donation,,Other (Please enter answer in the box),"Tempor dolorem magna odio platea cras. Donec, ante vivamus amet, fusce tempus.",Agree,Only Residents,,9,4,4,1,3,2,2,3,1,More than 6 hours,518181420,Yes,No,Yes,Sodales. Potenti a wisi aenean velit tempus tempus neque lorem laoreet.,,,,,
+2025-09-18 15:48:00,2025-09-18 15:48:00,Survey Test,,100,0,True,2025-09-18 15:48:00,R_3C656SSXN8dD1BQ,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:00,2025-09-18 15:48:00,Survey Test,,100,0,True,2025-09-18 15:48:00,R_6y7FThqoT0XRt9s,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:00,2025-09-18 15:48:00,Survey Test,,100,0,True,2025-09-18 15:48:00,R_cIQ56AYwfArtiKi,,,,,,,test,,Yes,55-64 years old,Female,"Black or African American,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander,Other",Some high school or less,"Less than $25,000",Not working (retired),"Pellentesque scelerisque vel malesuada egestas arcu nec, commodo eu orci? Eleifend praesent.",Oʻahu,Full time Hawaiʻi resident,No,Recreation (general leisure hiking for enjoyment),,2.58,8.74,8.15,14,0.64,5.67,2.82,40,,,,,Alternative one,Alternative one,Alternative two,None of the option,,,,,,,,,,Alternative one,2,No,3,4,5,1,2,Daily pass,,On-site payment,,Strongly Agree,Other (Please enter answer in the box),"Sodales, sit duis est nullam ut tincidunt, sapien metus. Egestas facilisi molestie.",2,1,4,3,2,1,2,3,1,1-2 hours,411441273,Yes,Yes,Yes,Arcu dolorem sed eleifend per nullam platea duis? Gravida turpis. Phasellus.,,,,,
+2025-09-18 15:48:01,2025-09-18 15:48:01,Survey Test,,100,0,True,2025-09-18 15:48:01,R_4JhQZxGeiYnTsCG,,,,,,,test,,Yes,65+ years old,Female,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Other",High School diploma or GED,"$100,000 -$149,999",Working (paid employee),Vel egestas eget? Culpa. Nunc sodales odio nunc euismod in laoreet.,I do not live in Hawaiʻi,International tourist,No,Spending time with family / friends,,2.43,2.91,4.51,23,9.31,9.39,9.58,15,Alternative two,Alternative two,Alternative two,None of the option,,,,,,,,,,,,,None of the option,,2,Yes,2,1,4,3,5,Other (Please enter answer in the box),Etiam gravida. Primis magnis sagittis convallis vestibulum non tellus magnis nibh sit facilisi.,Other (Please enter answer in the box),"Luctus! Eu dui. Accusamus? Purus, dolorem ante, lacus viverra per etiam. Commodo.",Strongly Agree,"Both, but majority visitors",,5,2,5,1,3,2,2,1,3,1-2 hours,832951236,Yes,No,No,Fringilla nullam orci tempora commodo ac? Nonummy pharetra pharetra maecenas.,,,,,
+2025-09-18 15:48:01,2025-09-18 15:48:01,Survey Test,,100,0,True,2025-09-18 15:48:01,R_0f8rAbNiQ0NnMmq,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:01,2025-09-18 15:48:01,Survey Test,,100,0,True,2025-09-18 15:48:01,R_06f1uDNoE0BuiEK,,,,,,,test,,Yes,65+ years old,Male,"White or Caucasian,Black or African American,American Indian / Native American or Alaska Native,Asian,Other",Bachelor's degree,"$25,000 -$49,999",Not working (retired),Integer consequat. Non? Dictumst aliquet dictumst. Donec auctor montes placerat mi.,Kauaʻi,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,8.31,8.6,9.84,35,5.71,9.1,8.22,37,,,,,,,,,Alternative one,Alternative two,Alternative one,None of the option,,,,,,Alternative two,5,No,5,4,2,1,3,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, equally",,4,0,5,1,2,3,1,2,3,3-5 hours,910954650,No,Yes,No,Vestibulum primis. Commodo leo vehicula nibh! Nullam consectetuer non eget convallis tortor phasellus ab.,,,,,
+2025-09-18 15:48:02,2025-09-18 15:48:02,Survey Test,,100,0,True,2025-09-18 15:48:02,R_0vvnsxKKWzI1rWS,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:02,2025-09-18 15:48:02,Survey Test,,100,0,True,2025-09-18 15:48:02,R_9BmqbTIZLqBPDls,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:02,2025-09-18 15:48:02,Survey Test,,100,0,True,2025-09-18 15:48:02,R_cHoc5lC43jmiDfo,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:02,2025-09-18 15:48:02,Survey Test,,100,0,True,2025-09-18 15:48:02,R_23LSE9Yza1vShh4,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2025-09-18 15:48:02,2025-09-18 15:48:02,Survey Test,,100,0,True,2025-09-18 15:48:03,R_01Z9Baj5XwtOkYK,,,,,,,test,,Yes,18-24 years old,Male,"White or Caucasian,Black or African American,Asian,Native Hawaiian or Other Pacific Islander,Other","Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (other),Per pellentesque culpa wisi suscipit vel in ipsum platea sed? Nibh ultricies justo. Ullamcorper justo.,Big island (Hawaiʻi),Out-of-state visitor,Yes,I don't use trails,,5.31,5.49,8.33,39,4.82,6.36,9.69,21,,,,,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative one,Alternative one,,3,Yes,3,1,4,5,2,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, but majority visitors",,3,4,0,1,2,3,3,2,1,More than 6 hours,1397953276,Yes,Yes,No,"Euismod curabitur ligula, dolorem suspendisse pretium cursus purus laoreet cursus fermentum sollicitudin quis sollicitudin risus.",,,,,
+2025-09-18 15:48:03,2025-09-18 15:48:03,Survey Test,,100,0,True,2025-09-18 15:48:03,R_3t1Z0kfYuaq5wOO,,,,,,,test,,No,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
