@@ -2,7 +2,7 @@
 # 0 — User settings / file paths
 # ------------------------------
 # Edit this path if your Ngene export is in a different location
-ngene_file <- "~/Downloads/ALM Design - 44.xlsx"
+ngene_file <- "ALM Design - 44.xlsx"
 
 # ------------------------------
 # 0 — Libraries
@@ -31,7 +31,7 @@ design %<>%
                 as.numeric))
 
 # Rename the columns for clarity (makes later code more readable)
-design <- design %>%
+ design %<>%
   rename(
     block = Block,
     A1_habitat = alt1.forest_alt,
@@ -362,10 +362,56 @@ ggplot(design_long, aes(x = factor(crowd), y = cost)) +
   geom_boxplot(alpha = 0.2) +
   labs(x = "Crowd level", y = "Cost", title = "Cost distribution by Crowding (final design)")
 
+
 # ------------------------------
-# 9 — Export final layout (final)
+# 9 — Reshape to long format for merging purposes
 # ------------------------------
-write.csv(design, "Desktop/ngene.output_edited.csv",row.names = FALSE)
+# Reshape to long format
+design_long.merge <- design %>%
+  pivot_longer(
+    cols = starts_with("A"),
+    names_to = c("alt", "attribute"),
+    names_pattern = "A(\\d+)_(.*)",
+    values_to = "value"
+  ) %>%
+  pivot_wider(
+    id_cols = c(`Choice situation`, block, alt),
+    names_from = attribute,
+    values_from = value
+  ) %>%
+  rename(
+    Choice.Task = `Choice situation`,
+    Chosen.Alternative = alt,
+    Trail = trail,
+    Habitat = habitat,
+    Crowd = crowd,
+    Cost = cost
+  ) %>%
+  mutate(
+    Chosen.Alternative = as.integer(Chosen.Alternative)
+  )
+
+# Add None alternative (alt = 3)
+design_none <- design_long.merge%>%
+  distinct(Choice.Task, block) %>%
+  mutate(
+    Chosen.Alternative = 3,
+    Trail = 0,
+    Habitat = 0,
+    Crowd = 0,
+    Cost = 0
+  )
+
+# Combine and sort
+design_final<- bind_rows(design_long.merge, design_none) %>%
+  arrange(Choice.Task, Chosen.Alternative)
+
+
+# ------------------------------
+# 10 — Export final layout (final)
+# ------------------------------
+write.csv(design, "ngene.output_edited.csv",row.names = FALSE)
+write.csv(design_final, "Ngene_reshape_edited.csv", row.names = FALSE)
 
 
 # ------------------------------
