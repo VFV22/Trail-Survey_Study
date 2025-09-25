@@ -13,7 +13,7 @@ library(gt)         # produce table of results
 # ------------------------------
 # 1 — User settings / file paths
 # ------------------------------
-# Edit this path if your Ngene export is in a different location
+
 test_raw.data <- read_csv("Test Survey /0. Data/Trail Pilot - Forth draft - August 2025_September 18, 2025_16.01.csv")
 
 
@@ -34,20 +34,26 @@ test_raw.data %<>%
          -ExternalReference, -UserLanguage)
 
 test_raw.data %<>%
-  rename(Consent = QID1,
+  rename(
+        #RID
+        RID = ResponseId,
+        
+        #Consent 
+        Consent = QID1,
+        
          #Demographic 
-         Age=Q38,
-         Sex=Q6,
-         Etnicity=Q81,
-         Education=Q82,
-         HH.Income=Q84,
-         Employment=Q85,
-         ZIP = Q77, 
+         Demo_Age=Q38,
+         Demo_Sex=Q6,
+         Demo_Etnicity=Q81,
+         Demo_Education=Q82,
+         Demo_HH.Income=Q84,
+         Demo_Employment=Q85,
+         Demo_ZIP = Q77, 
          Hawaii_Island=Q10,
          Hawaii_Residence=Q13,
          Hawaii_Trail.Use=Q90,
-         Trail.Use_Reason=Q11,
-         Trail.Use_Reason.Text=Q11_10_TEXT,
+        Hawaii_Trail.Use_Reason=Q11,
+        Hawaii_Trail.Use_Reason.Text=Q11_10_TEXT,
          
          #CE Intro timer 
          Timer.I_First.Click=`Q55_First Click`,
@@ -133,41 +139,5 @@ test_raw.data %<>%
         Tourist = `ParticipatType= Tourist`
   )
         
-        
-Reshape.long <- pivot_longer(test_raw.data, starts_with("Choice.Task_"),
-                             names_to = "Choice.Task", 
-                             values_to = "Chosen.Alternative")
-        
-# Load design
-design_ngene <- read_csv("Ngene_reshape_modified.csv") 
-         
-         
-# Make sure Choice.Task is consistent in both
- 
-Reshape.long %<>%
-  mutate(Choice.Task = gsub("Choice.Task_", "", Choice.Task),   # remove the text
-         Choice.Task = as.numeric(Choice.Task))                 # convert to numeric    
-         
-# Make sure Chosen.Scenario is consistent in both
 
-Reshape.long <- Reshape.long %>%
-  mutate(
-    Chosen.Alternative = case_when(
-      Chosen.Alternative == "Alternative one"   ~ 1,
-      Chosen.Alternative == "Alternative two"   ~ 2,
-      Chosen.Alternative == "None of the option" ~ 3
-    )
-  )     
-
-#Join both data 
-merge.data <- Reshape.long %>%
-  left_join(design_ngene, by = c("Choice.Task" = "Choice.Task", "Chosen.Alternative" = "Chosen.Alternative"))
-
-
-         
-         
-         
-         
-         
-         
          

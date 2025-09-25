@@ -382,9 +382,9 @@ design_long.merge <- design %>%
   rename(
     Choice.Task = `Choice situation`,
     Chosen.Alternative = alt,
-    Trail = trail,
-    Habitat = habitat,
-    Crowd = crowd,
+    Trail_Condition = trail,
+    Habitat_Quality = habitat,
+    Crowding = crowd,
     Cost = cost
   ) %>%
   mutate(
@@ -396,9 +396,9 @@ design_none <- design_long.merge%>%
   distinct(Choice.Task, block) %>%
   mutate(
     Chosen.Alternative = 3,
-    Trail = 0,
-    Habitat = 0,
-    Crowd = 0,
+    Trail_Condition = 0,
+    Habitat_Quality  = 0,
+    Crowding = 0,
     Cost = 0
   )
 

@@ -1,4 +1,4 @@
-"Choice.Task","block","Chosen.Alternative","Habitat","Trail","Crowd","Cost"
+"Choice.Task","block","Chosen.Alternative","Habitat_Quality","Trail_Condition","Crowding","Cost"
 1,1,1,2,1,2,5
 1,1,2,3,3,3,2
 1,1,3,0,0,0,0
