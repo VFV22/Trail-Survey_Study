@@ -381,21 +381,21 @@ design_long.merge <- design %>%
   ) %>%
   rename(
     Choice.Task = `Choice situation`,
-    Chosen.Alternative = alt,
+    Alternative = alt,
     Trail_Condition = trail,
     Habitat_Quality = habitat,
     Crowding = crowd,
     Cost = cost
   ) %>%
   mutate(
-    Chosen.Alternative = as.integer(Chosen.Alternative)
+    Alternative = as.integer(Alternative)
   )
 
 # Add None alternative (alt = 3)
 design_none <- design_long.merge%>%
   distinct(Choice.Task, block) %>%
   mutate(
-    Chosen.Alternative = 3,
+    Alternative = 3,
     Trail_Condition = 0,
     Habitat_Quality  = 0,
     Crowding = 0,
@@ -404,7 +404,7 @@ design_none <- design_long.merge%>%
 
 # Combine and sort
 design_final<- bind_rows(design_long.merge, design_none) %>%
-  arrange(Choice.Task, Chosen.Alternative)
+  arrange(Choice.Task, Alternative)
 
 
 # ------------------------------

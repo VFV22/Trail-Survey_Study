@@ -22,9 +22,15 @@ source("Test Survey /1. Cleaning /Cleaning.R")
 #------------------------------------------------------:
 
 # Pivot longer 
-Reshape.long <- pivot_longer(test_raw.data, starts_with("Choice.Task_"),
+Reshape.long <- test_raw.data %>% 
+  pivot_longer(cols = starts_with("Choice.Task_"),
                              names_to = "Choice.Task", 
-                             values_to = "Chosen.Alternative")
+                             values_to = "Chosen.Alternative")%>%
+  slice(rep(1:n(), each = 3)) %>%  # Repeat rows for scenarios
+  mutate(Alternative = rep(1:3, length.out = n())) %>%  # Assign 1, 2, 3 for each scenario
+  ungroup()
+
+
 
 # Load experimental design from edited ngene 
 design_ngene <- read_csv("Ngene_reshape_edited.csv") 
@@ -51,21 +57,12 @@ Reshape.long <- Reshape.long %>%
 
 # Merge 
 
-merge.data <- merge(Reshape.long, design_ngene, by=c("Choice.Task" = "Choice.Task", "Chosen.Alternative" = "Chosen.Alternative"),
-            all.y=TRUE) # all.y=TRUE - keep all rows from the first (left) dataset.
-
-# Expand to include all 3 alternatives per respondent-task
-merge.data %<>%
-  mutate(Alternative = Chosen.Alternative) %>%   # create alt column
-  group_by(RID, Choice.Task) %>%
-  tidyr::complete(Alternative = 1:3) %>%
-  ungroup()
+merge.data <- merge(Reshape.long, design_ngene, by=c("Choice.Task" = "Choice.Task", "Alternative"= "Alternative"),all.y = TRUE) # all.y=TRUE - keep all rows from the first (left) dataset.
 
 
 # Create Independent variable Choice Binary 
 merge.data %<>%
-  mutate(Choice.Binary = coalesce(as.integer(Alternative == Chosen.Alternative), 0))
-
+  mutate(Choice.Binary = coalesce(as.integer(Chosen.Alternative == Alternative), 0))
 
 #------------------------------------------------------:
 # (3): Reorder Columns #####
@@ -168,6 +165,97 @@ merge.data %<>%
     )
   )
 
+
+#------------------------------------------------------:
+# (5): Sanity Check #####
+#------------------------------------------------------:       
+
+# Count how many times each alternative was chosen overall
+merge.data %>%
+  filter(Choice.Binary == 1) %>%
+  count(Alternative)
+
+# Check balance within each block (to make sure design isn’t skewed)
+merge.data %>%
+  filter(Choice.Binary == 1) %>%
+  count(block, Alternative)
+
+# Check balance per choice task 
+
+merge.data %>%
+  filter(Choice.Binary == 1) %>%
+  count(Choice.Task, Alternative) %>% 
+  mutate(pct = n / sum(n)*100)
+
+# Visualize balance across alternatives 
+merge.data %>%
+  filter(Choice.Binary == 1) %>%
+  count(Alternative) %>%
+  ggplot(aes(x = Alternative, y = n)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Balance check: Alternative choices",
+    x = "Alternative",
+    y = "Count of times chosen"
+  )
+
+# Visualize balance of attribute levels - Trail Condition 
+
+merge.data %>%
+  count(Alternative, Trail_Condition) %>%
+  group_by(Trail_Condition) %>%
+  summarise(total_shown = sum(n)) %>%
+  arrange(desc(Trail_Condition))
+
+merge.data %>%
+  count(Trail_Condition) %>%
+  ggplot(aes(x = Trail_Condition, y = n)) +
+  geom_col(fill = "skyblue") +
+  labs(title = "Shown counts per Trail.Condition")
+
+# Visualize balance of attribute levels - Crowding 
+
+merge.data %>%
+  count(Alternative, Crowding) %>%
+  group_by(Crowding) %>%
+  summarise(total_shown = sum(n)) %>%
+  arrange(desc(Crowding))
+
+
+merge.data %>%
+  count(Crowding) %>%
+  ggplot(aes(x = Crowding, y = n)) +
+  geom_col(fill = "skyblue") +
+  labs(title = "Shown counts per Crowding")
+
+
+# Visualize balance of attribute levels - Cost
+
+merge.data %>%
+  count(Alternative, Cost) %>%
+  group_by(Cost) %>%
+  summarise(total_shown = sum(n)) %>%
+  arrange(desc(Cost))
+
+merge.data %>%
+  count(Cost) %>%
+  ggplot(aes(x = Cost, y = n)) +
+  geom_col(fill = "skyblue") +
+  labs(title = "Shown counts per Cost")
+
+# Visualize balance of attribute levels - Habitat Q
+
+merge.data %>%
+  count(Alternative, Habitat_Quality) %>%
+  group_by(Habitat_Quality) %>%
+  summarise(total_shown = sum(n)) %>%
+  arrange(desc(Habitat_Quality))
+
+merge.data %>%
+  count(Habitat_Quality) %>%
+  ggplot(aes(x = Habitat_Quality, y = n)) +
+  geom_col(fill = "skyblue") +
+  labs(title = "Shown counts per Habitat Quality")
 
 
 
