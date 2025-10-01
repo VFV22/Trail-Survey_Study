@@ -64,6 +64,8 @@ merge.data <- merge(Reshape.long, design_ngene, by=c("Choice.Task" = "Choice.Tas
 merge.data %<>%
   mutate(Choice.Binary = coalesce(as.integer(Chosen.Alternative == Alternative), 0))
 
+
+
 #------------------------------------------------------:
 # (3): Reorder Columns #####
 #------------------------------------------------------:
