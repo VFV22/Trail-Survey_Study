@@ -53,12 +53,12 @@ mlogit_clean %<>%
 
 
 # Convert attributes to factors with proper baseline (e.g., Low)
-mlogit_clean %<>%
-  mutate(
-    Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
-    Trail_Condition = factor(Trail_Condition, levels = c( "Low", "Medium", "High")),
-    Crowding = factor(Crowding, levels = c( "Low", "Medium", "High"))
-  )
+# mlogit_clean %<>%
+#   mutate(
+#     Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
+#     Trail_Condition = factor(Trail_Condition, levels = c( "Low", "Medium", "High")),
+#     Crowding = factor(Crowding, levels = c( "Low", "Medium", "High"))
+#   )
 
 
 # Generate new variable for main attributes variables in numeric format
@@ -86,6 +86,7 @@ mlogit_clean %<>%
     
   )
 
+
 # ----------------------------------
 # 2 — Convert data to MNL format
 # ----------------------------------
@@ -106,8 +107,12 @@ mnl.data <- mlogit.data(
 # ----------------------------------
 
 # Run regression - MNL 
-mnl.model <- mlogit(Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-                    data = mnl.data)
+mnl.model <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
+  data = mnl.data,
+  reflevel = "3"
+)
+
 
 
 
@@ -115,31 +120,11 @@ mnl.model <- mlogit(Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + C
 # This is because we treat "None" as another level, leading to perfect collinearity 
 # Where the model couldn't distinguish between opt-out alternative and the "None" baseline.
 
-# # Clean up factor levels: remove "None" for alternatives 1 & 2
-# mnl.data <- mlogit_clean %>%
-#   mutate(
-#     Habitat_Quality   = ifelse(Alternative == "3", NA, as.character(Habitat_Quality)),
-#     Trail_Condition   = ifelse(Alternative == "3", NA, as.character(Trail_Condition)),
-#     Crowding          = ifelse(Alternative == "3", NA, as.character(Crowding))
-#   ) %>%
-#   mutate(
-#     Habitat_Quality   = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
-#     Trail_Condition   = factor(Trail_Condition, levels = c("Low", "Medium", "High")),
-#     Crowding          = factor(Crowding, levels = c("Low", "Medium", "High"))
-#   )
-
-# Remove "None" from factor attributes (since Alternative 3 already represents None)
-mlogit_clean %<>%
-  mutate(
-    Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
-    Trail_Condition = factor(Trail_Condition, levels = c("Low", "Medium", "High")),
-    Crowding        = factor(Crowding, levels = c("Low", "Medium", "High"))
-  )
 
 
 
 # ----------------------------------
-# 3 — Run regressions - Logit  
+# 4 — Run regressions - Logit and conditional logit
 # ----------------------------------
 
 # Run regression - Logit
