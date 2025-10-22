@@ -55,6 +55,7 @@ Reshape.long <- Reshape.long %>%
   )     
 
 
+#homme testing lab survey 
 # Merge 
 
 merge.data <- merge(Reshape.long, design_ngene, by=c("Choice.Task" = "Choice.Task", "Alternative"= "Alternative"),all.y = TRUE) # all.y=TRUE - keep all rows from the first (left) dataset.
