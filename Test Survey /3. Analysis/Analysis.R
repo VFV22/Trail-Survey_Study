@@ -85,7 +85,12 @@ mlogit_clean %<>%
     )
     
   )
-
+mlogit_clean %<>%
+  mutate(
+    Habitat_Quality = factor(Habitat_Quality, levels = c("None", "Low", "Medium", "High")),
+    Trail_Condition = factor(Trail_Condition, levels = c("None", "Low", "Medium", "High")),
+    Crowding        = factor(Crowding, levels = c("None", "Low", "Medium", "High"))
+  )
 
 # ----------------------------------
 # 2 — Convert data to MNL format
@@ -114,25 +119,152 @@ mnl.model <- mlogit(
 )
 
 
+table(mlogit_clean$Alternative, mlogit_clean$Habitat_Quality)
+table(mlogit_clean$Alternative, mlogit_clean$Trail_Condition)
+table(mlogit_clean$Alternative, mlogit_clean$Crowding)
+
+mnl.model <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding | 0,
+  data = mnl.data,
+  reflevel = "3"
+)
+
+table(mlogit_clean$Alternative, mlogit_clean$Habitat_Quality)
+
+
+mlogit_clean %<>%
+  mutate(
+    Alternative = factor(Alternative, levels = c("1", "2", "3")),
+    Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
+    Trail_Condition = factor(Trail_Condition, levels = c("Low", "Medium", "High")),
+    Crowding = factor(Crowding, levels = c("Low", "Medium", "High"))
+  )
+
+
+mlogit_clean <- mlogit_clean %>%
+  mutate(
+    Alternative = factor(Alternative, levels = c("3", "1", "2"))  # put 3 first
+  )
+
+mnl.data <- mlogit.data(
+  mlogit_clean,
+  choice   = "Choice.Binary",
+  shape    = "long",
+  chid.var = "ChoiceSetID",   # now globally unique
+  alt.var  = "Alternative",
+  id.var   = "RID", 
+)
+
+mnl.model <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
+  data = mnl.data
+)
+
+mlogit_clean <- mlogit_clean %>%
+  mutate(Alternative = factor(as.character(Alternative), levels = c("1", "2", "3")))
+
+mnl.data <- mlogit.data(
+  mlogit_clean,
+  choice   = "Choice.Binary",
+  shape    = "long",
+  chid.var = "ChoiceSetID",
+  alt.var  = "Alternative",
+  id.var   = "RID"
+)
+
+levels(index(mnl.data)$alt)
+
+mnl.model <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
+  data = mnl.data,
+  reflevel = "3"
+)
+
+mlogit_clean %>%
+  filter(Alternative == "3") %>%
+  glimpse()
+
+mlogit_clean <- mlogit_clean %>%
+  mutate(
+    Habitat_Quality = ifelse(Alternative == "3", "Low", Habitat_Quality),
+    Trail_Condition = ifelse(Alternative == "3", "Low", Trail_Condition),
+    Crowding        = ifelse(Alternative == "3", "High", Crowding), # choose any consistent placeholder
+    Cost            = ifelse(Alternative == "3", 0, Cost)
+  )
+
+mnl.data <- mlogit.data(
+  mlogit_clean,
+  choice   = "Choice.Binary",
+  shape    = "long",
+  chid.var = "ChoiceSetID",
+  alt.var  = "Alternative",
+  id.var   = "RID"
+)
+
+mnl.model <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
+  data = mnl.data,
+  reflevel = "3"
+)
+
+mlogit_clean %>%
+  group_by(Alternative) %>%
+  summarise(
+    n = n(),
+    unique_Habitat = n_distinct(Habitat_Quality),
+    unique_Trail   = n_distinct(Trail_Condition),
+    unique_Crowd   = n_distinct(Crowding),
+    unique_Cost    = n_distinct(Cost)
+  )
+
+mnl.model1 <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality,
+  data = mnl.data,
+  reflevel = "3"
+)
+
+summary(mnl.model1)
+
+contrasts(mlogit_clean$Habitat_Quality)
+contrasts(mlogit_clean$Crowding)
+
+mlogit_clean <- mlogit_clean %>%
+  mutate(
+    Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
+    Trail_Condition = factor(Trail_Condition, levels = c("Low", "Medium", "High")),
+    Crowding        = factor(Crowding, levels = c("Low", "Medium", "High"))
+  )
+
+# Make sure they use treatment contrasts (dummy coding)
+options(contrasts = c("contr.treatment", "contr.poly"))
+
+mnl.data <- mlogit.data(
+  mlogit_clean,
+  choice   = "Choice.Binary",
+  shape    = "long",
+  chid.var = "ChoiceSetID",
+  alt.var  = "Alternative",
+  id.var   = "RID"
+)
+
+mnl.model <- mlogit(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
+  data = mnl.data,
+  reflevel = "3"
+)
+
+mlogit_clean$Habitat_Quality <- relevel(factor(mlogit_clean$Habitat_Quality,
+                                               levels = c("Low", "Medium", "High")), ref = "Low")
+mlogit_clean$Trail_Condition <- relevel(factor(mlogit_clean$Trail_Condition,
+                                               levels = c("Low", "Medium", "High")), ref = "Low")
+mlogit_clean$Crowding <- relevel(factor(mlogit_clean$Crowding,
+                                        levels = c("Low", "Medium", "High")), ref = "Low")
+
 
 
 # Not working with attribute levels as factors 
 # This is because we treat "None" as another level, leading to perfect collinearity 
 # Where the model couldn't distinguish between opt-out alternative and the "None" baseline.
-
-
-
-
-# ----------------------------------
-# 4 — Run regressions - Logit and conditional logit
-# ----------------------------------
-
-# Run regression - Logit
-logit.model <- glm (Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-                    data=mnl.data,
-                    family = binomial(link="logit"))
-
-summary(logit.model)
 
 
 
