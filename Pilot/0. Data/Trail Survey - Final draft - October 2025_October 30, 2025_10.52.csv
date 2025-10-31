@@ -1,0 +1,921 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,QID1,Q1,Q101,Q38,Q6,Q81,Q82,Q84,Q85,US Zip Code,Q10,Q102,Q13,Q90,Q11,Q11_10_TEXT,Q103,Q55_First Click,Q55_Last Click,Q55_Page Submit,Q55_Click Count,Q92_First Click,Q92_Last Click,Q92_Page Submit,Q92_Click Count,Q79,Q60,Q61,Q62,Q67,Q66,Q65,Q63,Q72,Q70,Q69,Q68,Q76,Q75,Q74,Q73,Q64,Q59,Q48_1,Q21,Q22_1,Q22_2,Q22_3,Q22_4,Q22_5,Q95,Q95_7_TEXT,Q96,Q96_7_TEXT,Q19,Q23,Q23_6_TEXT,Q24_1,Q25_1,Q26_1,Q27_2,Q27_3,Q27_4,Q56_2,Q56_3,Q56_4,Q34,Q35,Q33,Q86,Q97,rid,ZipV,gc,timeStampOfOnLoad_QID6,Zipverified,ParticipationType1,ParticipationType2,Create New Field or Choose From Dropdown...,timeStampOfOnLoad_QID32
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,"University of Hawaiʻi Manoa
+
+Consent to Participate in a Research Project
+
+ 
+
+
+
+Project title: Trail Management in Hawaiʻi
+
+ 
+
+Aloha! You are being asked to take part in a research study that will determine your preferences for outdoor recreation as part of an investigation conducted by the University of Hawaiʻi - Mānoa. You are eligible for this study if you are resident in Hawaiʻi, or have been a visitor to Hawaiʻi, and you are at least 18 years old.
+
+ 
+
+Objectives: The goal of this research is to understand how people make choices about hiking trails in Hawai‘i. We are interested in how different trail features, such as habitat quality, trail condition, crowding, and cost, affect these choices. The information collected will be used to better understand trail use and management preferences.
+
+ 
+
+Project Description – Activities and Time Commitment: If you decide to take part in this project, you will be asked to fill out a survey. The survey questions are mainly multiple choice. However, there will be a few questions where you may add an open-ended response. Completing the survey will take between 10 and 12 minutes. We expect around 800 people will take part in this project.
+
+ 
+
+Benefits and Risks: There will be no direct benefit to you for taking part in this project. We hope that the results of this study will lead to a better understanding of the economic impact of environmental changes and we are hopeful that the results will be used to inform future environmental policy in Hawaiʻi. There is little risk to you for participating in this project. 
+
+ 
+
+Confidentiality and Privacy: The study collects no personal identifying information - you will remain anonymous. The records from this study are kept private and only UH researchers will have access to them. Please do not include any personal information in your survey responses. 
+
+ 
+
+Voluntary Participation: You can freely choose to take part or to not take part in this survey. There will be no penalty or loss of benefits for either decision. If you do agree to participate, you can stop at any time. 
+
+ 
+
+Questions: If you have any questions about this study, please call or email me Kirsten Oleson at 808-956-8864 or koleson@hawaii.edu. You may contact the UH Human Studies Program at  808-956-5007 or uhirb@hawaii.edu to discuss problems, concerns and  questions; obtain information; or offer input with an informed individual who is unaffiliated with the specific research protocol. Please visit https://www,hawaii.edu/researchcompliance/ information-research-participants for more information on your rights as a research participant. Please print a copy of this page for your reference. 
+
+ 
+
+Do you agree in taking part to this survey? (Clicking ""YES"" implies your consent to take the survey)","50 States, D.C. and Puerto Rico",Have you visisted Hawaiʻi within the past 3 years?,How old are you?,What is your sex?,Choose one or more races that you consider yourself to be,What is the highest level of education you have completed?,What was your total household income before taxes during the past 12 months?,Which statement best describes your current employment status?,What is your US Zip Code?,On which Hawaiian island do you live?,On which Hawaiian island did you visit?,What is your residency status in Hawaiʻi?,Have you ever used the hiking trails in Hawai‘i?,What is your primary reason for using trails? - Selected Choice,What is your primary reason for using trails? - Other (Please enter answer in the box) - Text,How many times do you use trails in a typical month? Please enter a number.,Timing - First Click,Timing - Last Click,Timing - Page Submit,Timing - Click Count,Timing - First Click,Timing - Last Click,Timing - Page Submit,Timing - Click Count,"Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+			
+
+				75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+		
+		
+			Crowding
+			
+
+			5 - 15 people encounter per hour
+			
+
+			0 - 5 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$5
+			$2","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			5 - 15 people encounter per hour
+			
+
+			0 - 5 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$20
+			$5","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+		
+		
+			Habitat Quality 
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			5 - 15 people encounter per hour
+			
+
+			Over 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$10
+			$40","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+		
+		
+			Habitat Quality 
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			Over 15 people encounter per hour
+			
+
+			0 - 5 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$2
+			$10","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+		
+		
+			Habitat Quality 
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			5 - 15 people encounter per hour
+			
+
+			Over 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$5
+			$20","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			0 - 5 people encounter per hour
+			
+
+			5 - 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$40
+			$20","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+		
+		
+			Habitat Quality 
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			Over 15 people encounter per hour
+			
+
+			0 - 5 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$2
+			$10","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+		
+		
+			Crowding
+			
+
+			0 - 5 people encounter per hour
+			
+
+			Over 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$40
+			$10","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+		
+		
+			Crowding
+			
+
+			0 - 5 people encounter per hour
+			
+
+			Over 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$40
+			$20","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+		
+		
+			Habitat Quality 
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			0 - 5 people encounter per hour
+			
+
+			Over 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$2
+			$5","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+		
+		
+			Habitat Quality 
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			5 - 15 people encounter per hour
+			
+
+			5 - 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$5
+			$10","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the option.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			Over 15 people encounter per hour
+			
+
+			5 - 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$10
+			$2","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+		
+		
+			Habitat Quality 
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			5 - 15 people encounter per hour
+			
+
+			0 - 5 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$40
+			$20","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+		
+		
+			Habitat Quality 
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			Over 15 people encounter per hour
+			
+
+			0 - 5 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$10
+			$5","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			75 % + maintained (Well-kept surface and infrastructure; minimal wear or safety issues)
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+		
+		
+			Habitat Quality 
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+			
+
+			High chance of seeing diverse native species; native plants dominate most areas along the trail
+		
+		
+			Crowding
+			
+
+			Over 15 people encounter per hour
+			
+
+			5 - 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$20
+			$40","Please review the two trail alternatives below and choose the one you prefer. 
+
+If neither option appeals to you, you can select “None of the options.”
+
+ 
+
+	
+		
+			 
+			Alternative one
+			Alternative two
+		
+		
+			Trail Condition
+			
+
+			25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+			
+
+			50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+		
+		
+			Habitat Quality 
+			
+
+			Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+			
+
+			Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+		
+		
+			Crowding
+			
+
+			0 - 5 people encounter per hour
+			
+
+			5 - 15 people encounter per hour
+		
+		
+			Additional Cost per Trip
+			$2
+			$5","This next question will look a little different from the previous ones; there is  no cost included. Simply choose the management option you prefer overall.
+ 
+
+
+	
+		
+			Alternative one
+			Alternative two
+		
+		
+			
+			
+				25% maintained (Minimum standard of maintenance; many areas show wear, erosion, or broken infrastructure)
+				 Very low chance of seeing native species; mostly non-native or invasive plants along the trail
+				Over 15 people encounter per hours
+			
+			
+			
+			
+				50% maintained (Moderate maintenance; some areas show deterioration or infrastructure issues)
+				Moderate chance of seeing native species; a mix of native, non-native, and invasive plants along the trail
+				5 - 15 people encounter per hour","Trail Condition Choice Experiment
+    
+
+
+
+   This next question will look a little different from the previous ones; there is  no cost included. Simply choose the management option you prefer overall.
+
+ 
+    
+        
+         		Alternative one
+			Alternative two","Thinking about all the choices you just made about trail management preferences, how certain are you about your decisions?
+
+Please use the slider below, where 0 = Not certain at all  and 10 = Very certain. - 1","Would you be willing to pay a user fee to support trail management efforts? (e.g.,  restoring trail condition, improving habitat quality, and crowd control)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails with waterfalls or unique natural features","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails with high levels of tourist activity (e.g., popular or heavily visited sites)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails requiring substantial maintenance costs (e.g., erosion-prone areas, frequent storm damage)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails located in ecologically sensitive areas (e.g., native habitats, endangered species zones)","If user fees were implemented, please rank the trail types below from the one you would MOST prefer to have fees, to the one you would LEAST prefer to have fees.
+
+
+
+Drag to rank from most preferred (top) to least preferred (bottom). - Trails offering additional amenities (e.g., parking, restrooms)","If user fees were implemented, which payment type would you prefer? - Selected Choice","If user fees were implemented, which payment type would you prefer? - Other (Please enter answer in the box) - Text","If user fees were implemented, which payment method would you prefer? - Selected Choice","If user fees were implemented, which payment method would you prefer? - Other (Please enter answer in the box) - Text","To ensure quality responses, please select 'Agree' for this question.","In Hawai‘i, trails require regular maintenance to remain safe, accessible, and ecologically healthy. Many trails are used by both residents and visitors, which increases the need for ongoing upkeep.
+Currently, most trail funding comes from the state, meaning residents already contribute through taxes, but visitors also benefit from using these public trails.
+
+Who do you think should bear the majority of the cost for trail management? - Selected Choice","In Hawai‘i, trails require regular maintenance to remain safe, accessible, and ecologically healthy. Many trails are used by both residents and visitors, which increases the need for ongoing upkeep.
+Currently, most trail funding comes from the state, meaning residents already contribute through taxes, but visitors also benefit from using these public trails.
+
+Who do you think should bear the majority of the cost for trail management? - Other (Please enter answer in the box) - Text","In the future, some trails in Hawai‘i may require a user fee to help fund improvements, such as better maintenance, habitat restoration, or crowding management. The specific improvements may vary by trail.
+
+
+
+How likely are you to use trails that require a user fee?
+
+
+
+Please use the slider below, where 0 = very unlikely and 10 = very likely. - 1","Imagine 10 people you know—friends, family, coworkers. If you had to guess, how many of them would be willing to use trails that require a user fee? - 1","Imagine 10 people you know—friends, family, or coworkers. If you had to guess, how many of them think that people should pay a user fee to use trails? - 1","Please rank the following trail improvements based on how confident they would make you feel that your contribution (via user fees) is making a meaningful difference.
+
+Drag to rank from MOST confident (top) to LEAST confident (bottom). - Improve habitat quality","Please rank the following trail improvements based on how confident they would make you feel that your contribution (via user fees) is making a meaningful difference.
+
+Drag to rank from MOST confident (top) to LEAST confident (bottom). - Enhance trail maintenance and condition","Please rank the following trail improvements based on how confident they would make you feel that your contribution (via user fees) is making a meaningful difference.
+
+Drag to rank from MOST confident (top) to LEAST confident (bottom). - Reduce overcrowding","If most trail users choose to pay usage fees, which of the following improvements do you think would be the MOST and LEAST effectively addressed?
+
+Drag to rank from most effectively addressed (top) to least effectively addressed (bottom). - Improve habitat quality","If most trail users choose to pay usage fees, which of the following improvements do you think would be the MOST and LEAST effectively addressed?
+
+Drag to rank from most effectively addressed (top) to least effectively addressed (bottom). - Enhance trail maintenance and condition","If most trail users choose to pay usage fees, which of the following improvements do you think would be the MOST and LEAST effectively addressed?
+
+Drag to rank from most effectively addressed (top) to least effectively addressed (bottom). - Reduce overcrowding","If given the opportunity, how many hours would you be willing to volunteer as a one-time contribution to support trail management improvements (e.g., restoring trail conditions, enhancing signage, or addressing invasive species)?","Let’s set aside your previous choices about trail management for a moment. If part of the user fee was used to support and equip community volunteers (e.g., tools, supplies, safety gear), how much would you be willing to pay each time you use a trail? Please answer in U.S. dollars.","In the past 12 months, have you paid a fee to access a natural area (e.g., park entrance fee, trail permit)?","Are you currently a member of an environmental group / do you participate in environmental activities (e.g., volunteer for clean-up events, involve in public meetings on management of natural areas)?","The survey is over. Thank you for taking the time. If you have any question or comments, please enter below.
+
+
+
+If not, click the blue arrow on the bottom right to submit.",rid,ZipV,gc,timeStampOfOnLoad_QID6,Zipverified,ParticipationType1,ParticipationType2,Create New Field or Choose From Dropdown...,timeStampOfOnLoad_QID32
+"{""ImportId"":""startDate"",""timeZone"":""Pacific/Honolulu""}","{""ImportId"":""endDate"",""timeZone"":""Pacific/Honolulu""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""Pacific/Honolulu""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID1""}","{""ImportId"":""QID1219340515""}","{""ImportId"":""QID101""}","{""ImportId"":""QID38""}","{""ImportId"":""QID3""}","{""ImportId"":""QID81""}","{""ImportId"":""QID82""}","{""ImportId"":""QID84""}","{""ImportId"":""QID85""}","{""ImportId"":""QID98_TEXT""}","{""ImportId"":""QID10""}","{""ImportId"":""QID102""}","{""ImportId"":""QID13""}","{""ImportId"":""QID90""}","{""ImportId"":""QID11""}","{""ImportId"":""QID11_10_TEXT""}","{""ImportId"":""QID103_TEXT""}","{""ImportId"":""QID55_FIRST_CLICK""}","{""ImportId"":""QID55_LAST_CLICK""}","{""ImportId"":""QID55_PAGE_SUBMIT""}","{""ImportId"":""QID55_CLICK_COUNT""}","{""ImportId"":""QID92_FIRST_CLICK""}","{""ImportId"":""QID92_LAST_CLICK""}","{""ImportId"":""QID92_PAGE_SUBMIT""}","{""ImportId"":""QID92_CLICK_COUNT""}","{""ImportId"":""QID79""}","{""ImportId"":""QID60""}","{""ImportId"":""QID61""}","{""ImportId"":""QID62""}","{""ImportId"":""QID67""}","{""ImportId"":""QID66""}","{""ImportId"":""QID65""}","{""ImportId"":""QID63""}","{""ImportId"":""QID72""}","{""ImportId"":""QID70""}","{""ImportId"":""QID69""}","{""ImportId"":""QID68""}","{""ImportId"":""QID76""}","{""ImportId"":""QID75""}","{""ImportId"":""QID74""}","{""ImportId"":""QID73""}","{""ImportId"":""QID64""}","{""ImportId"":""QID59""}","{""ImportId"":""QID48_1""}","{""ImportId"":""QID21""}","{""ImportId"":""QID22_1""}","{""ImportId"":""QID22_2""}","{""ImportId"":""QID22_3""}","{""ImportId"":""QID22_4""}","{""ImportId"":""QID22_5""}","{""ImportId"":""QID95""}","{""ImportId"":""QID95_7_TEXT""}","{""ImportId"":""QID96""}","{""ImportId"":""QID96_7_TEXT""}","{""ImportId"":""QID19""}","{""ImportId"":""QID23""}","{""ImportId"":""QID23_6_TEXT""}","{""ImportId"":""QID24_1""}","{""ImportId"":""QID25_1""}","{""ImportId"":""QID26_1""}","{""ImportId"":""QID27_1""}","{""ImportId"":""QID27_2""}","{""ImportId"":""QID27_3""}","{""ImportId"":""QID56_1""}","{""ImportId"":""QID56_2""}","{""ImportId"":""QID56_3""}","{""ImportId"":""QID34""}","{""ImportId"":""QID35_TEXT""}","{""ImportId"":""QID33""}","{""ImportId"":""QID86""}","{""ImportId"":""QID97_TEXT""}","{""ImportId"":""rid""}","{""ImportId"":""ZipV""}","{""ImportId"":""gc""}","{""ImportId"":""timeStampOfOnLoad_QID6""}","{""ImportId"":""Zipverified""}","{""ImportId"":""ParticipationType1""}","{""ImportId"":""ParticipationType2""}","{""ImportId"":""Create New Field or Choose From Dropdown...""}","{""ImportId"":""timeStampOfOnLoad_QID32""}"
+2025-10-09 06:12:14,2025-10-09 06:15:59,Survey Preview,,100,225,True,2025-10-09 06:15:59,R_4VIb9g8wOW61Nlv,,,,,28.6327,77.2198,preview,EN,Yes,Hawaii,,25-34 years old,Male,White or Caucasian,Bachelor's degree,"$75,000 -$99,999",Working (paid employee),94701,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,4,0,0,43.861,0,3.079,12.41,23.03,10,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,,,,,Alternative one,7,No,3,4,1,5,2,Per-entry fee,,On-site payment,,Agree,Only Visitors,,7,5,6,1,2,3,1,2,3,3-5 hours,50,Yes,Yes,,,,1,2025-10-09T16:13:17.954Z,0,Tourism,Residents,,2025-10-09T16:16:43.359Z
+2025-10-21 13:27:50,2025-10-21 13:36:52,Survey Preview,,100,542,True,2025-10-21 13:36:53,R_924NwTjf9Iz3oen,,,,,21.3133,-157.823,preview,EN,Yes,Hawaii,,25-34 years old,Male,Asian,"Some college, but no degree","Less than $25,000",Working (self-employee),96848,Lānaʻi or Molokaʻi,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,2,16.395,16.395,37.398,1,0,0,20.38,0,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative two,6,Yes,4,3,5,1,2,Per-entry fee,,Online pre-payment,,Agree,"Both, but majority visitors",,7,3,5,2,1,3,2,1,3,1-2 hours,3,Yes,No,,,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-21T23:29:53.092Z,0,Tourism,Residents,,2025-10-21T23:36:28.489Z
+2025-10-21 13:47:23,2025-10-21 13:57:09,IP Address,128.171.125.124,100,586,True,2025-10-21 13:57:10,R_5HCjn75Rt4ock7L,,,,,21.3133,-157.823,anonymous,EN,Yes,Georgia,Yes,25-34 years old,Male,Asian,Bachelor's degree,"$25,000 -$49,999",Working (self-employee),52003,,Māui,,Yes,Collecting plants for cultural purposes,,2,8.935,8.935,46.102,1,38.985,38.985,90.885,1,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,Alternative two,9,Yes,4,1,5,3,2,Voluntary donation,,On-site payment,,Agree,"Both, but majority visitors",,6,3,4,2,1,3,2,1,3,1-2 hours,2,No,Yes,,,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-21T23:47:51.952Z,0,Tourism,Residents,,2025-10-21T23:56:44.064Z
+2025-10-27 11:45:37,2025-10-27 11:50:51,Survey Preview,,100,314,True,2025-10-27 11:50:52,R_52DqMBcDkLomqQT,,,,,21.324,-157.8102,preview,EN,Yes,Delaware,Yes,45-54 years old,Male,White or Caucasian,High School diploma or GED,"$50,000 -$74,999",Working (self-employee),52003,,Māui,,Yes,Cultural connection,,3,0,0,36.593,0,0,0,36.827,0,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,,,,Alternative two,,7,Yes,4,3,1,2,5,Annual pass,,On-site payment,,Agree,"Both, but majority residents",,4,3,6,2,1,3,2,1,3,1-2 hours,2,Yes,No,,,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-27T21:45:54.397Z,0,Tourism,Residents,,2025-10-27T21:50:43.017Z
+2025-10-28 08:04:16,2025-10-28 08:15:18,IP Address,128.171.125.238,100,662,True,2025-10-28 08:15:19,R_1gRsyYyVz4f1fq3,,,,,21.3133,-157.823,anonymous,EN,Yes,Hawaii,,45-54 years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),96734,Oʻahu,,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,1,0,0,37.13,0,31.824,33.032,45.331,2,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,Alternative two,,8,Yes,5,1,2,4,3,5,,Mobile payment (QR code on-site),,Agree,"Both, but majority residents",,9,4,4,3,1,2,3,1,2,3-5 hours,5,Yes,Yes,"this was Kirstenʻs test
+",,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-28T18:05:16.445Z,1,Tourism,Residents,,2025-10-28T18:15:01.629Z
+2025-10-28 15:02:50,2025-10-28 15:21:12,IP Address,72.130.222.41,100,1101,True,2025-10-28 15:21:12,R_3KVYbjvnEshPdTR,,,,,21.2891,-157.8028,anonymous,EN,Yes,Hawaii,,35-44 years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Working (paid employee),96816,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,0,0,63.561,0,0,0,78.597,0,,,,,Alternative one,None of the options,Alternative one,Alternative two,,,,,,,,,,Alternative two,8,Yes,1,5,2,3,4,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,3,3,1,3,2,1,1,2,3,1-2 hours,4,No,Yes,,,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-29T01:03:23.121Z,1,Tourism,Residents,,2025-10-29T01:20:08.400Z
+2025-10-29 12:55:58,2025-10-29 13:22:23,IP Address,68.173.150.144,100,1585,True,2025-10-29 13:22:24,R_6fiEYlpTSMp2pzP,,,,,40.7359,-73.9904,anonymous,EN,Yes,New York,Yes,25-34 years old,Male,White or Caucasian,Bachelor's degree,"$50,000 -$74,999",Working (paid employee),10013,,"Lānaʻi or Molokaʻi,Big island (Hawaiʻi)",,Yes,Collecting plants for cultural purposes,,5,5.446,5.446,663.318,1,0,0,42.741,0,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative one,,,,,Alternative one,,10,Yes,2,4,1,3,5,Per-entry fee,,Online pre-payment,,Agree,"Both, equally",,8,7,7,3,1,2,2,1,3,3-5 hours,5,Yes,Yes,,69029b77-5dc5-2bc6-b801-a96384821562,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-29T23:05:10.274Z,0,Tourism,Residents,,2025-10-29T23:22:15.580Z
+2025-10-29 14:35:30,2025-10-29 14:40:31,IP Address,24.208.179.158,100,300,True,2025-10-29 14:40:31,R_7vlivqa27MU5Y2a,,,,,39.9275,-82.0032,anonymous,EN,Yes,Ohio,Yes,25-34 years old,Female,White or Caucasian,Associates or technical degree,"$50,000 -$74,999",Working (paid employee),43701,,Māui,,No,,,,0.814,30.066,35.894,2,0,0,17.031,0,Alternative one,Alternative two,Alternative two,Alternative one,,,,,,,,,,,,,Alternative one,,10,Yes,1,5,3,2,4,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, equally",,9,8,9,2,3,1,3,2,1,More than 6 hours,8,Yes,Yes,"None ",6902b2ce-f220-fba9-06de-24dbfa8f1706,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T00:35:42.703Z,0,Tourism,Residents,,2025-10-30T00:40:24.052Z
+2025-10-29 14:36:25,2025-10-29 14:40:41,IP Address,98.46.118.160,100,255,True,2025-10-29 14:40:42,R_1FLjoNnWCAYSC5Q,,,,,44.9618,-93.2638,anonymous,EN,Yes,Tennessee,Yes,25-34 years old,Female,White or Caucasian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),37067,,Māui,,Yes,Exercise,,3,0.789,36.361,37.101,8,0.413,11.787,16.021,8,,,,,,,,,,,,,Alternative one,Alternative two,Alternative two,Alternative one,,Alternative one,10,Yes,3,2,5,4,1,Annual pass,,Online pre-payment,,Agree,"Both, but majority residents",,10,10,10,1,3,2,2,3,1,1-2 hours,20,Yes,Yes,"Love it ",6902b303-61d6-a3c5-7c4f-fc8458d579e6,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T00:36:47.786Z,0,Tourism,Residents,,2025-10-30T00:40:30.557Z
+2025-10-29 14:33:45,2025-10-29 14:46:51,IP Address,174.216.208.233,100,785,True,2025-10-29 14:46:52,R_1PU1MsIH6A43Qot,,,,,40.6955,-73.9667,anonymous,EN,Yes,New York,Yes,45-54 years old,Female,Black or African American,High School diploma or GED,"Less than $25,000",Not working (temporary layoff from a job),11229,,Lānaʻi or Molokaʻi,,No,,,,6.657,6.657,40.732,1,1.744,3.725,15.483,2,None of the options,None of the options,None of the options,None of the options,,,,,,,,,,,,,,None of the option,4,No,3,2,4,5,1,Daily pass,,On-site payment,,Agree,Only Residents,,8,8,6,1,2,3,2,1,3,None,4,No,No,,6902b263-d0fb-9780-ed84-ed814e8bb707,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T00:37:26.847Z,0,Tourism,Residents,,2025-10-30T00:46:12.837Z
+2025-10-29 14:28:43,2025-10-29 14:54:40,IP Address,,100,1557,True,2025-10-29 14:54:41,R_5gpCs0jsQVKF5J3,,,,,,,anonymous,EN,Yes,New York,Yes,35-44 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),11727,,Big island (Hawaiʻi),,Yes,Photography,,5,0,0,52.592,0,30.977,45.08,89.954,9,,,,,Alternative one,Alternative two,Alternative two,Alternative one,,,,,,,,,,None of the option,10,Yes,2,4,5,1,3,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, but majority residents",,10,10,10,1,2,3,2,1,3,More than 6 hours,100,Yes,Yes,this survy is nice,6902b137-edb9-84bd-06ed-0dca8329bec6,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T00:29:22.117Z,0,Tourism,Residents,,2025-10-30T00:52:41.836Z
+2025-10-29 14:49:04,2025-10-29 14:57:13,IP Address,97.131.249.199,100,488,True,2025-10-29 14:57:14,R_7lFGMNnZcdfL5c9,,,,,36.1515,-86.792,anonymous,EN,Yes,Tennessee,Yes,Under 18,Female,Black or African American,Associates or technical degree,"$50,000 -$74,999",Not working (looking for work),10022,,Big island (Hawaiʻi),,No,,,,2.85,32.854,35.674,3,2.715,12.499,15.95,5,,,,,,,,,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,Alternative two,0,No,5,3,4,1,2,Voluntary donation,,On-site payment,,Agree,"Both, equally",,5,0,0,1,3,2,1,2,3,None,3,No,No,,6902b5fb-2e0f-6105-31e8-99b81c6d9892,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T00:50:00.923Z,0,Tourism,Residents,,2025-10-30T00:56:57.973Z
+2025-10-29 15:26:00,2025-10-29 15:41:25,IP Address,98.151.1.151,100,924,True,2025-10-29 15:41:25,R_6dj58mwHt7IfJYJ,,,,,21.3908,-157.9332,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Asian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (retired),96701,Oʻahu,,Full time Hawaiʻi resident,Yes,Exercise,,1,0,0,42.963,0,20.958,26.075,35.299,5,,,,,Alternative one,Alternative two,Alternative one,None of the options,,,,,,,,,Alternative two,,7,Yes,4,5,2,1,3,Voluntary donation,,On-site payment,,Agree,"Both, but majority visitors",,5,3,0,2,1,3,2,1,3,1-2 hours,5,No,No,,6902bea2-1a86-91ea-619d-e1e3b1de24a3,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T01:26:50.002Z,1,Tourism,Residents,,2025-10-30T01:41:05.443Z
+2025-10-29 15:36:48,2025-10-29 15:42:43,IP Address,,100,354,True,2025-10-29 15:42:44,R_7PieAoIHyuuv113,,,,,,,anonymous,EN,Yes,Minnesota,Yes,35-44 years old,Female,Other,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Not working (other),55797,,Kauaʻi,,No,,,,2.17,31.224,35.657,13,2.81,38.965,44.61,24,,,,,,,,,,,,,None of the options,None of the options,Alternative one,Alternative one,,None of the option,3,Yes,5,2,4,3,1,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority residents",,5,5,5,1,2,3,1,2,3,More than 6 hours,2000,No,No,,6902c12a-c73d-dd82-8f7a-c23f9051680c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T01:37:10.604Z,0,Tourism,Residents,,2025-10-30T01:42:31.200Z
+2025-10-29 15:48:19,2025-10-29 15:53:41,IP Address,172.249.229.106,100,322,True,2025-10-29 15:53:42,R_6fAOSzEy6h35Ll2,,,,,33.8737,-118.236,anonymous,EN,Yes,California,Yes,35-44 years old,Female,Black or African American,Associates or technical degree,"$25,000 -$49,999",Working (paid employee),90016,,Māui,,No,,,,1.108,31.926,33.458,11,2.051,12.761,16,8,,,,,Alternative one,Alternative one,Alternative one,Alternative one,,,,,,,,,,Alternative one,7,Yes,4,1,2,5,3,Daily pass,,On-site payment,,Agree,Only Visitors,,8,6,5,1,2,3,2,1,3,3-5 hours,30,No,No,,6902c3dd-1028-00d9-8d62-515353b4bef6,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T01:48:31.152Z,0,Tourism,Residents,,2025-10-30T01:53:15.097Z
+2025-10-29 15:51:12,2025-10-29 15:56:41,IP Address,72.130.145.115,100,329,True,2025-10-29 15:56:42,R_1eTO7quAUP0KInv,,,,,21.3133,-157.823,anonymous,EN,Yes,Hawaii,,65+ years old,Male,Asian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Not working (retired),96814,Oʻahu,,Full time Hawaiʻi resident,No,,,,0,0,38.014,0,8.477,37.635,42.764,28,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,,,,,,,,Alternative two,,10,Yes,2,5,1,3,4,Daily pass,,Online pre-payment,,Agree,"Both, but majority visitors",,8,3,8,2,1,3,2,1,3,3-5 hours,10,No,No,,6902c488-8b5e-e0b2-7440-600bc6ea00bc,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T01:51:22.374Z,1,Tourism,Residents,,2025-10-30T01:56:32.970Z
+2025-10-29 15:54:47,2025-10-29 15:57:36,IP Address,,100,169,True,2025-10-29 15:57:37,R_6js9v7VbjrJYr5v,,,,,,,anonymous,EN,Yes,Florida,Yes,18-24 years old,Male,Other,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$25,000 -$49,999",Not working (disabled),33409,,Kauaʻi,,No,,,,1.034,46.549,47.585,5,1.223,1.623,16.175,2,,,,,None of the options,None of the options,None of the options,None of the options,,,,,,,,,None of the option,,10,No,1,4,3,2,5,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority residents",,10,10,10,2,1,3,2,1,3,1-2 hours,0,No,No,"None ",6902c561-4c5f-3d67-546b-28fdb7daf4e4,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T01:54:57.828Z,0,Tourism,Residents,,2025-10-30T01:57:30.130Z
+2025-10-29 15:54:54,2025-10-29 16:01:24,IP Address,76.173.179.104,100,389,True,2025-10-29 16:01:24,R_63s3X8jiPxnEZMJ,,,,,21.4082,-157.7396,anonymous,EN,Yes,Hawaii,,65+ years old,Male,Asian,Associates or technical degree,"$25,000 -$49,999",Not working (retired),96734,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,2,4.829,4.829,37.501,1,0,0,18.761,0,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,,,,,,,,Alternative one,,8,Yes,4,2,1,5,3,Per-entry fee,,On-site payment,,Agree,Only Visitors,,8,8,8,3,1,2,2,3,1,1-2 hours,10,Yes,Yes,,6902c567-a567-0917-d0d1-2a9e6da3a37b,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T01:55:35.075Z,1,Tourism,Residents,,2025-10-30T02:01:08.013Z
+2025-10-29 15:49:55,2025-10-29 16:14:12,IP Address,141.239.139.248,100,1456,True,2025-10-29 16:14:13,R_1mFACqAEm8dbqks,,,,,19.494,-154.9443,anonymous,EN,Yes,Hawaii,,65+ years old,Female,"Asian,Native Hawaiian or Other Pacific Islander","Some college, but no degree","$25,000 -$49,999",Not working (retired),96771,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Cultural connection,,1,1.759,30.155,31.837,9,5.059,189.902,190.809,27,,,,,,,,,None of the options,None of the options,Alternative two,Alternative one,,,,,None of the option,,5,Yes,1,5,2,4,3,Per-entry fee,,On-site payment,,Agree,Only Visitors,,3,2,2,1,2,3,2,1,3,1-2 hours,5,No,No,,6902c436-45cf-a6db-f5b9-9dadb76f913a,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T01:50:13.221Z,1,Tourism,Residents,,2025-10-30T02:13:46.228Z
+2025-10-29 16:12:46,2025-10-29 16:32:51,IP Address,72.234.208.90,100,1205,True,2025-10-29 16:32:52,R_1sBkZ1dqgVeMW5P,,,,,21.3513,-157.8725,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Asian,Associates or technical degree,"Less than $25,000",Not working (retired),96825,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,34.869,81.657,98.578,4,36.819,146.35,175.702,8,,,,,,,,,,,,,Alternative two,None of the options,Alternative two,Alternative two,Alternative two,,3,No,5,1,3,2,4,Voluntary donation,,On-site payment,,Agree,"Both, but majority visitors",,4,4,5,2,1,3,2,1,3,1-2 hours,2,No,No,,6902c998-6722-7524-9634-4a481fa65b8f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T02:14:27.982Z,1,Tourism,Residents,,2025-10-30T02:32:27.786Z
+2025-10-29 16:13:43,2025-10-29 16:48:58,IP Address,96.255.236.140,100,2114,True,2025-10-29 16:49:00,R_1mmgXNGcOWdgUtg,,,,,38.7679,-77.4534,anonymous,EN,Yes,Virginia,Yes,35-44 years old,Male,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Working (paid employee),20111,,Oʻahu,,Yes,Recreation (general leisure hiking for enjoyment),,2,9.404,391.949,394.035,5,30.099,57.559,60.002,9,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,Alternative one,8,Yes,2,3,5,1,4,Per-entry fee,,On-site payment,,Agree,"Both, equally",,8,7,6,1,2,3,1,3,2,1-2 hours,5,Yes,No,,6902c9d1-643d-08f1-827c-8c8f7758b3da,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T02:12:32.748Z,0,Tourism,Residents,,2025-10-30T02:46:09.188Z
+2025-10-29 16:47:53,2025-10-29 16:53:57,IP Address,66.8.157.197,100,364,True,2025-10-29 16:53:58,R_3eyLejvRRlxwkxj,,,,,19.706,-155.0928,anonymous,EN,Yes,Hawaii,,35-44 years old,Male,Native Hawaiian or Other Pacific Islander,Bachelor's degree,"$150,000 or more",Working (paid employee),96720,Big island (Hawaiʻi),,Full time Hawaiʻi resident,No,,,,4.341,5.166,39.445,2,12.524,30.018,31.069,17,,,,,Alternative two,Alternative two,Alternative one,Alternative two,,,,,,,,,None of the option,,7,Yes,2,5,4,3,1,Daily pass,,Online pre-payment,,Agree,"Both, but majority visitors",,6,5,5,1,2,3,2,1,3,None,5,No,No,,6902d1d2-00fa-1541-c73d-ad456758e708,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T02:48:04.164Z,1,Tourism,Residents,,2025-10-30T02:53:46.911Z
+2025-10-29 16:40:58,2025-10-29 16:57:39,IP Address,66.91.65.192,100,1000,True,2025-10-29 16:57:39,R_6KFgaaZdv11uMaB,,,,,21.3454,-158.0842,anonymous,EN,Yes,Hawaii,,45-54 years old,Female,Asian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),96789,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,0,0,195.964,0,13.246,31.662,32.912,7,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,Alternative two,,10,Yes,2,5,4,3,1,Per-entry fee,,On-site payment,,Agree,"Both, but majority visitors",,9,9,9,1,3,2,2,1,3,1-2 hours,5,No,No,,6902d034-6599-f3c2-8b9b-2d6ade77739b,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T02:41:24.726Z,1,Tourism,Residents,,2025-10-30T02:57:17.862Z
+2025-10-29 16:51:13,2025-10-29 17:02:26,IP Address,174.247.7.118,100,673,True,2025-10-29 17:02:28,R_7Qg6RkMf21Rnmof,,,,,35.1712,-80.7939,anonymous,EN,Yes,South Carolina,Yes,65+ years old,Female,White or Caucasian,Associates or technical degree,"Less than $25,000",Not working (retired),29577,,Big island (Hawaiʻi),,Yes,Recreation (general leisure hiking for enjoyment),,2,7.961,38.812,42.626,25,0.301,31.815,34.253,27,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative two,Alternative two,,9,Yes,2,3,4,5,1,Daily pass,,On-site payment,,Agree,"Both, equally",,10,3,5,2,1,3,2,1,3,1-2 hours,15,Yes,Yes,,6902d29b-eb11-3a12-6d9c-3e68a0a61a39,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T02:51:42.174Z,0,Tourism,Residents,,2025-10-30T03:02:08.199Z
+2025-10-29 17:05:26,2025-10-29 17:20:37,IP Address,72.235.201.105,100,911,True,2025-10-29 17:20:38,R_5i1fFvJRpPvb2mZ,,,,,21.329,-158.0119,anonymous,EN,Yes,Hawaii,,65+ years old,Male,White or Caucasian,Bachelor's degree,"$150,000 or more",Not working (retired),96706,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,0,0,48.576,0,35.299,84.08,89.401,20,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,,,,,Alternative two,,8,Yes,3,2,1,4,5,Daily pass,,Other (Please enter answer in the box),Prepay if limited access is allowed.,Agree,"Both, equally",,8,7,4,3,1,2,2,1,3,3-5 hours,5,Yes,Yes,last question I think should be separated into 2 questions.,6902d5ef-f66d-60eb-409b-e935edb9cae4,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T03:07:36.087Z,1,Tourism,Residents,,2025-10-30T03:19:46.681Z
+2025-10-29 17:25:24,2025-10-29 17:37:34,IP Address,70.39.194.2,100,729,True,2025-10-29 17:37:34,R_7M3cJLCzZtnSN3M,,,,,34.0515,-118.2707,anonymous,EN,Yes,New York,Yes,35-44 years old,Male,White or Caucasian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),11717,,Big island (Hawaiʻi),,Yes,Photography,,5,0,0,39.806,0,4.596,64.144,77.369,14,,,,,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative two,Alternative one,,8,Yes,1,4,5,3,2,Daily pass,,Online pre-payment,,Agree,Only Visitors,,7,6,8,1,2,3,1,2,3,3-5 hours,4,Yes,Yes,Thank you for completing the survey; your feedback is greatly appreciated. Please submit by clicking the blue arrow.,6902daa0-5dee-83e6-b01b-a6b08f0e2e5c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T03:26:36.902Z,0,Tourism,Residents,,2025-10-30T03:32:31.527Z
+2025-10-29 17:46:08,2025-10-29 17:50:26,IP Address,108.227.64.116,100,258,True,2025-10-29 17:50:27,R_31iiimQLjxcdJ4f,,,,,33.8187,-84.5824,anonymous,EN,Yes,Georgia,Yes,65+ years old,Female,Black or African American,Associates or technical degree,"$50,000 -$74,999",Not working (retired),30106,,Big island (Hawaiʻi),,No,,,,2.21,41.713,43.125,7,6.178,15.471,16.98,10,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,,,,,Alternative one,9,Yes,5,3,1,2,4,Per-entry fee,,On-site payment,,Agree,"Both, equally",,8,8,9,2,3,1,2,3,1,1-2 hours,30,No,No,,6902df7b-d079-fe20-f7b2-46e20d5a442f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T03:46:23.220Z,0,Tourism,Residents,,2025-10-30T03:50:12.672Z
+2025-10-29 17:45:44,2025-10-29 17:52:15,IP Address,147.81.9.179,100,391,True,2025-10-29 17:52:16,R_7ya4UIdvrtIdGVz,,,,,21.3454,-158.0842,anonymous,EN,Yes,Hawaii,,35-44 years old,Female,Asian,Bachelor's degree,"$100,000 -$149,999",Not working (other),96707,Oʻahu,,Full time Hawaiʻi resident,No,,,,3.062,35.092,36.543,13,1.902,32.144,32.66,20,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,Alternative one,6,Yes,3,5,2,1,4,Per-entry fee,,Mobile payment (QR code on-site),,Agree,Only Visitors,,5,7,8,1,2,3,1,2,3,None,5,No,No,,6902df60-e233-1e54-27fe-53cab8023b4f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T03:45:54.749Z,1,Tourism,Residents,,2025-10-30T03:52:02.279Z
+2025-10-29 18:00:43,2025-10-29 18:04:32,IP Address,67.163.99.48,100,228,True,2025-10-29 18:04:33,R_6RxzSvXyPhNKyRq,,,,,37.431,-79.1231,anonymous,EN,Yes,Virginia,Yes,35-44 years old,Female,American Indian / Native American or Alaska Native,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),24572,,"Oʻahu,Lānaʻi or Molokaʻi",,Yes,Collecting plants for cultural purposes,,1,0.778,8.01,37.341,5,0.472,12.589,49.293,4,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,Alternative two,,8,No,2,4,3,5,1,Per-entry fee,,Mobile payment (QR code on-site),,Agree,"Both, equally",,7,7,7,3,1,2,1,2,3,3-5 hours,15.00,Yes,Yes,,6902e2e7-400d-e977-4526-470c05922896,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:01:01.721Z,0,Tourism,Residents,,2025-10-30T04:04:26.636Z
+2025-10-29 17:58:24,2025-10-29 18:10:14,IP Address,66.75.65.48,100,709,True,2025-10-29 18:10:14,R_1qWrzvtMZphnWlo,,,,,21.329,-158.0119,anonymous,EN,Yes,Hawaii,,55-64 years old,Male,"White or Caucasian,Asian,Native Hawaiian or Other Pacific Islander",High School diploma or GED,"Less than $25,000",Not working (disabled),96706,Oʻahu,,Full time Hawaiʻi resident,No,,,,0,0,83.5,0,54.93,60.905,81.501,7,,,,,,,,,,,,,None of the options,Alternative two,None of the options,Alternative one,,Alternative two,10,Yes,3,4,1,5,2,Voluntary donation,,On-site payment,,Agree,"Both, but majority visitors",,2,5,10,2,1,3,2,1,3,None,5,No,No,,6902e258-1f74-472d-012e-87efca1a2263,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T03:58:46.943Z,1,Tourism,Residents,,2025-10-30T04:09:42.412Z
+2025-10-29 18:12:06,2025-10-29 18:15:51,IP Address,,100,224,True,2025-10-29 18:15:52,R_5YFkSo1i1vREesm,,,,,,,anonymous,EN,Yes,California,Yes,18-24 years old,Female,"White or Caucasian,Black or African American",Bachelor's degree,"$25,000 -$49,999",Not working (temporary layoff from a job),95112,,Big island (Hawaiʻi),,Yes,Spending time with family / friends,,3,0.808,39.374,40.291,9,0.646,0.646,27.397,1,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative one,,,,,Alternative one,,6,No,5,2,3,4,1,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority visitors",,6,7,7,1,3,2,1,2,3,None,4,Yes,No,,6902e590-c649-e5aa-49ea-3cd43ef1f9f6,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T04:12:28.251Z,0,Tourism,Residents,,2025-10-30T04:15:43.906Z
+2025-10-29 18:10:32,2025-10-29 18:19:58,IP Address,66.91.251.24,100,565,True,2025-10-29 18:19:59,R_3982lpcWn6dSzol,,,,,21.3999,-157.7989,anonymous,EN,Yes,Hawaii,,65+ years old,Female,White or Caucasian,"Some college, but no degree","$100,000 -$149,999",Not working (retired),96744,Oʻahu,,Full time Hawaiʻi resident,No,,,,5.649,40.416,41.201,14,0.081,90.63,95.801,40,Alternative two,None of the options,None of the options,None of the options,,,,,,,,,,,,,,Alternative two,8,Yes,5,1,4,3,2,Annual pass,,Online pre-payment,,Agree,"Both, equally",,5,1,1,2,1,3,2,1,3,None,2,No,No,,6902e532-aec9-7f7e-a849-6216947e5e6c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:10:45.325Z,1,Tourism,Residents,,2025-10-30T04:19:42.462Z
+2025-10-29 18:29:08,2025-10-29 18:34:12,IP Address,35.33.201.1,100,304,True,2025-10-29 18:34:13,R_7KQRO4ANingcvdL,,,,,25.7701,-80.1928,anonymous,EN,Yes,Florida,Yes,45-54 years old,Male,Black or African American,Bachelor's degree,"$25,000 -$49,999",Working (paid employee),33462,,Big island (Hawaiʻi),,No,,,,0.931,25.803,37.098,5,5.827,24.07,27.571,12,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,Alternative two,,7,Yes,5,4,3,1,2,Annual pass,,On-site payment,,Agree,"Both, equally",,7,6,5,3,1,2,1,3,2,1-2 hours,100,Yes,No,"Well,it is a great survey",6902e98e-4347-ec90-db91-b860a29ded6f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:29:23.719Z,0,Tourism,Residents,,2025-10-30T04:33:35.247Z
+2025-10-29 18:27:56,2025-10-29 18:41:35,IP Address,172.59.59.186,100,818,True,2025-10-29 18:41:36,R_7OYYadc9S6m4lD6,,,,,21.329,-158.0119,anonymous,EN,Yes,Hawaii,,65+ years old,Male,White or Caucasian,Bachelor's degree,"$50,000 -$74,999",Working (self-employee),96753,Māui,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,4.123,33.092,36.828,20,9.148,66.124,75.525,27,Alternative two,Alternative one,Alternative one,None of the options,,,,,,,,,,,,,Alternative two,,10,Yes,1,3,5,4,2,Annual pass,,Online pre-payment,,Agree,"Both, but majority visitors",,9,5,5,1,3,2,3,1,2,3-5 hours,5,No,No,,6902e946-0b96-432f-db1c-a57cb14d179c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:28:42.778Z,1,Tourism,Residents,,2025-10-30T04:41:13.700Z
+2025-10-29 18:39:23,2025-10-29 18:46:48,IP Address,174.220.244.23,100,445,True,2025-10-29 18:46:49,R_645C5NgegWANc6n,,,,,32.5109,-84.9794,anonymous,EN,Yes,Georgia,Yes,55-64 years old,Female,Black or African American,High School diploma or GED,"Less than $25,000",Not working (retired),31006,,Oʻahu,,No,,,,4.36,34.938,37.193,6,14.181,55.591,56.78,6,,,,,,,,,,,,,None of the options,None of the options,None of the options,None of the options,None of the option,,7,No,2,1,5,3,4,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, equally",,6,6,6,2,3,1,2,3,1,None,50,No,No,,6902ebf5-c816-8076-3cc1-ca8becfe87eb,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:40:03.189Z,0,Tourism,Residents,,2025-10-30T04:46:35.862Z
+2025-10-29 18:40:24,2025-10-29 18:48:36,IP Address,24.6.59.20,100,491,True,2025-10-29 18:48:37,R_5f0AgajcTmwfDSZ,,,,,37.9834,-122.0312,anonymous,EN,Yes,California,Yes,65+ years old,Female,Asian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Not working (retired),94521,,"Oʻahu,Māui,Big island (Hawaiʻi)",,No,,,,0,0,32.149,0,13.66,13.66,44.181,1,,,,,Alternative one,Alternative two,Alternative one,Alternative one,,,,,,,,,Alternative two,,8,Yes,2,4,3,5,1,Per-entry fee,,On-site payment,,Agree,"Both, equally",,8,8,8,2,1,3,2,1,3,None,20,No,No,,6902ec31-acfd-cdbc-ccd4-dd3272767715,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:40:49.149Z,0,Tourism,Residents,,2025-10-30T04:48:14.795Z
+2025-10-29 18:47:44,2025-10-29 18:53:10,IP Address,172.58.135.234,100,325,True,2025-10-29 18:53:10,R_5M7SLCJsmcvq4i5,,,,,26.1374,-80.1684,anonymous,EN,Yes,California,Yes,45-54 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),94134,,Māui,,Yes,Exercise,,8,3.05,12.665,33.897,6,1.667,14.172,15.154,7,,,,,,,,,,,,,Alternative one,Alternative two,Alternative two,Alternative one,,Alternative two,10,Yes,1,2,3,4,5,Annual pass,,On-site payment,,Agree,Only Visitors,,9,9,9,1,3,2,1,3,2,3-5 hours,5,Yes,Yes,"Thank you for the opportunity to provide feedback! I appreciate the thoughtful questions in this survey—they made me reflect on trail use, volunteering, and ways to improve the community. Overall, it was clear and easy to navigate.",6902edde-f1c2-2e1c-523a-1fdf501aa92f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:48:03.423Z,0,Tourism,Residents,,2025-10-30T04:52:39.663Z
+2025-10-29 18:51:55,2025-10-29 18:56:09,IP Address,,100,254,True,2025-10-29 18:56:10,R_1ZQuSj7N9wEhDTq,,,,,,,anonymous,EN,Yes,North Carolina,Yes,35-44 years old,Male,Black or African American,High School diploma or GED,"Less than $25,000",Not working (disabled),27610,,Big island (Hawaiʻi),,No,,,,1.041,2.342,32.222,4,0.068,3.049,14.855,2,Alternative one,Alternative one,None of the options,None of the options,,,,,,,,,,,,,None of the option,,9,No,3,1,2,5,4,Daily pass,,Online pre-payment,,Strongly Agree,Only Visitors,,8,8,7,1,3,2,1,3,2,None,15,No,No,None,6902eee5-20a5-7442-40ac-c646e21af00d,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T04:52:43.711Z,0,Tourism,Residents,,2025-10-30T04:55:58.462Z
+2025-10-29 18:51:30,2025-10-29 19:00:28,IP Address,172.56.169.30,100,538,True,2025-10-29 19:00:29,R_7sgiTCInaHv52rF,,,,,38.5725,-121.4702,anonymous,EN,Yes,California,Yes,25-34 years old,Female,American Indian / Native American or Alaska Native,Bachelor's degree,"$25,000 -$49,999",Working (paid employee),95833,,Big island (Hawaiʻi),,Yes,Exercise,,2,2.186,39.681,40.792,22,6.112,8.453,16.501,2,,,,,,,,,Alternative two,Alternative two,Alternative one,None of the options,,,,,,None of the option,9,Yes,1,5,3,4,2,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, equally",,8,7,7,1,2,3,1,2,3,None,15,No,No,,6902eecc-a041-1076-a5a7-e7beb086d529,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:52:00.251Z,0,Tourism,Residents,,2025-10-30T04:59:59.605Z
+2025-10-29 18:55:46,2025-10-29 19:02:47,IP Address,72.130.46.130,100,420,True,2025-10-29 19:02:48,R_7J2H5WaXe19KrTH,,,,,21.329,-158.0119,anonymous,EN,Yes,Hawaii,,25-34 years old,Female,"White or Caucasian,Asian,Native Hawaiian or Other Pacific Islander",High School diploma or GED,"$50,000 -$74,999",Not working (other),96792,Oʻahu,,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,2,0.94,21.048,31.501,5,4.801,32.292,32.902,10,,,,,Alternative two,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative two,10,Yes,2,4,5,1,3,Per-entry fee,,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,9,10,8,2,1,3,2,1,3,1-2 hours,5.00,Yes,No,,6902efcc-4fe1-00d6-92d5-eda1cc326da1,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:56:06.684Z,1,Tourism,Residents,,2025-10-30T05:02:33.369Z
+2025-10-29 18:58:14,2025-10-29 19:03:35,IP Address,4.36.34.18,100,321,True,2025-10-29 19:03:35,R_1Ug6ILj7PNm9l8q,,,,,21.2982,-157.8444,anonymous,EN,Yes,Hawaii,,65+ years old,Male,White or Caucasian,"Some college, but no degree","Less than $25,000",Not working (temporary layoff from a job),96817,Oʻahu,,Full time Hawaiʻi resident,No,,,,2.16,19.639,36.184,5,0.6,8.492,17.088,10,,,,,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative one,Alternative two,,10,Yes,5,4,1,2,3,Daily pass,,Mobile payment (QR code on-site),,Agree,"Both, but majority residents",,10,10,10,3,2,1,2,1,3,1-2 hours,2,No,No,,6902f05e-135f-8415-1903-26ccf4e0753f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:58:53.404Z,1,Tourism,Residents,,2025-10-30T05:03:37.779Z
+2025-10-29 18:58:38,2025-10-29 19:04:37,IP Address,174.243.180.199,100,359,True,2025-10-29 19:04:37,R_5veozaEumaz7xRt,,,,,33.89,-117.3043,anonymous,EN,Yes,California,Yes,45-54 years old,Male,White or Caucasian,Bachelor's degree,"$75,000 -$99,999",Working (paid employee),92084,,Oʻahu,,Yes,Spending time with family / friends,,2,2.111,8.096,37.724,5,0.347,6.072,16.145,2,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,,,,,,,,,Alternative one,8,No,1,5,2,3,4,Daily pass,,Other (Please enter answer in the box),,Agree,"Both, but majority residents",,6,7,7,1,2,3,2,1,3,More than 6 hours,0,No,No,,6902f077-2084-5e13-f133-84600114d8b3,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T04:58:55.191Z,0,Tourism,Residents,,2025-10-30T05:04:21.379Z
+2025-10-29 19:05:23,2025-10-29 19:12:23,IP Address,108.41.17.135,100,419,True,2025-10-29 19:12:23,R_6BVpH7Ph34AIhyQ,,,,,40.6627,-73.9138,anonymous,EN,Yes,New York,Yes,18-24 years old,Male,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$50,000 -$74,999",Working (self-employee),11212,,Lānaʻi or Molokaʻi,,Yes,Spending time with family / friends,,12,1.97,18.573,31.862,14,2.64,4.455,14.888,4,,,,,,,,,Alternative one,Alternative two,Alternative two,Alternative one,,,,,,Alternative two,10,Yes,4,3,5,2,1,Per-entry fee,,On-site payment,,Agree,"Both, but majority visitors",,10,10,10,2,3,1,3,1,2,More than 6 hours,100,Yes,Yes,"Thx for having me thank you 😊 ",6902f20e-cc4e-ec35-c95c-a36d9612e6cc,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T05:05:45.462Z,0,Tourism,Residents,,2025-10-30T05:11:32.615Z
+2025-10-29 19:08:57,2025-10-29 19:16:37,IP Address,98.151.22.69,100,460,True,2025-10-29 19:16:38,R_7n3ifrzv7emYkJm,,,,,21.3908,-157.9332,anonymous,EN,Yes,Hawaii,,18-24 years old,Female,"White or Caucasian,American Indian / Native American or Alaska Native,Asian,Native Hawaiian or Other Pacific Islander",High School diploma or GED,"Less than $25,000",Not working (looking for work),96701,Oʻahu,,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,1,4.133,23.83,31.802,12,16.601,28.393,29.536,12,Alternative one,Alternative one,Alternative one,Alternative two,,,,,,,,,,,,,,Alternative two,5,Yes,2,5,4,1,3,Daily pass,,On-site payment,,Agree,"Both, but majority residents",,5,5,6,2,1,3,3,2,1,3-5 hours,20,No,Yes,,6902f2e2-edd8-fec4-3c11-b4bf3d3ea420,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T05:10:04.163Z,1,Tourism,Residents,,2025-10-30T05:16:19.787Z
+2025-10-29 19:19:28,2025-10-29 19:22:20,IP Address,,100,172,True,2025-10-29 19:22:21,R_1Ckq15WflPYIVTc,,,,,,,anonymous,EN,Yes,Texas,Yes,25-34 years old,Male,White or Caucasian,Some high school or less,"Less than $25,000",Working (self-employee),78210,,Māui,,Yes,Hunting,,4,0.891,37.287,40.484,2,1.131,3.302,16.199,6,None of the options,Alternative one,Alternative one,Alternative one,,,,,,,,,,,,,,Alternative one,6,Yes,4,1,5,2,3,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, equally",,5,5,5,1,2,3,1,2,3,3-5 hours,200,Yes,Yes,Tt,6902f55b-47c0-140e-484f-18d194fc9532,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T05:19:45.815Z,0,Tourism,Residents,,2025-10-30T05:22:12.973Z
+2025-10-29 19:15:20,2025-10-29 19:26:58,IP Address,,100,698,True,2025-10-29 19:26:59,R_6Ge1mL68ezUyuWn,,,,,,,anonymous,EN,Yes,Alabama,Yes,25-34 years old,Male,Black or African American,"Some college, but no degree","$75,000 -$99,999",Working (paid employee),36703,,Big island (Hawaiʻi),,Yes,Spending time with family / friends,,5,0.721,5.819,57.901,5,16.978,19.095,20.62,3,,,,,Alternative two,Alternative two,Alternative one,Alternative one,,,,,,,,,,Alternative one,10,Yes,4,3,1,5,2,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, equally",,10,10,10,1,2,3,1,2,3,More than 6 hours,3000,Yes,Yes,,6902f463-ce8b-86d4-02df-6d49ea9d976c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T05:15:32.817Z,0,Tourism,Residents,,2025-10-30T05:26:17.793Z
+2025-10-29 19:19:05,2025-10-29 19:29:47,IP Address,,100,642,True,2025-10-29 19:29:47,R_3mlv5z3aA7imBj2,,,,,,,anonymous,EN,Yes,California,Yes,45-54 years old,Male,White or Caucasian,Bachelor's degree,"$25,000 -$49,999",Working (paid employee),92138,,Big island (Hawaiʻi),,Yes,Collecting plants for cultural purposes,,24,7.451,9.162,34.041,2,26.517,40.35,47.183,8,,,,,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,Alternative two,10,Yes,4,3,1,2,5,Daily pass,,Online pre-payment,,Strongly Agree,Only Residents,,10,10,10,1,2,3,1,2,3,1-2 hours,58,Yes,Yes,this survey is very relevant to me,6902f544-a43a-ec8f-308c-da35c157f8ea,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T05:19:23.975Z,0,Tourism,Residents,,2025-10-30T05:28:39.331Z
+2025-10-29 19:37:19,2025-10-29 19:42:31,IP Address,24.165.0.199,100,312,True,2025-10-29 19:42:32,R_7QSkxT44xcGgoCa,,,,,19.706,-155.0928,anonymous,EN,Yes,Hawaii,,55-64 years old,Male,Asian,Associates or technical degree,"$50,000 -$74,999",Working (paid employee),96720,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,1.082,44.675,45.943,6,1.386,24.857,27.287,8,,,,,,,,,None of the options,Alternative one,Alternative one,Alternative two,,,,,,Alternative two,9,No,4,1,2,3,5,Annual pass,,Online pre-payment,,Agree,"Both, equally",,7,7,5,3,1,2,1,3,2,1-2 hours,5,No,No,,6902f989-61e3-61da-8aaa-f849968f2578,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T05:37:29.434Z,1,Tourism,Residents,,2025-10-30T05:42:19.470Z
+2025-10-29 19:45:36,2025-10-29 19:49:13,IP Address,,100,217,True,2025-10-29 19:49:13,R_51YP7AMFuHhXEAR,,,,,,,anonymous,EN,Yes,Illinois,Yes,35-44 years old,Male,Black or African American,High School diploma or GED,"Less than $25,000",Working (paid employee),60505,,Oʻahu,,Yes,Cultural connection,,2,0.881,34.219,37.978,7,0.446,3.31,17.259,6,,,,,,,,,None of the options,Alternative one,Alternative two,Alternative two,,,,,,Alternative one,8,Yes,5,1,4,2,3,Daily pass,,On-site payment,,Strongly Agree,"Both, equally",,8,7,7,1,2,3,1,2,3,3-5 hours,3,Yes,Yes,,6902fb78-2f54-65f8-91da-1d0b9c77d033,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T05:45:55.778Z,0,Tourism,Residents,,2025-10-30T05:49:01.276Z
+2025-10-29 19:39:41,2025-10-29 19:53:51,IP Address,72.130.119.127,100,849,True,2025-10-29 19:53:52,R_7jv1DGIMTHZWt30,,,,,19.706,-155.0928,anonymous,EN,Yes,Hawaii,,45-54 years old,Female,"White or Caucasian,Asian,Other",High School diploma or GED,"Less than $25,000",Not working (disabled),96720,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,2,27.112,38.288,39.157,6,16.594,102.825,103.814,15,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,,,,,,,,,Alternative two,10,No,1,4,5,2,3,Voluntary donation,,Online pre-payment,,Agree,"Both, equally",,10,5,4,2,1,3,2,1,3,3-5 hours,5.00,No,No,,6902f9c2-aed9-a230-b37d-8422faa4fcec,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T05:40:36.215Z,1,Tourism,Residents,,2025-10-30T05:53:27.799Z
+2025-10-29 19:45:08,2025-10-29 20:01:00,IP Address,24.25.252.166,100,951,True,2025-10-29 20:01:01,R_5jqcjcY5ufjfgnm,,,,,21.4082,-157.7396,anonymous,EN,Yes,Hawaii,,45-54 years old,Male,Asian,Associates or technical degree,"Less than $25,000",Working (self-employee),96734,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,0,0,40.213,0,63.736,65.113,79.164,2,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,,,,,Alternative two,8,Yes,1,5,2,3,4,Daily pass,,On-site payment,,Agree,Other (Please enter answer in the box),Whoever uses it,10,10,10,1,2,3,1,2,3,1-2 hours,10,Yes,No,,6902fb5b-25d5-fcd2-e69d-d20638a61b27,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T05:49:16.113Z,1,Tourism,Residents,,2025-10-30T06:00:37.880Z
+2025-10-29 20:11:41,2025-10-29 20:17:54,IP Address,72.130.92.100,100,372,True,2025-10-29 20:17:55,R_3R7vyNdpUk5IiUF,,,,,19.5277,-155.9339,anonymous,EN,Yes,Hawaii,,45-54 years old,Male,Asian,"Some college, but no degree","$25,000 -$49,999",Working (self-employee),96789,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,0,0,36.079,0,16.581,23.432,32.286,13,,,,,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,Alternative two,10,Yes,2,3,4,1,5,Daily pass,,On-site payment,,Agree,"Both, equally",,9,9,9,2,1,3,3,1,2,3-5 hours,10,No,No,,6903018d-8eb8-8054-1777-b8391fc1deb0,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T06:11:55.138Z,1,Tourism,Residents,,2025-10-30T06:17:39.281Z
+2025-10-29 20:12:23,2025-10-29 20:19:43,IP Address,147.81.103.48,100,439,True,2025-10-29 20:19:43,R_5ZVTBF4EXctQf6Z,,,,,20.0232,-155.6729,anonymous,EN,Yes,Hawaii,,35-44 years old,Female,"White or Caucasian,Asian,Native Hawaiian or Other Pacific Islander",Associates or technical degree,"$25,000 -$49,999",Not working (looking for work),96743,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Cultural connection,,1,1.614,36.872,40.453,11,4.786,37.678,38.895,19,,,,,Alternative one,Alternative two,Alternative one,None of the options,,,,,,,,,None of the option,,8,Yes,5,4,2,1,3,Per-entry fee,,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,9,7,9,2,1,3,2,1,3,3-5 hours,15,No,No,,6903019f-adcc-9372-07cd-9db5c6fd583e,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T06:12:37.101Z,1,Tourism,Residents,,2025-10-30T06:19:23.043Z
+2025-10-29 20:09:19,2025-10-29 20:20:09,IP Address,72.234.24.195,100,649,True,2025-10-29 20:20:09,R_12yx31V5eDNxWju,,,,,21.9837,-159.3693,anonymous,EN,Yes,Hawaii,,65+ years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$75,000 -$99,999",Working (paid employee),96752,Kauaʻi,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,12.878,62.183,66.33,8,6.916,56.715,58.375,10,,,,,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,Alternative one,7,Yes,4,3,1,2,5,Per-entry fee,,Online pre-payment,,Agree,"Both, equally",,5,5,8,2,1,3,2,1,3,None,40,No,No,,69030107-356a-3950-8232-fedb6dcbc89f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T06:09:37.914Z,0,Tourism,Residents,,2025-10-30T06:19:56.186Z
+2025-10-29 20:17:29,2025-10-29 20:21:26,IP Address,68.153.66.15,100,236,True,2025-10-29 20:21:26,R_3mlRJUbKP461k1C,,,,,26.1948,-98.1836,anonymous,EN,Yes,Texas,Yes,18-24 years old,Female,White or Caucasian,Associates or technical degree,"$25,000 -$49,999",Working (paid employee),78543,,Māui,,Yes,Exercise,,3,0.708,45.152,46.132,11,1.601,38.787,39.479,8,,,,,,,,,Alternative one,None of the options,Alternative two,Alternative one,,,,,Alternative one,,8,No,4,5,1,3,2,Per-entry fee,,Mobile payment (QR code on-site),,Agree,"Both, equally",,5,5,5,1,2,3,2,1,3,3-5 hours,60,Yes,Yes,,690302f4-997d-84a4-147a-6e93bbbba26f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T06:17:52.851Z,0,Tourism,Residents,,2025-10-30T06:21:18.171Z
+2025-10-29 20:50:04,2025-10-29 20:55:03,IP Address,,100,299,True,2025-10-29 20:55:04,R_5udXQrlby8DTBy9,,,,,,,anonymous,EN,Yes,Hawaii,,45-54 years old,Male,"White or Caucasian,Asian",Associates or technical degree,"Less than $25,000",Not working (retired),96825,Oʻahu,,Full time Hawaiʻi resident,No,,,,0.769,47.591,48.814,2,2.405,2.405,15.854,1,None of the options,None of the options,None of the options,None of the options,,,,,,,,,,,,,None of the option,,5,No,1,3,4,5,2,Daily pass,,On-site payment,,Strongly Agree,"Both, equally",,5,6,6,1,2,3,1,2,3,1-2 hours,3,No,No,,69030a95-0187-a60c-b23e-3c6732d6b99e,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T06:50:50.558Z,1,Tourism,Residents,,2025-10-30T06:54:53.384Z
+2025-10-29 20:52:55,2025-10-29 21:04:33,IP Address,66.91.178.98,100,697,True,2025-10-29 21:04:34,R_7xFezF37H9FHoCm,,,,,19.706,-155.0928,anonymous,EN,Yes,Hawaii,,65+ years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","Less than $25,000",Working (self-employee),96728,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,10.526,41.378,42.226,13,9.501,75.444,76.803,30,,,,,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,Alternative one,10,Yes,1,3,5,4,2,Annual pass,,Online pre-payment,,Agree,"Both, but majority residents",,10,6,5,2,1,3,2,1,3,More than 6 hours,5,No,Yes,,69030b30-b577-6b58-41a4-08ba1519ab00,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T06:53:34.073Z,0,Tourism,Residents,,2025-10-30T07:04:00.855Z
+2025-10-29 20:52:07,2025-10-29 21:05:42,IP Address,141.239.160.151,100,814,True,2025-10-29 21:05:43,R_7TuvDMUOycmjWfb,,,,,21.4023,-157.9642,anonymous,EN,Yes,Hawaii,,45-54 years old,Female,Asian,Bachelor's degree,"$25,000 -$49,999",Working (paid employee),96782,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,12.682,33.648,35.383,5,24.167,124.277,126.655,61,,,,,None of the options,Alternative two,None of the options,None of the options,,,,,,,,,,Alternative two,6,No,1,2,3,4,5,Per-entry fee,,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,7,5,5,2,1,3,3,1,2,1-2 hours,5,No,No,none,69030b11-9086-8dcc-74e9-0400eb3cba5c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T06:52:47.322Z,1,Tourism,Residents,,2025-10-30T07:05:16.974Z
+2025-10-29 21:06:17,2025-10-29 21:13:50,IP Address,,100,453,True,2025-10-29 21:13:51,R_71mTLjWK3EBTLmd,,,,,,,anonymous,EN,Yes,Hawaii,,25-34 years old,Female,Native Hawaiian or Other Pacific Islander,"Some college, but no degree","Less than $25,000",Not working (looking for work),96720,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,4,1.454,67.754,68.517,6,2.238,24.79,26.102,14,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,None of the option,6,No,4,1,2,3,5,Daily pass,,Online pre-payment,,Strongly Agree,"Both, but majority residents",,6,5,5,1,2,3,3,1,2,None,15,Yes,No,,69030e5e-89d4-e324-4abc-825eefcda64f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T07:06:36.385Z,1,Tourism,Residents,,2025-10-30T07:13:30.649Z
+2025-10-29 21:10:35,2025-10-29 21:18:13,IP Address,147.81.56.44,100,457,True,2025-10-29 21:18:14,R_7fwTP5lwIc1Ut20,,,,,19.494,-154.9443,anonymous,EN,Yes,Hawaii,,25-34 years old,Male,"Asian,Native Hawaiian or Other Pacific Islander",High School diploma or GED,"$25,000 -$49,999",Working (paid employee),96729,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,3,2.907,21.063,41.661,17,2.076,47.869,49.271,47,Alternative two,Alternative one,Alternative one,None of the options,,,,,,,,,,,,,Alternative two,,10,Yes,5,1,3,4,2,Per-entry fee,,Other (Please enter answer in the box),Both options maybe with a pre payment deal,Agree,"Both, but majority visitors",,7,6,10,2,1,3,2,1,3,1-2 hours,20,Yes,Yes,,69030f64-fcd9-bf44-8899-bb802dc2aed8,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:10:51.925Z,0,Tourism,Residents,,2025-10-30T07:17:58.706Z
+2025-10-29 21:11:02,2025-10-29 21:19:50,IP Address,174.240.114.139,100,528,True,2025-10-29 21:19:50,R_1mfak2Ls3geJ6lf,,,,,42.3344,-83.1756,anonymous,EN,Yes,California,Yes,25-34 years old,Female,White or Caucasian,"Some college, but no degree","$75,000 -$99,999",Working (paid employee),92335,,Oʻahu,,Yes,Spending time with family / friends,,25,7.738,20.23,43.355,6,6.438,13.758,18.772,6,,,,,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative one,,Alternative one,10,Yes,2,1,3,5,4,Per-entry fee,,Online pre-payment,,Agree,"Both, equally",,10,9,9,1,2,3,2,1,3,1-2 hours,22,Yes,Yes,good,69030f6e-3a48-afd9-8ce2-a6cf127b7094,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:11:35.797Z,0,Tourism,Residents,,2025-10-30T07:18:50.423Z
+2025-10-29 21:14:22,2025-10-29 21:22:47,IP Address,66.75.101.33,100,505,True,2025-10-29 21:22:48,R_3pOFP5nxdN4f40p,,,,,21.2891,-157.8028,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Asian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),96816,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,1,19.751,19.751,34.991,1,31.672,45.969,50.327,2,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,Alternative two,7,Yes,2,5,4,3,1,Per-entry fee,,On-site payment,,Agree,"Both, equally",,8,8,8,2,1,3,2,1,3,1-2 hours,5.00,No,No,very clear and interesting survey,69031049-4398-d3a0-e25c-11a5db6b4d76,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:14:36.246Z,1,Tourism,Residents,,2025-10-30T07:22:23.454Z
+2025-10-29 21:19:14,2025-10-29 21:34:39,IP Address,76.83.163.21,100,924,True,2025-10-29 21:34:40,R_63dZy6OHqRUEKAI,,,,,21.3195,-157.8525,anonymous,EN,Yes,Hawaii,,65+ years old,Male,"White or Caucasian,Asian",Bachelor's degree,"$100,000 -$149,999",Not working (retired),96822,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,61.601,61.601,87.218,1,58.473,61.464,95.537,2,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative two,3,Yes,1,5,4,2,3,Annual pass,,Online pre-payment,,Agree,"Both, but majority visitors",,5,5,7,2,1,3,2,1,3,None,3,No,No,,6903116c-8075-c1a9-9494-69e526407b14,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:19:47.465Z,1,Tourism,Residents,,2025-10-30T07:34:18.845Z
+2025-10-29 21:33:20,2025-10-29 21:38:20,IP Address,47.231.76.173,100,300,True,2025-10-29 21:38:21,R_7fQcnk5E3mx6Cy4,,,,,20.9174,-156.6772,anonymous,EN,Yes,Hawaii,,65+ years old,Male,Asian,Bachelor's degree,"$150,000 or more",Not working (retired),96789,Oʻahu,,Full time Hawaiʻi resident,Yes,Exercise,,1,0,0,33.704,0,12.75,22.334,29.526,7,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative one,8,Yes,1,3,4,5,2,Annual pass,,Online pre-payment,,Agree,"Both, but majority visitors",,6,7,7,1,3,2,2,3,1,1-2 hours,10,Yes,No,,690314b9-11e5-7d40-4603-af3017b2203e,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:33:36.490Z,1,Tourism,Residents,,2025-10-30T07:37:55.068Z
+2025-10-29 21:26:42,2025-10-29 21:48:10,IP Address,98.150.218.241,100,1288,True,2025-10-29 21:48:11,R_3tu8jfQqlryQpvn,,,,,21.4082,-157.7396,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Asian,Bachelor's degree,"$150,000 or more",Not working (retired),96744,Oʻahu,,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,0,1.919,71.15,72.417,26,3.331,67.139,68.36,21,Alternative two,Alternative one,Alternative two,Alternative one,,,,,,,,,,,,,Alternative two,,7,Yes,4,1,2,5,3,Per-entry fee,,On-site payment,,Agree,"Both, but majority visitors",,5,3,4,2,1,3,2,1,3,None,5,No,No,,69031318-f87b-75be-a285-2dd354683956,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:27:46.171Z,1,Tourism,Residents,,2025-10-30T07:47:46.406Z
+2025-10-29 21:39:32,2025-10-29 21:55:31,IP Address,72.234.207.251,100,959,True,2025-10-29 21:55:31,R_6DMSCcZRuZNZEz5,,,,,21.4535,-158.0193,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Asian,Bachelor's degree,"$75,000 -$99,999",Working (paid employee),96789,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,0,0,201.572,0,0,0,68.444,0,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,Alternative two,,8,Yes,5,2,4,1,3,Per-entry fee,,On-site payment,,Agree,"Both, but majority visitors",,7,2,3,2,1,3,2,1,3,None,1.00,No,No,,6903162d-b781-0c61-908a-68dba385cfc8,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:40:47.164Z,1,Tourism,Residents,,2025-10-30T07:54:57.644Z
+2025-10-29 21:44:21,2025-10-29 21:57:20,IP Address,66.91.229.154,100,779,True,2025-10-29 21:57:21,R_7FLqZVdCo2p1kSZ,,,,,21.4023,-157.9642,anonymous,EN,Yes,Hawaii,,35-44 years old,Female,"White or Caucasian,American Indian / Native American or Alaska Native",Associates or technical degree,"$100,000 -$149,999",Working (paid employee),96782,Oʻahu,,Full time Hawaiʻi resident,Yes,Exercise,,1,1.726,79.42,90.925,19,31.872,54.53,58.201,5,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative one,Alternative two,,7,No,1,3,5,4,2,Voluntary donation,,Mobile payment (QR code on-site),,Agree,Only Visitors,,1,0,0,1,2,3,1,2,3,1-2 hours,0.50,No,Yes,,6903173b-3bd5-6657-126c-906774fa3433,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:44:39.458Z,1,Tourism,Residents,,2025-10-30T07:56:48.802Z
+2025-10-29 21:46:15,2025-10-29 21:58:16,IP Address,72.234.215.78,100,720,True,2025-10-29 21:58:16,R_1nw5RjPuAS9ibLQ,,,,,21.3513,-157.8725,anonymous,EN,Yes,Hawaii,,55-64 years old,Male,Asian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","Less than $25,000",Not working (looking for work),96817,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,47.091,47.091,50.642,1,53.571,75.914,100.541,13,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,,,,,Alternative two,,5,Yes,5,4,2,1,3,Per-entry fee,,On-site payment,,Agree,"Both, equally",,5,1,6,2,1,3,2,1,3,1-2 hours,5,No,No,,690317c1-7cdb-5f60-fe75-944210902ada,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T07:47:48.405Z,1,Tourism,Residents,,2025-10-30T07:58:00.049Z
+2025-10-29 21:58:59,2025-10-29 22:11:06,IP Address,172.11.188.206,100,727,True,2025-10-29 22:11:07,R_7rJkU8KkhF3X6Lo,,,,,32.749,-96.4629,anonymous,EN,Yes,Texas,Yes,45-54 years old,Female,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),75126,,Oʻahu,,Yes,Spending time with family / friends,,2,0,0,33.997,0,11.212,73.042,82.145,13,,,,,,,,,,,,,Alternative one,None of the options,Alternative two,Alternative one,Alternative one,,10,Yes,5,3,2,4,1,Voluntary donation,,Online pre-payment,,Agree,"Both, but majority residents",,10,10,5,1,2,3,1,2,3,1-2 hours,300,Yes,Yes,,69031ab5-8924-dc94-9191-9b15bacca391,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T08:02:03.851Z,0,Tourism,Residents,,2025-10-30T08:10:46.074Z
+2025-10-29 22:10:57,2025-10-29 22:20:49,IP Address,66.91.103.65,100,592,True,2025-10-29 22:20:50,R_6TILbTLDgte2meB,,,,,20.8814,-156.4783,anonymous,EN,Yes,Hawaii,,18-24 years old,Female,White or Caucasian,High School diploma or GED,"Less than $25,000",Working (self-employee),96720,Māui,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,2,3.369,31.284,37.253,26,6.632,27.855,28.3,13,,,,,Alternative two,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative two,10,No,1,5,4,2,3,Daily pass,,On-site payment,,Agree,"Both, but majority visitors",,7,5,7,1,2,3,3,2,1,3-5 hours,20,Yes,No,,69031d5d-36cc-fece-bbde-1ba541eb92a3,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T08:11:26.690Z,1,Tourism,Residents,,2025-10-30T08:20:32.849Z
+2025-10-29 22:33:49,2025-10-29 22:38:22,IP Address,98.155.1.144,100,272,True,2025-10-29 22:38:22,R_65XzoCXdVE4OcSR,,,,,19.706,-155.0928,anonymous,EN,Yes,Hawaii,,45-54 years old,Female,Native Hawaiian or Other Pacific Islander,Some high school or less,"$50,000 -$74,999",Working (self-employee),96764,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Hunting,,6,3.059,28.913,31.369,10,3.031,11.719,14.97,11,,,,,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,Alternative one,,8,Yes,2,3,1,4,5,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, equally",,10,7,8,1,2,3,3,1,2,1-2 hours,5,No,No,,690322e6-74bd-12ab-91a5-60c7e6c539db,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T08:34:13.489Z,0,Tourism,Residents,,2025-10-30T08:38:07.487Z
+2025-10-29 22:11:51,2025-10-29 22:57:41,IP Address,104.192.236.192,100,2750,True,2025-10-29 22:57:41,R_1TMSYlmlJgpu6cN,,,,,36.5246,-87.3465,anonymous,EN,Yes,Tennessee,Yes,35-44 years old,Male,Black or African American,Bachelor's degree,"$75,000 -$99,999",Working (paid employee),37040,,"Oʻahu,Māui,Lānaʻi or Molokaʻi,Big island (Hawaiʻi),Kauaʻi",,Yes,Cultural connection,,2,0,0,68.135,0,87.995,132.384,140.204,19,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,,,,,Alternative two,10,Yes,2,1,5,4,3,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, but majority residents",,10,10,10,2,1,3,2,3,1,More than 6 hours,5,Yes,Yes,,69031dc1-aef7-9b62-8552-0cdeefb85a5e,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T08:12:31.110Z,0,Tourism,Residents,,2025-10-30T08:50:57.434Z
+2025-10-29 23:37:47,2025-10-29 23:44:20,IP Address,,100,393,True,2025-10-29 23:44:20,R_3fB5f0y5TAO896R,,,,,,,anonymous,EN,Yes,Kansas,Yes,35-44 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Working (self-employee),64184,,Māui,,Yes,Exercise,,3,8.646,8.646,97.623,1,5.121,5.121,29.935,1,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,,,,,,Alternative one,9,Yes,4,1,5,2,3,Per-entry fee,,Online pre-payment,,Strongly Agree,"Both, but majority residents",,10,9,10,2,1,3,1,3,2,1-2 hours,500,Yes,Yes,,690331e3-0a61-b179-e296-1106fb567f4d,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T09:38:32.704Z,0,Tourism,Residents,,2025-10-30T09:43:45.270Z
+2025-10-29 23:49:45,2025-10-30 00:04:23,IP Address,13.52.78.243,100,877,True,2025-10-30 00:04:24,R_3wF5xBSmIQmId4c,,,,,37.3388,-121.8916,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Asian,Associates or technical degree,"$25,000 -$49,999",Not working (retired),96797,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,14.388,14.388,37.302,1,42.363,62.522,65.006,3,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,Alternative two,,9,Yes,2,5,3,4,1,Per-entry fee,,Online pre-payment,,Agree,"Both, but majority visitors",,8,10,10,2,1,3,1,2,3,1-2 hours,5,No,No,"I am not a regular hiker but I have hiked before, but I would be willing to do an easy trail again with a group of friends. It has been awhile since my hike.",690334ad-0dea-600f-2bad-d529118240e7,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T09:50:16.909Z,1,Tourism,Residents,,2025-10-30T10:02:26.153Z
+2025-10-30 00:06:22,2025-10-30 00:12:59,IP Address,45.79.175.246,100,397,True,2025-10-30 00:12:59,R_7GxGX62qVbln2ol,,,,,40.8229,-74.4592,anonymous,EN,Yes,Hawaii,,25-34 years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),96801,Big island (Hawaiʻi),,Full time Hawaiʻi resident,Yes,Cultural connection,,3,0.96,2.986,31.295,4,7.975,12.51,16.821,5,,,,,Alternative one,Alternative two,Alternative two,Alternative two,,,,,,,,,Alternative one,,10,Yes,4,3,1,2,5,Daily pass,,,,Agree,"Both, equally",,10,10,10,1,3,2,1,2,3,3-5 hours,100,Yes,Yes,,69033895-7dea-8ac7-e18d-ab1bcd1100d9,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T10:06:51.891Z,0,Tourism,Residents,,2025-10-30T10:12:37.393Z
+2025-10-29 23:55:40,2025-10-30 00:31:47,IP Address,108.193.243.99,100,2166,True,2025-10-30 00:31:48,R_6QVLlf0H7KsHFkJ,,,,,36.1052,-86.6591,anonymous,EN,Yes,Tennessee,Yes,35-44 years old,Male,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),37076,,"Oʻahu,Big island (Hawaiʻi)",,Yes,Spending time with family / friends,,2,60.118,84.92,101.454,9,11.174,354.843,374.586,28,,,,,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative two,,Alternative two,10,Yes,5,2,1,3,4,Per-entry fee,,Online pre-payment,,Agree,"Both, equally",,9,10,9,1,2,3,1,3,2,More than 6 hours,500,No,No,Thanks,69033610-561f-2850-6575-e018900234a0,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T10:00:54.619Z,0,Tourism,Residents,,2025-10-30T10:30:51.311Z
+2025-10-30 00:38:14,2025-10-30 00:47:39,IP Address,172.56.219.160,100,564,True,2025-10-30 00:47:39,R_1zpyqiPInfDklXv,,,,,39.9195,-75.1565,anonymous,EN,Yes,Pennsylvania,Yes,25-34 years old,Female,Black or African American,High School diploma or GED,"$25,000 -$49,999",Not working (looking for work),19082,,Māui,,Yes,Cultural connection,,3,1.353,16.135,36.467,8,0.526,8.092,28.178,7,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,Alternative one,,8,Yes,1,5,2,3,4,Daily pass,,On-site payment,,Agree,"Both, equally",,8,7,6,3,1,2,2,3,1,1-2 hours,10,Yes,No,,69034011-28f4-5908-c7e5-57ab18727819,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T10:41:14.965Z,0,Tourism,Residents,,2025-10-30T10:47:21.036Z
+2025-10-30 00:49:40,2025-10-30 00:58:28,IP Address,108.35.240.176,100,527,True,2025-10-30 00:58:28,R_5JDU8vpRqnMt168,,,,,40.7238,-74.2293,anonymous,EN,Yes,New Jersey,Yes,45-54 years old,Female,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$50,000 -$74,999",Not working (other),07106,,Māui,,No,,,,7.852,40.105,41.988,12,1.502,12.973,16.019,10,Alternative one,Alternative one,Alternative two,Alternative one,,,,,,,,,,,,,,Alternative one,10,Yes,4,3,5,2,1,Annual pass,,Online pre-payment,,Agree,"Both, equally",,10,10,10,2,1,3,2,1,3,3-5 hours,30,Yes,Yes,,690342be-bbec-6452-9f5d-70063022f9a0,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T10:50:57.625Z,0,Tourism,Residents,,2025-10-30T10:58:12.602Z
+2025-10-30 01:58:10,2025-10-30 02:07:28,IP Address,172.59.136.130,100,558,True,2025-10-30 02:07:29,R_6fZrKl1y2JRVJbz,,,,,40.4322,-80.1021,anonymous,EN,Yes,Pennsylvania,Yes,45-54 years old,Female,White or Caucasian,High School diploma or GED,"Less than $25,000",Not working (disabled),16354,,Māui,,Yes,Spending time with family / friends,,5,0.86,8.023,36.64,4,6.98,8.15,15.881,3,,,,,Alternative two,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative two,8,Yes,5,1,4,2,3,Daily pass,,On-site payment,,Agree,"Both, but majority visitors",,10,10,10,1,2,3,1,2,3,3-5 hours,30,Yes,Yes,"Okay ",690352cb-6ea2-aa26-6907-8c1a1daf6eb1,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T11:59:21.427Z,0,Tourism,Residents,,2025-10-30T12:06:51.066Z
+2025-10-30 02:08:18,2025-10-30 02:18:20,IP Address,97.146.58.241,100,602,True,2025-10-30 02:18:20,R_5uPQLVMpFukT2v9,,,,,36.8882,-76.3002,anonymous,EN,Yes,Virginia,Yes,35-44 years old,Male,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Working (paid employee),23508,,Big island (Hawaiʻi),,Yes,Spending time with family / friends,,2,1.89,40.173,41.107,13,1.287,44.081,45.655,28,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative one,Alternative one,,10,Yes,1,2,3,5,4,Annual pass,,Online pre-payment,,Agree,Only Visitors,,10,10,10,2,3,1,3,1,2,1-2 hours,90,Yes,Yes,,6903552a-0cb4-8c0b-5059-b5a5c21b8037,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:11:34.848Z,0,Tourism,Residents,,2025-10-30T12:18:09.825Z
+2025-10-30 02:20:57,2025-10-30 02:25:28,IP Address,107.144.233.50,100,271,True,2025-10-30 02:25:30,R_1Lhjj6okztxkvhi,,,,,35.4149,-119.0399,anonymous,EN,Yes,California,Yes,35-44 years old,Male,Black or African American,"Some college, but no degree","$25,000 -$49,999",Working (self-employee),93305,,Lānaʻi or Molokaʻi,,Yes,Cultural connection,,9,1.932,48.378,49.879,6,1.538,21.199,23.39,12,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,,,,Alternative one,,7,Yes,4,1,2,3,5,Annual pass,,On-site payment,,Agree,"Both, equally",,8,9,8,2,3,1,2,3,1,3-5 hours,15,Yes,No,,69035823-23c0-9b20-d5b0-f00648cd0b4d,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:21:11.825Z,0,Tourism,Residents,,2025-10-30T12:25:18.748Z
+2025-10-30 02:31:16,2025-10-30 02:35:37,IP Address,35.33.202.209,100,261,True,2025-10-30 02:35:37,R_7mmaQFL7rEe2q8F,,,,,25.7701,-80.1928,anonymous,EN,Yes,New York,Yes,25-34 years old,Male,Black or African American,Associates or technical degree,"$50,000 -$74,999",Working (paid employee),10458,,Big island (Hawaiʻi),,Yes,Cultural connection,,7,0.91,11.575,38.272,9,0.903,28.197,29.863,6,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,,,,,Alternative one,8,Yes,5,4,3,1,2,Annual pass,,Mobile payment (QR code on-site),,Agree,"Both, equally",,8,7,8,1,3,2,2,3,1,3-5 hours,100,Yes,No,,69035a8c-3db0-2c9a-8c98-76ccb490137b,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:31:45.078Z,0,Tourism,Residents,,2025-10-30T12:35:25.799Z
+2025-10-30 02:33:55,2025-10-30 02:40:28,IP Address,73.77.103.49,100,392,True,2025-10-30 02:40:29,R_1KiFOQSk05ODJzr,,,,,29.572,-95.54,anonymous,EN,Yes,North Carolina,Yes,25-34 years old,Male,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),28277,,Māui,,Yes,Exercise,,2,0,0,40.905,0,15.555,24.917,27.654,3,,,,,Alternative one,Alternative two,Alternative two,Alternative two,,,,,,,,,Alternative one,,8,Yes,1,3,5,2,4,Annual pass,,On-site payment,,Agree,Only Residents,,6,6,3,2,1,3,2,3,1,1-2 hours,50,Yes,Yes,the survey is good,69035b2c-f7ad-9ada-95ba-226be03a71cb,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:34:31.341Z,0,Tourism,Residents,,2025-10-30T12:39:51.720Z
+2025-10-30 02:42:00,2025-10-30 02:49:38,IP Address,172.58.126.34,100,458,True,2025-10-30 02:49:39,R_79gh6sug1YLUPjX,,,,,42.3575,-83.2162,anonymous,EN,Yes,Michigan,Yes,55-64 years old,Male,White or Caucasian,Bachelor's degree,"$50,000 -$74,999",Working (paid employee),48895,,Oʻahu,,Yes,Recreation (general leisure hiking for enjoyment),,2,0.98,37.245,38.875,10,1.355,36.375,56.364,14,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative two,Alternative two,,10,Yes,1,5,4,3,2,Per-entry fee,,On-site payment,,Agree,"Both, but majority visitors",,10,10,8,2,1,3,2,1,3,None,10,Yes,No,"No problem ",69035d10-1501-bdc8-610b-0f91a6f4e277,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:42:19.675Z,0,Tourism,Residents,,2025-10-30T12:49:13.234Z
+2025-10-30 02:38:02,2025-10-30 02:51:40,IP Address,72.130.101.240,100,818,True,2025-10-30 02:51:41,R_6zRvNoZWIjnWggN,,,,,21.3454,-158.0842,anonymous,EN,Yes,Hawaii,,65+ years old,Female,Native Hawaiian or Other Pacific Islander,"Some college, but no degree","$25,000 -$49,999",Not working (retired),96707,Oʻahu,,Full time Hawaiʻi resident,Yes,Spending time with family / friends,,0,0,0,60.322,0,13.174,15.332,32.096,2,None of the options,Alternative two,Alternative one,Alternative one,,,,,,,,,,,,,Alternative two,,10,No,3,5,1,2,4,Voluntary donation,,Online pre-payment,,Agree,"Both, equally",,10,10,10,2,1,3,1,2,3,None,15,No,No,Well done!,69035c14-3ac2-033c-1bfb-6014fd004b4b,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:38:18.650Z,1,Tourism,Residents,,2025-10-30T12:50:57.349Z
+2025-10-30 02:44:17,2025-10-30 02:52:28,IP Address,172.58.124.80,100,491,True,2025-10-30 02:52:29,R_7qaQFNKel9Ps5Dk,,,,,42.3575,-83.2162,anonymous,EN,Yes,Ohio,Yes,65+ years old,Female,White or Caucasian,High School diploma or GED,"$25,000 -$49,999",Not working (retired),43623,,Māui,,No,,,,8.619,32.851,34.315,4,3.016,78.282,78.9,64,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,Alternative one,8,Yes,1,5,2,4,3,Voluntary donation,,On-site payment,,Agree,"Both, equally",,8,8,9,1,3,2,1,3,2,None,5,No,No,,69035d9b-2801-3fe0-5f74-42965e104905,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:44:50.143Z,0,Tourism,Residents,,2025-10-30T12:52:14.527Z
+2025-10-30 02:55:29,2025-10-30 03:01:34,IP Address,107.197.143.178,100,364,True,2025-10-30 03:01:35,R_6ZnUkju0TuxjcEV,,,,,33.8225,-118.3103,anonymous,EN,Yes,California,Yes,65+ years old,Female,American Indian / Native American or Alaska Native,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$75,000 -$99,999",Working (self-employee),90501,,Kauaʻi,,Yes,Other (Please enter answer in the box),Bird watching,4,0,0,38.927,0,13.321,15.968,28.915,4,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative one,,,,,Alternative two,,9,Yes,3,5,4,1,2,Annual pass,,On-site payment,,Agree,"Both, equally",,9,9,9,1,3,2,1,3,2,1-2 hours,5,Yes,Yes,,6903603c-adb2-5229-2dfb-1e8892881bf3,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T12:55:55.772Z,0,Tourism,Residents,,2025-10-30T13:01:24.108Z
+2025-10-30 03:05:05,2025-10-30 03:12:02,IP Address,75.219.55.66,100,417,True,2025-10-30 03:12:03,R_1sbukT4oW1bq5IL,,,,,41.345,-96.256,anonymous,EN,Yes,South Dakota,Yes,65+ years old,Female,White or Caucasian,Associates or technical degree,"$25,000 -$49,999",Not working (retired),57104,,Oʻahu,,No,,,,0,0,31.901,0,3.502,43.831,52.098,7,Alternative one,Alternative two,Alternative one,Alternative one,,,,,,,,,,,,,,Alternative one,8,Yes,4,5,2,3,1,Voluntary donation,,On-site payment,,Agree,"Both, equally",,10,10,10,2,1,3,2,1,3,1-2 hours,10,Yes,No,,6903627b-94a2-c73e-89da-a8bd299f9a88,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T13:05:21.343Z,0,Tourism,Residents,,2025-10-30T13:10:58.490Z
+2025-10-30 03:06:26,2025-10-30 03:34:38,IP Address,75.84.136.170,100,1691,True,2025-10-30 03:34:39,R_1o2NjJzRYndlo1H,,,,,34.195,-118.445,anonymous,EN,Yes,California,Yes,35-44 years old,Male,"White or Caucasian,Black or African American,Asian",High School diploma or GED,"$75,000 -$99,999",Working (self-employee),91406,,Oʻahu,,Yes,Recreation (general leisure hiking for enjoyment),,4,0,0,46.975,0,37.221,99.201,105.597,48,,,,,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,None of the option,8,Yes,5,1,3,4,2,Per-entry fee,,Online pre-payment,,Agree,"Both, but majority visitors",,8,7,5,3,1,2,1,3,2,3-5 hours,20,No,Yes,,690362cb-da56-c3c0-1b27-fb36a714cbb6,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T11:10:10.365Z,0,Tourism,Residents,,2025-10-30T11:32:29.729Z
+2025-10-30 02:55:14,2025-10-30 04:01:47,IP Address,206.74.97.212,100,3993,True,2025-10-30 04:01:48,R_3ppilZ9FxlTRV7j,,,,,34.9151,-81.0129,anonymous,EN,Yes,South Carolina,Yes,55-64 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),29730,,"Big island (Hawaiʻi),Kauaʻi",,Yes,Spending time with family / friends,,1,0,0,36.904,0,7.297,9.138,15.947,2,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,,Alternative two,10,Yes,4,1,3,5,2,Daily pass,,Online pre-payment,,Agree,"Both, equally",,9,6,6,1,3,2,3,1,2,None,5,No,No,,6903602b-e815-cb54-9670-4d49f568771d,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T13:45:48.231Z,0,Tourism,Residents,,2025-10-30T14:01:39.466Z
+2025-10-30 04:23:08,2025-10-30 04:32:20,IP Address,172.59.56.198,100,551,True,2025-10-30 04:32:21,R_3Hqj8SggMSUYfa9,,,,,21.329,-158.0119,anonymous,EN,Yes,Hawaii,,65+ years old,Male,Asian,Bachelor's degree,"$25,000 -$49,999",Not working (retired),96825,Oʻahu,,Full time Hawaiʻi resident,Yes,Recreation (general leisure hiking for enjoyment),,0,4.407,43.862,47.834,24,3.162,45.883,46.601,31,,,,,,,,,,,,,Alternative two,Alternative two,None of the options,Alternative one,,Alternative one,5,Yes,5,1,3,4,2,Per-entry fee,,On-site payment,,Agree,"Both, but majority residents",,5,3,5,2,1,3,2,1,3,None,5,No,No,,690374c1-3978-d44c-1dfa-159a9bc54cca,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T14:23:26.592Z,1,Tourism,Residents,,2025-10-30T14:32:09.306Z
+2025-10-30 04:42:28,2025-10-30 04:47:43,IP Address,47.34.176.56,100,315,True,2025-10-30 04:47:44,R_1WFayUuq6gxl86l,,,,,33.7627,-118.1376,anonymous,EN,Yes,California,Yes,55-64 years old,Female,White or Caucasian,Bachelor's degree,"$150,000 or more",Working (paid employee),90803,,Oʻahu,,Yes,Recreation (general leisure hiking for enjoyment),,1,2.536,25.779,36.72,9,1.122,38.98,39.701,11,,,,,,,,,None of the options,Alternative one,Alternative one,Alternative two,,,,,Alternative two,,9,No,1,5,4,2,3,Per-entry fee,,On-site payment,,Agree,"Both, equally",,1,2,1,2,1,3,2,1,3,None,0,No,No,,6903794e-8dac-ffa4-d18b-5dc1e18cc13d,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T14:42:42.591Z,0,Tourism,Residents,,2025-10-30T14:47:34.824Z
+2025-10-30 06:35:28,2025-10-30 06:38:58,IP Address,174.197.193.150,100,210,True,2025-10-30 06:38:59,R_3Nxqzc6OE4pP7Tk,,,,,43.0391,-76.1277,anonymous,EN,Yes,New York,Yes,25-34 years old,Female,White or Caucasian,High School diploma or GED,"Less than $25,000",Working (paid employee),13350,,Māui,,Yes,Spending time with family / friends,,3,0.833,1.51,51.201,2,0.182,3.811,25.701,4,Alternative two,Alternative two,Alternative two,Alternative two,,,,,,,,,,,,,Alternative two,,10,Yes,4,5,2,1,3,Daily pass,,On-site payment,,Agree,"Both, equally",,10,10,10,2,1,3,2,3,1,More than 6 hours,2.00,Yes,Yes,"Burger King ",690393ca-f690-6295-8c7b-1c74e65433ac,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T16:35:42.564Z,0,Tourism,Residents,,2025-10-30T16:38:48.219Z
+2025-10-30 07:20:18,2025-10-30 07:33:21,IP Address,73.171.173.45,100,782,True,2025-10-30 07:33:21,R_5MDQRT877kaRIkR,,,,,30.2296,-81.8124,anonymous,EN,Yes,Florida,Yes,25-34 years old,Male,Black or African American,"Some college, but no degree","$50,000 -$74,999",Working (paid employee),32210,,"Oʻahu,Māui",,Yes,Photography,,15,1.754,40.601,41.49,14,1.922,45.852,46.901,14,,,,,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,Alternative two,,10,Yes,5,3,1,2,4,Voluntary donation,,Mobile payment (QR code on-site),,Agree,"Both, but majority residents",,6,5,5,2,1,3,2,1,3,3-5 hours,40,Yes,No,,69039e4d-6cc3-8b66-ba7f-eb50d0d008d0,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T17:20:41.643Z,0,Tourism,Residents,,2025-10-30T17:30:36.740Z
+2025-10-30 08:10:03,2025-10-30 08:18:29,IP Address,98.203.90.70,100,505,True,2025-10-30 08:18:29,R_7GVMIGHKgIqtPrO,,,,,27.2621,-80.3835,anonymous,EN,Yes,Florida,Yes,18-24 years old,Male,Black or African American,"Some college, but no degree","$50,000 -$74,999",Working (self-employee),34953,,"Māui,Lānaʻi or Molokaʻi",,Yes,Spending time with family / friends,,5,2.051,38.551,39.467,6,0.292,28.127,28.94,9,,,,,,,,,None of the options,Alternative one,Alternative one,Alternative one,,,,,Alternative one,,8,Yes,5,4,3,1,2,Daily pass,,On-site payment,,Agree,Only Visitors,,10,10,8,2,1,3,2,1,3,3-5 hours,59,Yes,No,,6903a9f2-2cd2-44f8-4868-b28eb8f98251,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T18:12:36.104Z,0,Tourism,Residents,,2025-10-30T18:18:19.706Z
+2025-10-30 08:47:23,2025-10-30 08:58:23,IP Address,70.170.129.29,100,659,True,2025-10-30 08:58:24,R_6pp0kidRtv2J2AV,,,,,36.2625,-115.1732,anonymous,EN,Yes,Nevada,Yes,25-34 years old,Female,Black or African American,"Some college, but no degree","$25,000 -$49,999",Working (paid employee),89106,,Māui,,Yes,Spending time with family / friends,,2,0.871,33.74,38.167,7,0.492,17.078,18.821,15,,,,,,,,,,,,,Alternative one,Alternative one,Alternative one,Alternative one,Alternative one,,9,Yes,2,5,4,3,1,Daily pass,,Online pre-payment,,Agree,Only Residents,,7,7,7,1,2,3,1,2,3,None,100,Yes,Yes,,6903b2b5-7a08-dafa-c06f-a815b8f1faa4,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T18:49:17.559Z,0,Tourism,Residents,,2025-10-30T18:58:15.895Z
+2025-10-30 09:12:20,2025-10-30 09:18:07,IP Address,142.202.48.120,100,346,True,2025-10-30 09:18:07,R_1aDM1qUTpwtOnkg,,,,,40.7399,-74.1691,anonymous,EN,Yes,New York,Yes,25-34 years old,Female,White or Caucasian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),10001,,"Māui,Big island (Hawaiʻi)",,No,,,,6.202,46.776,52.002,4,2.523,23.722,25.853,4,,,,,Alternative two,Alternative one,Alternative two,Alternative one,,,,,,,,,,Alternative one,10,Yes,5,4,3,1,2,Per-entry fee,,On-site payment,,Agree,"Both, equally",,9,8,7,1,2,3,2,1,3,3-5 hours,25,Yes,Yes,,6903b882-0f97-5825-8713-092eddf15a8f,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:12:52.762Z,0,Tourism,Residents,,2025-10-30T19:17:47.911Z
+2025-10-30 09:01:52,2025-10-30 09:18:34,IP Address,107.137.90.58,100,1001,True,2025-10-30 09:18:34,R_1go94y233ECYohT,,,,,33.839,-83.9007,anonymous,EN,Yes,Georgia,Yes,25-34 years old,Female,Black or African American,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),30052,,"Lānaʻi or Molokaʻi,Big island (Hawaiʻi)",,Yes,Exercise,,4,0,0,38.516,0,11.198,11.198,208.54,1,Alternative one,Alternative two,Alternative one,Alternative one,,,,,,,,,,,,,Alternative two,,8,Yes,2,3,1,5,4,Daily pass,,On-site payment,,Agree,Only Residents,,9,5,3,2,3,1,2,1,3,3-5 hours,3,Yes,Yes,,6903b61a-4fbd-b85d-3863-22ce2085e520,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:02:28.165Z,0,Tourism,Residents,,2025-10-30T19:18:17.292Z
+2025-10-30 09:21:34,2025-10-30 09:28:29,IP Address,75.58.9.185,100,415,True,2025-10-30 09:28:30,R_1Gv7nwrDrUZvHkZ,,,,,37.7022,-121.9358,anonymous,EN,Yes,Arkansas,Yes,18-24 years old,Non-binary,Asian,High School diploma or GED,"$150,000 or more",Not working (looking for work),96786,,"Oʻahu,Māui,Big island (Hawaiʻi)",,Yes,Photography,,0,0,0,37.467,0,1.773,30.389,38.971,5,,,,,Alternative two,Alternative two,Alternative one,Alternative two,,,,,,,,,Alternative two,,7,Yes,2,1,3,4,5,Daily pass,,On-site payment,,Agree,"Both, equally",,7,8,4,1,2,3,1,2,3,3-5 hours,15,Yes,No,,6903baaf-f58e-ed9a-4c14-76cf0a15b966,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:22:06.699Z,1,Tourism,Residents,,2025-10-30T19:28:15.032Z
+2025-10-30 09:24:18,2025-10-30 09:30:28,IP Address,97.170.55.242,100,369,True,2025-10-30 09:30:29,R_3sdnhWb38yuykSP,,,,,34.0765,-117.628,anonymous,EN,Yes,California,Yes,25-34 years old,Male,Black or African American,"Some college, but no degree","Less than $25,000",Working (paid employee),92104,,Big island (Hawaiʻi),,Yes,Exercise,,2,4.086,106.947,107.829,6,0.599,15.973,17.303,10,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,,,,,,Alternative one,2,Yes,3,2,5,4,1,Daily pass,,Online pre-payment,,Agree,"Both, equally",,6,3,3,1,2,3,1,3,2,1-2 hours,20,No,No,,6903bb5c-85f8-3b9b-a635-9cc89abdfa69,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:24:31.040Z,0,Tourism,Residents,,2025-10-30T19:30:18.399Z
+2025-10-30 09:28:33,2025-10-30 09:34:53,IP Address,68.97.134.199,100,380,True,2025-10-30 09:34:53,R_316XYbfab2QkZnX,,,,,35.58,-97.5642,anonymous,EN,Yes,Texas,Yes,25-34 years old,Male,Asian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),77057,,Big island (Hawaiʻi),,Yes,Spending time with family / friends,,2,0,0,34.846,0,4.151,14.672,17.186,2,,,,,,,,,,,,,Alternative two,Alternative two,Alternative one,Alternative one,Alternative one,,10,Yes,2,1,3,4,5,Daily pass,,On-site payment,,Agree,"Both, but majority residents",,8,8,7,3,2,1,3,2,1,1-2 hours,10,Yes,No,,6903bc5b-9590-48e8-f221-f4c881934141,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:29:05.757Z,0,Tourism,Residents,,2025-10-30T19:34:35.543Z
+2025-10-30 09:27:42,2025-10-30 09:35:46,IP Address,,100,484,True,2025-10-30 09:35:47,R_3HTBAY0hOcaU2d3,,,,,,,anonymous,EN,Yes,Florida,Yes,45-54 years old,Male,Black or African American,High School diploma or GED,"Less than $25,000",Working (paid employee),33304,,Māui,,No,,,,5.424,24.026,38.721,6,14.479,53.608,54.202,11,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative two,,,,,Alternative one,,8,Yes,2,1,4,5,3,Annual pass,,Online pre-payment,,Strongly Agree,Only Residents,,5,5,7,3,1,2,3,1,2,3-5 hours,26,Yes,No,"Great ",6903bc26-8ed4-7d77-4054-10025555233a,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T19:28:04.557Z,0,Tourism,Residents,,2025-10-30T19:35:23.007Z
+2025-10-30 09:41:37,2025-10-30 09:45:26,IP Address,,100,228,True,2025-10-30 09:45:27,R_1JDkYXC4TzVuxNA,,,,,,,anonymous,EN,Yes,New Jersey,Yes,18-24 years old,Female,Black or African American,Some high school or less,"Less than $25,000",Working (paid employee),07107,,"Oʻahu,Lānaʻi or Molokaʻi",,No,,,,0.57,19.069,35.859,6,0.658,14.934,17.335,10,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,,,,Alternative one,,7,No,4,5,3,2,1,Annual pass,,Mobile payment (QR code on-site),,Strongly Agree,"Both, but majority residents",,5,4,7,1,2,3,1,2,3,1-2 hours,1000,Yes,No,,6903bf6c-afbd-38e1-0526-ac76d4ca4dda,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T19:41:48.870Z,0,Tourism,Residents,,2025-10-30T19:45:05.839Z
+2025-10-30 09:34:30,2025-10-30 09:46:22,IP Address,172.59.201.127,100,712,True,2025-10-30 09:46:23,R_1fWLhKn2fFJERiN,,,,,33.3897,-111.8469,anonymous,EN,Yes,Arizona,Yes,55-64 years old,Female,White or Caucasian,High School diploma or GED,"Less than $25,000",Not working (retired),85746,,Māui,,Yes,Recreation (general leisure hiking for enjoyment),,1,1.609,38.397,39.902,24,2.763,71.62,73.379,54,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,Alternative one,8,Yes,2,3,1,4,5,Daily pass,,Mobile payment (QR code on-site),,Agree,"Both, but majority visitors",,9,9,8,1,2,3,2,1,3,1-2 hours,40,No,No,,6903bdbe-d50f-8bee-e068-2395d815d256,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:35:19.082Z,0,Tourism,Residents,,2025-10-30T19:46:01.952Z
+2025-10-30 09:32:43,2025-10-30 09:52:59,IP Address,172.58.1.2,100,1215,True,2025-10-30 09:52:59,R_8YEQ9sFA8i9Jjtq,,,,,33.8895,-84.2921,anonymous,EN,Yes,California,Yes,35-44 years old,Male,White or Caucasian,Bachelor's degree,"$100,000 -$149,999",Working (paid employee),94545,,"Māui,Big island (Hawaiʻi)",,Yes,Recreation (general leisure hiking for enjoyment),,4,5.748,55.339,72.149,19,301.565,361.894,362.867,15,,,,,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative one,Alternative two,,9,Yes,3,1,4,2,5,Annual pass,,Online pre-payment,,Agree,"Both, equally",,8,6,7,2,1,3,2,1,3,3-5 hours,500,Yes,Yes,"The survey is good and very informative ",6903bd43-27b9-5b12-53f4-a4bf60a47e11,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:33:20.871Z,0,Tourism,Residents,,2025-10-30T19:52:01.691Z
+2025-10-30 09:41:52,2025-10-30 09:55:25,IP Address,174.202.6.239,100,813,True,2025-10-30 09:55:25,R_7mPjh180P7Ov5pi,,,,,21.3266,-157.8621,anonymous,EN,Yes,Hawaii,,65+ years old,Female,White or Caucasian,Associates or technical degree,"Less than $25,000",Not working (retired),96817,Oʻahu,,Full time Hawaiʻi resident,Yes,Exercise,,0,28.745,45.723,47.689,7,23.828,49.5,50.784,16,,,,,Alternative one,Alternative two,Alternative one,Alternative one,,,,,,,,,Alternative two,,7,Yes,4,1,3,2,5,Per-entry fee,,On-site payment,,Agree,Only Visitors,,8,5,5,1,3,2,2,1,3,1-2 hours,100,No,No,I am 82 so I don't go the hikes.,6903bf78-216c-78b5-c7ca-443848cd0951,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T19:42:30.690Z,1,Tourism,Residents,,2025-10-30T19:54:23.645Z
+2025-10-30 09:51:05,2025-10-30 09:58:06,IP Address,,100,421,True,2025-10-30 09:58:06,R_3kZB7VfmPGW2Yr7,,,,,,,anonymous,EN,Yes,California,Yes,35-44 years old,Male,Asian,Bachelor's degree,"$25,000 -$49,999",Not working (retired),94109,,Māui,,Yes,Collecting plants for cultural purposes,,2,1.44,20.017,36.355,4,1.327,14.127,17.055,14,,,,,Alternative one,Alternative one,None of the options,Alternative one,,,,,,,,,Alternative one,,8,Yes,5,3,1,4,2,Daily pass,,On-site payment,,Strongly Agree,Only Visitors,,5,7,6,2,1,3,1,3,2,1-2 hours,2,Yes,Yes,Yes,6903c1a2-38f1-6416-f177-2340c66f4fb4,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T19:51:24.936Z,0,Tourism,Residents,,2025-10-30T19:57:46.345Z
+2025-10-30 10:00:52,2025-10-30 10:08:58,IP Address,75.218.162.230,100,485,True,2025-10-30 10:08:59,R_1zIR8BRefCkNSQI,,,,,37.6403,-122.0667,anonymous,EN,Yes,Tennessee,Yes,35-44 years old,Male,White or Caucasian,Associates or technical degree,"$150,000 or more",Working (paid employee),37013,,"Oʻahu,Māui,Lānaʻi or Molokaʻi,Big island (Hawaiʻi),Kauaʻi",,Yes,Exercise,,20,0,0,42.313,0,5.25,5.25,19.203,1,,,,,,,,,,,,,Alternative two,Alternative two,Alternative two,Alternative one,,Alternative two,10,Yes,5,4,2,3,1,Annual pass,,Online pre-payment,,Agree,"Both, equally",,10,10,10,2,3,1,2,1,3,3-5 hours,200,Yes,No,Very enjoyable place.,6903c3d9-85da-3318-cedc-3bd2dfc8b838,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:00:26.092Z,0,Tourism,Residents,,2025-10-30T20:07:05.329Z
+2025-10-30 10:05:04,2025-10-30 10:09:57,IP Address,65.195.37.235,100,292,True,2025-10-30 10:09:57,R_7DLAeMwzUZB4IZb,,,,,41.792,-88.166,anonymous,EN,Yes,Delaware,Yes,45-54 years old,Female,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),19805,,"Oʻahu,Big island (Hawaiʻi)",,Yes,Collecting plants for cultural purposes,,4,4.784,4.784,38.91,1,30.387,43.382,55.628,4,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,Alternative one,9,Yes,2,5,4,3,1,Daily pass,,Online pre-payment,,Agree,"Both, equally",,8,8,9,1,2,3,1,2,3,3-5 hours,100,Yes,No,,6903c4ec-d10b-a5e9-7e2a-c5cd6b9ef023,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:05:32.215Z,0,Tourism,Residents,,2025-10-30T20:09:38.531Z
+2025-10-30 10:03:55,2025-10-30 10:13:08,IP Address,172.59.59.209,100,552,True,2025-10-30 10:13:08,R_3QXmjSZS2w15nq2,,,,,21.329,-158.0119,anonymous,EN,Yes,Hawaii,,35-44 years old,Female,Black or African American,Bachelor's degree,"Less than $25,000",Not working (disabled),96778,Big island (Hawaiʻi),,Full time Hawaiʻi resident,No,,,,1.97,58.289,60.149,18,20.649,36.648,42.701,10,Alternative two,Alternative two,Alternative one,Alternative one,,,,,,,,,,,,,Alternative two,,10,No,1,2,5,4,3,Daily pass,,Online pre-payment,,Agree,Only Visitors,,5,7,7,2,1,3,3,1,2,1-2 hours,10,No,No,,6903c4a4-bf4e-7aaa-e9c3-a2737c583e28,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:04:18.452Z,1,Tourism,Residents,,2025-10-30T20:12:49.168Z
+2025-10-30 10:05:38,2025-10-30 10:16:40,IP Address,24.47.168.138,100,661,True,2025-10-30 10:16:41,R_5PRVrHvN2IVNhYZ,,,,,41.8138,-73.1126,anonymous,EN,Yes,Connecticut,Yes,25-34 years old,Male,White or Caucasian,High School diploma or GED,"$50,000 -$74,999",Working (paid employee),06795,,"Oʻahu,Māui,Lānaʻi or Molokaʻi,Big island (Hawaiʻi),Kauaʻi",,Yes,Recreation (general leisure hiking for enjoyment),,2,1.201,3.315,48.801,2,0.39,11.39,16.025,13,,,,,,,,,,,,,Alternative one,Alternative two,Alternative one,Alternative one,Alternative one,,10,Yes,1,4,5,2,3,Per-entry fee,,Online pre-payment,,Agree,Only Residents,,10,10,10,1,2,3,1,2,3,1-2 hours,22,Yes,Yes,Jordan,6903c50e-e2c2-c0a2-755c-71f4feb8514c,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:06:07.972Z,0,Tourism,Residents,,2025-10-30T20:16:32.636Z
+2025-10-30 10:15:53,2025-10-30 10:20:15,IP Address,76.234.110.143,100,261,True,2025-10-30 10:20:15,R_7aad9kne5ZoWGfu,,,,,35.2072,-80.9568,anonymous,EN,Yes,New York,Yes,45-54 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$100,000 -$149,999",Working (paid employee),14219,,"Māui,Lānaʻi or Molokaʻi,Big island (Hawaiʻi)",,Yes,Spending time with family / friends,,2,0,0,44.188,0,4.675,9.229,17.046,3,Alternative one,Alternative one,Alternative two,Alternative two,,,,,,,,,,,,,Alternative two,,9,Yes,2,4,1,5,3,Daily pass,,Online pre-payment,,Agree,"Both, equally",,9,6,6,1,3,2,1,2,3,3-5 hours,500,No,No,,6903c774-0405-4ece-f806-a7d6ac2834ac,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:16:24.943Z,0,Tourism,Residents,,2025-10-30T20:19:56.046Z
+2025-10-30 10:16:04,2025-10-30 10:22:32,IP Address,69.140.125.147,100,387,True,2025-10-30 10:22:32,R_1VIlwdjeAjSSxIl,,,,,39.0863,-77.1726,anonymous,EN,Yes,Maryland,Yes,35-44 years old,Male,Black or African American,Bachelor's degree,"$75,000 -$99,999",Working (paid employee),20001,,Lānaʻi or Molokaʻi,,Yes,Spending time with family / friends,,5,3.431,3.431,36.393,1,2.724,20.501,23.642,25,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,,,,,,,,,Alternative one,9,Yes,2,4,5,3,1,Daily pass,,On-site payment,,Agree,"Both, equally",,8,8,6,1,3,2,1,2,3,3-5 hours,5,No,No,NA,6903c77f-6b49-fdba-87fa-8c8707737771,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:18:17.782Z,0,Tourism,Residents,,2025-10-30T20:22:22.886Z
+2025-10-30 10:21:12,2025-10-30 10:29:13,IP Address,172.58.3.71,100,480,True,2025-10-30 10:29:13,R_1PuK2TTxa2MQJVm,,,,,33.8895,-84.2921,anonymous,EN,Yes,Georgia,Yes,35-44 years old,Female,Black or African American,"Some college, but no degree","$25,000 -$49,999",Working (paid employee),30344,,Māui,,Yes,Recreation (general leisure hiking for enjoyment),,2,1.898,47.905,49.327,27,26.601,63.767,65.978,17,Alternative two,Alternative one,Alternative one,None of the options,,,,,,,,,,,,,,Alternative two,10,Yes,1,4,3,5,2,Per-entry fee,,On-site payment,,Agree,"Both, equally",,10,10,10,3,1,2,2,1,3,3-5 hours,30,Yes,Yes,,6903c8b0-2ea3-2a34-9639-bfb1e94adf4d,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:21:31.510Z,0,Tourism,Residents,,2025-10-30T20:28:55.806Z
+2025-10-30 10:22:27,2025-10-30 10:30:17,IP Address,107.122.81.16,100,470,True,2025-10-30 10:30:18,R_3BWB3LeRwB7gkne,,,,,47.6109,-122.3303,anonymous,EN,Yes,Washington,Yes,25-34 years old,Female,White or Caucasian,High School diploma or GED,"$25,000 -$49,999",Working (paid employee),98225,,Kauaʻi,,Yes,Recreation (general leisure hiking for enjoyment),,1,1.104,39.717,40.535,15,11.514,59.163,60.837,46,,,,,Alternative two,Alternative one,Alternative one,Alternative one,,,,,,,,,,Alternative two,7,Yes,1,3,4,2,5,Daily pass,,Online pre-payment,,Agree,"Both, but majority visitors",,7,6,6,1,3,2,2,1,3,1-2 hours,20,Yes,No,,6903c8fc-cc09-7b2b-a98d-1741770a1b95,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:22:45.430Z,0,Tourism,Residents,,2025-10-30T20:29:13.725Z
+2025-10-30 10:15:32,2025-10-30 10:33:02,IP Address,100.34.167.100,100,1049,True,2025-10-30 10:33:02,R_1zbhDac0LbqmzvP,,,,,39.6336,-75.701,anonymous,EN,Yes,Delaware,Yes,25-34 years old,Male,Black or African American,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$75,000 -$99,999",Working (paid employee),19711,,Lānaʻi or Molokaʻi,,Yes,Cultural connection,,3,0,0,118.271,0,46.91,52.557,64.545,2,,,,,,,,,Alternative one,Alternative one,Alternative two,Alternative one,,,,,,Alternative two,10,Yes,3,1,2,5,4,Annual pass,,Online pre-payment,,Agree,"Both, equally",,9,8,5,2,1,3,2,1,3,1-2 hours,40,Yes,Yes,I LOVE THE SURVEY.. GOOD JOB.,6903c75f-8c9d-b826-4b4a-53bae4431731,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:17:25.648Z,0,Tourism,Residents,,2025-10-30T20:32:24.017Z
+2025-10-30 10:29:52,2025-10-30 10:36:46,IP Address,96.232.202.62,100,414,True,2025-10-30 10:36:47,R_1oIlfirIt5Nt9HE,,,,,40.726,-73.848,anonymous,EN,Yes,New York,Yes,25-34 years old,Female,Asian,Bachelor's degree,"$50,000 -$74,999",Working (paid employee),11367,,Big island (Hawaiʻi),,Yes,Collecting plants for cultural purposes,,2,2.037,6.372,38.454,3,5.002,64.699,66.174,18,Alternative one,Alternative two,Alternative one,Alternative two,,,,,,,,,,,,,Alternative one,,10,Yes,4,2,5,3,1,Daily pass,,On-site payment,,Agree,"Both, equally",,10,8,9,2,1,3,2,1,3,1-2 hours,10,Yes,No,"Very good survey ",6903cabb-61ed-5df2-4e29-261d4fee0a3a,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:30:28.322Z,0,Tourism,Residents,,2025-10-30T20:36:21.673Z
+2025-10-30 10:29:32,2025-10-30 10:44:38,IP Address,50.169.188.98,100,905,True,2025-10-30 10:44:38,R_3myBJflRqjGNGtH,,,,,39.696,-105.0346,anonymous,EN,Yes,Colorado,Yes,55-64 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$75,000 -$99,999",Working (paid employee),80210,,Oʻahu,,Yes,Recreation (general leisure hiking for enjoyment),,15,15.113,15.113,384.682,1,15.643,16.787,19.526,2,,,,,,,,,Alternative two,Alternative one,Alternative one,Alternative two,,,,,Alternative two,,10,Yes,3,5,1,4,2,Other (Please enter answer in the box),"Undecided, but voluntary never works!",On-site payment,,Agree,"Both, but majority visitors",,10,10,8,3,1,2,1,2,3,None,5,No,No,Great survey. Thank you for alerting me to this problem. Something must be done to preserve these trails for everyone!,6903caa7-9fb3-3859-82ce-5e04e8c51f59,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:29:58.882Z,0,Tourism,Residents,,2025-10-30T20:43:19.545Z
+2025-10-30 10:38:49,2025-10-30 10:46:26,IP Address,97.242.5.249,100,456,True,2025-10-30 10:46:26,R_7QLy7IJCkbo1Ixr,,,,,41.85,-87.7165,anonymous,EN,Yes,Tennessee,Yes,35-44 years old,Male,White or Caucasian,"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)","$150,000 or more",Working (paid employee),37013,,"Oʻahu,Māui,Big island (Hawaiʻi)",,Yes,Collecting plants for cultural purposes,,2,0,0,37.19,0,0,0,24.547,0,,,,,,,,,,,,,Alternative two,Alternative two,Alternative two,Alternative one,,Alternative two,10,Yes,2,3,1,5,4,Daily pass,,Mobile payment (QR code on-site),,Agree,"Both, equally",,10,4,10,2,3,1,2,3,1,3-5 hours,50,No,Yes,"It was very pleasing , interesting and also very informative.",6903ccd2-0097-8a7d-1af8-78bd5a27739b,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:39:19.882Z,0,Tourism,Residents,,2025-10-30T20:45:39.315Z
+2025-10-30 10:42:30,2025-10-30 10:47:22,IP Address,,100,291,True,2025-10-30 10:47:22,R_1lh6GeD4m4QmO53,,,,,,,anonymous,EN,Yes,Georgia,Yes,65+ years old,Male,White or Caucasian,"Some college, but no degree","$25,000 -$49,999",Not working (retired),30643,,Lānaʻi or Molokaʻi,,No,,,,1.284,42.766,46.043,19,1.819,25.015,27.3,21,,,,,None of the options,Alternative two,Alternative one,Alternative one,,,,,,,,,Alternative one,,7,Yes,5,1,2,3,4,Annual pass,,On-site payment,,Strongly Agree,"Both, equally",,8,8,8,1,2,3,1,2,3,3-5 hours,8,No,Yes,,6903cdb1-5f4b-119b-097e-daff6f1dcf8e,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",2,2025-10-30T20:42:49.869Z,0,Tourism,Residents,,2025-10-30T20:47:02.912Z
+2025-10-30 10:23:49,2025-10-30 10:47:24,IP Address,76.39.22.23,100,1415,True,2025-10-30 10:47:24,R_1M0EHUlZyrwvkMw,,,,,21.3999,-157.7989,anonymous,EN,Yes,Hawaii,,65+ years old,Male,"White or Caucasian,Asian,Native Hawaiian or Other Pacific Islander",Bachelor's degree,"$50,000 -$74,999",Not working (retired),96734,Oʻahu,,Full time Hawaiʻi resident,Yes,Cultural connection,,0,0,0,220.407,0,105.849,150.678,153.84,7,,,,,,,,,,,,,Alternative two,Alternative one,Alternative two,Alternative two,Alternative two,,4,Yes,3,4,5,1,2,Per-entry fee,,On-site payment,,Agree,"Both, but majority residents",,3,2,5,2,1,3,2,1,3,None,100,No,No,Some of my answers are dependent upon my current age of nearly 79 and my physical condition.  When young the Kaawa Trails were beautiful.,6903c951-acb7-cc9e-bfed-1b4ff0207c9e,"96701, 96704, 96706, 96707, 96708, 96712, 96713, 96717, 96720, 96722, 96725, 96727, 96730, 96731, 96732, 96734, 96738, 96740, 96741, 96743, 96744, 96746, 96748, 96749, 96750, 96753, 96754, 96756, 96760, 96761, 96762, 96766, 96768, 96771, 96778, 96779, 96781, 96782, 96783, 96786, 96789, 96790, 96791, 96792, 96793, 96795, 96797, 96813, 96814, 96815, 96816, 96817, 96818, 96819, 96821, 96822, 96825, 96826",1,2025-10-30T20:33:25.240Z,1,Tourism,Residents,,2025-10-30T20:54:29.450Z
