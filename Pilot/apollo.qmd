@@ -24,8 +24,8 @@ idvar = c(1:3,5,7),
 direction = "wide" )
 
 apollo_control <- list(
-  modelName  = "Trail_Choice_lowcost",
-  modelDescr = "Simple MNL model with lowcost as trail attribute",
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
   indivID    = "RID" ,
   panelData = TRUE
 )
