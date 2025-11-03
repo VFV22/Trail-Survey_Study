@@ -14,7 +14,7 @@ library(gt)         # produce table of results
 # 1 — User settings / file paths
 # ------------------------------
 
-source("Pilot/1. Cleaning /Cleaning.R")
+source("Documents/GitHub/Trail-Survey_Study/Pilot/1. Cleaning /Cleaning.R")
 
 #------------------------------------------------------:
 # (2): Pivot for DCE #####
@@ -32,7 +32,7 @@ Reshape.long.1 <- Pilot %>%
 
 
 # Load experimental design from edited ngene 
-design_ngene <- read_csv("Ngene_reshape_edited.csv") 
+design_ngene <- read_csv("~/Documents/GitHub/Trail-Survey_Study/Ngene_reshape_edited 11.18.56 PM.csv") 
 
 
 # Match data format for before merging
@@ -176,6 +176,28 @@ merge.data.1 %<>%
 # (5): Sanity Check #####
 #------------------------------------------------------:       
 
+# Summarize block distribution 
+summary_block.distribution <- merge.data.1 %>%
+  distinct(RID, .keep_all = TRUE) %>% 
+  group_by(Zipverified, block) %>% 
+  count() %>% 
+  group_by(Zipverified) %>% 
+  mutate(percentage = n / sum(n) * 100)  # percentage within each Zipverified group
+
+# Plot as bar chart with percentages
+ggplot(summary_block.distribution, aes(x = block, y = percentage, fill = Zipverified)) +
+  geom_col(position = "dodge") +  # side-by-side bars
+  labs(
+    title = "Percentage per Block by Zipverified",
+    x = "Block",
+    y = "Percentage (%)",
+    fill = "Zip Verified"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+rm(summary_block.distribution)
+
 # Count how many times each alternative was chosen overall
 merge.data.1 %>%
   filter(Choice.Binary == 1) %>%
@@ -254,17 +276,19 @@ merge.data.1 %>%
 
 # Visualize balance of attribute levels - Cost
 
-merge.data %>%
+merge.data.1 %>%
   count(Alternative, Cost) %>%
   group_by(Cost) %>%
   summarise(total_shown = sum(n)) %>%
   arrange(desc(Cost))
 
-merge.data %>%
+merge.data.1 %>%
   count(Cost) %>%
   ggplot(aes(x = Cost, y = n)) +
   geom_col(fill = "darkorange") +
   labs(title = "Shown counts per Cost")
+
+
 
 
 

@@ -2,7 +2,7 @@
 # 0 — User settings / file paths
 # ------------------------------
 # Edit this path if your Ngene export is in a different location
-ngene_file <- "ALM Design - 44.xlsx"
+ngene_file <- "~/Documents/GitHub/Trail-Survey_Study/ALM Design - 44.xlsx"
 
 # ------------------------------
 # 0 — Libraries
@@ -405,6 +405,14 @@ design_none <- design_long.merge%>%
 # Combine and sort
 design_final<- bind_rows(design_long.merge, design_none) %>%
   arrange(Choice.Task, Alternative)
+
+#Change 50 $ to 40$ for Cost - based on reveal preferences analysis on highest WTP of consumer surplus 
+design_final %<>%
+  mutate(Cost = ifelse(Cost == 50, 40, Cost))
+
+design %<>%
+  mutate(A1_cost = ifelse(A1_cost== 50, 40, A1_cost),
+         A2_cost= ifelse(A2_cost== 50, 40, A2_cost))
 
 
 # ------------------------------

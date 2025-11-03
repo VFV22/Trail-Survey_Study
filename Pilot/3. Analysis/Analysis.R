@@ -10,13 +10,15 @@ library(janitor)    # cleaning and tidying data
 library(gt)         # produce table of results
 library(mlogit)   # Function for mlogit 
 library(car)      #Checking for collinearity
+library(apollo)
+library(knitr)
 #library(patchwork)  #combine multiple plots 
 
 # ------------------------------
 # 1 — User settings / file paths
 # ------------------------------
 
-source("Pilot/2. Processing /Processing.R")
+source("Documents/GitHub/Trail-Survey_Study/Pilot/2. Processing /Processing.R")
 
 
 
@@ -106,175 +108,30 @@ mnl.data <- mlogit.data(
 )
 
 
-probit.model <- glm(
-  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-  data = mlogit_clean,
-  family = binomial(link = "probit")
-)
-
-
-summary(probit.model)
 # ----------------------------------
 # 3 — Run regressions - MNL 
 # ----------------------------------
 
 # Run regression - MNL 
-mnl.model <- mlogit(
-  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-  data = mnl.data,
-  reflevel = "3"
-)
-
-# 
-# table(mlogit_clean$Alternative, mlogit_clean$Habitat_Quality)
-# table(mlogit_clean$Alternative, mlogit_clean$Trail_Condition)
-# table(mlogit_clean$Alternative, mlogit_clean$Crowding)
-# 
-# mnl.model <- mlogit(
-#   Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding | 0,
-#   data = mnl.data,
-#   reflevel = "3"
-# )
-# 
-# table(mlogit_clean$Alternative, mlogit_clean$Habitat_Quality)
-# 
-# 
-# mlogit_clean %<>%
-#   mutate(
-#     Alternative = factor(Alternative, levels = c("1", "2", "3")),
-#     Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
-#     Trail_Condition = factor(Trail_Condition, levels = c("Low", "Medium", "High")),
-#     Crowding = factor(Crowding, levels = c("Low", "Medium", "High"))
-#   )
-# 
-# 
-# mlogit_clean <- mlogit_clean %>%
-#   mutate(
-#     Alternative = factor(Alternative, levels = c("3", "1", "2"))  # put 3 first
-#   )
-# 
-# mnl.data <- mlogit.data(
-#   mlogit_clean,
-#   choice   = "Choice.Binary",
-#   shape    = "long",
-#   chid.var = "ChoiceSetID",   # now globally unique
-#   alt.var  = "Alternative",
-#   id.var   = "RID", 
-# )
-# 
-# mnl.model <- mlogit(
-#   Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-#   data = mnl.data
-# )
-# 
-# mlogit_clean <- mlogit_clean %>%
-#   mutate(Alternative = factor(as.character(Alternative), levels = c("1", "2", "3")))
-# 
-# mnl.data <- mlogit.data(
-#   mlogit_clean,
-#   choice   = "Choice.Binary",
-#   shape    = "long",
-#   chid.var = "ChoiceSetID",
-#   alt.var  = "Alternative",
-#   id.var   = "RID"
-# )
-# 
-# levels(index(mnl.data)$alt)
-# 
 # mnl.model <- mlogit(
 #   Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
 #   data = mnl.data,
 #   reflevel = "3"
 # )
-# 
-# mlogit_clean %>%
-#   filter(Alternative == "3") %>%
-#   glimpse()
-# 
-# mlogit_clean <- mlogit_clean %>%
-#   mutate(
-#     Habitat_Quality = ifelse(Alternative == "3", "Low", Habitat_Quality),
-#     Trail_Condition = ifelse(Alternative == "3", "Low", Trail_Condition),
-#     Crowding        = ifelse(Alternative == "3", "High", Crowding), # choose any consistent placeholder
-#     Cost            = ifelse(Alternative == "3", 0, Cost)
-#   )
-# 
-# mnl.data <- mlogit.data(
-#   mlogit_clean,
-#   choice   = "Choice.Binary",
-#   shape    = "long",
-#   chid.var = "ChoiceSetID",
-#   alt.var  = "Alternative",
-#   id.var   = "RID"
-# )
-# 
-# mnl.model <- mlogit(
-#   Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-#   data = mnl.data,
-#   reflevel = "3"
-# )
-# 
-# mlogit_clean %>%
-#   group_by(Alternative) %>%
-#   summarise(
-#     n = n(),
-#     unique_Habitat = n_distinct(Habitat_Quality),
-#     unique_Trail   = n_distinct(Trail_Condition),
-#     unique_Crowd   = n_distinct(Crowding),
-#     unique_Cost    = n_distinct(Cost)
-#   )
-# 
-# mnl.model1 <- mlogit(
-#   Choice.Binary ~ Cost + Habitat_Quality,
-#   data = mnl.data,
-#   reflevel = "3"
-# )
-# 
-# summary(mnl.model1)
-# 
-# contrasts(mlogit_clean$Habitat_Quality)
-# contrasts(mlogit_clean$Crowding)
-# 
-# mlogit_clean <- mlogit_clean %>%
-#   mutate(
-#     Habitat_Quality = factor(Habitat_Quality, levels = c("Low", "Medium", "High")),
-#     Trail_Condition = factor(Trail_Condition, levels = c("Low", "Medium", "High")),
-#     Crowding        = factor(Crowding, levels = c("Low", "Medium", "High"))
-#   )
-# 
-# # Make sure they use treatment contrasts (dummy coding)
-# options(contrasts = c("contr.treatment", "contr.poly"))
-# 
-# mnl.data <- mlogit.data(
-#   mlogit_clean,
-#   choice   = "Choice.Binary",
-#   shape    = "long",
-#   chid.var = "ChoiceSetID",
-#   alt.var  = "Alternative",
-#   id.var   = "RID"
-# )
-# 
-# mnl.model <- mlogit(
-#   Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
-#   data = mnl.data,
-#   reflevel = "3"
-# )
-# 
-# mlogit_clean$Habitat_Quality <- relevel(factor(mlogit_clean$Habitat_Quality,
-#                                                levels = c("Low", "Medium", "High")), ref = "Low")
-# mlogit_clean$Trail_Condition <- relevel(factor(mlogit_clean$Trail_Condition,
-#                                                levels = c("Low", "Medium", "High")), ref = "Low")
-# mlogit_clean$Crowding <- relevel(factor(mlogit_clean$Crowding,
-#                                         levels = c("Low", "Medium", "High")), ref = "Low")
-
 
 
 # Not working with attribute levels as factors 
 # This is because we treat "None" as another level, leading to perfect collinearity 
 # Where the model couldn't distinguish between opt-out alternative and the "None" baseline.
 
+# Run regression - Probit 
+probit.model <- glm(
+  Choice.Binary ~ Cost + Habitat_Quality + Trail_Condition + Crowding,
+  data = mlogit_clean,
+  family = binomial(link = "probit")
+)
 
-
+summary(probit.model)
 # ----------------------------------
 # 3 — Run regressions - MNL (numeric)  
 # ----------------------------------
@@ -294,26 +151,27 @@ summary(mix_model)
 # as "Low" → "Medium" → "High" (a linear, cardinal scale).
 
 # Insight 
-# Cost is counterintuitive 
-# Log-likelihood = -471.99, McFadden R² ≈ 0.005 → extremely poor fit.
+# Log-likelihood = -471.99, McFadden R² ≈ 0.02 → poor fit.
 
 # Red flag about design redundancy (the issue we saw with “None”), 
 # or that treating the levels as numeric distorted the relationships.
 # Could be the reason why cost is counterintuitive 
 
-# ----------------------------------
-# 4 — Generate Graphs
-# ----------------------------------
+# Run Regression using Apollo package 
 
+# # ----------------------------------
+# # 4 — Generate Graphs
+# # ----------------------------------
 # 
-# # Create a tidy table of regression results
-tidy_results <- tidy(mix_model)
-# 
-# # Display it as a table
-print(tidy_results)
-# 
-# 
-tidy_results %>%
-  kbl(digits = 3, caption = "Regression Results") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
-
+# # 
+# # # Create a tidy table of regression results
+# tidy_results <- tidy(mix_model)
+# # 
+# # # Display it as a table
+# print(tidy_results)
+# # 
+# # 
+# tidy_results %>%
+#   kbl(digits = 3, caption = "Regression Results") %>%
+#   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
+ 

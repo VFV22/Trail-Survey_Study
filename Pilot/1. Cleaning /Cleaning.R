@@ -14,7 +14,7 @@ library(gt)         # produce table of results
 # 1 — User settings / file paths
 # ------------------------------
 
-Pilot <- read_csv("Pilot/0. Data/Trail Survey - Final draft - October 2025_October 30, 2025_14.40.csv")
+Pilot <- read_csv("Documents/GitHub/Trail-Survey_Study/Pilot/0. Data/Trail Survey - Final draft - October 2025_November 2, 2025_15.43.csv")
 
 
 #------------------------------------------------------:
@@ -150,3 +150,7 @@ Pilot$Zipverified <- ifelse(Pilot$Zipverified == "1", "Resident", "Tourist")
 #Filter out testing RIDs
 Pilot %<>% 
   filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
+
+#Filter out incomplete / failed attention check 
+Pilot %<>% 
+  filter(gc==1)
