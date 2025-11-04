@@ -18,8 +18,7 @@ library(knitr)
 # 1 — User settings / file paths
 # ------------------------------
 
-source("Documents/GitHub/Trail-Survey_Study/Pilot/2. Processing /Processing.R")
-
+source("2. Processing /Processing.R")
 
 
 # ----------------------------------

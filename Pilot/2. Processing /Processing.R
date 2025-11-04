@@ -14,7 +14,7 @@ library(gt)         # produce table of results
 # 1 — User settings / file paths
 # ------------------------------
 
-source("Documents/GitHub/Trail-Survey_Study/Pilot/1. Cleaning /Cleaning.R")
+source("1. Cleaning /Cleaning.R")
 
 #------------------------------------------------------:
 # (2): Pivot for DCE #####

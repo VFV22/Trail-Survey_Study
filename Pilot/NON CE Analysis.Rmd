@@ -1,0 +1,713 @@
+---
+title: "Pilot overview"
+author: "Valdo Viana & Ashley Lowe-Mckenzie"
+date: "2025-11-03"
+output: 
+  html_document:
+    code_folding: hide   # all code hidden by default, expandable
+---
+
+```{r setup, include=FALSE}
+# Setup global chunk options
+knitr::opts_chunk$set(
+  echo = FALSE,       # hide code by default
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+
+```{r load-analysis, echo=FALSE}
+source("3. Analysis/Analysis.R")
+```
+
+## Distribution of Levels by Attributes
+```{r}
+summary_data <- mlogit_clean %>%
+  filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
+  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  count(Zipverified, Trail_Condition) %>%         # count per cost per Zipverified
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+  ) %>%
+  ungroup()
+
+ggplot(summary_data, aes(x = Trail_Condition, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  geom_text(aes(label = paste0("n=", n)),  
+            position = position_dodge(0.9), 
+            vjust = -0.5, size = 3) +       # add counts on top
+  labs(
+    title = "Distribution of Chosen Trail Conditions by Residency",
+    x = "",
+    y = "Proportion of times chosen"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 8),
+    plot.title = element_text(size = 11, face = "bold")
+  )
+rm(summary_data)
+```
+
+```{r}
+summary_data <- mlogit_clean %>%
+  filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
+  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  count(Zipverified, Habitat_Quality) %>%         # count per cost per Zipverified
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+  ) %>%
+  ungroup()
+
+ggplot(summary_data, aes(x = Habitat_Quality, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  geom_text(aes(label = paste0("n=", n)), 
+            position = position_dodge(0.9), 
+            vjust = -0.5, size = 3) +       # add counts on top
+  labs(
+    title = "Distribution of Chosen Habitat Quality by Residency",
+    x = "",
+    y = "Proportion of times chosen"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 8),
+    plot.title = element_text(size = 11, face = "bold")
+  )
+rm(summary_data)
+```
+
+
+```{r}
+summary_data <- mlogit_clean %>%
+  filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
+  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  count(Zipverified, Crowding) %>%         # count per cost per Zipverified
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+  ) %>%
+  ungroup()
+
+ggplot(summary_data, aes(x = Crowding, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  geom_text(aes(label = paste0("n=", n)), 
+            position = position_dodge(0.9), 
+            vjust = -0.5, size = 3) +       # add counts on top
+  labs(
+    title = "Distribution of Chosen Crowding by Residency",
+    x = "",
+    y = "Proportion of times chosen"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 8),
+    plot.title = element_text(size = 11, face = "bold")
+  )
+rm(summary_data)
+```
+
+
+```{r}
+summary_data <- mlogit_clean %>%
+  filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
+  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  count(Zipverified, Cost) %>%         # count per cost per Zipverified
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+  ) %>%
+  ungroup()
+
+ggplot(summary_data, aes(x = Cost, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  geom_text(aes(label = paste0("n=", n)), 
+            position = position_dodge(0.9), 
+            vjust = -0.5, size = 3) +       # add counts on top
+  labs(
+    title = "Distribution of Chosen Cost by Residency",
+    x = "",
+    y = "Proportion of times chosen"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 8),
+    plot.title = element_text(size = 11, face = "bold")
+  )
+rm(summary_data)
+```
+
+
+## User Fee Summary and Plot
+```{r}
+
+summary_data <- mlogit_clean %>%
+  distinct(RID, .keep_all = TRUE) %>%
+  group_by(Zipverified, User.fee_Y.N) %>%
+  summarise(
+    n = n(),  # count per alternative per Zipverified
+    .groups = "drop"
+  ) %>%
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+    # se = sqrt(prop * (1 - prop) / total),   # standard error
+    # ci_lower = (prop - 1.96 * se) * total,  # lower CI (optional)
+    # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
+  )
+
+ggplot(summary_data, aes(x = User.fee_Y.N, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  # geom_errorbar(
+  #   aes(ymin = ci_lower, ymax = ci_upper),
+  #   width = 0.2,
+  #   position = position_dodge(0.9)
+  # ) +
+  geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+  labs(
+    title = "Would you be willing to pay a user fee to support trail management efforts?",
+    x = "",
+    y = "Proportion of responses",
+    fill = ""
+  ) +
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=8),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+
+```
+
+## Payment Type and Method 
+```{r}
+
+# Prepare summary with mean and 95% CI
+summary_data <- mlogit_clean %>%
+  distinct(RID, .keep_all = TRUE) %>%
+    filter(User.fee_Payment.Type != "Other (Please enter answer in the box)") %>%
+  group_by(Zipverified, User.fee_Payment.Type) %>%
+  summarise(
+    n = n(),  # count per alternative per Zipverified
+    .groups = "drop"
+  ) %>%
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+    # se = sqrt(prop * (1 - prop) / total),   # standard error
+    # ci_lower = (prop - 1.96 * se) * total,  # lower CI (optional)
+    # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
+  )
+
+ggplot(summary_data, aes(x = User.fee_Payment.Type, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  # geom_errorbar(
+  #   aes(ymin = ci_lower, ymax = ci_upper),
+  #   width = 0.2,
+  #   position = position_dodge(0.9)
+  # ) +
+    geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+  labs(
+    title = "If user fees were implemented, which payment TYPE would you prefer?",
+    x = "",
+    y = "Proportion of responses",
+    fill = ""
+  ) +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=8),
+         plot.title = element_text(size = 11, face = "bold"))
+
+rm(summary_data)
+
+summary_data <- mlogit_clean %>%
+  distinct(RID, .keep_all = TRUE) %>%
+  filter(User.fee_Payment.Method != "Other (Please enter answer in the box)") %>%
+  group_by(Zipverified, User.fee_Payment.Method) %>%
+  summarise(
+    n = n(),  # count per alternative per Zipverified
+    .groups = "drop"
+  ) %>%
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+  )
+
+ggplot(summary_data, aes(x = User.fee_Payment.Method, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +
+  geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+  labs(
+    title = "If user fees were implemented, which payment METHOD would you prefer?",
+    x = "",
+    y = "Proportion of responses",
+    fill = ""
+  ) +
+  theme_minimal() +
+ theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=8),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+```
+
+
+## Cost Allocation 
+```{r}
+
+summary_data <- mlogit_clean %>%
+  distinct(RID, .keep_all = TRUE) %>%
+   filter(Cost.Allocation != "Other (Please enter answer in the box)") %>%
+  group_by(Zipverified, Cost.Allocation) %>%
+  summarise(
+    n = n(),  # count per alternative per Zipverified
+    .groups = "drop"
+  ) %>%
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+    # se = sqrt(prop * (1 - prop) / total),   # standard error
+    # ci_lower = (prop - 1.96 * se) * total,  # lower CI (optional)
+    # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
+  )
+
+ggplot(summary_data, aes(x = Cost.Allocation, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  # geom_errorbar(
+  #   aes(ymin = ci_lower, ymax = ci_upper),
+  #   width = 0.2,
+  #   position = position_dodge(0.9)
+  # ) +
+  geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+  labs(
+    title = "Who do you think should bear the majority of the cost for trail management?",
+    x = "",
+    y = "Proportion of responses",
+    fill = ""
+  ) +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+```
+
+## Certainty scale
+```{r}
+
+mean.CE <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified) %>%
+summarise(mean_certainty = mean(Certainty.CE_Scale, na.rm = TRUE))
+
+# Visualize Tourist vs Residents
+
+mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+ggplot(aes(x = Certainty.CE_Scale, fill = Zipverified)) +
+geom_histogram(binwidth = 1, color = "white", position = "dodge", boundary = 0.5) +
+geom_vline(data = mean.CE,
+aes(xintercept = mean_certainty, color = Zipverified),
+linetype = "dashed", size = 1) +
+scale_x_continuous(breaks = 1:10, limits = c(1, 11)) +
+labs(
+title = "Certainty Rankings of DCE Choices",
+x = "Certainty Rank (1 = Lowest, 10 = Highest)",
+y = "Number of Respondents",
+fill = "Respondent Type",
+color = "Mean Certainty"
+) +
+theme_minimal(base_size = 13) +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold")) +
+scale_fill_manual(values = c("Resident" = "#4CAF50", "Tourist" = "#2196F3")) +
+scale_color_manual(values = c("Resident" = "#2E7D32", "Tourist" = "#1565C0"))
+rm(mean.CE)
+
+```
+
+## Management Choices (Full Image Attributes)
+```{r}
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+filter(!is.na(Mgm.option_No.Text)) %>%
+group_by(Zipverified, Mgm.option_No.Text) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Mgm.option_No.Text, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+    geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Management Choice Full Picture  (No Text)",
+x = "",
+y = "Proportion of Responses",
+fill = ""
+) +
+theme_minimal() + 
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+filter(!is.na(Mgm.option_With.Text)) %>%
+group_by(Zipverified, Mgm.option_With.Text) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Mgm.option_With.Text, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+    geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Management Choice Full Picture (With Text)",
+x = "",
+y = "Proportion of Responses",
+fill = ""
+) +
+theme_minimal() + 
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+```
+
+
+## Likelihood of Using Trails with User Fee
+```{r}
+mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+ggplot(aes(x = Zipverified, y = Likelihood_Trail.Use, fill = Zipverified)) +
+geom_boxplot() +
+labs(
+title = "Mean of Likelihood of Using Trails with User Fee (Boxplot) ",
+x = "Residency Status",
+y = "Likelihood Rating (1–10)"
+) +
+theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = "bold"),
+    axis.text = element_text(size = 9),
+    legend.position = "none"
+  )
+
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified) %>%
+summarise(
+mean_rating = mean(Likelihood_Trail.Use, na.rm = TRUE),
+sd_rating = sd(Likelihood_Trail.Use, na.rm = TRUE),
+n = n(),
+se = sd_rating / sqrt(n),
+ci_lower = mean_rating - 1.96 * se,
+ci_upper = mean_rating + 1.96 * se
+)
+
+ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
+  geom_col(width = 0.5) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+  geom_text(
+    aes(label = sprintf("%.2f", mean_rating)),  # show mean rounded to 2 decimals
+    vjust = -0.5,                               # position above the bar
+    size = 2.5,                                 # smaller text
+    color = "black"
+  ) +
+  labs(
+    title = "Mean of Likelihood of Using Trails with User Fee (Bar Graph)",
+    x = "",
+    y = "Likelihood Rating (1–10)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = "bold"),
+    axis.text = element_text(size = 9),
+    legend.position = "none"
+  )
+rm(summary_data)
+```
+
+## Empirical Expectation 
+
+Beliefs about what others in a social group are actually doing, based on observation or experience, rather than what they should do
+
+```{r}
+mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+ggplot(aes(x = Zipverified, y = Empirical.Expec_Trail.Use, fill = Zipverified)) +
+geom_boxplot() +
+labs(
+title = "Imagine 10 people you know—friends, family, coworkers. If you had to guess, how many of them would be willing to use trails that require a user fee?",
+x = "Residency Status", y = ""
+) +
+theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 6.5, face = "bold")
+    )
+```
+
+## Normative Expectation
+
+Beliefs about what others think you should do, or what is considered the appropriate behavior in a given social situation
+```{r}
+mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+ggplot(aes(x = Zipverified, y = Normative.Expec_Trail.Use, fill = Zipverified)) +
+geom_boxplot() +
+labs(
+title = "Imagine 10 people you know—friends, family, or coworkers. If you had to guess, how many of them think that people should pay a user fee to use trails?",
+x = "Residency Status", y = ""
+) +
+theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 6.5, face = "bold")
+    )
+
+```
+
+
+## Support Volunteers and WTP 
+```{r}
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified) %>%
+summarise(
+mean_rating = mean(Volunteer.WTP, na.rm = TRUE),
+sd_rating = sd(Volunteer.WTP, na.rm = TRUE),
+n = n(),
+se = sd_rating / sqrt(n),
+ci_lower = mean_rating - 1.96 * se,
+ci_upper = mean_rating + 1.96 * se
+)
+
+ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
+geom_col(width = 0.5) +
+geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+labs(
+title = "Average of WTP to Support Volunteers",
+x = "Residency Status",
+y = "Mean WTP (USD, one-time payment)"
+) +
+theme_minimal() + 
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+filter(!is.na(Volunteer.hours)) %>%
+group_by(Zipverified, Volunteer.hours) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Volunteer.hours, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+    geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Number of hours willing to volunteer as a one-time contribution to support trail management",
+x = "",
+y = "Proportion of Responses",
+fill = ""
+) +
+theme_minimal() + 
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold"))
+rm(summary_data)
+```
+
+### Survey Duration
+```{r}
+summary_time <- mlogit_clean %>%
+summarise(
+mean_time = mean(as.numeric(`Duration (in seconds)`), na.rm = TRUE) / 60,
+sd_time = sd(as.numeric(`Duration (in seconds)`), na.rm = TRUE) / 60,
+min_time = min(as.numeric(`Duration (in seconds)`), na.rm = TRUE) / 60,
+max_time = max(as.numeric(`Duration (in seconds)`), na.rm = TRUE) / 60
+)
+
+kable(summary_time, caption = "Summary of Survey Duration (in minutes)")
+```
+
+# Demographic 
+
+```{r}
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified, Demo_Age) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Demo_Age, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+      geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Age Distribution by Residency",
+x = "Age Category",
+y = "Proportion",
+fill = "Residency"
+) +
+theme_minimal() +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+rm(summary_data)
+```
+
+
+```{r}
+
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified, Demo_Sex) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Demo_Sex, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+      geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Sex Distribution by Residency",
+x = "",
+y = "Proportion",
+fill = "Residency"
+) +
+theme_minimal() +
+theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+rm(summary_data)
+
+```
+
+
+```{r}
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified, Demo_HH.Income) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Demo_HH.Income, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Income Distribution by Residency",
+x = "",
+y = "Proportion",
+fill = "Residency"
+) +
+theme_minimal() +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+rm(summary_data)
+```
+
+
+```{r}
+summary_data <- mlogit_clean %>%
+distinct(RID, .keep_all = TRUE) %>%
+group_by(Zipverified, Demo_Etnicity) %>%
+summarise(n = n(), .groups = "drop") %>%
+group_by(Zipverified) %>%
+mutate(total = sum(n), prop = n / total)
+
+ggplot(summary_data, aes(x = Demo_Etnicity, y = prop, fill = Zipverified)) +
+geom_col(position = position_dodge(0.9)) +
+        geom_text(
+    aes(label = paste0("n=", n)),   # use total from the same data
+    position = position_dodge(0.9),
+    vjust = -0.5,
+    size = 3
+  ) +
+labs(
+title = "Ethnicity Distribution by Residency",
+x = "Ethnicity Category",
+y = "",
+fill = "Residency"
+) +
+theme_minimal() +
+theme(axis.text.x = element_text(angle = 15, hjust = 1, size=4))
+rm(summary_data)
+```
+
+
+# Sanity Check   
+ 
+```{r}
+
+## Summarize block distribution 
+summary_block.distribution <- merge.data.1 %>%
+  distinct(RID, .keep_all = TRUE) %>% 
+  group_by(Zipverified, block) %>% 
+  count() %>% 
+  group_by(Zipverified) %>% 
+  mutate(percentage = n / sum(n) * 100)  # percentage within each Zipverified group
+
+# Plot as bar chart with percentages
+ggplot(summary_block.distribution, aes(x = block, y = percentage, fill = Zipverified)) +
+  geom_col(position = "dodge") +  # side-by-side bars
+  labs(
+    title = "Distribution per Block by Residence Status",
+    x = "Block",
+    y = "Percentage (%)",
+    fill = ""
+  ) +
+  theme_minimal() +
+   theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+         plot.title = element_text(size = 11, face = "bold"))
+
+rm(summary_block.distribution)
+```

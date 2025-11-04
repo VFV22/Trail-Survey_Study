@@ -14,7 +14,12 @@ library(gt)         # produce table of results
 # 1 — User settings / file paths
 # ------------------------------
 
-Pilot <- read_csv("Documents/GitHub/Trail-Survey_Study/Pilot/0. Data/Trail Survey - Final draft - October 2025_November 2, 2025_15.43.csv")
+#Set working directory
+setwd("~/Documents/GitHub/Trail-Survey_Study/Pilot")
+
+
+Pilot <- read_csv("0. Data/Trail Survey - Final draft - October 2025_November 2, 2025_15.43.csv")
+
 
 
 #------------------------------------------------------:
