@@ -18,10 +18,10 @@ mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
 mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
 #mlogit_clean$Choice.Binary=NULL
 #Note design_ngene still says 50
-mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
 mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
 idvar = c(1:3,5,7),
-direction = "wide" )
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
 
 apollo_control <- list(
   modelName  = "Trail_Choice",
@@ -113,7 +113,7 @@ database$Demo_Age_num=as.integer(factor(
 database$Sex_binary <- ifelse(database$Demo_Sex.alt1 == "Female", 1,
                               ifelse(database$Demo_Sex.alt1 == "Male", 0, 0))
 
-database=database[c(1,3,4,6,10,11:18,28,46, 55:73)]
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
 colnames(database)[1]="RID"
 colnames(database)[3]="choice"
 database$choice=as.numeric(database$choice)
@@ -155,7 +155,7 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
   
   ### List of utilities: these must use the same names as in mnl_settings, order is irrelevant
   V = list()
-  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityL.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingHigh*CrowdingH.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary+b_HHIncome_num*HHIncome_num+b_view*viewpoint
+  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingHigh*CrowdingH.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary+b_HHIncome_num*HHIncome_num+b_view*viewpoint
   
   V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingHigh*CrowdingH.alt2+b_cost*Cost.alt2+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary+b_HHIncome_num*HHIncome_num+b_view*viewpoint
   
