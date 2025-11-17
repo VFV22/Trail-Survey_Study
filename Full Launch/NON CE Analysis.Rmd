@@ -231,7 +231,7 @@ ggplot(summary_data, aes(x = User.fee_Payment.Type, y = prop, fill = Zipverified
     fill = ""
   ) +
   theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=8),
+  theme(axis.text.x = element_text(angle = 15, hjust = 1, size=6),
          plot.title = element_text(size = 11, face = "bold"))
 
 rm(summary_data)
@@ -265,7 +265,7 @@ ggplot(summary_data, aes(x = User.fee_Payment.Method, y = prop, fill = Zipverifi
     fill = ""
   ) +
   theme_minimal() +
- theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=8),
+ theme(axis.text.x = element_text(angle = 15, hjust = 1, size=6),
          plot.title = element_text(size = 11, face = "bold"))
 rm(summary_data)
 ```
