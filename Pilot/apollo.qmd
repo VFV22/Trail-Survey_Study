@@ -12,7 +12,7 @@ Here need to make the data into wide format to create the utility functions.
 #after running Valdos code
 
 
-mlogit_clean=mlogit_clean[c(1:11,40:47,85:87)]
+mlogit_clean=mlogit_clean[c(1:11,15,19,40:47, 71)]
 mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
 mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
 mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
@@ -93,6 +93,10 @@ Need to create some demographic info to control in the regression.
 
 ```{r}
 database$Choice.Task.alt1
+
+
+
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
 database$Resident=0
 database$Resident[which(database$Zipverified.alt1=="Resident")]=1
 
@@ -110,16 +114,35 @@ database$Demo_Age_num=as.integer(factor(
     labels = 1:7
 ))
 
+database$HHIncome_num <- as.integer(factor(
+database$Demo_HH.Income.alt3,
+levels = c(
+"Less than $25,000",
+"$25,000 -$49,999",
+"$50,000 -$74,999",
+"$75,000 -$99,999",
+"$100,000 -$149,999",
+"$150,000 or more"
+),
+labels = 1:6
+))
+
 database$Sex_binary <- ifelse(database$Demo_Sex.alt1 == "Female", 1,
                               ifelse(database$Demo_Sex.alt1 == "Male", 0, 0))
 
 #database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
 colnames(database)[1]="RID"
-colnames(database)[3]="choice"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
 database$choice=as.numeric(database$choice)
 ```
 
 # Apollo code
+
+b_HHIncome_num = 0,
 
 ```{r}
 
@@ -133,8 +156,7 @@ apollo_beta <- c(
   b_cost                = 0,
   b_resident            = 0,
   b_age                 = 0,
-  b_HHIncome_num        = 0,
-  b_view =0,
+  b_income              = 0, 
   b_sex = 0
 )
 apollo_fixed <- c()
@@ -155,9 +177,10 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
   
   ### List of utilities: these must use the same names as in mnl_settings, order is irrelevant
   V = list()
-  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingHigh*CrowdingH.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary+b_HHIncome_num*HHIncome_num+b_view*viewpoint
+  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingHigh*CrowdingH.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
   
-  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingHigh*CrowdingH.alt2+b_cost*Cost.alt2+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary+b_HHIncome_num*HHIncome_num+b_view*viewpoint
+  
+  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingHigh*CrowdingH.alt2+b_cost*Cost.alt2+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
   
   V[['alt3']] = 0
   

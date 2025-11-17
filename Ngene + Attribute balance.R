@@ -406,13 +406,36 @@ design_none <- design_long.merge%>%
 design_final<- bind_rows(design_long.merge, design_none) %>%
   arrange(Choice.Task, Alternative)
 
-#Change 50 $ to 40$ for Cost - based on reveal preferences analysis on highest WTP of consumer surplus 
+#Change 50 $ to 40$, 20 to 40, 10 to 20, 5 to 10, 2 to 5 based on pilot findings. 
+#for Cost - based on reveal preferences analysis on highest WTP of consumer surplus 
 design_final %<>%
-  mutate(Cost = ifelse(Cost == 50, 40, Cost))
+  mutate(Cost = ifelse(Cost == 50, 80, Cost),
+         Cost = ifelse(Cost == 20, 40, Cost),
+         Cost = ifelse(Cost == 10, 20, Cost),
+         Cost = ifelse(Cost == 5, 10, Cost),
+         Cost = ifelse(Cost == 2, 5, Cost))
+
+
 
 design %<>%
-  mutate(A1_cost = ifelse(A1_cost== 50, 40, A1_cost),
-         A2_cost= ifelse(A2_cost== 50, 40, A2_cost))
+  mutate(A1_cost = ifelse(A1_cost== 50, 80, A1_cost),
+         A2_cost= ifelse(A2_cost== 50, 80, A2_cost))
+
+design %<>%
+  mutate(A1_cost = ifelse(A1_cost== 20, 40, A1_cost),
+         A2_cost= ifelse(A2_cost== 20, 40, A2_cost))
+
+design %<>%
+  mutate(A1_cost = ifelse(A1_cost== 10, 20, A1_cost),
+         A2_cost= ifelse(A2_cost== 10, 20, A2_cost))
+
+design %<>%
+  mutate(A1_cost = ifelse(A1_cost== 5, 10, A1_cost),
+         A2_cost= ifelse(A2_cost== 5, 10, A2_cost))
+
+design %<>%
+  mutate(A1_cost = ifelse(A1_cost== 2, 5, A1_cost),
+         A2_cost= ifelse(A2_cost== 2, 5, A2_cost))
 
 
 # ------------------------------
