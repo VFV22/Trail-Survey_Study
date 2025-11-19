@@ -18,7 +18,7 @@ library(gt)         # produce table of results
 setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
 
 
-Pilot <- read_csv("0. Data/Trail Survey - Final draft - October 2025_November 17, 2025_12.36.csv")
+Full.data <- read_csv("0. Data/Trail Survey - Final draft - October 2025_November 17, 2025_12.36.csv")
 
 
 
@@ -35,13 +35,13 @@ Pilot <- read_csv("0. Data/Trail Survey - Final draft - October 2025_November 17
 
 #Remove non use columns 
 
-Pilot  %<>%
+Full.data  %<>%
   select(-RecipientLastName,-RecipientFirstName, -RecipientEmail, 
          -ExternalReference,-Progress, -ExternalReference, -DistributionChannel,
          -UserLanguage ) 
 
 
-Pilot  %<>%
+Full.data   %<>%
   rename(
         #RID
         Qualtrics.RID = ResponseId,
@@ -149,19 +149,19 @@ Pilot  %<>%
   )
 
 #Recode tourists and residents based on Zip verification 
-Pilot$Zipverified <- ifelse(Pilot$Zipverified == "1", "Resident", "Tourist")
+Full.data $Zipverified <- ifelse(Full.data $Zipverified == "1", "Resident", "Tourist")
 
         
 #Filter out testing RIDs
-Pilot %<>% 
+Full.data  %<>% 
   filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
 
 #Filter out incomplete / failed attention check 
-Pilot %<>% 
+Full.data  %<>% 
   filter(gc==1)
 
 #Filter out pilot data collection
-Pilot %<>%
+Full.data  %<>%
   filter(as.POSIXct(StartDate, tz = "Pacific/Honolulu") >= 
-           as.POSIXct("2025-11-10 00:00:00", tz = "Pacific/Honolulu"))
+           as.POSIXct("2025-11-12 00:00:00", tz = "Pacific/Honolulu"))
 
