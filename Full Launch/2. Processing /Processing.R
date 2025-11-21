@@ -21,7 +21,7 @@ source("1. Cleaning /Cleaning.R")
 #------------------------------------------------------:
 
 # Pivot longer 
-Reshape.long.1 <- Pilot %>% 
+Reshape.long.1 <- Full.data  %>% 
   pivot_longer(cols = starts_with("Choice.Task_"),
                names_to = "Choice.Task", 
                values_to = "Chosen.Alternative")%>%
