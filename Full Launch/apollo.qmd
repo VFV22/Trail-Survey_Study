@@ -67,23 +67,23 @@ database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
 
 
 
-## Crowding logic is reverse here
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
 
-database$CrowdingL.alt1=0
-database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
-database$CrowdingM.alt1=0
-database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
 database$CrowdingH.alt1=0
 database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
 
 
 
-database$CrowdingL.alt2=0
-database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
-database$CrowdingM.alt2=0
-database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
 database$CrowdingH.alt2=0
 database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
 
 
 
@@ -152,7 +152,7 @@ apollo_beta <- c(
   b_Trail_ConditionMed  = 0,
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
-  b_CrowdingHigh        = 0,
+  b_CrowdingLow        = 0,
   b_cost                = 0,
   b_resident            = 0,
   b_age                 = 0,
@@ -177,10 +177,10 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
   
   ### List of utilities: these must use the same names as in mnl_settings, order is irrelevant
   V = list()
-  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingHigh*CrowdingH.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingLow*CrowdingL.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
   
   
-  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingHigh*CrowdingH.alt2+b_cost*Cost.alt2+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingLow*CrowdingL.alt2+b_cost*Cost.alt2+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
   
   V[['alt3']] = 0
   

@@ -67,23 +67,24 @@ database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
 
 
 
-## Crowding logic is reverse here
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
 
-database$CrowdingL.alt1=0
-database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
-database$CrowdingM.alt1=0
-database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
 database$CrowdingH.alt1=0
 database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
 
 
 
-database$CrowdingL.alt2=0
-database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
-database$CrowdingM.alt2=0
-database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
 database$CrowdingH.alt2=0
 database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
 
 
 
