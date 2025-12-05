@@ -15,10 +15,10 @@ library(gt)         # produce table of results
 # ------------------------------
 
 #Set working directory
-#setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
+setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
 
 
-Full.data <- read_csv("0. Data/Trail Survey - Final draft - October 2025_November 17, 2025_12.36.csv")
+Full.data <- read_csv("0. Data/Trail Survey - Final draft - October 2025_December 5, 2025_10.54.csv")
 
 
 
@@ -161,7 +161,7 @@ Full.data  %<>%
   filter(gc==1)
 
 #Filter out pilot data collection
-Full.data  %<>%
-  filter(as.POSIXct(StartDate, tz = "Pacific/Honolulu") >= 
-           as.POSIXct("2025-11-12 00:00:00", tz = "Pacific/Honolulu"))
+# Full.data  %<>%
+#   filter(as.POSIXct(StartDate, tz = "Pacific/Honolulu") >= 
+#            as.POSIXct("2025-11-12 00:00:00", tz = "Pacific/Honolulu"))
 
