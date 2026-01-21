@@ -1,0 +1,264 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+## RUM For Trails
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+### Initialise code
+apollo_initialise()
+
+apollo_control = list(
+  modelName  = "LC_MNL_ANA_Trails",
+  modelDescr = "Latent class ANA model for trail choice",
+  indivID    = "RID",
+  panelData  = TRUE,
+  nCores     = 8
+)
+
+
+```
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean=mlogit_clean[c(1:11,15,19,40:47, 71)]
+mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityM.alt1 <- ifelse(as.character(database$Habitat_Quality.alt1) == "Medium", 1, 0)
+database$Habitat_QualityH.alt1 <- ifelse(as.character(database$Habitat_Quality.alt1) == "High",   1, 0)
+
+database$Habitat_QualityM.alt2 <- ifelse(as.character(database$Habitat_Quality.alt2) == "Medium", 1, 0)
+database$Habitat_QualityH.alt2 <- ifelse(as.character(database$Habitat_Quality.alt2) == "High",   1, 0)
+
+
+database$Trail_ConditionM.alt1 <- ifelse(as.character(database$Trail_Condition.alt1) == "Medium", 1, 0)
+database$Trail_ConditionH.alt1 <- ifelse(as.character(database$Trail_Condition.alt1) == "High",   1, 0)
+database$Trail_ConditionM.alt2 <- ifelse(as.character(database$Trail_Condition.alt2) == "Medium", 1, 0)
+database$Trail_ConditionH.alt2 <- ifelse(as.character(database$Trail_Condition.alt2) == "High",   1, 0)
+
+database$CrowdingM.alt1 <- ifelse(as.character(database$Crowding.alt1) == "Medium", 1, 0)
+database$CrowdingL.alt1 <- ifelse(as.character(database$Crowding.alt1) == "High",   1, 0)
+
+database$CrowdingM.alt2 <- ifelse(as.character(database$Crowding.alt2) == "Medium", 1, 0)
+database$CrowdingL.alt2 <- ifelse(as.character(database$Crowding.alt2) == "High",   1, 0)
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+# Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+
+### --- Starting values (Class 1 near estimated MNL; Class 2 smaller/different) ---
+apollo_beta <- c(
+  # Class 1 tastes (start at MNL estimates)
+  b_Habitat_QualityMed_1   = 0.34,
+  b_Habitat_QualityHigh_1  = 0.65,
+  b_Trail_ConditionMed_1   = 0.43,
+  b_Trail_ConditionHigh_1  = 0.62,
+  b_CrowdingMed_1          = 0.31,
+  b_CrowdingLow_1          = 0.36,
+  b_cost_1                 = -0.008,
+
+  # Class 2 tastes (start "smaller" so optimizer can separate classes)
+  b_Habitat_QualityMed_2   = 0.10,
+  b_Habitat_QualityHigh_2  = 0.20,
+  b_Trail_ConditionMed_2   = 0.10,
+  b_Trail_ConditionHigh_2  = 0.20,
+  b_CrowdingMed_2          = 0.10,
+  b_CrowdingLow_2          = 0.20,
+  b_cost_2                 = -0.020,
+
+  # Class allocation (start with smaller Class 2 share)
+  delta_2                  = -1
+)
+
+apollo_fixed = c()
+
+
+```
+
+```{r}
+### --- Latent class parameter mapping + class allocation probabilities ---
+apollo_lcPars <- function(apollo_beta, apollo_inputs){
+
+  lcpars = list()
+
+  # Free class-specific tastes (EXPLORATORY LC)
+  lcpars[["b_Habitat_QualityMed"]]  = list(b_Habitat_QualityMed_1,  b_Habitat_QualityMed_2)
+  lcpars[["b_Habitat_QualityHigh"]] = list(b_Habitat_QualityHigh_1, b_Habitat_QualityHigh_2)
+  lcpars[["b_Trail_ConditionMed"]]  = list(b_Trail_ConditionMed_1,  b_Trail_ConditionMed_2)
+  lcpars[["b_Trail_ConditionHigh"]] = list(b_Trail_ConditionHigh_1, b_Trail_ConditionHigh_2)
+  lcpars[["b_CrowdingMed"]]         = list(b_CrowdingMed_1,         b_CrowdingMed_2)
+  lcpars[["b_CrowdingLow"]]         = list(b_CrowdingLow_1,         b_CrowdingLow_2)
+  lcpars[["b_cost"]]                = list(b_cost_1,                b_cost_2)
+
+  # Class membership utilities (reference class normalized to 0)
+  V = list()
+  V[["class1"]] = 0
+  V[["class2"]] = delta_2
+
+  classAlloc_settings = list(
+    classes       = c(class1=1, class2=2),
+    utilities     = V,
+    componentName = "classAlloc"
+  )
+
+  lcpars[["pi_values"]] = apollo_classAlloc(classAlloc_settings)
+
+  return(lcpars)
+}
+
+```
+
+```{r}
+### --- Likelihood function ---
+apollo_probabilities <- function(apollo_beta, apollo_inputs, functionality="estimate"){
+
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+
+  P = list()
+
+  # Loop over classes
+  for(s in 1:2){
+
+    V = list()
+
+    V[["alt1"]] =
+      b_Habitat_QualityMed[[s]]  * Habitat_QualityM.alt1 +
+      b_Habitat_QualityHigh[[s]] * Habitat_QualityH.alt1 +
+      b_Trail_ConditionMed[[s]]  * Trail_ConditionM.alt1 +
+      b_Trail_ConditionHigh[[s]] * Trail_ConditionH.alt1 +
+      b_CrowdingMed[[s]]         * CrowdingM.alt1 +
+      b_CrowdingLow[[s]]         * CrowdingL.alt1 +
+      b_cost[[s]]                * Cost.alt1
+
+    V[["alt2"]] =
+      b_Habitat_QualityMed[[s]]  * Habitat_QualityM.alt2 +
+      b_Habitat_QualityHigh[[s]] * Habitat_QualityH.alt2 +
+      b_Trail_ConditionMed[[s]]  * Trail_ConditionM.alt2 +
+      b_Trail_ConditionHigh[[s]] * Trail_ConditionH.alt2 +
+      b_CrowdingMed[[s]]         * CrowdingM.alt2 +
+      b_CrowdingLow[[s]]         * CrowdingL.alt2 +
+      b_cost[[s]]                * Cost.alt2
+
+    # Normalise ASC for alt3 to 0 (as in your current model)
+    V[["alt3"]] = 0
+
+    mnl_settings = list(
+      alternatives  = c(alt1=1, alt2=2, alt3=3),
+      avail         = list(alt1=1, alt2=1, alt3=1),
+      choiceVar     = choice,
+      utilities     = V,
+      componentName = paste0("Class_", s)
+    )
+
+    P[[paste0("Class_", s)]] = apollo_mnl(mnl_settings, functionality)
+    P[[paste0("Class_", s)]] = apollo_panelProd(P[[paste0("Class_", s)]], apollo_inputs, functionality)
+  }
+
+  # Combine across classes using class membership probabilities
+  lc_settings = list(
+    inClassProb   = P,
+    classProb     = pi_values,
+    componentName = "model"
+  )
+
+  P[["model"]] = apollo_lc(lc_settings, apollo_inputs, functionality)
+
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+
+
+
+```
+
+```{r}
+### set dataset
+
+# Create required columns
+database$RID    <- database$RID.alt1
+database$choice <- as.numeric(database$Chosen.Alternative.alt1)
+
+# Final checks
+exists("database")
+"RID" %in% names(database)
+"choice" %in% names(database)
+
+
+
+
+
+```
+
+```{r}
+# Validate
+apollo_inputs <- apollo_validateInputs()
+```
+
+```{r}
+
+model_LC_exploratory <- apollo_estimate(
+  apollo_beta,
+  apollo_fixed,
+  apollo_probabilities,
+  apollo_inputs
+)
+
+apollo_modelOutput(model_LC_exploratory)
+
+```
+
+```{r}
+apollo_saveOutput(model_LC_exploratory)
+
+```
+
+```{r}
+est <- data.frame(
+  term = names(model$estimate),
+  estimate = as.numeric(model$estimate)
+)
+
+# If robust SE exists, include it
+if(!is.null(model$robse)){
+  est$rob_se <- model$robse
+  est$rob_t  <- est$estimate / est$rob_se
+}
+
+write.csv(est, "LC_ANA_coefficients.csv", row.names = FALSE)
+
+```

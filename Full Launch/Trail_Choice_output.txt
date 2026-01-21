@@ -1,0 +1,223 @@
+Model run by ruivaldoviana using Apollo 0.3.6 on R 4.5.0 for Darwin.
+Please acknowledge the use of Apollo by citing Hess & Palma (2019)
+  DOI 10.1016/j.jocm.2019.100170
+  www.ApolloChoiceModelling.com
+
+Model name                                  : Trail_Choice
+Model description                           : Simple MNL model with trail alternatives
+Model run at                                : 2026-01-15 15:09:46.605675
+Estimation method                           : bgw
+Estimation diagnosis                        : Relative function convergence
+Optimisation diagnosis                      : Maximum found
+     hessian properties                     : Negative definite
+     maximum eigenvalue                     : -0.084791
+     reciprocal of condition number         : 5.41897e-08
+Number of individuals                       : 1393
+Number of rows in database                  : 5572
+Number of modelled outcomes                 : 5572
+
+Number of cores used                        :  1 
+Model without mixing
+
+LL(start)                                   : -5301.06
+LL (whole model) at equal shares, LL(0)     : -6121.47
+LL (whole model) at observed shares, LL(C)  : -5032.22
+LL(final, whole model)                      : -4816.78
+Rho-squared vs equal shares                  :  0.2131 
+Adj.Rho-squared vs equal shares              :  0.2107 
+Rho-squared vs observed shares               :  0.0428 
+Adj.Rho-squared vs observed shares           :  0.0406 
+AIC                                         :  9663.57 
+BIC                                         :  9762.95 
+
+LL(0,Class_1)                    : -6121.47
+LL(final,Class_1)                : -4961.25
+LL(0,Class_2)                    : -6121.47
+LL(final,Class_2)                : -30287.44
+
+Estimated parameters                        : 15
+Time taken (hh:mm:ss)                       :  00:00:8.48 
+     pre-estimation                         :  00:00:1.11 
+     estimation                             :  00:00:3.03 
+     post-estimation                        :  00:00:4.34 
+Iterations                                  :  17  
+
+Unconstrained optimisation.
+
+Estimates:
+
+
+Summary of class allocation for model component :
+
+
+Overview of choices for MNL model component Class_1:
+                                    alt1    alt2    alt3
+Times available                  5572.00 5572.00 5572.00
+Times chosen                     2743.00 2419.00  410.00
+Percentage chosen overall          49.23   43.41    7.36
+Percentage chosen when available   49.23   43.41    7.36
+
+
+
+Overview of choices for MNL model component Class_2:
+                                    alt1    alt2    alt3
+Times available                  5572.00 5572.00 5572.00
+Times chosen                     2743.00 2419.00  410.00
+Percentage chosen overall          49.23   43.41    7.36
+Percentage chosen when available   49.23   43.41    7.36
+
+
+
+Classical covariance matrix:
+
+Robust covariance matrix:
+
+Classical correlation matrix:
+
+Robust correlation matrix:
+
+ 20 most extreme outliers in terms of lowest average per choice prediction:
+
+Settings and functions used in model definition:
+
+apollo_control
+--------------
+                       Value                                                                  
+modelName              "Trail_Choice"                                                         
+modelDescr             "Simple MNL model with trail alternatives"                             
+indivID                "RID"                                                                  
+panelData              "TRUE"                                                                 
+debug                  "FALSE"                                                                
+nCores                 "1"                                                                    
+workInLogs             "FALSE"                                                                
+seed                   "13"                                                                   
+mixing                 "FALSE"                                                                
+HB                     "FALSE"                                                                
+noValidation           "FALSE"                                                                
+noDiagnostics          "FALSE"                                                                
+calculateLLC           "TRUE"                                                                 
+analyticHessian        "FALSE"                                                                
+memorySaver            "FALSE"                                                                
+outputDirectory        "/Users/ruivaldoviana/Documents/GitHub/Trail-Survey_Study/Full Launch/"
+analyticGrad           "TRUE"                                                                 
+analyticGrad_manualSet "FALSE"                                                                
+overridePanel          "FALSE"                                                                
+preventOverridePanel   "FALSE"                                                                
+noModification         "FALSE"                                                                
+
+Hessian routines attempted
+--------------------------
+numerical jacobian of LL analytical gradient
+
+Scaling used in computing Hessian
+---------------------------------
+                              Value
+b_Habitat_QualityMed_1  0.810395230
+b_Habitat_QualityHigh_1 1.110031606
+b_Trail_ConditionMed_1  0.841422964
+b_Trail_ConditionHigh_1 0.944098811
+b_CrowdingMed_1         0.604901493
+b_CrowdingLow_1         0.733581534
+b_cost_1                0.003212149
+b_Habitat_QualityMed_2  1.685121388
+b_Habitat_QualityHigh_2 0.344795419
+b_Trail_ConditionMed_2  0.699400727
+b_Trail_ConditionHigh_2 0.722112922
+b_CrowdingMed_2         0.657918449
+b_CrowdingLow_2         0.772141031
+b_cost_2                0.227449885
+delta_2                 3.155079652
+
+
+apollo_lcPars
+---------------
+function(apollo_beta, apollo_inputs){
+
+  lcpars = list()
+
+  # Free class-specific tastes (EXPLORATORY LC)
+  lcpars[["b_Habitat_QualityMed"]]  = list(b_Habitat_QualityMed_1,  b_Habitat_QualityMed_2)
+  lcpars[["b_Habitat_QualityHigh"]] = list(b_Habitat_QualityHigh_1, b_Habitat_QualityHigh_2)
+  lcpars[["b_Trail_ConditionMed"]]  = list(b_Trail_ConditionMed_1,  b_Trail_ConditionMed_2)
+  lcpars[["b_Trail_ConditionHigh"]] = list(b_Trail_ConditionHigh_1, b_Trail_ConditionHigh_2)
+  lcpars[["b_CrowdingMed"]]         = list(b_CrowdingMed_1,         b_CrowdingMed_2)
+  lcpars[["b_CrowdingLow"]]         = list(b_CrowdingLow_1,         b_CrowdingLow_2)
+  lcpars[["b_cost"]]                = list(b_cost_1,                b_cost_2)
+
+  # Class membership utilities (reference class normalized to 0)
+  V = list()
+  V[["class1"]] = 0
+  V[["class2"]] = delta_2
+
+  classAlloc_settings = list(
+    classes       = c(class1=1, class2=2),
+    utilities     = V,
+    componentName = "classAlloc"
+  )
+
+  lcpars[["pi_values"]] = apollo_classAlloc(classAlloc_settings)
+
+  return(lcpars)
+}
+<bytecode: 0x166560eb8>
+
+
+apollo_probabilities
+----------------------
+function(apollo_beta, apollo_inputs, functionality="estimate"){
+
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+
+  P = list()
+
+  # Loop over classes
+  for(s in 1:2){
+
+    V = list()
+
+    V[["alt1"]] =
+      b_Habitat_QualityMed[[s]]  * Habitat_QualityM.alt1 +
+      b_Habitat_QualityHigh[[s]] * Habitat_QualityH.alt1 +
+      b_Trail_ConditionMed[[s]]  * Trail_ConditionM.alt1 +
+      b_Trail_ConditionHigh[[s]] * Trail_ConditionH.alt1 +
+      b_CrowdingMed[[s]]         * CrowdingM.alt1 +
+      b_CrowdingLow[[s]]         * CrowdingL.alt1 +
+      b_cost[[s]]                * Cost.alt1
+
+    V[["alt2"]] =
+      b_Habitat_QualityMed[[s]]  * Habitat_QualityM.alt2 +
+      b_Habitat_QualityHigh[[s]] * Habitat_QualityH.alt2 +
+      b_Trail_ConditionMed[[s]]  * Trail_ConditionM.alt2 +
+      b_Trail_ConditionHigh[[s]] * Trail_ConditionH.alt2 +
+      b_CrowdingMed[[s]]         * CrowdingM.alt2 +
+      b_CrowdingLow[[s]]         * CrowdingL.alt2 +
+      b_cost[[s]]                * Cost.alt2
+
+    # Normalise ASC for alt3 to 0 (as in your current model)
+    V[["alt3"]] = 0
+
+    mnl_settings = list(
+      alternatives  = c(alt1=1, alt2=2, alt3=3),
+      avail         = list(alt1=1, alt2=1, alt3=1),
+      choiceVar     = choice,
+      utilities     = V,
+      componentName = paste0("Class_", s)
+    )
+
+    P[[paste0("Class_", s)]] = apollo_mnl(mnl_settings, functionality)
+    P[[paste0("Class_", s)]] = apollo_panelProd(P[[paste0("Class_", s)]], apollo_inputs, functionality)
+  }
+
+  # Combine across classes using class membership probabilities
+  lc_settings = list(
+    inClassProb   = P,
+    classProb     = pi_values,
+    componentName = "model"
+  )
+
+  P[["model"]] = apollo_lc(lc_settings, apollo_inputs, functionality)
+
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}

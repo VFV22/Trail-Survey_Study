@@ -1,0 +1,302 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+## RUM For Trails
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+apollo_initialise()
+
+apollo_control = list(
+  modelName  = "LC_ANA_Scale_Trails",
+  modelDescr = "Confirmatory LC-ANA + class-specific scale (choice consistency diagnostic)",
+  indivID    = "RID",
+  panelData  = TRUE,
+  nCores     = 8
+)
+
+
+```
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean=mlogit_clean[c(1:11,15,19,40:47, 71)]
+mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityM.alt1 <- ifelse(as.character(database$Habitat_Quality.alt1) == "Medium", 1, 0)
+database$Habitat_QualityH.alt1 <- ifelse(as.character(database$Habitat_Quality.alt1) == "High",   1, 0)
+
+database$Habitat_QualityM.alt2 <- ifelse(as.character(database$Habitat_Quality.alt2) == "Medium", 1, 0)
+database$Habitat_QualityH.alt2 <- ifelse(as.character(database$Habitat_Quality.alt2) == "High",   1, 0)
+
+
+database$Trail_ConditionM.alt1 <- ifelse(as.character(database$Trail_Condition.alt1) == "Medium", 1, 0)
+database$Trail_ConditionH.alt1 <- ifelse(as.character(database$Trail_Condition.alt1) == "High",   1, 0)
+database$Trail_ConditionM.alt2 <- ifelse(as.character(database$Trail_Condition.alt2) == "Medium", 1, 0)
+database$Trail_ConditionH.alt2 <- ifelse(as.character(database$Trail_Condition.alt2) == "High",   1, 0)
+
+database$CrowdingM.alt1 <- ifelse(as.character(database$Crowding.alt1) == "Medium", 1, 0)
+database$CrowdingL.alt1 <- ifelse(as.character(database$Crowding.alt1) == "High",   1, 0)
+
+database$CrowdingM.alt2 <- ifelse(as.character(database$Crowding.alt2) == "Medium", 1, 0)
+database$CrowdingL.alt2 <- ifelse(as.character(database$Crowding.alt2) == "High",   1, 0)
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+# Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+apollo_beta <- c(
+  # Class 1 tastes (MNL estimated)
+  b_Habitat_QualityMed_1    = 0.34,
+  b_Habitat_QualityHigh_1   = 0.65,
+  b_Trail_ConditionMed_1    = 0.43,
+  b_Trail_ConditionHigh_1   = 0.62,
+  b_CrowdingMed_1           = 0.31,
+  b_CrowdingLow_1           = 0.36,
+  b_cost_1                  = -0.008,
+
+  # Class 2 tastes (confirmatory ANA: only cost estimated)
+  b_cost_2                  = -0.020,
+
+  # Class allocation (start class2 smaller)
+  delta_2                   = -1,
+
+  # Scale of class 2 relative to class 1 (choice consistency)
+  # eta_scale2 < 0  => lambda2 < 1  => noisier / less consistent class 2
+  eta_scale2                = -0.5
+)
+
+apollo_fixed <- c()
+
+
+```
+
+```{r}
+### Latent class definition (create ANA)
+apollo_lcPars <- function(apollo_beta, apollo_inputs){
+
+  lcpars = list()
+
+  # Confirmatory ANA: class 2 ignores these attributes (set to 0)
+  lcpars[["b_Habitat_QualityMed"]]  = list(b_Habitat_QualityMed_1,  0)
+  lcpars[["b_Habitat_QualityHigh"]] = list(b_Habitat_QualityHigh_1, 0)
+  lcpars[["b_Trail_ConditionMed"]]  = list(b_Trail_ConditionMed_1,  0)
+  lcpars[["b_Trail_ConditionHigh"]] = list(b_Trail_ConditionHigh_1, 0)
+  lcpars[["b_CrowdingMed"]]         = list(b_CrowdingMed_1,         0)
+  lcpars[["b_CrowdingLow"]]         = list(b_CrowdingLow_1,         0)
+
+  # Cost is attended in both classes (but may differ)
+  lcpars[["b_cost"]]                = list(b_cost_1, b_cost_2)
+
+  # Class allocation utilities (class 1 normalized to 0)
+  V = list()
+  V[["class1"]] = 0
+  V[["class2"]] = delta_2
+
+  lcpars[["pi_values"]] = apollo_classAlloc(
+    list(
+      classes       = c(class1=1, class2=2),
+      utilities     = V,
+      componentName = "classAlloc"
+    )
+  )
+
+  return(lcpars)
+}
+
+```
+
+```{r}
+### Utility Function 
+apollo_probabilities <- function(apollo_beta, apollo_inputs, functionality="estimate"){
+
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+
+  P = list()
+
+  for(s in 1:2){
+
+    # Class-specific scale: class1 fixed at 1, class2 estimated via eta_scale2
+    lambda_s <- ifelse(s == 1, 1, exp(eta_scale2))
+
+    V = list()
+
+    V[["alt1"]] = lambda_s * (
+      b_Habitat_QualityMed[[s]]  * Habitat_QualityM.alt1 +
+      b_Habitat_QualityHigh[[s]] * Habitat_QualityH.alt1 +
+      b_Trail_ConditionMed[[s]]  * Trail_ConditionM.alt1 +
+      b_Trail_ConditionHigh[[s]] * Trail_ConditionH.alt1 +
+      b_CrowdingMed[[s]]         * CrowdingM.alt1 +
+      b_CrowdingLow[[s]]         * CrowdingL.alt1 +
+      b_cost[[s]]                * Cost.alt1
+    )
+
+    V[["alt2"]] = lambda_s * (
+      b_Habitat_QualityMed[[s]]  * Habitat_QualityM.alt2 +
+      b_Habitat_QualityHigh[[s]] * Habitat_QualityH.alt2 +
+      b_Trail_ConditionMed[[s]]  * Trail_ConditionM.alt2 +
+      b_Trail_ConditionHigh[[s]] * Trail_ConditionH.alt2 +
+      b_CrowdingMed[[s]]         * CrowdingM.alt2 +
+      b_CrowdingLow[[s]]         * CrowdingL.alt2 +
+      b_cost[[s]]                * Cost.alt2
+    )
+
+    V[["alt3"]] = 0
+
+    mnl_settings = list(
+      alternatives  = c(alt1=1, alt2=2, alt3=3),
+      avail         = list(alt1=1, alt2=1, alt3=1),
+      choiceVar     = choice,
+      utilities     = V,
+      componentName = paste0("Class_", s)
+    )
+
+    P[[paste0("Class_", s)]] = apollo_mnl(mnl_settings, functionality)
+
+    # Panel product
+    P[[paste0("Class_", s)]] = apollo_panelProd(P[[paste0("Class_", s)]], apollo_inputs, functionality)
+  }
+
+  # Mixture over classes
+  lc_settings = list(
+    inClassProb   = P,
+    classProb     = pi_values,
+    componentName = "model"
+  )
+
+  P[["model"]] = apollo_lc(lc_settings, apollo_inputs, functionality)
+
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+
+```
+
+```{r}
+### set dataset
+
+# Create required columns
+database$RID    <- database$RID.alt1
+database$choice <- as.numeric(database$Chosen.Alternative.alt1)
+
+# Final checks
+exists("database")
+"RID" %in% names(database)
+"choice" %in% names(database)
+
+
+
+
+
+```
+
+```{r}
+# Validate
+apollo_inputs <- apollo_validateInputs()
+```
+
+```{r}
+
+model_LC_ANA_scale <- apollo_estimate(
+  apollo_beta,
+  apollo_fixed,
+  apollo_probabilities,
+  apollo_inputs
+)
+
+apollo_modelOutput(model_LC_ANA_scale )
+
+```
+
+```{r}
+lambda2 <- exp(model_LC_ANA_scale$estimate["eta_scale2"])
+lambda2
+
+```
+
+```{r}
+b1 <- model_LC_ANA_scale$estimate["b_cost_1"]
+b2 <- model_LC_ANA_scale$estimate["b_cost_2"]
+lambda2 <- exp(model_LC_ANA_scale$estimate["eta_scale2"])
+
+b_cost2_effective <- as.numeric(lambda2) * as.numeric(b2)
+c(b_cost1=b1, lambda2=lambda2, b_cost2_effective=b_cost2_effective)
+
+```
+
+```{r}
+apollo_saveOutput(model)
+
+```
+
+```{r}
+est <- data.frame(
+  term = names(model$estimate),
+  estimate = as.numeric(model$estimate)
+)
+
+# If robust SE exists, include it
+if(!is.null(model$robse)){
+  est$rob_se <- model$robse
+  est$rob_t  <- est$estimate / est$rob_se
+}
+
+write.csv(est, "LC_ANA_coefficients.csv", row.names = FALSE)
+
+```
+
+```{r}
+model <- apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs,
+                         estimate_settings=list(hessianRoutine="maxLik"))
+apollo_modelOutput(model, modelOutput_settings=list(printPVal=TRUE))
+
+
+```
+
+```{r}
+b_cost1 <- model$estimate["b_cost_1"]
+lambda2 <- exp(model$estimate["eta_scale2"])
+b_cost2_eff <- lambda2 * b_cost1
+
+c(b_cost1=b_cost1, lambda2=lambda2, b_cost2_effective=b_cost2_eff)
+
+```
+
+```{r}
+apollo_saveOutput(model)
+
+```

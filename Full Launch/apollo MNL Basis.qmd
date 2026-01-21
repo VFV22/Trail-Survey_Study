@@ -1,0 +1,916 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+## RUM For Trails
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean=mlogit_clean[c(1:11,15,19,40:47, 71)]
+mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+database$HHIncome_num <- as.integer(factor(
+database$Demo_HH.Income.alt3,
+levels = c(
+"Less than $25,000",
+"$25,000 -$49,999",
+"$50,000 -$74,999",
+"$75,000 -$99,999",
+"$100,000 -$149,999",
+"$150,000 or more"
+),
+labels = 1:6
+))
+
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1 == "Female", 1,
+                              ifelse(database$Demo_Sex.alt1 == "Male", 0, 0))
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+# Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+
+apollo_beta <- c(
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow        = 0,
+  b_cost                = 0,
+  b_resident            = 0,
+  b_age                 = 0,
+  b_income              = 0, 
+  b_sex = 0
+)
+apollo_fixed <- c()
+
+
+apollo_inputs<-apollo_validateInputs()
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  ### Attach inputs and detach after function exit
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  ### Create list of probabilities P
+  P = list()
+  
+  ### List of utilities: these must use the same names as in mnl_settings, order is irrelevant
+  V = list()
+  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingLow*CrowdingL.alt1+b_cost*Cost.alt1+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  
+  
+  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingLow*CrowdingL.alt2+b_cost*Cost.alt2+b_resident*Resident+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  
+  V[['alt3']] = 0
+  
+  ### Define settings for MNL model component
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3), 
+    avail         = list(alt1=1, alt2=1, alt3=1), 
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+  ### Compute probabilities using MNL model
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  
+  ### Take product across observation for same individual
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  
+  ### Prepare and return outputs of function
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+```
+
+```{r}
+model = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+
+summary(model)
+```
+
+```{r}
+
+#Extract apollo model result 
+est <- model$estimate
+
+#Extract standard error
+se <- sqrt(diag(model$robvarcov))
+
+#Create coefficient table 
+coef_table <- tibble(
+  Parameter = names(est),
+  Estimate  = est,
+  SE        = se[names(est)]
+)
+
+#Add significance stars
+coef_table <- coef_table %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+```
+
+## RUM For Trails (Residents Only) 
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean_Residents=mlogit_clean_Residents[c(1:11,15,19,40:47, 71)]
+mlogit_clean_Residents$Alternative[which(mlogit_clean_Residents$Alternative==1)]="alt1"
+mlogit_clean_Residents$Alternative[which(mlogit_clean_Residents$Alternative=="2")]="alt2"
+mlogit_clean_Residents$Alternative[which(mlogit_clean_Residents$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_Residents_wide=reshape(mlogit_clean_Residents,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_Residents_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+database$HHIncome_num <- as.integer(factor(
+database$Demo_HH.Income.alt3,
+levels = c(
+"Less than $25,000",
+"$25,000 -$49,999",
+"$50,000 -$74,999",
+"$75,000 -$99,999",
+"$100,000 -$149,999",
+"$150,000 or more"
+),
+labels = 1:6
+))
+
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1 == "Female", 1,
+                              ifelse(database$Demo_Sex.alt1 == "Male", 0, 0))
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+# Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+
+apollo_beta <- c(
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow        = 0,
+  b_cost                = 0,
+ # b_resident            = 0,
+  b_age                 = 0,
+  b_income              = 0, 
+  b_sex = 0
+)
+apollo_fixed <- c()
+
+
+apollo_inputs<-apollo_validateInputs()
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  ### Attach inputs and detach after function exit
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  ### Create list of probabilities P
+  P = list()
+  
+  ### List of utilities: these must use the same names as in mnl_settings, order is irrelevant
+  V = list()
+  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingLow*CrowdingL.alt1+b_cost*Cost.alt1+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  
+  
+  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingLow*CrowdingL.alt2+b_cost*Cost.alt2+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  
+  V[['alt3']] = 0
+  
+  ### Define settings for MNL model component
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3), 
+    avail         = list(alt1=1, alt2=1, alt3=1), 
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+  ### Compute probabilities using MNL model
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  
+  ### Take product across observation for same individual
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  
+  ### Prepare and return outputs of function
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+```
+
+```{r}
+model_residents = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+
+summary(model_residents)
+```
+
+```{r}
+
+# Extract Apollo model results
+est.residents <- model_residents$estimate
+
+# Extract standard errors
+se.residents <- sqrt(diag(model_residents$robvarcov))
+
+# Create coefficient table
+coef_residents <- tibble(
+  Parameter = names(est.residents),
+  Estimate  = est.residents,
+  SE        = se.residents[names(est.residents)]
+)
+
+# Add significance stars
+coef_residents <- coef_residents %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+```
+
+## RUM For Trails (Tourists Only) 
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean_Tourists=mlogit_clean_Tourists[c(1:11,15,19,40:47, 71)]
+mlogit_clean_Tourists$Alternative[which(mlogit_clean_Tourists$Alternative==1)]="alt1"
+mlogit_clean_Tourists$Alternative[which(mlogit_clean_Tourists$Alternative=="2")]="alt2"
+mlogit_clean_Tourists$Alternative[which(mlogit_clean_Tourists$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_Tourists_wide=reshape(mlogit_clean_Tourists,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_Tourists_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+database$HHIncome_num <- as.integer(factor(
+database$Demo_HH.Income.alt3,
+levels = c(
+"Less than $25,000",
+"$25,000 -$49,999",
+"$50,000 -$74,999",
+"$75,000 -$99,999",
+"$100,000 -$149,999",
+"$150,000 or more"
+),
+labels = 1:6
+))
+
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1 == "Female", 1,
+                              ifelse(database$Demo_Sex.alt1 == "Male", 0, 0))
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+# Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+
+apollo_beta <- c(
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow        = 0,
+  b_cost                = 0,
+ # b_resident            = 0,
+  b_age                 = 0,
+  b_income              = 0, 
+  b_sex = 0
+)
+apollo_fixed <- c()
+
+
+apollo_inputs<-apollo_validateInputs()
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  ### Attach inputs and detach after function exit
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  ### Create list of probabilities P
+  P = list()
+  
+  ### List of utilities: these must use the same names as in mnl_settings, order is irrelevant
+  V = list()
+  V[["alt1"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt1  + b_Habitat_QualityHigh * Habitat_QualityH.alt1+b_Trail_ConditionMed*Trail_ConditionM.alt1+b_Trail_ConditionHigh*Trail_ConditionH.alt1+b_CrowdingMed*CrowdingM.alt1+ b_CrowdingLow*CrowdingL.alt1+b_cost*Cost.alt1+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  
+  
+  V[["alt2"]]  = b_Habitat_QualityMed*Habitat_QualityM.alt2  + b_Habitat_QualityHigh * Habitat_QualityH.alt2+b_Trail_ConditionMed*Trail_ConditionM.alt2+b_Trail_ConditionHigh*Trail_ConditionH.alt2+b_CrowdingMed*CrowdingM.alt2+ b_CrowdingLow*CrowdingL.alt2+b_cost*Cost.alt2+b_age*Demo_Age_num+b_sex*Sex_binary + b_income*HHIncome_num
+  
+  V[['alt3']] = 0
+  
+  ### Define settings for MNL model component
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3), 
+    avail         = list(alt1=1, alt2=1, alt3=1), 
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+  ### Compute probabilities using MNL model
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  
+  ### Take product across observation for same individual
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  
+  ### Prepare and return outputs of function
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+```
+
+```{r}
+model_tourists = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+
+summary(model_tourists)
+```
+
+```{r}
+
+# Extract Apollo model results
+est.tourists <- model_tourists$estimate
+
+# Extract standard errors
+se.tourists<- sqrt(diag(model_tourists$robvarcov))
+
+# Create coefficient table
+coef_tourists <- tibble(
+  Parameter = names(est.tourists),
+  Estimate  = est.tourists,
+  SE        = se.residents[names(est.tourists)]
+)
+
+# Add significance stars
+coef_tourists <- coef_tourists%>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+```
+
+## **Create Table: Combine output**
+
+```{r}
+coef_table %<>%
+  mutate(
+    Variable = dplyr::recode(
+      Parameter,
+      b_Habitat_QualityMed  = "Habitat quality (Medium)",
+      b_Habitat_QualityHigh = "Habitat quality (High)",
+      b_Trail_ConditionMed  = "Trail condition (Medium)",
+      b_Trail_ConditionHigh = "Trail condition (High)",
+      b_CrowdingMed         = "Crowding (Medium)",
+      b_CrowdingLow         = "Crowding (Low)",
+      b_cost                = "Cost",
+      b_resident            = "Resident",
+      b_age                 = "Age",
+      b_income              = "Income",
+      b_sex                 = "Sex"
+    )
+  ) %>%
+  filter(!is.na(Variable)) %>%
+  mutate(
+    MNL = sprintf("%.3f (%.3f)%s", Estimate, SE, Stars)
+  ) %>%
+  select(Variable, MNL)
+
+```
+
+##  
+
+```{r}
+format_coef <- function(df, col_name) {
+  df %>%
+    mutate(
+      Variable = dplyr::recode(
+        Parameter,
+        b_Habitat_QualityMed  = "Habitat quality (Medium)",
+        b_Habitat_QualityHigh = "Habitat quality (High)",
+        b_Trail_ConditionMed  = "Trail condition (Medium)",
+        b_Trail_ConditionHigh = "Trail condition (High)",
+        b_CrowdingMed         = "Crowding (Medium)",
+        b_CrowdingLow         = "Crowding (Low)",
+        b_cost                = "Cost",
+        b_age                 = "Age",
+        b_income              = "Income",
+        b_sex                 = "Sex"
+      ),
+      !!col_name := sprintf("%.3f (%.3f)%s", Estimate, SE, Stars)
+    ) %>%
+    filter(!is.na(Variable)) %>%
+    select(Variable, !!col_name)
+}
+
+```
+
+```{r}
+coef_residents <- format_coef(coef_residents ,  "Residents only")
+coef_tourists <- format_coef(coef_tourists, "Tourists only")
+
+```
+
+```{r}
+coef_table_final <- coef_table%>%
+  left_join(coef_residents,  by = "Variable") %>%
+  left_join(coef_tourists, by = "Variable")
+
+```
+
+```{r}
+coef_table_final %>%
+  gt() %>%
+  tab_header(
+    title = "Multinomial Logit Model Results",
+    subtitle = "Comparison of preferences across residents and tourists"
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = -Variable
+  ) %>%
+  tab_spanner(
+    label = "MNL Coefficients (SE)",
+    columns = c("MNL", "Residents only", "Tourists only")
+  )
+
+coef_table_final %>%
+  gt() %>%
+  tab_source_note(
+    source_note = md(
+      "*Notes:* Entries are coefficient estimates with standard errors in parentheses.  
+       *, **, *** denote significance at the 10%, 5%, and 1% levels."
+    )
+  )
+
+coef_table_final %<>%
+  rename(`All Respondents` = MNL)
+
+
+print(coef_table_final)
+
+```
+
+```{r}
+coef_table_gt <- coef_table_final %>%
+  gt()
+gtsave(
+  coef_table_gt,
+  filename = "Table_MNL_Residents_vs_Tourists.png"
+)
+
+```
+
+# Create WTP table 
+
+```{r}
+extract_coef <- function(x) as.numeric(str_extract(x, "^-?[0-9.]+"))
+extract_se   <- function(x) as.numeric(str_extract(x, "\\(([^)]+)\\)"))
+
+
+```
+
+```{r}
+cost_vals <- coef_table_final %>%
+  filter(Variable == "Cost") %>%
+  transmute(
+    cost_all    = extract_coef(`All Respondents`),
+   # se_all      = extract_se(`All Respondents`),
+
+    cost_res    = extract_coef(`Residents only`),
+    #se_res      = extract_se(`Residents only`),
+
+    cost_tour   = extract_coef(`Tourists only`),
+  #  se_tour     = extract_se(`Tourists only`)
+  )
+
+
+```
+
+```{r}
+wtp_table_all <- coef_table_final %>%
+  filter(!Variable %in% c("Cost", "Resident", "Age", "Income", "Sex")) %>%
+  mutate(
+    beta_all = extract_coef(`All Respondents`),
+    #se_all   = extract_se(`All Respondents`),
+
+ WTP = -beta_all / cost_vals$cost_all,
+  WTP = signif(WTP, 3)
+  ) %>%
+  select(Variable, `All Respondents WTP (USD)` = WTP)
+
+
+   # WTP_SE = abs(WTP) * sqrt(
+      #(se_all / beta_all)^2 +
+      #(cost_vals$se_all / cost_vals$cost_all)^2
+    #),
+
+    #WTP_Low  = WTP - 1.96 * WTP_SE,
+    #WTP_High = WTP + 1.96 * WTP_SE
+  #)
+
+
+```
+
+```{r}
+wtp_table_resident <- coef_table_final %>%
+  filter(!Variable %in% c("Cost", "Resident", "Age", "Income", "Sex")) %>%
+  mutate(
+    beta_resident = extract_coef(`Residents only`),
+    #se_all   = extract_se(`All Respondents`),
+    
+
+    WTP = - beta_resident / cost_vals$cost_res,
+        WTP = -beta_resident / cost_vals$cost_res,
+   WTP = signif(WTP, 3)
+  ) %>%
+  select(Variable, `Resident WTP (USD)` = WTP)
+```
+
+```{r}
+wtp_table_tourist<- coef_table_final %>%
+  filter(!Variable %in% c("Cost", "Resident", "Age", "Income", "Sex")) %>%
+  mutate(
+    beta_tourist = extract_coef(`Tourists only`),
+    #se_all   = extract_se(`All Respondents`),
+
+    WTP. = -  beta_tourist / cost_vals$cost_tour, 
+            WTP = -beta_tourist / cost_vals$cost_tour,
+   WTP = signif(WTP, 3)
+  ) %>%
+  select(Variable, `Tourist WTP (USD)` = WTP)
+```
+
+```{r}
+wtp_table_final <- wtp_table_all%>%
+  left_join(wtp_table_resident,  by = "Variable") %>%
+  left_join(wtp_table_tourist, by = "Variable")
+```
+
+```{r}
+wtp_table_gt <- wtp_table_final  %>%
+  gt()
+gtsave(
+  wtp_table_gt,
+  filename = "Table_WTP_Residents_vs_Tourists.png"
+)
+```
