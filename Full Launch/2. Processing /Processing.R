@@ -172,127 +172,137 @@ merge.data.1 %<>%
   filter(!is.na(Chosen.Alternative))
 
 
-#------------------------------------------------------:
-# (5): Sanity Check #####
-#------------------------------------------------------:       
-
-# Summarize block distribution 
-summary_block.distribution <- merge.data.1 %>%
-  distinct(RID, .keep_all = TRUE) %>% 
-  group_by(Zipverified, block) %>% 
-  count() %>% 
-  group_by(Zipverified) %>% 
-  mutate(percentage = n / sum(n) * 100)  # percentage within each Zipverified group
-
-# Plot as bar chart with percentages
-ggplot(summary_block.distribution, aes(x = block, y = percentage, fill = Zipverified)) +
-  geom_col(position = "dodge") +  # side-by-side bars
-  labs(
-    title = "Percentage per Block by Zipverified",
-    x = "Block",
-    y = "Percentage (%)",
-    fill = "Zip Verified"
-  ) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-rm(summary_block.distribution)
-
-# Count how many times each alternative was chosen overall
-merge.data.1 %>%
-  filter(Choice.Binary == 1) %>%
-  count(Alternative)
-
-# Check balance within each block (to make sure design isn’t skewed)
-merge.data.1 %>%
-  filter(Choice.Binary == 1) %>%
-  count(block, Alternative)
-
-# Check balance per choice task 
-
-merge.data.1 %>%
-  filter(Choice.Binary == 1) %>%
-  count(Choice.Task, Alternative) %>% 
-  mutate(pct = n / sum(n)*100)
-
-# Visualize balance across alternatives 
-merge.data.1 %>%
-  filter(Choice.Binary == 1) %>%
-  count(Alternative) %>%
-  ggplot(aes(x = Alternative, y = n)) +
-  geom_col(fill = "steelblue") +
-  labs(
-    title = "Balance check: Alternative choices",
-    x = "Alternative",
-    y = "Count of times chosen"
-  )
-
-# Visualize balance of attribute levels - Habitat Quality
-
-#Check distribution of choices for TC
-merge.data.1 %>%
-  count(Alternative, Habitat_Quality) %>%
-  group_by(Habitat_Quality) %>%
-  summarise(total_shown = sum(n)) %>%
-  arrange(desc(Habitat_Quality))
-
-merge.data.1 %>%
-  count(Habitat_Quality) %>%
-  ggplot(aes(x = Habitat_Quality, y = n)) +
-  geom_col(fill = "darkgreen") +
-  labs(title = "Shown counts per Habitat_Quality")
-
-# Visualize balance of attribute levels - Trail Condition 
-
-#Check distribution of choices for TC
-merge.data.1 %>%
-  count(Alternative, Trail_Condition) %>%
-  group_by(Trail_Condition) %>%
-  summarise(total_shown = sum(n)) %>%
-  arrange(desc(Trail_Condition))
-
-merge.data.1 %>%
-  count(Trail_Condition) %>%
-  ggplot(aes(x = Trail_Condition, y = n)) +
-  geom_col(fill = "skyblue") +
-  labs(title = "Shown counts per Trail.Condition")
-
-# Visualize balance of attribute levels - Crowding 
-
-#Check distribution of choices for TC
-merge.data.1 %>%
-  count(Alternative, Crowding) %>%
-  group_by(Crowding) %>%
-  summarise(total_shown = sum(n)) %>%
-  arrange(desc(Crowding))
+#Filter resident and tourist data from original data 
+Full.data_Resident <- Full.data %>% 
+  filter(Zipverified=="Resident")
 
 
-merge.data.1 %>%
-  count(Crowding) %>%
-  ggplot(aes(x = Crowding, y = n)) +
-  geom_col(fill = "darkblue") +
-  labs(title = "Shown counts per Crowding")
-
-
-# Visualize balance of attribute levels - Cost
-
-merge.data.1 %>%
-  count(Alternative, Cost) %>%
-  group_by(Cost) %>%
-  summarise(total_shown = sum(n)) %>%
-  arrange(desc(Cost))
-
-merge.data.1 %>%
-  count(Cost) %>%
-  ggplot(aes(x = Cost, y = n)) +
-  geom_col(fill = "darkorange") +
-  labs(title = "Shown counts per Cost")
+Full.data_Tourist <- Full.data %>% 
+  filter(Zipverified=="Tourist")
 
 
 
-
-
-
-
-
-
+# #------------------------------------------------------:
+# # (5): Sanity Check #####
+# #------------------------------------------------------:       
+# 
+# # Summarize block distribution 
+# summary_block.distribution <- merge.data.1 %>%
+#   distinct(RID, .keep_all = TRUE) %>% 
+#   group_by(Zipverified, block) %>% 
+#   count() %>% 
+#   group_by(Zipverified) %>% 
+#   mutate(percentage = n / sum(n) * 100)  # percentage within each Zipverified group
+# 
+# # Plot as bar chart with percentages
+# ggplot(summary_block.distribution, aes(x = block, y = percentage, fill = Zipverified)) +
+#   geom_col(position = "dodge") +  # side-by-side bars
+#   labs(
+#     title = "Percentage per Block by Zipverified",
+#     x = "Block",
+#     y = "Percentage (%)",
+#     fill = "Zip Verified"
+#   ) +
+#   theme_minimal() +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# 
+# rm(summary_block.distribution)
+# 
+# # Count how many times each alternative was chosen overall
+# merge.data.1 %>%
+#   filter(Choice.Binary == 1) %>%
+#   count(Alternative)
+# 
+# # Check balance within each block (to make sure design isn’t skewed)
+# merge.data.1 %>%
+#   filter(Choice.Binary == 1) %>%
+#   count(block, Alternative)
+# 
+# # Check balance per choice task 
+# 
+# merge.data.1 %>%
+#   filter(Choice.Binary == 1) %>%
+#   count(Choice.Task, Alternative) %>% 
+#   mutate(pct = n / sum(n)*100)
+# 
+# # Visualize balance across alternatives 
+# merge.data.1 %>%
+#   filter(Choice.Binary == 1) %>%
+#   count(Alternative) %>%
+#   ggplot(aes(x = Alternative, y = n)) +
+#   geom_col(fill = "steelblue") +
+#   labs(
+#     title = "Balance check: Alternative choices",
+#     x = "Alternative",
+#     y = "Count of times chosen"
+#   )
+# 
+# # Visualize balance of attribute levels - Habitat Quality
+# 
+# #Check distribution of choices for TC
+# merge.data.1 %>%
+#   count(Alternative, Habitat_Quality) %>%
+#   group_by(Habitat_Quality) %>%
+#   summarise(total_shown = sum(n)) %>%
+#   arrange(desc(Habitat_Quality))
+# 
+# merge.data.1 %>%
+#   count(Habitat_Quality) %>%
+#   ggplot(aes(x = Habitat_Quality, y = n)) +
+#   geom_col(fill = "darkgreen") +
+#   labs(title = "Shown counts per Habitat_Quality")
+# 
+# # Visualize balance of attribute levels - Trail Condition 
+# 
+# #Check distribution of choices for TC
+# merge.data.1 %>%
+#   count(Alternative, Trail_Condition) %>%
+#   group_by(Trail_Condition) %>%
+#   summarise(total_shown = sum(n)) %>%
+#   arrange(desc(Trail_Condition))
+# 
+# merge.data.1 %>%
+#   count(Trail_Condition) %>%
+#   ggplot(aes(x = Trail_Condition, y = n)) +
+#   geom_col(fill = "skyblue") +
+#   labs(title = "Shown counts per Trail.Condition")
+# 
+# # Visualize balance of attribute levels - Crowding 
+# 
+# #Check distribution of choices for TC
+# merge.data.1 %>%
+#   count(Alternative, Crowding) %>%
+#   group_by(Crowding) %>%
+#   summarise(total_shown = sum(n)) %>%
+#   arrange(desc(Crowding))
+# 
+# 
+# merge.data.1 %>%
+#   count(Crowding) %>%
+#   ggplot(aes(x = Crowding, y = n)) +
+#   geom_col(fill = "darkblue") +
+#   labs(title = "Shown counts per Crowding")
+# 
+# 
+# # Visualize balance of attribute levels - Cost
+# 
+# merge.data.1 %>%
+#   count(Alternative, Cost) %>%
+#   group_by(Cost) %>%
+#   summarise(total_shown = sum(n)) %>%
+#   arrange(desc(Cost))
+# 
+# merge.data.1 %>%
+#   count(Cost) %>%
+#   ggplot(aes(x = Cost, y = n)) +
+#   geom_col(fill = "darkorange") +
+#   labs(title = "Shown counts per Cost")
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 

@@ -268,6 +268,8 @@ mlogit_clean$Crowding <- relevel(factor(mlogit_clean$Crowding,
 
 
 
+
+
 # ----------------------------------
 # 3 — Run regressions - MNL (numeric)  
 # ----------------------------------

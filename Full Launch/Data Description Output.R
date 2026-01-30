@@ -19,7 +19,7 @@ library(knitr)
 # 1 — User settings / file paths
 # ------------------------------
 
-source("3. Analysis /Analysis.R")
+source("3. Analysis/Analysis.R")
 
 
 # -------------------------------------------------
@@ -32,7 +32,7 @@ resp_data <- mlogit_clean %>%
 
 ## Age 
 
-resp_data <- mlogit_clean %>%
+resp_data <- mlogit_clean%>%
   distinct(RID, .keep_all = TRUE) %>%
   mutate(
     Age_mid = case_when(
@@ -141,7 +141,7 @@ resp_data <- mlogit_clean %>%
 
 income_summary <- resp_data %>%
   summarise(
-    mean = mean(Income, na.rm = TRUE),
+    mean = median(Income, na.rm = TRUE),
     sd   = sd(Income, na.rm = TRUE)
   ) %>%
   mutate(
@@ -157,7 +157,7 @@ income_summary <- resp_data %>%
   select(Demo, Description,  `Mean (SD)`)
 
 
-## Income 
+## Education
 
 resp_data <- mlogit_clean %>%
   distinct(RID, .keep_all = TRUE) %>%
@@ -173,9 +173,14 @@ resp_data <- mlogit_clean %>%
     )
   )
 
+# edu_props <- resp_data %>%
+#   count(Education) %>%                 # count each education level
+#   mutate(prop = n / sum(n) * 100)       # calculate percentage
+
+
 education_summary <- resp_data %>%
   summarise(
-    mean = mean(Education, na.rm = TRUE),
+    mean = median(Education, na.rm = TRUE),
     sd   = sd(Education, na.rm = TRUE)
   ) %>%
   mutate(
@@ -203,6 +208,12 @@ socio_demo_table <- bind_rows(
   education_summary
 )
 
+socio_demo_table %<>%
+  rename(Variables = Demo)
+
+
+socio_demo_table  %>%
+  gt() 
 # -------------------------------------------------
 # 3 — Generate Table to support User fee, cost allocation etc
 # ------------------------------------------------
@@ -239,7 +250,6 @@ make_policy_row <- function(data, var, label) {
     ) %>%
     select(Question, Resident, Tourist)
 }
-
 
 row_fee <- make_policy_row(
   resp_data,

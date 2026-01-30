@@ -52,6 +52,38 @@ ggplot(summary_data, aes(x = Trail_Condition, y = prop, fill = Zipverified)) +
 rm(summary_data)
 ```
 
+## Distribution of Levels by Attributes
+```{r}
+summary_data <- mlogit_clean %>%
+  filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
+  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  count(Zipverified, Chosen.Alternative) %>%         # count per cost per Zipverified
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),       # total count within each Zipverified group
+    prop = n / total      # proportion within Zipverified
+  ) %>%
+  ungroup()
+
+ggplot(summary_data, aes(x = Chosen.Alternative, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
+  geom_text(aes(label = paste0("n=", n)),  
+            position = position_dodge(0.9), 
+            vjust = -0.5, size = 3) +       # add counts on top
+  labs(
+    title = "Distribution of Chosen Alternatives",
+    x = "",
+    y = "Proportion of times chosen"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 8),
+    plot.title = element_text(size = 11, face = "bold")
+  )
+rm(summary_data)
+```
+
+
 ```{r}
 summary_data <- mlogit_clean %>%
   filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
@@ -996,7 +1028,7 @@ fill = "Residency"
 ) +
 theme_minimal() +
 theme(axis.text.x = element_text(angle = 45, hjust = 1))
-rm(summary_data)
+#rm(summary_data)
 ```
 
 ```{r}
@@ -1053,7 +1085,7 @@ fill = "Residency"
 ) +
 theme_minimal() +
 theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10))
-rm(summary_data)
+#rm(summary_data)
 
 ```
 

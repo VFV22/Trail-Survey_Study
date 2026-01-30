@@ -14,9 +14,12 @@ library(apollo)
 library(knitr)
 #library(patchwork)  #combine multiple plots 
 
+
+
 # ------------------------------
 # 1 — User settings / file paths
 # ------------------------------
+setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
 
 source("2. Processing /Processing.R")
 
@@ -60,6 +63,9 @@ mlogit_clean_Residents<-mlogit_clean %>%
 
 mlogit_clean_Tourists<-mlogit_clean %>%
   filter(Zipverified=="Tourist")
+
+
+
   
   
   
