@@ -19,21 +19,29 @@ Here need to make the data into wide format to create the utility functions.
 ```{r}
 #after running Analysis
 #Filter data 
-mlogit_clean_No.Status.Q<-mlogit_clean %>%
-  filter(Chosen.Alternative!="3")
+#Pull out RID that only chooses alt 3
+always_optout <- mlogit_clean %>%
+  group_by(RID) %>%
+  summarise(all_optout = all(Chosen.Alternative == "3")) %>%
+  filter(all_optout) %>%
+  pull(RID)
+
+mlogit_clean_dropAlwaysOpt <- mlogit_clean %>%
+  filter(!(RID %in% always_optout))
+
 ```
 
 ```{r}
 
 
-mlogit_clean_No.Status.Q=mlogit_clean_No.Status.Q[c(1:11,15,19,38:47, 71)]
-mlogit_clean_No.Status.Q$Alternative[which(mlogit_clean_No.Status.Q$Alternative==1)]="alt1"
-mlogit_clean_No.Status.Q$Alternative[which(mlogit_clean_No.Status.Q$Alternative=="2")]="alt2"
-mlogit_clean_No.Status.Q$Alternative[which(mlogit_clean_No.Status.Q$Alternative=="3")]="alt3"
+mlogit_clean_dropAlwaysOpt =mlogit_clean_dropAlwaysOpt [c(1:11,15,19,38:47, 71)]
+mlogit_clean_dropAlwaysOpt$Alternative[which(mlogit_clean_dropAlwaysOpt$Alternative==1)]="alt1"
+mlogit_clean_dropAlwaysOpt$Alternative[which(mlogit_clean_dropAlwaysOpt$Alternative=="2")]="alt2"
+mlogit_clean_dropAlwaysOpt$Alternative[which(mlogit_clean_dropAlwaysOpt$Alternative=="3")]="alt3"
 #mlogit_clean$Choice.Binary=NULL
 #Note design_ngene still says 50
 # mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
-mlogit_clean_wide=reshape(mlogit_clean_No.Status.Q,timevar = "Alternative",
+mlogit_clean_wide=reshape(mlogit_clean_dropAlwaysOpt,timevar = "Alternative",
 idvar = c(1:3,5,7),
 direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
 

@@ -5,9 +5,9 @@ editor: visual
 ---
 
 ```{r}
-library(apollo)
+packageVersion("apollo")
+ls("package:apollo")
 
-apollo_initialise()
 
 ```
 
@@ -39,6 +39,8 @@ apollo_control <- list(
 database=mlogit_clean_wide
 
 ```
+
+![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAaCAYAAADFTB7LAAAAcElEQVR4Xu3OwQmAQAxE0bClWYCW5N06tM6V2YPg5CjoF/JhLoHAi6iqn9eOefUbqrYvHY0cQDLyAlKRNyARmYA0ZMLRkAlGQyaU72tkAtlim7r/vJqDUDjlKBROOQyFU2icQuMUGqfQuBEaV1XPOwEx96nYACK8+wAAAABJRU5ErkJggg== "Run Current Chunk")
 
 To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
 
@@ -166,6 +168,10 @@ database$choice=as.numeric(
 database$choice=as.numeric(database$choice)
 ```
 
+```{r}
+apollo_inputs <- apollo_validateInputs()
+```
+
 # Apollo code
 
 b_HHIncome_num = 0,
@@ -173,25 +179,73 @@ b_HHIncome_num = 0,
 ```{r}
 
 apollo_beta <- c(
+  # means
   b_Habitat_QualityMed  = 0,
   b_Habitat_QualityHigh = 0,
   b_Trail_ConditionMed  = 0,
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
-  b_CrowdingLow        = 0,
+  b_CrowdingLow         = 0,
   b_cost                = 0,
-  b_resident            = 0,
-  b_age                 = 0,
-  b_education           = 0,
-  #b_environment = 0, 
-  #b_userfee = 0, 
-  b_income              = 0, 
-  b_sex = 0
+
+  # sociodems (fixed)
+  b_resident  = 0,
+  b_age       = 0,
+  b_education = 0,
+  b_income    = 0,
+  b_sex       = 0,
+
+  # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
+  sd_Habitat_QualityMed  = 0.1,
+  sd_Habitat_QualityHigh = 0.1,
+  sd_Trail_ConditionMed  = 0.1,
+  sd_Trail_ConditionHigh = 0.1,
+  sd_CrowdingMed         = 0.1,
+  sd_CrowdingLow         = 0.1
 )
 apollo_fixed <- c()
 
+```
 
-apollo_inputs<-apollo_validateInputs()
+```{r}
+apollo_draws <- list(
+  interDrawsType = "halton",
+  interNDraws    = 500,     # start with 200–500; increase later
+  interNormDraws = c(
+    "draw_Habitat_QualityMed",
+    "draw_Habitat_QualityHigh",
+    "draw_Trail_ConditionMed",
+    "draw_Trail_ConditionHigh",
+    "draw_CrowdingMed",
+    "draw_CrowdingLow"
+  )
+)
+
+apollo_randCoeff <- function(apollo_beta, apollo_inputs){
+
+  randcoeff <- list()
+
+  randcoeff[["b_Habitat_QualityMed_R"]]  <- b_Habitat_QualityMed +
+    sd_Habitat_QualityMed * draw_Habitat_QualityMed
+
+  randcoeff[["b_Habitat_QualityHigh_R"]] <- b_Habitat_QualityHigh +
+    sd_Habitat_QualityHigh * draw_Habitat_QualityHigh
+
+  randcoeff[["b_Trail_ConditionMed_R"]]  <- b_Trail_ConditionMed +
+    sd_Trail_ConditionMed * draw_Trail_ConditionMed
+
+  randcoeff[["b_Trail_ConditionHigh_R"]] <- b_Trail_ConditionHigh +
+    sd_Trail_ConditionHigh * draw_Trail_ConditionHigh
+
+  randcoeff[["b_CrowdingMed_R"]] <- b_CrowdingMed +
+    sd_CrowdingMed * draw_CrowdingMed
+
+  randcoeff[["b_CrowdingLow_R"]] <- b_CrowdingLow +
+    sd_CrowdingLow * draw_CrowdingLow
+
+  return(randcoeff)
+}
+
 ```
 
 ```{r}
@@ -204,42 +258,36 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
   V = list()
   
   # Utility for alt1
-  V[["alt1"]]  =
-    b_Habitat_QualityMed  * Habitat_QualityM.alt1 +
-    b_Habitat_QualityHigh * Habitat_QualityH.alt1 +
-    b_Trail_ConditionMed  * Trail_ConditionM.alt1 +
-    b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
-    b_CrowdingMed         * CrowdingM.alt1 +
-    b_CrowdingLow         * CrowdingL.alt1 +
-    b_cost                * Cost.alt1 +
-    
-    # person-specific covariates (shift alt1 vs opt-out)
-    b_resident   * Resident +
-    b_age        * Demo_Age_num +
-    b_education  * CollegePlus +
-    #b_environment* Member.Environment_binary +
-    #b_userfee    * WTP_User.fee_binary +
-    b_income     * HHIncome_num +
-    b_sex        * Sex_binary
+
+V[["alt1"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt1 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt1 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt1 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
+  b_CrowdingMed_R         * CrowdingM.alt1 +
+  b_CrowdingLow_R         * CrowdingL.alt1 +
+  b_cost                  * Cost.alt1 +
+  b_resident   * Resident +
+  b_age        * Demo_Age_num +
+  b_education  * CollegePlus +
+  b_income     * HHIncome_num +
+  b_sex        * Sex_binary
+
   
   # Utility for alt2
   V[["alt2"]]  =
-    b_Habitat_QualityMed  * Habitat_QualityM.alt2 +
-    b_Habitat_QualityHigh * Habitat_QualityH.alt2 +
-    b_Trail_ConditionMed  * Trail_ConditionM.alt2 +
-    b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
-    b_CrowdingMed         * CrowdingM.alt2 +
-    b_CrowdingLow         * CrowdingL.alt2 +
-    b_cost                * Cost.alt2 +
-    
-    # person-specific covariates (shift alt2 vs opt-out)
-    b_resident   * Resident +
-    b_age        * Demo_Age_num +
-    b_education  * CollegePlus +
-    #b_environment* Member.Environment_binary +
-   #b_userfee    * WTP_User.fee_binary +
-    b_income     * HHIncome_num +
-    b_sex        * Sex_binary
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt2 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt2 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt2 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
+  b_CrowdingMed_R         * CrowdingM.alt2 +
+  b_CrowdingLow_R         * CrowdingL.alt2 +
+  b_cost                  * Cost.alt2 +
+  b_resident   * Resident +
+  b_age        * Demo_Age_num +
+  b_education  * CollegePlus +
+  b_income     * HHIncome_num +
+  b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
   V[["alt3"]] = 0
@@ -251,9 +299,14 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     utilities     = V
   )
   
-  P[["model"]] = apollo_mnl(mnl_settings, functionality)
-  P = apollo_panelProd(P, apollo_inputs, functionality)
-  P = apollo_prepareProb(P, apollo_inputs, functionality)
+P[["model"]] = apollo_mnl(mnl_settings, functionality)
+
+P = apollo_panelProd(P, apollo_inputs, functionality)
+
+P = apollo_avgInterDraws(P, apollo_inputs, functionality)  # <-- mixed logit integration  
+
+P = apollo_prepareProb(P, apollo_inputs, functionality)
+
   
   return(P)
 }
@@ -261,9 +314,217 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
 ```
 
 ```{r}
-model = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+model_mxl <- apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+summary(model_mxl)
 
-summary(model)
+```
+
+```{r}
+# model_mxl is your fitted Apollo model
+bhat <- model_mxl$estimate
+
+# check names
+names(bhat)
+```
+
+```{r}
+rand_attrs <- c(
+  "b_Habitat_QualityMed",
+  "b_Habitat_QualityHigh",
+  "b_Trail_ConditionMed",
+  "b_Trail_ConditionHigh",
+  "b_CrowdingMed",
+  "b_CrowdingLow"
+)
+
+sd_names <- c(
+  "sd_Habitat_QualityMed",
+  "sd_Habitat_QualityHigh",
+  "sd_Trail_ConditionMed",
+  "sd_Trail_ConditionHigh",
+  "sd_CrowdingMed",
+  "sd_CrowdingLow"
+)
+
+cost_name <- "b_cost"
+
+```
+
+```{r}
+simulate_population_wtp <- function(model_mxl,
+                                    rand_attrs,
+                                    sd_names,
+                                    cost_name = "b_cost",
+                                    n_draws = 10000) {
+
+  bhat <- model_mxl$estimate
+
+  # --- explicit numeric extraction (prevents NULL/character issues)
+  mu <- setNames(as.numeric(bhat[rand_attrs]), rand_attrs)
+  sd <- setNames(as.numeric(bhat[sd_names]),  rand_attrs)  # name SDs to match attrs
+  b_cost <- as.numeric(bhat[cost_name])
+
+  # safety checks
+  if (any(is.na(mu))) stop("Some rand_attrs were not found in model estimates: ", paste(rand_attrs[is.na(mu)], collapse=", "))
+  if (any(is.na(sd))) stop("Some sd_names were not found in model estimates.")
+  if (is.na(b_cost)) stop("Cost coefficient not found: ", cost_name)
+
+  K <- length(rand_attrs)
+
+  # draws
+  Z <- matrix(rnorm(n_draws * K), nrow = n_draws, ncol = K)
+  colnames(Z) <- rand_attrs
+
+  # beta draws: mu + sd * z
+  beta_mat <- sweep(Z, 2, sd, `*`)
+  beta_mat <- sweep(beta_mat, 2, mu, `+`)
+
+  # WTP draws: -beta / b_cost
+  wtp_mat <- -beta_mat / b_cost
+
+  as_tibble(wtp_mat) %>%
+    pivot_longer(cols = all_of(rand_attrs),
+                 names_to = "Attribute",
+                 values_to = "wtp")
+}
+```
+
+```{r}
+wtp_pop_draws <- simulate_population_wtp(
+  model_mxl = model_mxl,
+  rand_attrs = c("b_Habitat_QualityMed","b_Habitat_QualityHigh",
+                 "b_Trail_ConditionMed","b_Trail_ConditionHigh",
+                 "b_CrowdingMed","b_CrowdingLow"),
+  sd_names   = c("sd_Habitat_QualityMed","sd_Habitat_QualityHigh",
+                 "sd_Trail_ConditionMed","sd_Trail_ConditionHigh",
+                 "sd_CrowdingMed","sd_CrowdingLow"),
+  cost_name = "b_cost",
+  n_draws = 10000
+)
+
+
+```
+
+```{r}
+wtp_pop_summary <- wtp_pop_draws %>%
+  group_by(Attribute) %>%
+  summarise(
+    mean   = mean(wtp, na.rm = TRUE),
+    median = median(wtp, na.rm = TRUE),
+    lo95   = quantile(wtp, 0.025, na.rm = TRUE),
+    hi95   = quantile(wtp, 0.975, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+wtp_pop_summary
+
+```
+
+```{r}
+db <- apollo_inputs$database
+ids <- unique(db$RID)
+length(ids)
+
+```
+
+```{r}
+simulate_individual_medians <- function(model_mxl,
+                                       ids,
+                                       rand_attrs,
+                                       sd_names,
+                                       cost_name = "b_cost",
+                                       n_draws_per_person = 2000) {
+
+  bhat <- model_mxl$estimate
+
+  # Explicit numeric extraction
+  mu <- setNames(as.numeric(bhat[rand_attrs]), rand_attrs)
+  b_cost <- as.numeric(bhat[cost_name])
+
+  # Map SD names -> attr names safely:
+  # assumes sd_names are in same order as rand_attrs
+  sd <- setNames(as.numeric(bhat[sd_names]), rand_attrs)
+
+  # Safety checks
+  if (any(is.na(mu))) stop("Some rand_attrs missing in estimates: ", paste(rand_attrs[is.na(mu)], collapse=", "))
+  if (any(is.na(sd))) stop("Some sd_names missing in estimates.")
+  if (is.na(b_cost)) stop("Cost coefficient missing: ", cost_name)
+
+  K <- length(rand_attrs)
+
+  # For speed, do this with map_dfr but each person uses matrices only
+  map_dfr(ids, function(id){
+
+    Z <- matrix(rnorm(n_draws_per_person * K), nrow = n_draws_per_person, ncol = K)
+    colnames(Z) <- rand_attrs
+
+    beta_mat <- sweep(Z, 2, sd, `*`)
+    beta_mat <- sweep(beta_mat, 2, mu, `+`)
+
+    wtp_mat <- -beta_mat / b_cost
+
+    tibble(
+      RID = id,
+      !!!setNames(as.list(apply(wtp_mat, 2, median, na.rm = TRUE)), rand_attrs)
+    )
+  })
+}
+
+
+```
+
+```{r}
+wtp_ind_medians_wide <- simulate_individual_medians(
+  model_mxl = model_mxl,
+  ids = ids,
+  rand_attrs = rand_attrs,
+  sd_names = sd_names,
+  cost_name = cost_name,
+  n_draws_per_person = 1393
+)
+
+
+```
+
+```{r}
+wtp_ind_medians <- wtp_ind_medians_wide %>%
+  pivot_longer(-RID, names_to = "Attribute", values_to = "wtp_median")
+
+```
+
+```{r}
+wtp_ind_summary <- wtp_ind_medians %>%
+  group_by(Attribute) %>%
+  summarise(
+    median_of_individual_medians = median(wtp_median, na.rm = TRUE),
+    mean_of_individual_medians   = mean(wtp_median, na.rm = TRUE),
+    lo95 = quantile(wtp_median, 0.025, na.rm = TRUE),
+    hi95 = quantile(wtp_median, 0.975, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+wtp_ind_summary
+
+```
+
+```{r}
+
+ggplot(wtp_pop_draws, aes(x = wtp)) +
+  geom_density(alpha = 0.35) +
+  facet_wrap(~ Attribute, scales = "free") +
+  labs(x = "WTP", y = "Density", title = "Population WTP distribution (MXL simulation)") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(wtp_ind_medians, aes(x = wtp_median)) +
+  geom_density(alpha = 0.35) +
+  facet_wrap(~ Attribute, scales = "free") +
+  labs(x = "Individual median WTP", y = "Density",
+       title = "Distribution of individual median WTP (unconditional)") +
+  theme_minimal()
+
 ```
 
 ```{r}
@@ -1162,7 +1423,7 @@ gtsave(
 
 ```
 
-# WTP table 
+# WTP table
 
 ```{r}
 extract_coef <- function(x) as.numeric(str_extract(x, "^-?[0-9.]+"))

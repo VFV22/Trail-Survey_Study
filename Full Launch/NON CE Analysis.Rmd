@@ -52,7 +52,7 @@ ggplot(summary_data, aes(x = Trail_Condition, y = prop, fill = Zipverified)) +
 rm(summary_data)
 ```
 
-## Distribution of Levels by Attributes
+## Distribution of Chosen alternatives
 ```{r}
 summary_data <- mlogit_clean %>%
   filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
@@ -83,6 +83,21 @@ ggplot(summary_data, aes(x = Chosen.Alternative, y = prop, fill = Zipverified)) 
 rm(summary_data)
 ```
 
+```{r}
+#Count who always opt-out
+
+always_optout <- mlogit_clean %>%
+  group_by(RID) %>%
+  summarise(
+    n_tasks = n_distinct(Choice.Task),
+    all_optout = all(Chosen.Alternative == "3")
+  ) %>%
+  filter(all_optout)
+
+# How many respondents always opt out?
+nrow(always_optout)
+
+```
 
 ```{r}
 summary_data <- mlogit_clean %>%
