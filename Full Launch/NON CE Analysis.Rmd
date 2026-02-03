@@ -95,8 +95,17 @@ always_optout <- mlogit_clean %>%
   filter(all_optout)
 
 # How many respondents always opt out?
-nrow(always_optout)
+#nrow(always_optout)
 
+always_optout %<>%
+  left_join(
+    mlogit_clean %>%
+      select(RID, Zipverified) %>%
+      distinct(),
+    by = "RID"
+  )
+
+table(always_optout$Zipverified)
 ```
 
 ```{r}
