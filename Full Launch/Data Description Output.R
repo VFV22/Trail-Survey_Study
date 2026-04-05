@@ -13,6 +13,7 @@ library(mlogit)   # Function for mlogit
 library(car)      #Checking for collinearity
 library(apollo)
 library(knitr)
+library(kableExtra)
 #library(patchwork)  #combine multiple plots 
 
 # ------------------------------
@@ -25,14 +26,8 @@ source("3. Analysis/Analysis.R")
 # -------------------------------------------------
 # 2 — Generate Socio-economic and demographic table 
 # ------------------------------------------------
+
 resp_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE)
-
-
-
-## Age 
-
-resp_data <- mlogit_clean%>%
   distinct(RID, .keep_all = TRUE) %>%
   mutate(
     Age_mid = case_when(
@@ -43,91 +38,12 @@ resp_data <- mlogit_clean%>%
       Demo_Age == "55-64 years old" ~ 59.5,
       Demo_Age == "65+ years old"   ~ 70,
       TRUE ~ NA_real_
-    )
-  )
-
-age_summary <- resp_data %>%
-  summarise(
-    mean = mean(Age_mid, na.rm = TRUE),
-    sd   = sd(Age_mid, na.rm = TRUE)
-  ) %>%
-  mutate(
-    Demo = "Age",
-    Description = "Respondent age (years, midpoint of categories)",
-    `Mean (SD)` = paste0(
-      round(mean, 2),
-      " (",
-      round(sd, 2),
-      ")"
-    )
-  ) %>%
-  select(Demo, Description,  `Mean (SD)`)
-
-# Sex
-sex_summary <- resp_data %>%
-  mutate(Male = if_else(Demo_Sex == "Male", 1, 0)) %>%
-  summarise(
-    mean = mean(Male, na.rm = TRUE),
-    sd   = sd(Male, na.rm = TRUE)
-  ) %>%
-  mutate(
-    Demo = "Sex",
-    Description = "Sex of respondents (1 = male, 0 = female)",
-    `Mean (SD)` = paste0(
-      round(mean, 2),
-      " (",
-      round(sd, 2),
-      ")"
-    )
-  ) %>%
-  select(Demo, Description,  `Mean (SD)`)
-
-
-# Residents v Tourist
-
-residence_summary <- resp_data %>%
-  mutate(Residents = if_else(Zipverified == "Resident", 1, 0)) %>%
-  summarise(
-    mean = mean(Residents, na.rm = TRUE),
-    sd   = sd(Residents, na.rm = TRUE)
-  ) %>%
-  mutate(
-    Demo = "Residence Status",
-    Description = "Residence of respondents (1 = Residents, 0 = Tourist)",
-    `Mean (SD)` = paste0(
-      round(mean, 2),
-      " (",
-      round(sd, 2),
-      ")"
-    )
-  ) %>%
-  select(Demo, Description,  `Mean (SD)`)
-
-# Used trail or not 
-Use.Trail_summary <- resp_data %>%
-  mutate(`Used Trail in Hawai'i` = if_else(HI_Trail.Use == "Yes", 1, 0)) %>%
-  summarise(
-    mean = mean(`Used Trail in Hawai'i`, na.rm = TRUE),
-    sd   = sd(`Used Trail in Hawai'i`, na.rm = TRUE)
-  ) %>%
-  mutate(
-    Demo = "Used Trails in Hawai'i",
-    Description = "Respondents trail use(1 = Yes, 0 = No)",
-    `Mean (SD)` = paste0(
-      round(mean, 2),
-      " (",
-      round(sd, 2),
-      ")"
-    )
-  ) %>%
-  select(Demo, Description,  `Mean (SD)`)
-
-
-## Income 
-
-resp_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
-  mutate(
+    ),
+    
+    Male = if_else(Demo_Sex == "Male", 1, 0),
+    
+    Used_Trail = if_else(HI_Trail.Use == "Yes", 1, 0),
+    
     Income = case_when(
       Demo_HH.Income == "Less than $25,000" ~ 1,
       Demo_HH.Income == "$25,000 -$49,999" ~ 2,
@@ -136,32 +52,8 @@ resp_data <- mlogit_clean %>%
       Demo_HH.Income == "$100,000 -$149,999" ~ 5,
       Demo_HH.Income == "$150,000 or more" ~ 6,
       TRUE ~ NA_real_
-    )
-  )
-
-income_summary <- resp_data %>%
-  summarise(
-    mean = median(Income, na.rm = TRUE),
-    sd   = sd(Income, na.rm = TRUE)
-  ) %>%
-  mutate(
-    Demo = "Income",
-    Description = "Total household income per month (1 = less than $25,000, 6 = $150,000 or more)",
-    `Mean (SD)` = paste0(
-      round(mean, 2),
-      " (",
-      round(sd, 2),
-      ")"
-    )
-  ) %>%
-  select(Demo, Description,  `Mean (SD)`)
-
-
-## Education
-
-resp_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
-  mutate(
+    ),
+    
     Education = case_when(
       Demo_Education == "Some high school or less" ~ 1,
       Demo_Education == "High School diploma or GED" ~ 2,
@@ -173,47 +65,162 @@ resp_data <- mlogit_clean %>%
     )
   )
 
-# edu_props <- resp_data %>%
-#   count(Education) %>%                 # count each education level
-#   mutate(prop = n / sum(n) * 100)       # calculate percentage
+make_summary <- function(data, var, label, description, use_median = FALSE) {
+  data %>%
+    group_by(Zipverified) %>%
+    summarise(
+      mean_val = if (use_median) round(median({{var}}, na.rm = TRUE), 2) else round(mean({{var}}, na.rm = TRUE), 2),
+      sd_val   = round(sd({{var}}, na.rm = TRUE), 2),
+      .groups  = "drop"
+    ) %>%
+    mutate(
+      value = paste0(round(mean_val), " (", round(sd_val, 2), ")")
+    ) %>%
+    select(Zipverified, value) %>%
+    pivot_wider(
+      names_from  = Zipverified,
+      values_from = value
+    ) %>%
+    mutate(
+      Variables   = label,
+      Description = description
+    ) %>%
+    select(Variables, Description, everything())
+}
+
+# ── percentage summary function for binary variables ─────────────────────────
+
+make_pct_summary <- function(data, var, label, description) {
+  data %>%
+    group_by(Zipverified) %>%
+    summarise(
+      pct = mean({{var}}, na.rm = TRUE) * 100,
+      .groups = "drop"
+    ) %>%
+    mutate(
+      value = paste0(round(pct, 0), "%")
+    ) %>%
+    select(Zipverified, value) %>%
+    pivot_wider(
+      names_from  = Zipverified,
+      values_from = value
+    ) %>%
+    mutate(
+      Variables   = label,
+      Description = description
+    ) %>%
+    select(Variables, Description, everything())
+}
 
 
-education_summary <- resp_data %>%
-  summarise(
-    mean = median(Education, na.rm = TRUE),
-    sd   = sd(Education, na.rm = TRUE)
-  ) %>%
-  mutate(
-    Demo = "Education",
-    Description = "Education of respondents(1 = Some high school or less, 6 = Graduate or professional degree (MA, MS, MBA, PhD, etc.)",
-    `Mean (SD)` = paste0(
-      round(mean, 2),
-      " (",
-      round(sd, 2),
-      ")"
-    )
-  ) %>%
-  select(Demo, Description,  `Mean (SD)`)
+# ── individual summaries ─────────────────────────────────────────────────────
 
-
-
-
-#Combine 
-socio_demo_table <- bind_rows(
-  residence_summary,
-  Use.Trail_summary,
-  age_summary,
-  sex_summary,
-  income_summary,
-  education_summary
+age_summary <- make_summary(
+  resp_data,
+  Age_mid,
+  "Age",
+  "Respondent age (years, midpoint of categories)"
 )
 
-socio_demo_table %<>%
-  rename(Variables = Demo)
+sex_summary <- make_summary(
+  resp_data,
+  Male,
+  "Sex",
+  "Sex of respondents (1 = male, 0 = Female)"
+)
+
+trail_summary <- make_summary(
+  resp_data,
+  Used_Trail,
+  "Used Trails in Hawai'i",
+  "Respondents trail use ( 1 = Yes, 0= No)"
+)
+
+income_summary <- make_summary(
+  resp_data,
+  Income,
+  "Income",
+  "Total household income (1 = less than 25000, 6 = 150000 or more)"
+)
+
+education_summary <- make_summary(
+  resp_data,
+  Education,
+  "Education",
+  "Highest education attained (ordinal scale)",
+  use_median = TRUE   # since you were using median
+)
+
+# ── bind rows ────────────────────────────────────────────────────────────────
+
+socio_demo_table <- bind_rows(
+  age_summary,
+  sex_summary,
+  trail_summary,
+  income_summary,
+  education_summary
+) %>%
+  as.data.frame()
 
 
-socio_demo_table  %>%
-  gt() 
+# ── footnote text ─────────────────────────────────────────────────────────────
+
+footnote <- paste(
+  "Notes:Education reported as Median (SD)."
+  ,"<br>",
+  "¹ Income levels: 1 = Less than $25,000; 2 = $25,000–$49,999;",
+  "3 = $50,000–$74,999; 4 = $75,000–$99,999;",
+  "5 = $100,000–$149,999; 6 = $150,000 or more.",
+  "<br>",
+  "² Education levels: 1 = Some high school or less; 2 = High school diploma or GED;",
+  "3 = Some college, no degree; 4 = Associate's or technical degree;",
+  "<br>",
+  "5 = Bachelor's degree; 6 = Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, etc.).",
+  "<br>"
+)
+
+
+# ── stargazer output ──────────────────────────────────────────────────────────
+
+stargazer(
+  socio_demo_table,
+  type        = "html",
+  summary     = FALSE,
+  rownames    = FALSE,
+  title       = "Socio-demographic Characteristics by Residency Status",
+  notes       = footnote,
+  notes.align = "l",
+  notes.label = "",
+  out         = "socio_demo_table.html"
+)
+
+# Read the HTML output
+html_content <- readLines("socio_demo_table.html")
+
+# Find the header row and replace it with a two-line header
+old_header <- grep("<tr>.*Resident.*Tourist.*</tr>", html_content)
+
+# Replace the single header row with a grouped two-row header
+html_content <- gsub(
+  pattern     = "<td>Resident</td>.*<td>Tourist</td>",
+  replacement = "<td colspan='1'>Resident<br>Mean (SD)</td><td colspan='1'>Tourist<br>Mean (SD)</td>",
+  x           = html_content
+)
+
+# Inject CSS
+css_fix <- '<style>
+  table { border-collapse: collapse; width: auto; }
+  td, th { padding: 4px 10px; text-align: center; white-space: nowrap; }
+  td:first-child, th:first-child { text-align: left; }
+</style>'
+
+html_content <- c(css_fix, html_content)
+writeLines(html_content, "socio_demo_table.html")
+
+
+
+# socio_demo_table  %>%
+#   gt() 
 # -------------------------------------------------
 # 3 — Generate Table to support User fee, cost allocation etc
 # ------------------------------------------------

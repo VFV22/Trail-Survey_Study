@@ -21,7 +21,7 @@ source("1. Cleaning /Cleaning.R")
 #------------------------------------------------------:
 
 # Pivot longer 
-Reshape.long.1 <- Full.data  %>% 
+Reshape.long.1 <- Internal.data  %>% 
   pivot_longer(cols = starts_with("Choice.Task_"),
                names_to = "Choice.Task", 
                values_to = "Chosen.Alternative")%>%
@@ -32,7 +32,7 @@ Reshape.long.1 <- Full.data  %>%
 
 
 # Load experimental design from edited ngene 
-design_ngene <- read_csv("Ngene_reshape_edited.csv") 
+design_ngene <- read_csv("/Users/ruivaldoviana/Documents/GitHub/Trail-Survey_Study/Full Launch/Ngene_reshape_edited.csv") 
 
 
 # Match data format for before merging
@@ -72,7 +72,7 @@ merge.data.1 %<>%
 #------------------------------------------------------:
 merge.data.1 %<>%
   select(
-    RID,
+    Qualtrics.RID,
    Zipverified, 
     Choice.Task,
     Alternative,
@@ -178,7 +178,7 @@ merge.data.1 %<>%
 
 # Summarize block distribution 
 summary_block.distribution <- merge.data.1 %>%
-  distinct(RID, .keep_all = TRUE) %>% 
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>% 
   group_by(Zipverified, block) %>% 
   count() %>% 
   group_by(Zipverified) %>% 

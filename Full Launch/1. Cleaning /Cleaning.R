@@ -157,13 +157,27 @@ Full.data  %<>%
   filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
 
 #Filter out incomplete / failed attention check 
+# Full.data.Incomplete <-Full.data  %<>% 
+#   filter(gc==2)
+
+#Filter out incomplete / failed attention check 
 Full.data  %<>% 
   filter(gc==1)
+
+
 
 #Filter out pilot data collection
 # Full.data  %<>%
 #   filter(as.POSIXct(StartDate, tz = "Pacific/Honolulu") >= 
 #            as.POSIXct("2025-11-12 00:00:00", tz = "Pacific/Honolulu"))
 
-
-  
+# always_optout <- mlogit_clean %>%
+#   group_by(RID) %>%
+#   summarise(all_optout = all(Chosen.Alternative == "3")) %>%
+#    filter(all_optout) #%>%
+#   # pull(RID)
+#   
+# always_optout_R <- mlogit_clean_Residents %>%
+#   group_by(RID) %>%
+#   summarise(all_optout = all(Chosen.Alternative == "3")) %>%
+#   filter(all_optout)

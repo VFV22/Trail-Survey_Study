@@ -1,0 +1,871 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+```{r}
+apollo_initialise()
+
+apollo_control <- list(
+  modelName  = "LC_Unconditional",
+  modelDescr = "Latent class model - unconditional - trail attributes only",
+  indivID    = "RID",
+  panelData  = TRUE,
+  mixing     = FALSE  # No continuous mixing in latent class
+)
+
+
+```
+
+## RUM For All Respondents
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean=mlogit_clean[c(1:11,15,19,38:47, 71)]
+mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_wide
+
+```
+
+## K= 2
+
+```{r}
+
+# ══════════════════════════════════════════════════════
+# STEP 0 — Set up dataset 
+# ══════════════════════════════════════════════════════
+
+
+# ── Attribute dummies ──
+database$Habitat_QualityM.alt1 <- ifelse(database$Habitat_Quality.alt1 == "Medium", 1, 0)
+database$Habitat_QualityH.alt1 <- ifelse(database$Habitat_Quality.alt1 == "High",   1, 0)
+database$Habitat_QualityM.alt2 <- ifelse(database$Habitat_Quality.alt2 == "Medium", 1, 0)
+database$Habitat_QualityH.alt2 <- ifelse(database$Habitat_Quality.alt2 == "High",   1, 0)
+
+database$Trail_ConditionM.alt1 <- ifelse(database$Trail_Condition.alt1 == "Medium", 1, 0)
+database$Trail_ConditionH.alt1 <- ifelse(database$Trail_Condition.alt1 == "High",   1, 0)
+database$Trail_ConditionM.alt2 <- ifelse(database$Trail_Condition.alt2 == "Medium", 1, 0)
+database$Trail_ConditionH.alt2 <- ifelse(database$Trail_Condition.alt2 == "High",   1, 0)
+
+# Crowding — reversed coding
+# "High" label = Low actual crowding (good) → CrowdingL
+# "Medium" label = Medium actual crowding   → CrowdingM
+# Reference = "Low" label = High actual crowding (bad)
+database$CrowdingM.alt1 <- ifelse(database$Crowding.alt1 == "Medium", 1, 0)
+database$CrowdingL.alt1 <- ifelse(database$Crowding.alt1 == "High",   1, 0)
+database$CrowdingM.alt2 <- ifelse(database$Crowding.alt2 == "Medium", 1, 0)
+database$CrowdingL.alt2 <- ifelse(database$Crowding.alt2 == "High",   1, 0)
+
+# ── Demographics ──
+database$Resident <- ifelse(database$Zipverified.alt1 == "Resident", 1, 0)
+
+database$Demo_Age_num <- as.integer(factor(
+  database$Demo_Age.alt1,
+  levels = c("Under 18", "18-24 years old", "25-34 years old",
+             "35-44 years old", "45-54 years old",
+             "55-64 years old", "65+ years old"),
+  labels = 1:7))
+
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c("Less than $25,000", "$25,000 -$49,999",
+             "$50,000 -$74,999",  "$75,000 -$99,999",
+             "$100,000 -$149,999","$150,000 or more"),
+  labels = 1:6))
+
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"), 1, 0)
+
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1 == "Female", 1,
+                       ifelse(database$Demo_Sex.alt1 == "Male",   0, 0))
+
+# ── Choice and ID columns ──
+colnames(database)[1] <- "RID"
+colnames(database)[4] <- "choice"
+database$choice <- as.numeric(database$choice)
+
+# ── Sanity check ──
+cat("\nKey columns check:\n")
+print(head(database[, c("RID", "choice",
+                         "Habitat_QualityM.alt1", "Habitat_QualityH.alt1",
+                         "Trail_ConditionM.alt1", "Trail_ConditionH.alt1",
+                         "CrowdingM.alt1", "CrowdingL.alt1")]))
+
+# ══════════════════════════════════════════════════════
+# STEP 1 — Apollo initialise and control
+# ══════════════════════════════════════════════════════
+apollo_initialise()
+
+apollo_control <- list(
+  modelName    = "LC2_Unconditional",
+  modelDescr   = "Latent class K=2 unconditional",
+  indivID      = "RID",
+  panelData    = TRUE,
+  mixing       = FALSE,
+  noValidation = TRUE
+)
+
+# ══════════════════════════════════════════════════════
+# STEP 2 — Beta vector (informed starting values)
+# Based on mixed logit estimates, Class 1 = engaged users
+# Class 2 = weaker preference / more price sensitive
+# ══════════════════════════════════════════════════════
+apollo_beta_lc2 <- c(
+  # Class 1 — strong preference profile (from mixed logit estimates)
+  b_HabitatMed_1    =  0.35, b_HabitatHigh_1   =  0.86,
+  b_TrailCondMed_1  =  0.49, b_TrailCondHigh_1  =  0.82,
+  b_CrowdingMed_1   =  0.27, b_CrowdingLow_1   =  0.35,
+  b_cost_1          = -0.014, asc_optout_1     = -3.179,
+
+  # Class 2 — weaker preference, more price sensitive
+  b_HabitatMed_2    =  0.10, b_HabitatHigh_2   =  0.20,
+  b_TrailCondMed_2  =  0.10, b_TrailCondHigh_2  =  0.20,
+  b_CrowdingMed_2   =  0.10, b_CrowdingLow_2   =  0.10,
+  b_cost_2          = -0.03, asc_optout_2      = -1.00,
+
+  # Membership — start equal (50/50)
+  delta_2           =  0.0
+)
+
+apollo_fixed_lc2 <- c()
+
+# ══════════════════════════════════════════════════════
+# STEP 3 — Validate inputs
+# MUST come after apollo_control and apollo_beta are defined
+# ══════════════════════════════════════════════════════
+apollo_inputs_lc2 <- apollo_validateInputs()
+
+# ══════════════════════════════════════════════════════
+# STEP 4 — Probability function
+# ══════════════════════════════════════════════════════
+apollo_probabilities_lc2 <- function(apollo_beta, apollo_inputs,
+                                      functionality = "estimate") {
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+
+  P <- list()
+
+  # ── Membership probabilities ──
+  pi_1 <- 1            / (1 + exp(delta_2))
+  pi_2 <- exp(delta_2) / (1 + exp(delta_2))
+
+  # ── Utility: Class 1 ──
+  V1 <- list()
+  V1[["alt1"]] <- b_HabitatMed_1   * Habitat_QualityM.alt1 +
+                  b_HabitatHigh_1  * Habitat_QualityH.alt1 +
+                  b_TrailCondMed_1  * Trail_ConditionM.alt1 +
+                  b_TrailCondHigh_1 * Trail_ConditionH.alt1 +
+                  b_CrowdingMed_1  * CrowdingM.alt1 +
+                  b_CrowdingLow_1  * CrowdingL.alt1 +
+                  b_cost_1         * Cost.alt1
+  V1[["alt2"]] <- b_HabitatMed_1   * Habitat_QualityM.alt2 +
+                  b_HabitatHigh_1  * Habitat_QualityH.alt2 +
+                  b_TrailCondMed_1  * Trail_ConditionM.alt2 +
+                  b_TrailCondHigh_1 * Trail_ConditionH.alt2 +
+                  b_CrowdingMed_1  * CrowdingM.alt2 +
+                  b_CrowdingLow_1  * CrowdingL.alt2 +
+                  b_cost_1         * Cost.alt2
+  V1[["alt3"]] <- asc_optout_1
+
+  # ── Utility: Class 2 ──
+  V2 <- list()
+  V2[["alt1"]] <- b_HabitatMed_2   * Habitat_QualityM.alt1 +
+                  b_HabitatHigh_2  * Habitat_QualityH.alt1 +
+                  b_TrailCondMed_2  * Trail_ConditionM.alt1 +
+                  b_TrailCondHigh_2 * Trail_ConditionH.alt1 +
+                  b_CrowdingMed_2  * CrowdingM.alt1 +
+                  b_CrowdingLow_2  * CrowdingL.alt1 +
+                  b_cost_2         * Cost.alt1
+  V2[["alt2"]] <- b_HabitatMed_2   * Habitat_QualityM.alt2 +
+                  b_HabitatHigh_2  * Habitat_QualityH.alt2 +
+                  b_TrailCondMed_2  * Trail_ConditionM.alt2 +
+                  b_TrailCondHigh_2 * Trail_ConditionH.alt2 +
+                  b_CrowdingMed_2  * CrowdingM.alt2 +
+                  b_CrowdingLow_2  * CrowdingL.alt2 +
+                  b_cost_2         * Cost.alt2
+  V2[["alt3"]] <- asc_optout_2
+
+  # ── MNL settings per class ──
+  mnl_1 <- list(alternatives = c(alt1=1, alt2=2, alt3=3),
+                avail        = list(alt1=1, alt2=1, alt3=1),
+                choiceVar    = choice,
+                utilities    = V1)
+  mnl_2 <- list(alternatives = c(alt1=1, alt2=2, alt3=3),
+                avail        = list(alt1=1, alt2=1, alt3=1),
+                choiceVar    = choice,
+                utilities    = V2)
+
+  # ── Class probabilities ──
+  P[["class_1"]] <- apollo_mnl(mnl_1, functionality)
+  P[["class_2"]] <- apollo_mnl(mnl_2, functionality)
+
+  # ── Panel product — correct syntax ──
+  P[["class_1"]] <- apollo_panelProd(
+    list(model = P[["class_1"]]), apollo_inputs, functionality)$model
+  P[["class_2"]] <- apollo_panelProd(
+    list(model = P[["class_2"]]), apollo_inputs, functionality)$model
+
+  # ── Latent class combination ──
+  lc_settings <- list(
+    inClassProb = list(P[["class_1"]], P[["class_2"]]),
+    classProb   = list(pi_1, pi_2)
+  )
+
+  P[["model"]] <- apollo_lc(lc_settings, apollo_inputs, functionality)
+  P <- apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+
+# ══════════════════════════════════════════════════════
+# STEP 5 — Estimate
+# ══════════════════════════════════════════════════════
+model_lc2 <- apollo_estimate(
+  apollo_beta_lc2,
+  apollo_fixed_lc2,
+  apollo_probabilities_lc2,
+  apollo_inputs_lc2
+)
+
+summary(model_lc2)
+
+# ══════════════════════════════════════════════════════
+# STEP 6 — Record fit statistics
+# ══════════════════════════════════════════════════════
+ll_k2     <- model_lc2$LLout
+params_k2 <- length(model_lc2$estimate)
+n_obs     <- 5572
+
+cat("\n════════════════════════════════\n")
+cat("K=2 Fit Statistics\n")
+cat("════════════════════════════════\n")
+cat("LL:        ", round(ll_k2, 3),                                       "\n")
+cat("Parameters:", params_k2,                                              "\n")
+cat("AIC:       ", round(-2*ll_k2 + 2*params_k2, 3),                      "\n")
+cat("BIC:       ", round(-2*ll_k2 + log(n_obs)*params_k2, 3),             "\n")
+cat("CAIC:      ", round(-2*ll_k2 + (log(n_obs)+1)*params_k2, 3),         "\n")
+cat("════════════════════════════════\n")
+```
+
+## K= 3
+
+```{r}
+
+# ══════════════════════════════════════════════════════
+# K=3 Latent Class Model
+# ══════════════════════════════════════════════════════
+apollo_initialise()
+
+apollo_control <- list(
+  modelName    = "LC3_Unconditional",
+  modelDescr   = "Latent class K=3 unconditional",
+  indivID      = "RID",
+  panelData    = TRUE,
+  mixing       = FALSE,
+  noValidation = TRUE
+)
+
+apollo_beta_lc3 <- c(
+  # Class 1 — high preference, low price sensitivity (engaged users)
+  b_HabitatMed_1    =  0.35, b_HabitatHigh_1   =  0.86,
+  b_TrailCondMed_1  =  0.49, b_TrailCondHigh_1  =  0.82,
+  b_CrowdingMed_1   =  0.27, b_CrowdingLow_1   =  0.35,
+  b_cost_1          = -0.01, asc_optout_1      = -4.0,
+
+  # Class 2 — moderate preference, high price sensitivity
+  b_HabitatMed_2    =  0.25, b_HabitatHigh_2   =  0.50,
+  b_TrailCondMed_2  =  0.25, b_TrailCondHigh_2  =  0.50,
+  b_CrowdingMed_2   =  0.15, b_CrowdingLow_2   =  0.20,
+  b_cost_2          = -0.03, asc_optout_2      = -2.0,
+
+  # Class 3 — low preference, opt-out prone
+  b_HabitatMed_3    =  0.05, b_HabitatHigh_3   =  0.10,
+  b_TrailCondMed_3  =  0.05, b_TrailCondHigh_3  =  0.10,
+  b_CrowdingMed_3   =  0.05, b_CrowdingLow_3   =  0.05,
+  b_cost_3          = -0.005, asc_optout_3     =  0.50,
+
+  # Membership: Classes 2 and 3 relative to Class 1
+  delta_2           =  0.0,
+  delta_3           = -0.5
+)
+
+apollo_fixed_lc3 <- c()
+
+apollo_inputs_lc3 <- apollo_validateInputs()
+
+# ── Probability function ──
+apollo_probabilities_lc3 <- function(apollo_beta, apollo_inputs,
+                                      functionality = "estimate") {
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+
+  P <- list()
+
+  # ── Membership probabilities ──
+  denom  <- 1 + exp(delta_2) + exp(delta_3)
+  pi_1   <- 1            / denom
+  pi_2   <- exp(delta_2) / denom
+  pi_3   <- exp(delta_3) / denom
+
+  # ── Utility: Class 1 ──
+  V1 <- list()
+  V1[["alt1"]] <- b_HabitatMed_1   * Habitat_QualityM.alt1 +
+                  b_HabitatHigh_1  * Habitat_QualityH.alt1 +
+                  b_TrailCondMed_1  * Trail_ConditionM.alt1 +
+                  b_TrailCondHigh_1 * Trail_ConditionH.alt1 +
+                  b_CrowdingMed_1  * CrowdingM.alt1 +
+                  b_CrowdingLow_1  * CrowdingL.alt1 +
+                  b_cost_1         * Cost.alt1
+  V1[["alt2"]] <- b_HabitatMed_1   * Habitat_QualityM.alt2 +
+                  b_HabitatHigh_1  * Habitat_QualityH.alt2 +
+                  b_TrailCondMed_1  * Trail_ConditionM.alt2 +
+                  b_TrailCondHigh_1 * Trail_ConditionH.alt2 +
+                  b_CrowdingMed_1  * CrowdingM.alt2 +
+                  b_CrowdingLow_1  * CrowdingL.alt2 +
+                  b_cost_1         * Cost.alt2
+  V1[["alt3"]] <- asc_optout_1
+
+  # ── Utility: Class 2 ──
+  V2 <- list()
+  V2[["alt1"]] <- b_HabitatMed_2   * Habitat_QualityM.alt1 +
+                  b_HabitatHigh_2  * Habitat_QualityH.alt1 +
+                  b_TrailCondMed_2  * Trail_ConditionM.alt1 +
+                  b_TrailCondHigh_2 * Trail_ConditionH.alt1 +
+                  b_CrowdingMed_2  * CrowdingM.alt1 +
+                  b_CrowdingLow_2  * CrowdingL.alt1 +
+                  b_cost_2         * Cost.alt1
+  V2[["alt2"]] <- b_HabitatMed_2   * Habitat_QualityM.alt2 +
+                  b_HabitatHigh_2  * Habitat_QualityH.alt2 +
+                  b_TrailCondMed_2  * Trail_ConditionM.alt2 +
+                  b_TrailCondHigh_2 * Trail_ConditionH.alt2 +
+                  b_CrowdingMed_2  * CrowdingM.alt2 +
+                  b_CrowdingLow_2  * CrowdingL.alt2 +
+                  b_cost_2         * Cost.alt2
+  V2[["alt3"]] <- asc_optout_2
+
+  # ── Utility: Class 3 ──
+  V3 <- list()
+  V3[["alt1"]] <- b_HabitatMed_3   * Habitat_QualityM.alt1 +
+                  b_HabitatHigh_3  * Habitat_QualityH.alt1 +
+                  b_TrailCondMed_3  * Trail_ConditionM.alt1 +
+                  b_TrailCondHigh_3 * Trail_ConditionH.alt1 +
+                  b_CrowdingMed_3  * CrowdingM.alt1 +
+                  b_CrowdingLow_3  * CrowdingL.alt1 +
+                  b_cost_3         * Cost.alt1
+  V3[["alt2"]] <- b_HabitatMed_3   * Habitat_QualityM.alt2 +
+                  b_HabitatHigh_3  * Habitat_QualityH.alt2 +
+                  b_TrailCondMed_3  * Trail_ConditionM.alt2 +
+                  b_TrailCondHigh_3 * Trail_ConditionH.alt2 +
+                  b_CrowdingMed_3  * CrowdingM.alt2 +
+                  b_CrowdingLow_3  * CrowdingL.alt2 +
+                  b_cost_3         * Cost.alt2
+  V3[["alt3"]] <- asc_optout_3
+
+  # ── MNL settings per class ──
+  mnl_1 <- list(alternatives = c(alt1=1, alt2=2, alt3=3),
+                avail        = list(alt1=1, alt2=1, alt3=1),
+                choiceVar    = choice, utilities = V1)
+  mnl_2 <- list(alternatives = c(alt1=1, alt2=2, alt3=3),
+                avail        = list(alt1=1, alt2=1, alt3=1),
+                choiceVar    = choice, utilities = V2)
+  mnl_3 <- list(alternatives = c(alt1=1, alt2=2, alt3=3),
+                avail        = list(alt1=1, alt2=1, alt3=1),
+                choiceVar    = choice, utilities = V3)
+
+  # ── Class probabilities ──
+  P[["class_1"]] <- apollo_mnl(mnl_1, functionality)
+  P[["class_2"]] <- apollo_mnl(mnl_2, functionality)
+  P[["class_3"]] <- apollo_mnl(mnl_3, functionality)
+
+  # ── Panel product ──
+  P[["class_1"]] <- apollo_panelProd(
+    list(model = P[["class_1"]]), apollo_inputs, functionality)$model
+  P[["class_2"]] <- apollo_panelProd(
+    list(model = P[["class_2"]]), apollo_inputs, functionality)$model
+  P[["class_3"]] <- apollo_panelProd(
+    list(model = P[["class_3"]]), apollo_inputs, functionality)$model
+
+  # ── Latent class combination ──
+  lc_settings <- list(
+    inClassProb = list(P[["class_1"]], P[["class_2"]], P[["class_3"]]),
+    classProb   = list(pi_1, pi_2, pi_3)
+  )
+
+  P[["model"]] <- apollo_lc(lc_settings, apollo_inputs, functionality)
+  P <- apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+
+# ── Estimate ──
+model_lc3 <- apollo_estimate(
+  apollo_beta_lc3,
+  apollo_fixed_lc3,
+  apollo_probabilities_lc3,
+  apollo_inputs_lc3
+)
+
+summary(model_lc3)
+```
+
+```{r}
+# ── K=3 fit statistics ──
+ll_k3     <- model_lc3$LLout
+params_k3 <- length(model_lc3$estimate)
+n_obs     <- 5572
+
+cat("\n════════════════════════════════\n")
+cat("K=3 Fit Statistics\n")
+cat("════════════════════════════════\n")
+cat("LL:        ", round(ll_k3, 3),                                   "\n")
+cat("Parameters:", params_k3,                                          "\n")
+cat("AIC:       ", round(-2*ll_k3 + 2*params_k3, 3),                  "\n")
+cat("BIC:       ", round(-2*ll_k3 + log(n_obs)*params_k3, 3),         "\n")
+cat("CAIC:      ", round(-2*ll_k3 + (log(n_obs)+1)*params_k3, 3),     "\n")
+cat("════════════════════════════════\n")--
+```
+
+## K= 4
+
+```{r}
+# ══════════════════════════════════════════════════════
+# K=4 Latent Class Model
+# ══════════════════════════════════════════════════════
+apollo_initialise()
+
+apollo_control <- list(
+  modelName    = "LC4_Unconditional",
+  modelDescr   = "Latent class K=4 unconditional",
+  indivID      = "RID",
+  panelData    = TRUE,
+  mixing       = FALSE,
+  noValidation = TRUE
+)
+
+apollo_beta_lc4 <- c(
+  # Class 1 — Trail Condition Seekers (from K=3 Class 1)
+  b_HabitatMed_1    = -1.05, b_HabitatHigh_1   =  0.39,
+  b_TrailCondMed_1  =  1.63, b_TrailCondHigh_1  =  1.38,
+  b_CrowdingMed_1   =  0.84, b_CrowdingLow_1   =  0.16,
+  b_cost_1          = -0.005, asc_optout_1     = -0.59,
+
+  # Class 2 — Habitat Seekers (from K=3 Class 2)
+  b_HabitatMed_2    =  3.36, b_HabitatHigh_2   =  0.005,
+  b_TrailCondMed_2  = -4.91, b_TrailCondHigh_2  = -0.90,
+  b_CrowdingMed_2   = -1.23, b_CrowdingLow_2   = -1.94,
+  b_cost_2          = -0.124, asc_optout_2     = -9.99,
+
+  # Class 3 — split from K=3 Class 3, high habitat preference
+  b_HabitatMed_3    =  0.50, b_HabitatHigh_3   =  1.00,
+  b_TrailCondMed_3  =  0.30, b_TrailCondHigh_3  =  0.50,
+  b_CrowdingMed_3   =  0.20, b_CrowdingLow_3   =  0.30,
+  b_cost_3          = -0.07, asc_optout_3     = -2.00,
+
+  # Class 4 — opt-out prone
+  b_HabitatMed_4    =  0.10, b_HabitatHigh_4   =  0.20,
+  b_TrailCondMed_4  =  0.10, b_TrailCondHigh_4  =  0.20,
+  b_CrowdingMed_4   =  0.05, b_CrowdingLow_4   =  0.10,
+  b_cost_4          = -0.01, asc_optout_4     =  1.00,
+
+  # Membership
+  delta_2           = -0.81,
+  delta_3           = -1.50,
+  delta_4           = -2.00
+)
+
+apollo_fixed_lc4 <- c()
+
+apollo_inputs_lc4 <- apollo_validateInputs()
+
+# ── Probability function ──
+apollo_probabilities_lc4 <- function(apollo_beta, apollo_inputs,
+                                      functionality = "estimate") {
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+
+  P <- list()
+
+  # ── Membership probabilities ──
+  denom <- 1 + exp(delta_2) + exp(delta_3) + exp(delta_4)
+  pi_1  <- 1            / denom
+  pi_2  <- exp(delta_2) / denom
+  pi_3  <- exp(delta_3) / denom
+  pi_4  <- exp(delta_4) / denom
+
+  # ── Utility function builder ──
+  make_V <- function(hm, hh, tcm, tch, cm, cl, cost, asc) {
+    V <- list()
+    V[["alt1"]] <- hm  * Habitat_QualityM.alt1 +
+                   hh  * Habitat_QualityH.alt1 +
+                   tcm * Trail_ConditionM.alt1 +
+                   tch * Trail_ConditionH.alt1 +
+                   cm  * CrowdingM.alt1 +
+                   cl  * CrowdingL.alt1 +
+                   cost * Cost.alt1
+    V[["alt2"]] <- hm  * Habitat_QualityM.alt2 +
+                   hh  * Habitat_QualityH.alt2 +
+                   tcm * Trail_ConditionM.alt2 +
+                   tch * Trail_ConditionH.alt2 +
+                   cm  * CrowdingM.alt2 +
+                   cl  * CrowdingL.alt2 +
+                   cost * Cost.alt2
+    V[["alt3"]] <- asc
+    return(V)
+  }
+
+  V1 <- make_V(b_HabitatMed_1, b_HabitatHigh_1,
+               b_TrailCondMed_1, b_TrailCondHigh_1,
+               b_CrowdingMed_1, b_CrowdingLow_1,
+               b_cost_1, asc_optout_1)
+
+  V2 <- make_V(b_HabitatMed_2, b_HabitatHigh_2,
+               b_TrailCondMed_2, b_TrailCondHigh_2,
+               b_CrowdingMed_2, b_CrowdingLow_2,
+               b_cost_2, asc_optout_2)
+
+  V3 <- make_V(b_HabitatMed_3, b_HabitatHigh_3,
+               b_TrailCondMed_3, b_TrailCondHigh_3,
+               b_CrowdingMed_3, b_CrowdingLow_3,
+               b_cost_3, asc_optout_3)
+
+  V4 <- make_V(b_HabitatMed_4, b_HabitatHigh_4,
+               b_TrailCondMed_4, b_TrailCondHigh_4,
+               b_CrowdingMed_4, b_CrowdingLow_4,
+               b_cost_4, asc_optout_4)
+
+  # ── MNL settings ──
+  make_mnl <- function(V) list(
+    alternatives = c(alt1=1, alt2=2, alt3=3),
+    avail        = list(alt1=1, alt2=1, alt3=1),
+    choiceVar    = choice,
+    utilities    = V)
+
+  P[["class_1"]] <- apollo_mnl(make_mnl(V1), functionality)
+  P[["class_2"]] <- apollo_mnl(make_mnl(V2), functionality)
+  P[["class_3"]] <- apollo_mnl(make_mnl(V3), functionality)
+  P[["class_4"]] <- apollo_mnl(make_mnl(V4), functionality)
+
+  # ── Panel product ──
+  P[["class_1"]] <- apollo_panelProd(
+    list(model = P[["class_1"]]), apollo_inputs, functionality)$model
+  P[["class_2"]] <- apollo_panelProd(
+    list(model = P[["class_2"]]), apollo_inputs, functionality)$model
+  P[["class_3"]] <- apollo_panelProd(
+    list(model = P[["class_3"]]), apollo_inputs, functionality)$model
+  P[["class_4"]] <- apollo_panelProd(
+    list(model = P[["class_4"]]), apollo_inputs, functionality)$model
+
+  # ── Latent class combination ──
+  lc_settings <- list(
+    inClassProb = list(P[["class_1"]], P[["class_2"]],
+                       P[["class_3"]], P[["class_4"]]),
+    classProb   = list(pi_1, pi_2, pi_3, pi_4)
+  )
+
+  P[["model"]] <- apollo_lc(lc_settings, apollo_inputs, functionality)
+  P <- apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}
+
+# ── Estimate ──
+model_lc4 <- apollo_estimate(
+  apollo_beta_lc4,
+  apollo_fixed_lc4,
+  apollo_probabilities_lc4,
+  apollo_inputs_lc4
+)
+
+summary(model_lc4)
+```
+
+```{r}
+
+# ── Record fit statistics ──
+ll_k4     <- model_lc4$LLout
+params_k4 <- length(model_lc4$estimate)
+
+cat("\n════════════════════════════════\n")
+cat("K=4 Fit Statistics\n")
+cat("════════════════════════════════\n")
+cat("LL:        ", round(ll_k4, 3),                                   "\n")
+cat("Parameters:", params_k4,                                          "\n")
+cat("AIC:       ", round(-2*ll_k4 + 2*params_k4, 3),                  "\n")
+cat("BIC:       ", round(-2*ll_k4 + log(n_obs)*params_k4, 3),         "\n")
+cat("CAIC:      ", round(-2*ll_k4 + (log(n_obs)+1)*params_k4, 3),     "\n")
+cat("════════════════════════════════\n")
+```
+
+```{r}
+#Problems with K=4:
+
+#asc_optout_2 = -2.126e+04 — a coefficient of -21,260 is completely nonsensical. This means the optimizer hit a boundary and Class 2 collapsed
+# No standard errors computed — Apollo explicitly couldn't compute SEs, confirming non-convergence
+# Multiple LL values reported (-5321, -6178, -Inf, -13467) — these are intermediate iteration values, not a final solution. The -Inf confirms the likelihood hit zero at some point
+# Modelled outcomes = 27,860 vs your expected 5,572 — something went wrong with the data dimensions
+# The fit statistics show multiple values instead of single numbers — direct result of non-convergence
+# 
+# The conclusion is clear: K=4 did not converge and should be discarded.
+
+# Choose K=3 as main latent class model
+# 
+# While information criteria marginally favored the two-class solution, the K=2 model produced a degenerate class with unstable parameter estimates and no meaningful behavioral interpretation. The three-class solution yielded well-identified classes with theoretically coherent preference profiles and stable standard errors, and was therefore selected as the preferred specification. The K=4 model failed to converge, further supporting K=3 as the optimal solution.
+
+```
+
+```{r}
+# ── Extract delta estimates from model ──
+est <- model_lc3$estimate
+
+# ── Compute class membership probabilities manually ──
+# Using the softmax formula from our probability function
+delta_2 <- est["delta_2"]
+delta_3 <- est["delta_3"]
+
+denom <- 1 + exp(delta_2) + exp(delta_3)
+pi_1  <- 1            / denom
+pi_2  <- exp(delta_2) / denom
+pi_3  <- exp(delta_3) / denom
+
+cat("═══════════════════════════════════\n")
+cat("Unconditional Class Probabilities:\n")
+cat("═══════════════════════════════════\n")
+cat("Class 1:", round(pi_1, 4), "(", round(pi_1*100, 1), "% )\n")
+cat("Class 2:", round(pi_2, 4), "(", round(pi_2*100, 1), "% )\n")
+cat("Class 3:", round(pi_3, 4), "(", round(pi_3*100, 1), "% )\n")
+cat("Sum:    ", round(pi_1 + pi_2 + pi_3, 4), "\n")
+cat("═══════════════════════════════════\n")
+
+# ── These are population-level shares ──
+# For respondent-level posterior assignment we need a different approach
+# Use the avgCP vector we have — check if it corresponds to Class 1 prob
+cat("\navgCP summary (likely Class 1 posterior prob):\n")
+print(summary(model_lc3$avgCP))
+
+# ── Manually compute posterior class probabilities ──
+# We need to run the model in "conditionals" functionality
+# This is the most reliable approach across Apollo versions
+
+# Get one row per respondent
+respondent_data <- database[!duplicated(database$RID), ]
+cat("\nRespondents:", nrow(respondent_data), "\n")
+
+# ── Compute posterior probabilities using Bayes theorem ──
+# P(class k | choices) ∝ P(choices | class k) × P(class k)
+# Apollo stores avgLL per respondent — we need per-class LL
+
+# Try extracting from componentReport text
+cat("\nClass 1 component data:\n")
+print(model_lc3$componentReport$class_1$data)
+
+cat("\nClass 2 component data:\n")
+print(model_lc3$componentReport$class_2$data)
+
+cat("\nClass 3 component data:\n")
+print(model_lc3$componentReport$class_3$data)
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# MANUAL POSTERIOR CLASS PROBABILITY COMPUTATION
+# ══════════════════════════════════════════════════════
+
+# ── Step 1: Extract estimated coefficients ──
+est <- model_lc3$estimate
+
+# ── Step 2: Compute utility for each alternative, each class, each row ──
+# Class 1 utilities
+U1_alt1 <- est["b_HabitatMed_1"]   * database$Habitat_QualityM.alt1 +
+           est["b_HabitatHigh_1"]  * database$Habitat_QualityH.alt1 +
+           est["b_TrailCondMed_1"] * database$Trail_ConditionM.alt1 +
+           est["b_TrailCondHigh_1"]* database$Trail_ConditionH.alt1 +
+           est["b_CrowdingMed_1"]  * database$CrowdingM.alt1 +
+           est["b_CrowdingLow_1"]  * database$CrowdingL.alt1 +
+           est["b_cost_1"]         * database$Cost.alt1
+
+U1_alt2 <- est["b_HabitatMed_1"]   * database$Habitat_QualityM.alt2 +
+           est["b_HabitatHigh_1"]  * database$Habitat_QualityH.alt2 +
+           est["b_TrailCondMed_1"] * database$Trail_ConditionM.alt2 +
+           est["b_TrailCondHigh_1"]* database$Trail_ConditionH.alt2 +
+           est["b_CrowdingMed_1"]  * database$CrowdingM.alt2 +
+           est["b_CrowdingLow_1"]  * database$CrowdingL.alt2 +
+           est["b_cost_1"]         * database$Cost.alt2
+
+U1_alt3 <- rep(est["asc_optout_1"], nrow(database))
+
+# Class 2 utilities
+U2_alt1 <- est["b_HabitatMed_2"]   * database$Habitat_QualityM.alt1 +
+           est["b_HabitatHigh_2"]  * database$Habitat_QualityH.alt1 +
+           est["b_TrailCondMed_2"] * database$Trail_ConditionM.alt1 +
+           est["b_TrailCondHigh_2"]* database$Trail_ConditionH.alt1 +
+           est["b_CrowdingMed_2"]  * database$CrowdingM.alt1 +
+           est["b_CrowdingLow_2"]  * database$CrowdingL.alt1 +
+           est["b_cost_2"]         * database$Cost.alt1
+
+U2_alt2 <- est["b_HabitatMed_2"]   * database$Habitat_QualityM.alt2 +
+           est["b_HabitatHigh_2"]  * database$Habitat_QualityH.alt2 +
+           est["b_TrailCondMed_2"] * database$Trail_ConditionM.alt2 +
+           est["b_TrailCondHigh_2"]* database$Trail_ConditionH.alt2 +
+           est["b_CrowdingMed_2"]  * database$CrowdingM.alt2 +
+           est["b_CrowdingLow_2"]  * database$CrowdingL.alt2 +
+           est["b_cost_2"]         * database$Cost.alt2
+
+U2_alt3 <- rep(est["asc_optout_2"], nrow(database))
+
+# Class 3 utilities
+U3_alt1 <- est["b_HabitatMed_3"]   * database$Habitat_QualityM.alt1 +
+           est["b_HabitatHigh_3"]  * database$Habitat_QualityH.alt1 +
+           est["b_TrailCondMed_3"] * database$Trail_ConditionM.alt1 +
+           est["b_TrailCondHigh_3"]* database$Trail_ConditionH.alt1 +
+           est["b_CrowdingMed_3"]  * database$CrowdingM.alt1 +
+           est["b_CrowdingLow_3"]  * database$CrowdingL.alt1 +
+           est["b_cost_3"]         * database$Cost.alt1
+
+U3_alt2 <- est["b_HabitatMed_3"]   * database$Habitat_QualityM.alt2 +
+           est["b_HabitatHigh_3"]  * database$Habitat_QualityH.alt2 +
+           est["b_TrailCondMed_3"] * database$Trail_ConditionM.alt2 +
+           est["b_TrailCondHigh_3"]* database$Trail_ConditionH.alt2 +
+           est["b_CrowdingMed_3"]  * database$CrowdingM.alt2 +
+           est["b_CrowdingLow_3"]  * database$CrowdingL.alt2 +
+           est["b_cost_3"]         * database$Cost.alt2
+
+U3_alt3 <- rep(est["asc_optout_3"], nrow(database))
+
+# ── Step 3: Compute choice probabilities per class per row ──
+# MNL: P(alt j | class k) = exp(Ujk) / sum(exp(Uik))
+denom1 <- exp(U1_alt1) + exp(U1_alt2) + exp(U1_alt3)
+denom2 <- exp(U2_alt1) + exp(U2_alt2) + exp(U2_alt3)
+denom3 <- exp(U3_alt1) + exp(U3_alt2) + exp(U3_alt3)
+
+# Probability of chosen alternative per class
+# Need to match choice variable
+chosen_prob1 <- ifelse(database$choice == 1, exp(U1_alt1)/denom1,
+                ifelse(database$choice == 2, exp(U1_alt2)/denom1,
+                                             exp(U1_alt3)/denom1))
+
+chosen_prob2 <- ifelse(database$choice == 1, exp(U2_alt1)/denom2,
+                ifelse(database$choice == 2, exp(U2_alt2)/denom2,
+                                             exp(U2_alt3)/denom2))
+
+chosen_prob3 <- ifelse(database$choice == 1, exp(U3_alt1)/denom3,
+                ifelse(database$choice == 2, exp(U3_alt2)/denom3,
+                                             exp(U3_alt3)/denom3))
+
+# ── Step 4: Panel product — multiply across choice tasks per respondent ──
+database$chosen_prob1 <- chosen_prob1
+database$chosen_prob2 <- chosen_prob2
+database$chosen_prob3 <- chosen_prob3
+
+panel_probs <- aggregate(
+  cbind(chosen_prob1, chosen_prob2, chosen_prob3) ~ RID,
+  data    = database,
+  FUN     = prod
+)
+
+# ── Step 5: Apply Bayes theorem ──
+# P(class k | choices) = pi_k * L(choices|class k) / sum_k(pi_k * L(choices|class k))
+panel_probs$post_1 <- pi_1 * panel_probs$chosen_prob1
+panel_probs$post_2 <- pi_2 * panel_probs$chosen_prob2
+panel_probs$post_3 <- pi_3 * panel_probs$chosen_prob3
+
+denom_post <- panel_probs$post_1 + panel_probs$post_2 + panel_probs$post_3
+
+panel_probs$post_prob_1 <- panel_probs$post_1 / denom_post
+panel_probs$post_prob_2 <- panel_probs$post_2 / denom_post
+panel_probs$post_prob_3 <- panel_probs$post_3 / denom_post
+
+# ── Step 6: Assign most likely class ──
+panel_probs$LC_class <- apply(
+  panel_probs[, c("post_prob_1", "post_prob_2", "post_prob_3")], 
+  1, which.max)
+
+# ── Step 7: Summarize ──
+cat("═══════════════════════════════════════\n")
+cat("Posterior Class Assignment — K=3\n")
+cat("═══════════════════════════════════════\n")
+cat("\nClass counts:\n")
+print(table(panel_probs$LC_class))
+
+cat("\nClass proportions:\n")
+print(round(prop.table(table(panel_probs$LC_class)), 4))
+
+cat("\nMean posterior probabilities:\n")
+cat("Class 1:", round(mean(panel_probs$post_prob_1), 4), "\n")
+cat("Class 2:", round(mean(panel_probs$post_prob_2), 4), "\n")
+cat("Class 3:", round(mean(panel_probs$post_prob_3), 4), "\n")
+
+# ── Step 8: Merge class assignment with respondent data ──
+respondent_data <- database[!duplicated(database$RID), ]
+respondent_data <- merge(respondent_data, 
+                          panel_probs[, c("RID", "LC_class", 
+                                          "post_prob_1", 
+                                          "post_prob_2", 
+                                          "post_prob_3")],
+                          by = "RID")
+
+cat("\n═══════════════════════════════════════\n")
+cat("Demographic profiles by class:\n")
+cat("═══════════════════════════════════════\n")
+
+cat("\nResident status by class (proportion):\n")
+print(round(prop.table(table(respondent_data$LC_class, 
+                              respondent_data$Resident), 1), 3))
+
+cat("\nMean income by class:\n")
+print(tapply(respondent_data$HHIncome_num, 
+             respondent_data$LC_class, mean, na.rm=TRUE))
+
+cat("\nMean age by class:\n")
+print(tapply(respondent_data$Demo_Age_num, 
+             respondent_data$LC_class, mean, na.rm=TRUE))
+
+cat("\nCollege education by class (proportion):\n")
+print(round(prop.table(table(respondent_data$LC_class, 
+                              respondent_data$CollegePlus), 1), 3))
+
+cat("\nSex by class (proportion female):\n")
+print(round(prop.table(table(respondent_data$LC_class, 
+                              respondent_data$Sex_binary), 1), 3))
+```
+
+## Appendix output
+
+```{r}
+#Section 2 - K=3 Coefficient table 
+coef_table <- data.frame(
+  Parameter = names(model_lc3$estimate),
+  Estimate  = round(model_lc3$estimate, 4),
+  SE        = round(model_lc3$robse, 4),
+  t_ratio   = round(model_lc3$estimate / model_lc3$robse, 3)
+)
+
+coef_table$Sig <- ifelse(abs(coef_table$t_ratio) > 3.090, "***",
+                  ifelse(abs(coef_table$t_ratio) > 2.326, "**",
+                  ifelse(abs(coef_table$t_ratio) > 1.645, "*",
+                  ifelse(abs(coef_table$t_ratio) > 1.282, ".", ""))))
+
+write.csv(coef_table, "AppendixY_LC3_coefficients.csv", row.names = FALSE)
+```
+
+```{r}
+
+```

@@ -15,10 +15,10 @@ library(gt)         # produce table of results
 # ------------------------------
 
 #Set working directory
-setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
+setwd("~/Documents/GitHub/Trail-Survey_Study/Internal")
 
 
-Full.data <- read_csv("0. Data/Trail Survey - Final draft - October 2025_December 5, 2025_10.54.csv")
+Internal.data <- read_csv("0. Data/Trail Survey - Internal Share-  November 2025_January 14, 2026_12.40.csv")
 
 
 
@@ -35,13 +35,13 @@ Full.data <- read_csv("0. Data/Trail Survey - Final draft - October 2025_Decembe
 
 #Remove non use columns 
 
-Full.data  %<>%
+Internal.data  %<>%
   select(-RecipientLastName,-RecipientFirstName, -RecipientEmail, 
          -ExternalReference,-Progress, -ExternalReference, -DistributionChannel,
          -UserLanguage ) 
 
 
-Full.data   %<>%
+Internal.data   %<>%
   rename(
         #RID
         Qualtrics.RID = ResponseId,
@@ -149,15 +149,18 @@ Full.data   %<>%
   )
 
 #Recode tourists and residents based on Zip verification 
-Full.data $Zipverified <- ifelse(Full.data $Zipverified == "1", "Resident", "Tourist")
+Internal.data $Zipverified <- ifelse(Internal.data $Zipverified == "1", "Resident", "Tourist")
 
         
-#Filter out testing RIDs
-Full.data  %<>% 
-  filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
+# #Filter out testing RIDs
+# Internal.data  %<>% 
+#   filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
+
+Internal.data %<>%
+  slice(-c(1, 3))
 
 #Filter out incomplete / failed attention check 
-Full.data  %<>% 
+ Internal.data  %<>% 
   filter(gc==1)
 
 #Filter out pilot data collection

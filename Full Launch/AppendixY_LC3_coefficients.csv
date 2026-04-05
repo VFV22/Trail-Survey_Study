@@ -1,0 +1,27 @@
+,Parameter,Estimate,SE,t_ratio,Sig
+Class 1 ,b_HabitatMed,-1.0505,0.1717,-6.117,***
+,b_HabitatHigh,0.3903,0.1309,2.982,**
+,b_TrailCondMed,1.6264,0.1607,10.122,***
+,b_TrailCondHigh,1.3799,0.2207,6.253,***
+,b_CrowdingMed,0.8364,0.1805,4.633,***
+,b_CrowdingLow,0.161,0.1148,1.402,.
+,b_cost,-0.0052,0.0032,-1.631,.
+,asc_optout,-0.5926,0.2603,-2.276,*
+Class 2 ,b_HabitatMed,3.3584,1.2472,2.693,**
+,b_HabitatHigh,0.0052,1.1143,0.005,
+,b_TrailCondMed,-4.9091,0.9791,-5.014,***
+,b_TrailCondHigh,-0.9006,1.0811,-0.833,
+,b_CrowdingMed,-1.2292,0.4659,-2.638,**
+,b_CrowdingLow,-1.9363,0.8429,-2.297,*
+,b_cost,-0.1238,0.0495,-2.5,**
+,asc_optout,-9.9918,3.4546,-2.892,**
+Class 3,b_HabitatMed,19.2234,6.1935,3.104,***
+,b_HabitatHigh,17.7302,6.3414,2.796,**
+,b_TrailCondMed,0.9095,2.271,0.4,
+,b_TrailCondHigh,0.6291,1.4085,0.447,
+,b_CrowdingMed,-1.568,3.1639,-0.496,
+,b_CrowdingLow,16.5932,6.0664,2.735,**
+,b_cost,-0.0707,0.0178,-3.966,***
+,asc_optout,15.9258,6.1771,2.578,**
+,delta_2,-0.8085,0.1366,-5.92,***
+,delta_3,-1.7335,0.399,-4.344,***

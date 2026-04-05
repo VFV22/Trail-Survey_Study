@@ -102,8 +102,10 @@ Need to create some demographic info to control in the regression.
 database$Choice.Task.alt1
 
 
-#Resident 
+#viewpoint
 database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+
+#Resident 
 database$Resident=0
 database$Resident[which(database$Zipverified.alt1=="Resident")]=1
 
@@ -178,8 +180,9 @@ apollo_beta <- c(
   b_Trail_ConditionMed  = 0,
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
-  b_CrowdingLow        = 0,
+  b_CrowdingLow         = 0,
   b_cost                = 0,
+  asc_optout            = 0, 
   b_resident            = 0,
   b_age                 = 0,
   b_education           = 0,
@@ -190,6 +193,9 @@ apollo_beta <- c(
 )
 apollo_fixed <- c()
 
+```
+
+```{r}
 
 apollo_inputs<-apollo_validateInputs()
 ```
@@ -242,7 +248,7 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -460,8 +466,9 @@ apollo_beta <- c(
   b_Trail_ConditionMed  = 0,
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
-  b_CrowdingLow        = 0,
+  b_CrowdingLow         = 0,
   b_cost                = 0,
+  asc_optout            = 0, 
   b_age                 = 0,
   b_education           = 0,
   #b_environment = 0, 
@@ -522,7 +529,7 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -742,6 +749,7 @@ apollo_beta <- c(
   b_CrowdingMed         = 0,
   b_CrowdingLow        = 0,
   b_cost                = 0,
+  asc_optout            = 0, 
   b_age                 = 0,
   b_education           = 0,
   #b_environment = 0, 
@@ -802,7 +810,7 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -924,8 +932,11 @@ Need to create some demographic info to control in the regression.
 database$Choice.Task.alt1
 
 
+#Crowding viewpoint
+database %<>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+
+
 #Resident 
-database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
 database$Resident=0
 database$Resident[which(database$Zipverified.alt1=="Resident")]=1
 
@@ -988,10 +999,6 @@ database$choice=as.numeric(
 database$choice=as.numeric(database$choice)
 ```
 
-```{r}
-apollo_inputs <- apollo_validateInputs()
-```
-
 ## MXL - Apollo code
 
 ```{r}
@@ -1003,14 +1010,18 @@ apollo_beta <- c(
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
+# #Crowding with water fall 
+#   b_CrowdingM_WF        = 0,
+#   b_CrowdingL_WF        = 0,
   b_cost                = 0,
+  asc_optout            = 0, 
 
   # sociodems (fixed)
-  b_resident  = 0,
-  b_age       = 0,
-  b_education = 0,
-  b_income    = 0,
-  b_sex       = 0,
+    b_resident  = 0,
+    b_age       = 0,
+    b_education = 0,
+    b_income    = 0,
+    b_sex       = 0,
 
   # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
   sd_Habitat_QualityMed  = 0.1,
@@ -1018,7 +1029,7 @@ apollo_beta <- c(
   sd_Trail_ConditionMed  = 0.1,
   sd_Trail_ConditionHigh = 0.1,
   sd_CrowdingMed         = 0.1,
-  sd_CrowdingLow         = 0.1
+  sd_CrowdingLow         = 0.1 
 )
 apollo_fixed <- c()
 
@@ -1059,6 +1070,7 @@ apollo_randCoeff <- function(apollo_beta, apollo_inputs){
 
   randcoeff[["b_CrowdingLow_R"]] <- b_CrowdingLow +
     sd_CrowdingLow * draw_CrowdingLow
+  
 
   return(randcoeff)
 }
@@ -1083,6 +1095,8 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
   b_CrowdingMed_R         * CrowdingM.alt1 +
   b_CrowdingLow_R         * CrowdingL.alt1 +
+ # b_CrowdingM_WF           * CrowdingM_WF.alt1 + 
+ # b_CrowdingL_WF          * CrowdingL_WF.alt1 +
   b_cost                  * Cost.alt1 +
   b_resident   * Resident +
   b_age        * Demo_Age_num +
@@ -1099,15 +1113,19 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
   b_CrowdingMed_R         * CrowdingM.alt2 +
   b_CrowdingLow_R         * CrowdingL.alt2 +
-  b_cost                  * Cost.alt2 +
-  b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
+ # b_CrowdingM_WF           * CrowdingM_WF.alt2 + 
+ # b_CrowdingL_WF          * CrowdingL_WF.alt2 +
+   b_cost                  * Cost.alt2 +
+   b_resident   * Resident +
+   b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+   b_income     * HHIncome_num +
+   b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+ # V[["alt3"]] = 0
+    # utility for alt 3 
+V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -1128,6 +1146,10 @@ P = apollo_prepareProb(P, apollo_inputs, functionality)
   return(P)
 }
 
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
 ```
 
 ```{r}
@@ -1297,10 +1319,6 @@ database$choice=as.numeric(
 database$choice=as.numeric(database$choice)
 ```
 
-```{r}
-apollo_inputs <- apollo_validateInputs()
-```
-
 ## MXL - Apollo code
 
 ```{r}
@@ -1313,13 +1331,14 @@ apollo_beta <- c(
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
   b_cost                = 0,
+  asc_optout  = 0,   
 
   # sociodems (fixed)
-  #b_resident  = 0,
-  b_age       = 0,
-  b_education = 0,
-  b_income    = 0,
-  b_sex       = 0,
+   #b_resident  = 0,
+   b_age       = 0,
+   b_education = 0,
+   b_income    = 0,
+   b_sex       = 0,
 
   # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
   sd_Habitat_QualityMed  = 0.1,
@@ -1331,6 +1350,10 @@ apollo_beta <- c(
 )
 apollo_fixed <- c()
 
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
 ```
 
 ```{r}
@@ -1393,7 +1416,7 @@ V[["alt1"]]  =
   b_CrowdingMed_R         * CrowdingM.alt1 +
   b_CrowdingLow_R         * CrowdingL.alt1 +
   b_cost                  * Cost.alt1 +
-  #b_resident   * Resident +
+ #b_resident   * Resident +
   b_age        * Demo_Age_num +
   b_education  * CollegePlus +
   b_income     * HHIncome_num +
@@ -1409,14 +1432,16 @@ V[["alt1"]]  =
   b_CrowdingMed_R         * CrowdingM.alt2 +
   b_CrowdingLow_R         * CrowdingL.alt2 +
   b_cost                  * Cost.alt2 +
-  #b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
+   #b_resident   * Resident +
+   b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+   b_income     * HHIncome_num +
+   b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+ # V[["alt3"]] = 0
+    # utility for alt 3 
+V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -1436,7 +1461,6 @@ P = apollo_prepareProb(P, apollo_inputs, functionality)
   
   return(P)
 }
-
 ```
 
 ```{r}
@@ -1606,10 +1630,6 @@ database$choice=as.numeric(
 database$choice=as.numeric(database$choice)
 ```
 
-```{r}
-apollo_inputs <- apollo_validateInputs()
-```
-
 ## MXL - Apollo code
 
 ```{r}
@@ -1622,13 +1642,15 @@ apollo_beta <- c(
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
   b_cost                = 0,
+  asc_optout = 0,
 
   # sociodems (fixed)
   #b_resident  = 0,
-  b_age       = 0,
-  b_education = 0,
-  b_income    = 0,
-  b_sex       = 0,
+    b_age       = 0,
+    b_education = 0,
+    b_income    = 0,
+    b_sex       = 0,
+
 
   # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
   sd_Habitat_QualityMed  = 0.1,
@@ -1640,6 +1662,10 @@ apollo_beta <- c(
 )
 apollo_fixed <- c()
 
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
 ```
 
 ```{r}
@@ -1702,11 +1728,11 @@ V[["alt1"]]  =
   b_CrowdingMed_R         * CrowdingM.alt1 +
   b_CrowdingLow_R         * CrowdingL.alt1 +
   b_cost                  * Cost.alt1 +
-  #b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
+  # # #b_resident   * Resident +
+    b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
 
   
   # Utility for alt2
@@ -1718,14 +1744,14 @@ V[["alt1"]]  =
   b_CrowdingMed_R         * CrowdingM.alt2 +
   b_CrowdingLow_R         * CrowdingL.alt2 +
   b_cost                  * Cost.alt2 +
-  #b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
-  
-  # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  # #b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+   
+  # utility for alt 3 
+V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -1829,7 +1855,7 @@ make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
 ```
 
 ```{r}
-library(stargazer)
+#library(stargazer)
 
 # Extract
 v_MNL_all  <- get_apollo_stargazer_inputs(model,      robust = TRUE, p_sided = 2)
@@ -1843,7 +1869,7 @@ v_MXL_tour <- get_apollo_stargazer_inputs(model_mxl_Tourist,  robust = TRUE, p_s
 order <- c(
   "b_Habitat_QualityMed","b_Habitat_QualityHigh",
   "b_Trail_ConditionMed","b_Trail_ConditionHigh",
-  "b_CrowdingMed","b_CrowdingLow",
+  "b_CrowdingMed","b_CrowdingLow", "asc_optout",
   "b_cost",
   "b_resident",
   "b_age","b_education","b_income","b_sex",
@@ -1858,7 +1884,7 @@ order <- c(
 labels <- c(
   "Habitat quality (Medium)","Habitat quality (High)",
   "Trail condition (Medium)","Trail condition (High)",
-  "Crowding (Medium)","Crowding (Low)",
+  "Crowding (Medium)","Crowding (Low)","ASC",
   "Cost",
   "Resident",
   "Age","Education","Income","Sex",
@@ -1931,37 +1957,10 @@ aic <- round(c(model$AIC, model_residents$AIC, model_tourists$AIC,
 ```
 
 ```{r}
-stargazer(
-  d1, d2, d3,
-  type = "latex",
-  out  = "mxl_3models.tex",
-  title = "Trail Choice Model Results",
-  column.labels = c("All Respondents", "Residents only", "Tourists only"),
-  dep.var.labels.include = FALSE,
-  covariate.labels = labels,
-  coef = coef_list,
-  se   = se_list,
-  p    = p_list,
-  digits = 3,
-  omit.stat = c("n","f","ser","adj.rsq","rsq"),
-  add.lines = list(
-    c("Observations", obs),
-    c("Respondents", respondents),
-    c("AIC", aic)
-  ),
-  notes = "Robust standard errors in parentheses.",
-  notes.append = FALSE
-)
-
-
-
-```
-
-```{r}
-library(stargazer)
+#Combined MXL and MNL 
 
 stargazer(
-  d1, d2, d3, d4, d5, d6,
+ d1, d2, d3, d4, d5, d6, 
   type = "html",
   out  = "Mnl_Mxl_table.html",
   title = "Trail Choice Model Results",
@@ -1986,5 +1985,733 @@ stargazer(
 
 
 
+
+```
+
+```{r}
+#Only MNL model 
+stargazer(
+  d1, d2, d3,
+  type = "html",
+  out  = "MNL_table1.html",
+  title = "Multinomial Logit Model Results",
+
+  model.numbers = FALSE,
+  dep.var.labels.include = FALSE,
+
+  column.labels = c("All respondents", "Residents", "Tourists"),
+  column.separate = c(1,1,1),
+
+  covariate.labels = labels,
+
+  coef = coef_list[1:3],
+  se   = se_list[1:3],
+  p    = p_list[1:3],
+
+  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+
+  add.lines = list(
+    c("Observations", obs[1:3]),
+    c("Respondents",  resp[1:3]),
+    c("AIC",          aic[1:3])
+  ),
+
+  notes = "Robust standard errors in parentheses.",
+  notes.append = FALSE
+)
+
+#Only MXL model 
+stargazer(
+  d4, d5, d6,
+  type = "html",
+  out  = "MXL_table1.html",
+  title = "Mixed Logit (MXL) Model Results",
+
+  model.numbers = FALSE,
+  dep.var.labels.include = FALSE,
+
+  column.labels = c("All respondents", "Residents", "Tourists"),
+  column.separate = c(1,1,1),
+
+  covariate.labels = labels,
+
+  coef = coef_list[4:6],
+  se   = se_list[4:6],
+  p    = p_list[4:6],
+
+  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+
+  add.lines = list(
+    c("Observations", obs[4:6]),
+    c("Respondents",  resp[4:6]),
+    c("AIC",          aic[4:6])
+  ),
+
+  notes = "Robust standard errors in parentheses.",
+  notes.append = FALSE
+)
+```
+
+# WTP Mean
+
+```{r}
+
+# Attributes you want WTP for (these are the *mean* taste parameters)
+wtp_pars <- c(
+  "b_Habitat_QualityMed",
+  "b_Habitat_QualityHigh",
+  "b_Trail_ConditionMed",
+  "b_Trail_ConditionHigh",
+  "b_CrowdingMed",
+  "b_CrowdingLow"
+)
+
+cost_par <- "b_cost"   # <- fixed cost coefficient name in the fixed-cost model
+
+```
+
+```{r}
+wtp_delta <- function(model, wtp_pars, cost_par = "b_cost", use_robust = TRUE){
+  bhat <- model$estimate
+  Vhat <- if(use_robust) (model$robvarcov %||% model$varcov) else model$varcov
+  if(is.null(Vhat)) stop("No varcov/robvarcov found in model object.")
+
+  needed <- c(wtp_pars, cost_par)
+  missing <- setdiff(needed, names(bhat))
+  if(length(missing) > 0) stop("Missing parameters in model$estimate: ", paste(missing, collapse=", "))
+
+  bc <- as.numeric(bhat[cost_par])
+  if(is.na(bc)) stop("Cost parameter not found.")
+
+  out <- lapply(wtp_pars, function(p){
+    bk <- as.numeric(bhat[p])
+
+    wtp <- -bk / bc
+
+    # gradient vector aligned to (bk, bc)
+    g <- c(d_bk = -1/bc,
+           d_bc =  bk/(bc^2))
+
+    # extract 2x2 varcov for (bk, bc)
+    V2 <- as.matrix(Vhat[c(p, cost_par), c(p, cost_par)])
+
+    var_wtp <- as.numeric(t(g) %*% V2 %*% g)
+    se_wtp  <- sqrt(var_wtp)
+
+    tibble(
+      Attribute = p,
+      wtp = wtp,
+      lo95 = wtp - 1.96 * se_wtp,
+      hi95 = wtp + 1.96 * se_wtp
+    )
+  })
+
+  bind_rows(out)
+}
+
+```
+
+```{r}
+# wtp_krinsky_robb <- function(model, wtp_pars, cost_par="b_cost",
+#                              R = 20000, use_robust = TRUE, seed = 123){
+#   set.seed(seed)
+# 
+#   bhat <- model$estimate
+#   Vhat <- if(use_robust) (model$robvarcov %||% model$varcov) else model$varcov
+#   if(is.null(Vhat)) stop("No varcov/robvarcov found in model object.")
+# 
+#   needed <- c(wtp_pars, cost_par)
+#   missing <- setdiff(needed, names(bhat))
+#   if(length(missing) > 0) stop("Missing parameters in model$estimate: ", paste(missing, collapse=", "))
+# 
+#   # Work on the subset vector (wtp_pars + cost_par)
+#   pars <- c(wtp_pars, cost_par)
+#   mu   <- as.numeric(bhat[pars])
+#   Sig  <- as.matrix(Vhat[pars, pars])
+# 
+#   draws <- MASS::mvrnorm(n = R, mu = mu, Sigma = Sig)
+#   colnames(draws) <- pars
+# 
+#   bc_draw <- draws[, cost_par]
+# 
+#   # WTP draws for each attribute
+#   wtp_draws <- sapply(wtp_pars, function(p){
+#     -draws[, p] / bc_draw
+#   })
+#   colnames(wtp_draws) <- wtp_pars
+# 
+#   # Point estimate from bhat (same formula)
+#   bc <- as.numeric(bhat[cost_par])
+# 
+#   tibble(
+#     Attribute = wtp_pars,
+#     wtp  = -as.numeric(bhat[wtp_pars]) / bc,
+#     lo95 = apply(wtp_draws, 2, quantile, 0.025, na.rm=TRUE),
+#     hi95 = apply(wtp_draws, 2, quantile, 0.975, na.rm=TRUE)
+#   )
+# }
+
+```
+
+```{r}
+# wtp_all  <- wtp_krinsky_robb(model_mxl,  wtp_pars, cost_par, R=20000, seed=1)
+# wtp_res  <- wtp_krinsky_robb(model_mxl_Resident,  wtp_pars, cost_par, R=20000, seed=2)
+# wtp_tour <- wtp_krinsky_robb(model_mxl_Tourist, wtp_pars, cost_par, R=20000, seed=3)
+
+
+```
+
+```{r}
+ wtp_all_delta  <- wtp_delta(model_mxl, wtp_pars, cost_par)
+ wtp_res_delta  <- wtp_delta(model_mxl_Resident,  wtp_pars, cost_par)
+ wtp_tour_delta<- wtp_delta(model_mxl_Tourist, wtp_pars, cost_par)
+
+```
+
+```{r}
+# fmt_cell <- function(est, lo, hi, digits=2){
+#   sprintf(paste0("%.",digits,"f (%.",digits,"f\u2013%.",digits,"f)"), est, lo, hi)
+# }
+# 
+# order_pars <- wtp_pars
+# row_labels <- c(
+#   "Habitat Quality: Medium",
+#   "Habitat Quality: High",
+#   "Trail Condition: Medium",
+#   "Trail Condition: High",
+#   "Crowding: Medium",
+#   "Crowding: Low"
+# )
+# 
+# prep_col <- function(df){
+#   df <- df[match(order_pars, df$Attribute), ]
+#   mapply(fmt_cell, df$wtp, df$lo95, df$hi95, MoreArgs=list(digits=2))
+# }
+# 
+# wtp_table <- data.frame(
+#   `Attributes` = row_labels,
+#   `All respondents` = prep_col(wtp_all_delta),
+#   `Residents`       = prep_col(wtp_res_delta),
+#   `Tourists`        = prep_col(wtp_tour_delta),
+#   check.names = FALSE
+# )
+
+# stargazer(wtp_table,
+#           summary = FALSE,
+#           rownames = FALSE,
+#           title = "Willingness to pay per entrance for trail improvements across groups.",
+#           notes = "95% confidence intervals in parentheses",
+#           type = "text")
+
+```
+
+```{r}
+# stargazer(
+#   wtp_table,
+#   summary = FALSE,
+#   rownames = FALSE,
+#   title = "Willingness to pay per trip for trail improvements across groups.",
+#   notes = "95% confidence intervals in parentheses.",
+#   type = "html",
+#   out  = "WTP_table.html"
+# )
+
+```
+
+```{r}
+# First, let's get the data in the right format
+order_pars <- wtp_pars
+row_labels <- c(
+  "Habitat Quality: Medium",
+  "Habitat Quality: High",
+  "Trail Condition: Medium", 
+  "Trail Condition: High",
+  "Crowding: Medium",
+  "Crowding: Low"
+)
+
+# Create a function to prepare data for stargazer with two rows per attribute
+create_stargazer_data <- function(wtp_all, wtp_res, wtp_tour) {
+  # Reorder to match the desired order
+  wtp_all <- wtp_all[match(order_pars, wtp_all$Attribute), ]
+  wtp_res <- wtp_res[match(order_pars, wtp_res$Attribute), ]
+  wtp_tour <- wtp_tour[match(order_pars, wtp_tour$Attribute), ]
+  
+  # Initialize vectors for the table
+  attributes_col <- character()
+  all_resp_col <- character()
+  residents_col <- character()
+  tourists_col <- character()
+  
+  # For each attribute, add two rows: one for mean, one for CI
+for(i in 1:nrow(wtp_all)) {
+    # Row 1: Mean value
+attributes_col <- c(attributes_col, row_labels[i])
+all_resp_col   <- c(all_resp_col,  sprintf("DOLLARSIGN%.0f", wtp_all$wtp[i]))
+residents_col  <- c(residents_col, sprintf("DOLLARSIGN%.0f", wtp_res$wtp[i]))
+tourists_col   <- c(tourists_col,  sprintf("DOLLARSIGN%.0f", wtp_tour$wtp[i]))
+
+
+    # Row 2: Confidence interval
+    attributes_col <- c(attributes_col, "")
+    all_resp_col <- c(all_resp_col, sprintf("(%.0f\u2013%.0f)", wtp_all$lo95[i], wtp_all$hi95[i]))
+    residents_col <- c(residents_col, sprintf("(%.0f\u2013%.0f)", wtp_res$lo95[i], wtp_res$hi95[i]))
+    tourists_col <- c(tourists_col, sprintf("(%.0f\u2013%.0f)", wtp_tour$lo95[i], wtp_tour$hi95[i]))
+  }
+  
+  # Create the data frame
+  data.frame(
+    Attributes = attributes_col,
+    `All respondents` = all_resp_col,
+    Residents = residents_col,
+    Tourists = tourists_col,
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  )
+}
+
+# Create the table data
+stargazer_data <- create_stargazer_data(wtp_all_delta, wtp_res_delta, wtp_tour_delta)
+
+# Create the table with stargazer
+stargazer(
+  stargazer_data,
+  summary = FALSE,
+  rownames = FALSE,
+  title = "Willingness to pay per use for trail improvements across groups.",
+  notes = "95% confidence intervals in parentheses.",
+  type = "html",
+  out = "WTP_table.CI.html",
+  # Add styling to improve appearance
+  column.sep.width = "10pt",
+  font.size = "small",
+  # Remove default note about number of observations
+  notes.align = "l",
+  notes.append = FALSE
+)
+
+# Then replace the placeholder with $ in the output file
+html_content <- readLines("WTP_table.CI.html")
+html_content <- gsub("DOLLARSIGN", "$", html_content, fixed = TRUE)
+writeLines(html_content, "WTP_table.CI.html")
+```
+
+# WTP Graph: TC and HQ
+
+```{r}
+# --- Step 1: Create Attribute level table 
+attr_levels <- data.frame(
+  Attribute = c("b_Habitat_QualityMed", "b_Habitat_QualityHigh", "b_Trail_ConditionMed", "b_Trail_ConditionHigh"),
+  AttributeName = c("Habitat Quality", "Habitat Quality", "Trail Condition", "Trail Condition"),
+  Level = c("Medium", "High", "Medium", "High"),
+  stringsAsFactors = FALSE
+)
+
+wtp_all  <- wtp_all_delta  %>% mutate(Group = "All respondents")
+wtp_res  <- wtp_res_delta  %>% mutate(Group = "Residents")
+wtp_tour <- wtp_tour_delta %>% mutate(Group = "Tourists")
+
+wtp_combined <- bind_rows(wtp_all, wtp_res, wtp_tour) %>%
+  right_join(attr_levels, by = "Attribute")
+
+# --- Step 2: Build gap annotation data (Tourists minus Residents, at "High" level)
+gap_data <- wtp_combined %>%
+  filter(Group %in% c("Residents", "Tourists")) %>%
+  select(AttributeName, Level, Group, wtp) %>%
+  pivot_wider(names_from = Group, values_from = wtp) %>%33
+  mutate(
+    gap = round(Tourists - Residents),        # rounded difference
+    label = paste0("+$", gap)                 # label e.g. "+$52"
+  )
+
+group_colors <- c("All respondents" = "grey", "Residents" = "#6a906c", "Tourists" = "#ae9864")
+
+p <- ggplot(wtp_combined, aes(x = Level, y = wtp, color = Group, group = Group)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  # Rounded value labels above points
+  geom_text(aes(label = paste0("$", round(wtp))),
+            vjust = -0.8,
+            size = 3,
+            show.legend = FALSE,
+            fontface = "bold",
+            color = "black") +
+  # # Gap bracket: vertical segment between Residents and Tourists
+  # geom_segment(
+  #   data = gap_data,
+  #   aes(x = Level, xend = Level,
+  #       y = Residents, yend = Tourists),
+  #   inherit.aes = FALSE,
+  #   color = "black",
+  #   linewidth = 0.6,
+  #   linetype = "dashed",
+  #   arrow = arrow(ends = "both", length = unit(0.15, "cm"), type = "closed")
+  # ) +
+  # # Gap label to the right of the bracket
+  # geom_text(
+  #   data = gap_data,
+  #   aes(x = Level,
+  #       y = (Residents + Tourists) / 2,
+  #       label = label),
+  #   inherit.aes = FALSE,
+  #   hjust = -0.2,
+  #   size = 3,
+  #   color = "black"
+  # ) +
+  facet_wrap(~ AttributeName, scales = "free_y") +
+  scale_color_manual(values = group_colors) +
+  scale_y_continuous(limits = c(0, 110)) +
+  labs(
+    title = "Willingness to Pay for Trail Improvements",
+    x = "Management Level",
+    y = "Average WTP per use ($)",
+    color = "Group"
+  ) +
+  theme_minimal(base_size = 12) +
+ theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 16),   # facet titles: "Habitat Quality", "Trail Condition"
+    legend.text  = element_text(size = 13),                # group names in legend
+    legend.title = element_blank(),, # "Group" label
+      panel.grid.minor = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(size = 12)
+
+  )
+
+print(p)
+ggsave("WTP_incremental.png", p, width = 10, height = 6, dpi = 300)
+```
+
+# WTP Graph: Crowding
+
+```{r}
+# --- Step 1: Create Attribute level table 
+attr_levels_crowding <- data.frame(
+  Attribute = c("b_CrowdingMed", "b_CrowdingLow"),
+  AttributeName = c("Crowding", "Crowding"),
+  Level = c("Medium", "Low"),
+  stringsAsFactors = FALSE
+)
+
+# Combine groups
+wtp_all <- wtp_all_delta %>% mutate(Group = "All respondents")
+wtp_res <- wtp_res_delta %>% mutate(Group = "Residents")
+wtp_tour <- wtp_tour_delta %>% mutate(Group = "Tourists")
+
+wtp_combined_crowding <- bind_rows(wtp_all, wtp_res, wtp_tour) %>%
+  right_join(attr_levels_crowding, by = "Attribute")
+```
+
+```{r}
+group_colors <- c("All respondents" = "grey", "Residents" = "#6a906c", "Tourists" = "#ae9864")
+
+r <- ggplot(wtp_combined_crowding, aes(x = Level, y = wtp, color = Group, group = Group)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  # geom_errorbar(aes(ymin = lo95, ymax = hi95), width = 0.1, size = 0.5) +
+  # Add value labels above points
+  geom_text(aes(label = paste0("$", round(wtp))),
+            vjust = -0.8,
+            size = 3,
+            show.legend = FALSE,
+            fontface = "bold",
+            color = "black") +     # use black for readability (or match group colors)
+  facet_wrap(~ AttributeName, scales = "free_y") +
+  scale_color_manual(values = group_colors) +
+   scale_y_continuous(limits = c(0, 100)) + 
+  labs(
+    title = "Willingness to Pay for Trail Improvements",
+    x = "Management Level",
+    y = "Average WTP per use ($)",
+    color = "Group"
+  ) +
+  theme_minimal(base_size = 12) +
+ theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 16),   # facet titles: "Crowding"
+    legend.text  = element_text(size = 13),                # group names in legend
+    legend.title = element_blank(),, # "Group" label
+      panel.grid.minor = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(size = 12)
+
+  )
+
+
+print(r)
+ggsave("WTP_incremental_Crowding.png", r, width = 10, height = 6, dpi = 300)
+```
+
+# Welfare Calculation
+
+```{r}
+# ══════════════════════════════════════════════════════
+# WELFARE / COMPENSATING VARIATION CALCULATION
+# Policy Scenarios: Baseline → Medium → High Improvement
+# Method: Small-Rosen logsum formula
+# ══════════════════════════════════════════════════════
+
+library(tibble)
+library(dplyr)
+
+# ── Step 1: Extract coefficients from pooled MXL model ──
+bhat <- model_mxl$estimate
+
+b_HabitatMed   <- bhat["b_Habitat_QualityMed"]
+b_HabitatHigh  <- bhat["b_Habitat_QualityHigh"]
+b_TrailCondMed <- bhat["b_Trail_ConditionMed"]
+b_TrailCondHigh<- bhat["b_Trail_ConditionHigh"]
+b_CrowdingMed  <- bhat["b_CrowdingMed"]
+b_CrowdingLow  <- bhat["b_CrowdingLow"]
+b_cost         <- bhat["b_cost"]
+asc_optout     <- bhat["asc_optout"]
+
+cat("Extracted coefficients:\n")
+cat("b_HabitatMed:   ", round(b_HabitatMed,   4), "\n")
+cat("b_HabitatHigh:  ", round(b_HabitatHigh,  4), "\n")
+cat("b_TrailCondMed: ", round(b_TrailCondMed, 4), "\n")
+cat("b_TrailCondHigh:", round(b_TrailCondHigh,4), "\n")
+cat("b_CrowdingMed:  ", round(b_CrowdingMed,  4), "\n")
+cat("b_CrowdingLow:  ", round(b_CrowdingLow,  4), "\n")
+cat("b_cost:         ", round(b_cost,          4), "\n")
+cat("asc_optout:     ", round(asc_optout,      4), "\n")
+
+```
+
+```{r}
+
+# ══════════════════════════════════════════════════════
+# Step 2: Define scenario deterministic utilities
+# ══════════════════════════════════════════════════════
+# Notes:
+# - Alt1 and Alt2 are trail alternatives (vary by cost)
+# - Alt3 is opt-out (ASC only, no attributes)
+# - Baseline: all attributes at reference level (dummies = 0)
+# - We use mean cost across all alternatives as representative cost
+# - Attribute utility is added on top of cost utility
+
+# ── Mean cost across alt1 and alt2 in dataset ──
+mean_cost <- mean(c(database$Cost.alt1, database$Cost.alt2), na.rm = TRUE)
+cat("\nMean cost used in welfare calculation: $", round(mean_cost, 2), "\n")
+
+# ── Scenario attribute utility components ──
+# (cost term is the same across scenarios — cancels in CS difference)
+
+# Baseline: Low habitat, Low trail condition, High crowding
+# All attribute dummies = 0 → no attribute utility
+V_attr_baseline <- 0
+
+# Medium improvement: Medium habitat, Medium trail condition, Medium crowding
+V_attr_medium <- b_HabitatMed + b_TrailCondMed + b_CrowdingMed
+
+# High improvement: High habitat, High trail condition, Low crowding
+V_attr_high <- b_HabitatHigh + b_TrailCondHigh + b_CrowdingLow
+
+cat("\nAttribute utility components:\n")
+cat("Baseline:          ", round(V_attr_baseline, 4), "\n")
+cat("Medium improvement:", round(V_attr_medium,   4), "\n")
+cat("High improvement:  ", round(V_attr_high,     4), "\n")
+
+```
+
+```{r}
+
+# ══════════════════════════════════════════════════════
+# Step 3: Compute logsum per scenario
+# ══════════════════════════════════════════════════════
+# Logsum = log[exp(V_alt1) + exp(V_alt2) + exp(V_alt3)]
+# V_alt1 = V_attr + b_cost * cost_alt1  (per observation)
+# V_alt2 = V_attr + b_cost * cost_alt2  (per observation)
+# V_alt3 = asc_optout
+
+compute_logsum <- function(V_attr, cost_alt1, cost_alt2, b_cost, asc_optout) {
+  V1 <- V_attr + b_cost * cost_alt1
+  V2 <- V_attr + b_cost * cost_alt2
+  V3 <- rep(asc_optout, length(cost_alt1))
+  
+  # Small-Rosen logsum per choice occasion
+  logsum <- log(exp(V1) + exp(V2) + exp(V3))
+  return(logsum)
+}
+
+# ── Compute logsum for each scenario across all choice occasions ──
+ls_baseline <- compute_logsum(
+  V_attr_baseline, 
+  database$Cost.alt1, database$Cost.alt2,
+  b_cost, asc_optout)
+
+ls_medium <- compute_logsum(
+  V_attr_medium,
+  database$Cost.alt1, database$Cost.alt2,
+  b_cost, asc_optout)
+
+ls_high <- compute_logsum(
+  V_attr_high,
+  database$Cost.alt1, database$Cost.alt2,
+  b_cost, asc_optout)
+
+cat("\nMean logsum per scenario:\n")
+cat("Baseline: ", round(mean(ls_baseline), 4), "\n")
+cat("Medium:   ", round(mean(ls_medium),   4), "\n")
+cat("High:     ", round(mean(ls_high),     4), "\n")
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# Step 4: Aggregate logsum to respondent level
+# (panel structure — average across choice tasks per person)
+# ══════════════════════════════════════════════════════
+database$ls_baseline <- ls_baseline
+database$ls_medium   <- ls_medium
+database$ls_high     <- ls_high
+
+respondent_logsum <- database %>%
+  group_by(RID) %>%
+  summarise(
+    ls_baseline = mean(ls_baseline),
+    ls_medium   = mean(ls_medium),
+    ls_high     = mean(ls_high),
+    .groups     = "drop"
+  )
+
+cat("\nRespondent-level mean logsums:\n")
+cat("Baseline: ", round(mean(respondent_logsum$ls_baseline), 4), "\n")
+cat("Medium:   ", round(mean(respondent_logsum$ls_medium),   4), "\n")
+cat("High:     ", round(mean(respondent_logsum$ls_high),     4), "\n")
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# Step 5: Compute Compensating Variation (CV)
+# CV = [logsum(scenario) - logsum(baseline)] / (-b_cost)
+# ══════════════════════════════════════════════════════
+respondent_logsum$CV_medium <- (respondent_logsum$ls_medium - 
+                                 respondent_logsum$ls_baseline) / (-b_cost)
+
+respondent_logsum$CV_high   <- (respondent_logsum$ls_high - 
+                                 respondent_logsum$ls_baseline) / (-b_cost)
+
+cat("\n═══════════════════════════════════════════════\n")
+cat("Compensating Variation — Per Trip, Per Person\n")
+cat("═══════════════════════════════════════════════\n")
+cat("CV Medium improvement: $", round(mean(respondent_logsum$CV_medium), 2), "\n")
+cat("CV High improvement:   $", round(mean(respondent_logsum$CV_high),   2), "\n")
+cat("═══════════════════════════════════════════════\n")
+
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# Step 6: Delta method standard errors for CV
+# ══════════════════════════════════════════════════════
+Vhat <- model_mxl$robvarcov
+
+cv_delta_se <- function(attr_pars, cost_par, model, scenario_name) {
+  bhat <- model$estimate
+  Vhat <- model$robvarcov
+  bc   <- bhat[cost_par]
+  
+  # Sum of attribute coefficients for this scenario
+  b_attr_sum <- sum(bhat[attr_pars])
+  
+  # CV point estimate (at mean cost — cost cancels in logsum difference)
+  # CV = b_attr_sum / (-bc)  [simplified for linear utility]
+  cv <- b_attr_sum / (-bc)
+  
+  # Gradient with respect to each attribute parameter and cost
+  n_attr <- length(attr_pars)
+  grad <- c(rep(1/(-bc), n_attr),        # d(CV)/d(b_attr_k) = 1/(-bc)
+            b_attr_sum / (bc^2))          # d(CV)/d(bc)
+  
+  # Extract relevant varcov block
+  all_pars <- c(attr_pars, cost_par)
+  V2 <- as.matrix(Vhat[all_pars, all_pars])
+  
+  var_cv <- as.numeric(t(grad) %*% V2 %*% grad)
+  se_cv  <- sqrt(var_cv)
+  
+  tibble(
+    Scenario = scenario_name,
+    CV       = round(cv, 2),
+    SE       = round(se_cv, 2),
+    CI_low   = round(cv - 1.96 * se_cv, 2),
+    CI_high  = round(cv + 1.96 * se_cv, 2)
+  )
+}
+
+# ── Medium scenario: HabitatMed + TrailCondMed + CrowdingMed ──
+cv_medium_se <- cv_delta_se(
+  attr_pars     = c("b_Habitat_QualityMed", 
+                    "b_Trail_ConditionMed", 
+                    "b_CrowdingMed"),
+  cost_par      = "b_cost",
+  model         = model_mxl,
+  scenario_name = "Medium Improvement"
+)
+
+# ── High scenario: HabitatHigh + TrailCondHigh + CrowdingLow ──
+cv_high_se <- cv_delta_se(
+  attr_pars     = c("b_Habitat_QualityHigh", 
+                    "b_Trail_ConditionHigh", 
+                    "b_CrowdingLow"),
+  cost_par      = "b_cost",
+  model         = model_mxl,
+  scenario_name = "High Improvement"
+)
+
+cv_results <- bind_rows(cv_medium_se, cv_high_se)
+
+cat("\n═══════════════════════════════════════════════════════\n")
+cat("CV Estimates with 95% Confidence Intervals\n")
+cat("═══════════════════════════════════════════════════════\n")
+print(cv_results)
+cat("═══════════════════════════════════════════════════════\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# Step 7: Summary table 
+# ══════════════════════════════════════════════════════
+cat("\n═══════════════════════════════════════════════════════════\n")
+cat("Welfare Summary Table\n")
+cat("═══════════════════════════════════════════════════════════\n")
+cat(sprintf("%-25s %10s %10s %12s\n", 
+            "Scenario", "CV ($/trip)", "SE", "95% CI"))
+cat(sprintf("%-25s %10s %10s %12s\n", 
+            "Baseline", "$0.00", "—", "—"))
+cat(sprintf("%-25s %10s %10s %12s\n",
+            "Medium improvement",
+            paste0("$", cv_results$CV[1]),
+            paste0("$", cv_results$SE[1]),
+            paste0("[$", cv_results$CI_low[1], 
+                   ", $", cv_results$CI_high[1], "]")))
+cat(sprintf("%-25s %10s %10s %12s\n",
+            "High improvement",
+            paste0("$", cv_results$CV[2]),
+            paste0("$", cv_results$SE[2]),
+            paste0("[$", cv_results$CI_low[2], 
+                   ", $", cv_results$CI_high[2], "]")))
+cat("═══════════════════════════════════════════════════════════\n")
+cat("Note: CV = compensating variation per person per trip.\n")
+cat("Positive values indicate welfare gains from improvement.\n")
+
+# **What this gives you:**
+# 
+# - **CV Medium** — dollar value per person per trip of moving all attributes from baseline to medium improvement
+# - **CV High** — dollar value per person per trip of moving all attributes from baseline to high improvement
+# - **Standard errors and 95% CIs** via delta method
+# - A clean summary table ready for your thesis
+# 
+# ---
+# 
+# **Next step after this runs:**
+# 
+# Once you have the per-person per-trip CV values, multiplying by visitor numbers gives you **aggregate welfare:**
+# ```
+# Total welfare = CV × annual trail visits × proportion resident/tourist
 
 ```

@@ -23,9 +23,9 @@ source("3. Analysis/Analysis.R")
 
 ## Distribution of Levels by Attributes
 ```{r}
-summary_data <- mlogit_clean %>%
+summary_data <- merge.data.1 %>%
   filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
-  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%  # one row per respondent
   count(Zipverified, Trail_Condition) %>%         # count per cost per Zipverified
   group_by(Zipverified) %>%
   mutate(
@@ -53,9 +53,9 @@ rm(summary_data)
 ```
 
 ```{r}
-summary_data <- mlogit_clean %>%
+summary_data <- merge.data.1 %>%
   filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
-  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%  # one row per respondent
   count(Zipverified, Habitat_Quality) %>%         # count per cost per Zipverified
   group_by(Zipverified) %>%
   mutate(
@@ -86,7 +86,7 @@ rm(summary_data)
 ```{r}
 summary_data <- mlogit_clean %>%
   filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
-  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%  # one row per respondent
   count(Zipverified, Crowding) %>%         # count per cost per Zipverified
   group_by(Zipverified) %>%
   mutate(
@@ -117,7 +117,7 @@ rm(summary_data)
 ```{r}
 summary_data <- mlogit_clean %>%
   filter(Choice.Binary == 1) %>%       # only consider chosen alternatives
-  distinct(RID, .keep_all = TRUE) %>%  # one row per respondent
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%  # one row per respondent
   count(Zipverified, Cost) %>%         # count per cost per Zipverified
   group_by(Zipverified) %>%
   mutate(
@@ -149,7 +149,7 @@ rm(summary_data)
 ```{r}
 
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   group_by(Zipverified, User.fee_Y.N) %>%
   summarise(
     n = n(),  # count per alternative per Zipverified
@@ -192,10 +192,9 @@ rm(summary_data)
 
 ## Payment Type and Method 
 ```{r}
-
 # Prepare summary with mean and 95% CI
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
     filter(User.fee_Payment.Type != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_Payment.Type) %>%
   summarise(
@@ -234,10 +233,13 @@ ggplot(summary_data, aes(x = User.fee_Payment.Type, y = prop, fill = Zipverified
   theme(axis.text.x = element_text(angle = 15, hjust = 1, size=6),
          plot.title = element_text(size = 11, face = "bold"))
 
-rm(summary_data)
+#rm(summary_data)
+```
 
+
+```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(User.fee_Payment.Method != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_Payment.Method) %>%
   summarise(
@@ -272,7 +274,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(User.fee_Natural.Features != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_Natural.Features) %>%
   summarise(
@@ -308,7 +310,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(User.fee_High.Tourist != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_High.Tourist) %>%
   summarise(
@@ -344,7 +346,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(User.fee_High.Maintance.Cost != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_High.Maintance.Cost) %>%
   summarise(
@@ -380,7 +382,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(User.fee_Ecological.Sensitive != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_Ecological.Sensitive) %>%
   summarise(
@@ -417,7 +419,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(User.fee_Additional.Amenities != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_Additional.Amenities) %>%
   summarise(
@@ -455,7 +457,7 @@ rm(summary_data)
 ```{r}
 
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
    filter(Cost.Allocation != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Cost.Allocation) %>%
   summarise(
@@ -500,7 +502,7 @@ rm(summary_data)
 ```{r}
 
 mean.CE <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 group_by(Zipverified) %>%
 summarise(mean_certainty = mean(Certainty.CE_Scale, na.rm = TRUE))
 
@@ -533,7 +535,7 @@ rm(mean.CE)
 ## Management Choices (Full Image Attributes)
 ```{r}
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 filter(!is.na(Mgm.option_No.Text)) %>%
 group_by(Zipverified, Mgm.option_No.Text) %>%
 summarise(n = n(), .groups = "drop") %>%
@@ -560,7 +562,7 @@ theme_minimal() +
 rm(summary_data)
 
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 filter(!is.na(Mgm.option_With.Text)) %>%
 group_by(Zipverified, Mgm.option_With.Text) %>%
 summarise(n = n(), .groups = "drop") %>%
@@ -590,24 +592,24 @@ rm(summary_data)
 
 ## Likelihood of Using Trails with User Fee
 ```{r}
-mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
-ggplot(aes(x = Zipverified, y = Likelihood_Trail.Use, fill = Zipverified)) +
-geom_boxplot() +
-labs(
-title = "Mean of Likelihood of Using Trails with User Fee (Boxplot) ",
-x = "",
-y = "Likelihood Rating (1–10)"
-) +
-theme_minimal() +
-  theme(
-    plot.title = element_text(size = 11, face = "bold"),
-    axis.text = element_text(size = 9),
-    legend.position = "none"
-  )
+# mlogit_clean %>%
+# distinct(Qualtrics.RID, .keep_all = TRUE) %>%
+# ggplot(aes(x = Zipverified, y = Likelihood_Trail.Use, fill = Zipverified)) +
+# geom_boxplot() +
+# labs(
+# title = "Mean of Likelihood of Using Trails with User Fee (Boxplot) ",
+# x = "",
+# y = "Likelihood Rating (1–10)"
+# ) +
+# theme_minimal() +
+#   theme(
+#     plot.title = element_text(size = 11, face = "bold"),
+#     axis.text = element_text(size = 9),
+#     legend.position = "none"
+#   )
 
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 group_by(Zipverified) %>%
 summarise(
 mean_rating = mean(Likelihood_Trail.Use, na.rm = TRUE),
@@ -622,7 +624,7 @@ ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) 
   geom_col(width = 0.5) +
   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
   geom_text(
-    aes(label = sprintf("%.2f", mean_rating)),  # show mean rounded to 2 decimals
+   aes(label = paste0("n=", n)),  # show mean rounded to 2 decimals
     vjust = -0.5,                               # position above the bar
     size = 2.5,                                 # smaller text
     color = "black"
@@ -649,7 +651,7 @@ Self-efficacy, the belief in one's ability to succeed, directly influences behav
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(Self.Eff_UF_HQ != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Self.Eff_UF_HQ) %>%
   summarise(
@@ -684,7 +686,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(Self.Eff_UF_TC != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Self.Eff_UF_TC) %>%
   summarise(
@@ -719,7 +721,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(Self.Eff_UF_Crowd != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Self.Eff_UF_Crowd) %>%
   summarise(
@@ -758,7 +760,7 @@ Collective efficacy drives behavior change by empowering groups to believe in th
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(Collective.Eff_UF_HQ != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Collective.Eff_UF_HQ) %>%
   summarise(
@@ -794,7 +796,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(Collective.Eff_UF_TC != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Collective.Eff_UF_TC) %>%
   summarise(
@@ -829,7 +831,7 @@ rm(summary_data)
 
 ```{r}
 summary_data <- mlogit_clean %>%
-  distinct(RID, .keep_all = TRUE) %>%
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>%
   filter(Collective.Eff_UF_Crowd != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Collective.Eff_UF_Crowd) %>%
   summarise(
@@ -868,44 +870,111 @@ rm(summary_data)
 Empirical expectation is a person's belief about what others are actually doing, and it significantly influences their own behavior change.
 
 ```{r}
-mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
-ggplot(aes(x = Zipverified, y = Empirical.Expec_Trail.Use, fill = Zipverified)) +
-geom_boxplot() +
-labs(
-title = "Imagine 10 people you know—friends, family, coworkers. How many of them would be willing to use trails that require a user fee?",
-x = "", y = ""
-) +
-theme_minimal() + 
+# mlogit_clean %>%
+# distinct(Qualtrics.RID, .keep_all = TRUE) %>%
+# ggplot(aes(x = Zipverified, y = Empirical.Expec_Trail.Use, fill = Zipverified)) +
+# geom_boxplot() +
+# labs(
+# title = "Imagine 10 people you know—friends, family, coworkers. How many of them would be willing to use trails that require a user fee?",
+# x = "", y = ""
+# ) +
+# theme_minimal() + 
+#   theme(
+#     plot.title = element_text(size = 7, face = "bold")
+#     )
+
+summary_data <- mlogit_clean %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
+group_by(Zipverified) %>%
+summarise(
+mean_rating = mean(Empirical.Expec_Trail.Use, na.rm = TRUE),
+sd_rating = sd(Empirical.Expec_Trail.Use, na.rm = TRUE),
+n = n(),
+se = sd_rating / sqrt(n),
+ci_lower = mean_rating - 1.96 * se,
+ci_upper = mean_rating + 1.96 * se
+)
+
+ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
+  geom_col(width = 0.5) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+  geom_text(
+   aes(label = paste0("n=", n)),  # show mean rounded to 2 decimals
+    vjust = -0.5,                               # position above the bar
+    size = 2.5,                                 # smaller text
+    color = "black"
+  ) +
+  labs(
+    title = "Imagine 10 people you know—friends, family, coworkers. How many of them would be willing to use trails that require a user fee?",
+    x = "",
+    y = "Likelihood Rating (1–10)"
+  ) +
+  theme_minimal() +
   theme(
-    plot.title = element_text(size = 7, face = "bold")
-    )
+    plot.title = element_text(size = 7, face = "bold"),
+    axis.text = element_text(size = 9),
+    legend.position = "none"
+  )
+#rm(summary_data)
 ```
 
 ## Normative Expectation
 
 Normative expectation behavior change involves altering an individual's or group's actions by changing their beliefs about what is considered acceptable or typical behavior within a social group.
 ```{r}
-mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
-ggplot(aes(x = Zipverified, y = Normative.Expec_Trail.Use, fill = Zipverified)) +
-geom_boxplot() +
-labs(
-title = "Imagine 10 people you know—friends, family, or coworkers. How many of them think that people should pay a user fee to use trails?",
-x = "", y = ""
-) +
-theme_minimal() + 
-  theme(
-    plot.title = element_text(size = 7, face = "bold")
-    )
+# mlogit_clean %>%
+# distinct(RID, .keep_all = TRUE) %>%
+# ggplot(aes(x = Zipverified, y = Normative.Expec_Trail.Use, fill = Zipverified)) +
+# geom_boxplot() +
+# labs(
+# title = "Imagine 10 people you know—friends, family, or coworkers. How many of them think that people should pay a user fee to use trails?",
+# x = "", y = ""
+# ) +
+# theme_minimal() + 
+#   theme(
+#     plot.title = element_text(size = 7, face = "bold")
+#     )
 
+summary_data <- mlogit_clean %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
+group_by(Zipverified) %>%
+summarise(
+mean_rating = mean(Normative.Expec_Trail.Use, na.rm = TRUE),
+sd_rating = sd(Normative.Expec_Trail.Use, na.rm = TRUE),
+n = n(),
+se = sd_rating / sqrt(n),
+ci_lower = mean_rating - 1.96 * se,
+ci_upper = mean_rating + 1.96 * se
+)
+
+ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
+  geom_col(width = 0.5) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+  geom_text(
+   aes(label = paste0("n=", n)),  # show mean rounded to 2 decimals
+    vjust = -0.5,                               # position above the bar
+    size = 2.5,                                 # smaller text
+    color = "black"
+  ) +
+  labs(
+    title = "Imagine 10 people you know—friends, family, or coworkers. How many of them think that people should pay a user fee to use trails?",
+    x = "",
+    y = "Likelihood Rating (1–10)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 7, face = "bold"),
+    axis.text = element_text(size = 9),
+    legend.position = "none"
+  )
+rm(summary_data)
 ```
 
 
 ## Support Volunteers and WTP 
 ```{r}
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 group_by(Zipverified) %>%
 summarise(
 mean_rating = mean(Volunteer.WTP, na.rm = TRUE),
@@ -930,7 +999,7 @@ theme_minimal() +
 rm(summary_data)
 
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 filter(!is.na(Volunteer.hours)) %>%
 group_by(Zipverified, Volunteer.hours) %>%
 summarise(n = n(), .groups = "drop") %>%
@@ -974,7 +1043,7 @@ kable(summary_time, caption = "Summary of Survey Duration (in minutes)")
 
 ```{r}
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
+distinct(Qualtrics.RID, .keep_all = TRUE) %>%
 group_by(Zipverified, Demo_Age) %>%
 summarise(n = n(), .groups = "drop") %>%
 group_by(Zipverified) %>%
@@ -1148,7 +1217,7 @@ rm(summary_data)
 
 ## Summarize block distribution 
 summary_block.distribution <- merge.data.1 %>%
-  distinct(RID, .keep_all = TRUE) %>% 
+  distinct(Qualtrics.RID, .keep_all = TRUE) %>% 
   group_by(Zipverified, block) %>% 
   count() %>% 
   group_by(Zipverified) %>% 

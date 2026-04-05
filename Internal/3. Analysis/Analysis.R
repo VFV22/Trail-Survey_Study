@@ -38,7 +38,7 @@ mlogit_clean <- merge.data.1
 
 mlogit_clean %<>%
   mutate(
-    ChoiceSetID = interaction(block, Choice.Task, RID, drop = TRUE)
+    ChoiceSetID = interaction(block, Choice.Task, Qualtrics.RID, drop = TRUE)
   )
 
 # Mutate variables to fit with MNL format 
@@ -47,7 +47,7 @@ mlogit_clean %<>%
   mutate(
     ChoiceSetID = as.character(ChoiceSetID),
     Alternative = as.character(Alternative),
-    RID         = as.character(RID)
+    Qualtrics.RID        = as.character(Qualtrics.RID)
   )
 
 #Create mlogit for residents only 
@@ -60,7 +60,6 @@ mlogit_clean_Residents<-mlogit_clean %>%
 
 mlogit_clean_Tourists<-mlogit_clean %>%
   filter(Zipverified=="Tourist")
-  
   
   
   

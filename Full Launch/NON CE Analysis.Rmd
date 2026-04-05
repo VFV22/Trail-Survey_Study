@@ -1,5 +1,5 @@
 ---
-title: "Pilot overview"
+title: "Survey Overview"
 author: "Valdo Viana & Ashley Lowe-Mckenzie"
 date: "2025-11-03"
 output: 
@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 
 ```{r load-analysis, echo=FALSE}
+setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
 source("3. Analysis/Analysis.R")
 ```
 
@@ -39,6 +40,13 @@ ggplot(summary_data, aes(x = Trail_Condition, y = prop, fill = Zipverified)) +
   geom_text(aes(label = paste0("n=", n)),  
             position = position_dodge(0.9), 
             vjust = -0.5, size = 3) +       # add counts on top
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Distribution of Chosen Trail Conditions by Residency",
     x = "",
@@ -70,6 +78,13 @@ ggplot(summary_data, aes(x = Chosen.Alternative, y = prop, fill = Zipverified)) 
   geom_text(aes(label = paste0("n=", n)),  
             position = position_dodge(0.9), 
             vjust = -0.5, size = 3) +       # add counts on top
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Distribution of Chosen Alternatives",
     x = "",
@@ -106,6 +121,7 @@ always_optout %<>%
   )
 
 table(always_optout$Zipverified)
+rm(always_optout)
 ```
 
 ```{r}
@@ -125,6 +141,13 @@ ggplot(summary_data, aes(x = Habitat_Quality, y = prop, fill = Zipverified)) +
   geom_text(aes(label = paste0("n=", n)), 
             position = position_dodge(0.9), 
             vjust = -0.5, size = 3) +       # add counts on top
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Distribution of Chosen Habitat Quality by Residency",
     x = "",
@@ -156,6 +179,13 @@ ggplot(summary_data, aes(x = Crowding, y = prop, fill = Zipverified)) +
   geom_text(aes(label = paste0("n=", n)), 
             position = position_dodge(0.9), 
             vjust = -0.5, size = 3) +       # add counts on top
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Distribution of Chosen Crowding by Residency",
     x = "",
@@ -187,6 +217,13 @@ ggplot(summary_data, aes(x = Cost, y = prop, fill = Zipverified)) +
   geom_text(aes(label = paste0("n=", n)), 
             position = position_dodge(0.9), 
             vjust = -0.5, size = 3) +       # add counts on top
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Distribution of Chosen Cost by Residency",
     x = "",
@@ -214,41 +251,46 @@ summary_data <- mlogit_clean %>%
   group_by(Zipverified) %>%
   mutate(
     total = sum(n),       # total count within each Zipverified group
-    prop = n / total      # proportion within Zipverified
+    prop = n / total*100      # proportion within Zipverified
     # se = sqrt(prop * (1 - prop) / total),   # standard error
     # ci_lower = (prop - 1.96 * se) * total,  # lower CI (optional)
     # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
   )
 
-ggplot(summary_data, aes(x = User.fee_Y.N, y = prop, fill = Zipverified)) +
+ggplot(summary_data, aes(x = User.fee_Y.N, y = n, fill = Zipverified)) +
   geom_col(position = position_dodge(0.9)) +  # side-by-side bars
-  # geom_errorbar(
-  #   aes(ymin = ci_lower, ymax = ci_upper),
-  #   width = 0.2,
-  #   position = position_dodge(0.9)
-  # ) +
-  geom_text(
-    aes(label = paste0("n=", n)),   # use total from the same data
-    position = position_dodge(0.9),
-    vjust = -0.5,
-    size = 3
+geom_text(
+  aes(label = paste0(round(prop, 0), "%")),
+  position = position_dodge(0.9),
+  vjust = -0.5,
+  size = 3
+) +
+  # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
+  # scale_y_continuous(labels = function(x) paste0(x, "%")) + # Percentage on the x axis
   labs(
     title = "Would you be willing to pay a user fee to support trail management efforts?",
     x = "",
-    y = "Proportion of responses",
+    y = "Percentage of responses",
     fill = ""
   ) +
-  theme_minimal()+
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=8),
-         plot.title = element_text(size = 11, face = "bold"))
-rm(summary_data)
-
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold"),
+    plot.title = element_text(size = 11, face = "bold")
+  )
+#rm(summary_data)
 ```
+
+
 
 ## Payment Type and Method 
 ```{r}
-
 # Prepare summary with mean and 95% CI
 summary_data <- mlogit_clean %>%
   distinct(RID, .keep_all = TRUE) %>%
@@ -267,63 +309,210 @@ summary_data <- mlogit_clean %>%
     # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
   )
 
-ggplot(summary_data, aes(x = User.fee_Payment.Type, y = prop, fill = Zipverified)) +
-  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
-  # geom_errorbar(
-  #   aes(ymin = ci_lower, ymax = ci_upper),
-  #   width = 0.2,
-  #   position = position_dodge(0.9)
-  # ) +
-    geom_text(
-    aes(label = paste0("n=", n)),   # use total from the same data
+ggplot(summary_data, aes(x = prop, y = reorder(User.fee_Payment.Type, prop), fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9), width = 0.8) +
+  geom_text(
+    aes(label = paste0("n=", n)),
     position = position_dodge(0.9),
-    vjust = -0.5,
-    size = 3
+    hjust = -0.1,
+    size = 2.8
   ) +
+  geom_text(
+    aes(label = paste0(round(prop*100, 1), "%"), x = prop/2),
+    position = position_dodge(0.9),
+    hjust = 0.5,
+    size = 2.8,
+    color = "white",
+    fontface = "bold"
+  ) +
+  scale_fill_manual(
+    values = c("Tourist" = "#ae9864", "Resident" = "#6a906c")
+  ) +
+  scale_x_continuous(labels = scales::percent_format(), expand = expansion(mult = c(0, 0.15))) +
   labs(
-    title = "If user fees were implemented, which payment TYPE would you prefer?",
-    x = "",
-    y = "Proportion of responses",
+    title = "Preferred Payment Type for Trail User Fees",
+    subtitle = "Tourists vs Residents",
+    x = "Proportion of responses",
+    y = "",
     fill = ""
   ) +
-  theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 15, hjust = 1, size=6),
-         plot.title = element_text(size = 11, face = "bold"))
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 11, face = "bold"),
+    plot.subtitle = element_text(size = 9, color = "gray50"),
+    legend.position = "top",
+    panel.grid.major.y = element_blank()
+  )
+```
 
-rm(summary_data)
+```{r}
+# Load required library
+library(patchwork)
 
+# Filter and prepare data
+tourist_data <- summary_data %>% filter(Zipverified == "Tourist")
+resident_data <- summary_data %>% filter(Zipverified == "Resident")
+
+# Define your custom color palette
+custom_colors <- c(
+  "Annual pass (one payment allows unlimited trail entries for a year)" = "#6a906c",  # Dark green/gray
+  "Daily pass (one payment allows unlimited trail entries in a single day)" = "#ae9864",  # Beige/tan
+  "Per-entry fee (pay each time you use a trail)" = "#503440",  # Plum/purple
+  "Voluntary donation (optional payment, not required for trail entry)" = "#535e4b"   # Olive green
+)
+
+# Create donut charts
+
+p1 <- ggplot(tourist_data, aes(x = 2, y = prop, fill = User.fee_Payment.Type)) +
+  geom_col(width = 1, color = "white") +
+  geom_text(
+    aes(label = paste0(round(prop*100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size = 2.5,
+    color = "white"
+  ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
+  labs(
+    title = "Tourists",
+    fill = "Payment Type"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none"
+  )
+
+p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = User.fee_Payment.Type)) +
+  geom_col(width = 1, color = "white") +
+  geom_text(
+    aes(label = paste0(round(prop*100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size = 2.5,
+    color = "white"
+  ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
+  labs(
+    title = "Residents",
+    fill = "Payment Type"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+
+# Combine with patchwork
+p1 + p2 + 
+  plot_annotation(
+    title = "Preferred Payment Type for Trail User Fees",
+    theme = theme(plot.title = element_text(size = 11, face = "bold"))
+  )
+```
+
+
+```{r}
+rm(tourist_data,resident_data,summary_data)
+
+```
+
+
+```{r}
 summary_data <- mlogit_clean %>%
   distinct(RID, .keep_all = TRUE) %>%
   filter(User.fee_Payment.Method != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, User.fee_Payment.Method) %>%
   summarise(
-    n = n(),  # count per alternative per Zipverified
+    n = n(),
     .groups = "drop"
   ) %>%
   group_by(Zipverified) %>%
   mutate(
-    total = sum(n),       # total count within each Zipverified group
-    prop = n / total      # proportion within Zipverified
+    total = sum(n),
+    prop = n / total
   )
 
-ggplot(summary_data, aes(x = User.fee_Payment.Method, y = prop, fill = Zipverified)) +
-  geom_col(position = position_dodge(0.9)) +
+# Load required library
+library(patchwork)
+
+#Shortened the labels for payment method
+summary_data <- summary_data %>%
+  mutate(
+    User.fee_Payment.Method = case_when(
+      User.fee_Payment.Method == "Centralized payment (pay at a staffed location such as a visitor center or hotel lobby before visiting the trail)" ~ 
+        "Centralized payment (pay at a staffed location)",
+      User.fee_Payment.Method == "On-site payment (pay at the trail entrance using a kiosk, QR code, or cash drop box)" ~ 
+        "On-site payment (pay at the trail entrance using a kiosk / QR code)",
+      User.fee_Payment.Method == "Online pre-payment (pay before your visit through a website or mobile app)" ~ 
+        "Online pre-payment (pay before your visit through a website / mobile app)",
+      TRUE ~ User.fee_Payment.Method
+    )
+  )
+
+# Filter and prepare data
+tourist_data <- summary_data %>% filter(Zipverified == "Tourist")
+resident_data <- summary_data %>% filter(Zipverified == "Resident")
+
+# Define your custom color palette
+custom_colors <- c(
+  "Centralized payment (pay at a staffed location)" = "#6a906c",
+  "On-site payment (pay at the trail entrance using a kiosk / QR code)" = "#ae9864",  # Beige/tan
+  "Online pre-payment (pay before your visit through a website / mobile app)" = "#503440"  # Plum/purple
+)
+
+# Create donut charts
+
+p1 <- ggplot(tourist_data, aes(x = 2, y = prop, fill = User.fee_Payment.Method)) +
+  geom_col(width = 1, color = "white") +
   geom_text(
-    aes(label = paste0("n=", n)),   # use total from the same data
-    position = position_dodge(0.9),
-    vjust = -0.5,
-    size = 3
+    aes(label = paste0(round(prop*100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size = 2.5,
+    color = "white"
   ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
-    title = "If user fees were implemented, which payment METHOD would you prefer?",
-    x = "",
-    y = "Proportion of responses",
-    fill = ""
+    title = "Tourists",
+    fill = "Payment Method"
   ) +
-  theme_minimal() +
- theme(axis.text.x = element_text(angle = 15, hjust = 1, size=6),
-         plot.title = element_text(size = 11, face = "bold"))
-rm(summary_data)
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none"
+  )
+
+p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = User.fee_Payment.Method)) +
+  geom_col(width = 1, color = "white") +
+  geom_text(
+    aes(label = paste0(round(prop*100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size = 2.5,
+    color = "white"
+  ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
+  labs(
+    title = "Residents",
+    fill = "Payment Method"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+
+# Combine with patchwork
+p1 + p2 + 
+  plot_annotation(
+    title = "Preferred Payment Method for Trail User Fees",
+    theme = theme(plot.title = element_text(size = 11, face = "bold"))
+  )
 ```
 
 ```{r}
@@ -348,6 +537,13 @@ ggplot(summary_data, aes(x = User.fee_Natural.Features, y = prop, fill = Zipveri
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+    # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
   labs(
     title = "If User Fee is used on Trails with Natural Features (1 - Most Prefered & 5 - Least Prefered)
@@ -385,6 +581,13 @@ ggplot(summary_data, aes(x = User.fee_High.Tourist, y = prop, fill = Zipverified
     vjust = -0.5,
     size = 3
   ) +
+    # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "If User Fee is used on Trails with High Tourist (1 - Most Prefered & 5 - Least Prefered)
 ",
@@ -421,6 +624,13 @@ ggplot(summary_data, aes(x = User.fee_High.Maintance.Cost, y = prop, fill = Zipv
     vjust = -0.5,
     size = 3
   ) +
+    # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "If User Fee is used on Trails with High Maintanance Cost (1 - Most Prefered & 5 - Least Prefered)
 ",
@@ -456,6 +666,13 @@ ggplot(summary_data, aes(x = User.fee_Ecological.Sensitive, y = prop, fill = Zip
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+    # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
   labs(
     title = "If User Fee is used on Trails with High Ecological Sensitivity (1 - Most Prefered & 5 - Least Prefered)
@@ -494,6 +711,13 @@ ggplot(summary_data, aes(x = User.fee_Additional.Amenities, y = prop, fill = Zip
     vjust = -0.5,
     size = 3
   ) +
+    # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "If User Fee is used on Trails with Additional Ammenities (parking, restrooms) Sensitivity (1 - Most Preffered & 5 - Least Preffered)
 ",
@@ -509,48 +733,87 @@ rm(summary_data)
 
 ## Cost Allocation 
 ```{r}
-
 summary_data <- mlogit_clean %>%
   distinct(RID, .keep_all = TRUE) %>%
-   filter(Cost.Allocation != "Other (Please enter answer in the box)") %>%
+  filter(Cost.Allocation != "Other (Please enter answer in the box)") %>%
   group_by(Zipverified, Cost.Allocation) %>%
   summarise(
-    n = n(),  # count per alternative per Zipverified
+    n = n(),
     .groups = "drop"
   ) %>%
   group_by(Zipverified) %>%
   mutate(
-    total = sum(n),       # total count within each Zipverified group
-    prop = n / total      # proportion within Zipverified
-    # se = sqrt(prop * (1 - prop) / total),   # standard error
-    # ci_lower = (prop - 1.96 * se) * total,  # lower CI (optional)
-    # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
+    total = sum(n),
+    prop = n / total
   )
 
-ggplot(summary_data, aes(x = Cost.Allocation, y = prop, fill = Zipverified)) +
-  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
-  # geom_errorbar(
-  #   aes(ymin = ci_lower, ymax = ci_upper),
-  #   width = 0.2,
-  #   position = position_dodge(0.9)
-  # ) +
+
+# Filter and prepare data
+tourist_data <- summary_data %>% filter(Zipverified == "Tourist")
+resident_data <- summary_data %>% filter(Zipverified == "Resident")
+
+# Define your custom color palette
+custom_colors <- c(
+  "Both, but majority residents" = "#6a906c",
+  "Both, but majority visitors" = "#ae9864",  # Beige/tan
+  "Both, equally" = "#503440" ,  # Plum/purple
+  "Only Residents" = "#7b9f9f", 
+  "Only Visitors" = "#031812"
+)
+
+# Create donut charts
+
+p1 <- ggplot(tourist_data, aes(x = 2, y = prop, fill = Cost.Allocation)) +
+  geom_col(width = 1, color = "white") +
   geom_text(
-    aes(label = paste0("n=", n)),   # use total from the same data
-    position = position_dodge(0.9),
-    vjust = -0.5,
-    size = 3
+    aes(label = paste0(round(prop*100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size = 2.5,
+    color = "white"
   ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
-    title = "Who do you think should bear the majority of the cost for trail management?",
-    x = "",
-    y = "Proportion of responses",
-    fill = ""
+    title = "Tourists",
+    fill = "Cost Allocation"
   ) +
-  theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
-         plot.title = element_text(size = 11, face = "bold"))
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none"
+  )
+
+p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = Cost.Allocation)) +
+  geom_col(width = 1, color = "white") +
+  geom_text(
+    aes(label = paste0(round(prop*100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size = 2.5,
+    color = "white"
+  ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
+  labs(
+    title = "Residents",
+    fill = "Cost.Allocation"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+
+# Combine with patchwork
+p1 + p2 + 
+  plot_annotation(
+    title = "Preferred Cost Allocation for Trail User Fees",
+    theme = theme(plot.title = element_text(size = 11, face = "bold"))
+  )
 rm(summary_data)
 ```
+
 
 ## Certainty scale
 ```{r}
@@ -580,8 +843,8 @@ color = "Mean Certainty"
 theme_minimal(base_size = 13) +
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
          plot.title = element_text(size = 11, face = "bold")) +
-scale_fill_manual(values = c("Resident" = "#4CAF50", "Tourist" = "#2196F3")) +
-scale_color_manual(values = c("Resident" = "#2E7D32", "Tourist" = "#1565C0"))
+scale_fill_manual(values = c("Resident" = "#2E7D32", "Tourist" = "#ae9864")) +
+scale_color_manual(values = c("Resident" = "#2E7D32", "Tourist" = "#ae9864"))
 rm(mean.CE)
 
 ```
@@ -603,6 +866,13 @@ geom_col(position = position_dodge(0.9)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
 labs(
 title = "Management Choice Full Picture  (No Text)",
@@ -631,6 +901,13 @@ geom_col(position = position_dodge(0.9)) +
     vjust = -0.5,
     size = 3
   ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
 labs(
 title = "Management Choice Full Picture (With Text)",
 x = "",
@@ -646,22 +923,6 @@ rm(summary_data)
 
 ## Likelihood of Using Trails with User Fee
 ```{r}
-mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
-ggplot(aes(x = Zipverified, y = Likelihood_Trail.Use, fill = Zipverified)) +
-geom_boxplot() +
-labs(
-title = "Mean of Likelihood of Using Trails with User Fee (Boxplot) ",
-x = "",
-y = "Likelihood Rating (1–10)"
-) +
-theme_minimal() +
-  theme(
-    plot.title = element_text(size = 11, face = "bold"),
-    axis.text = element_text(size = 9),
-    legend.position = "none"
-  )
-
 summary_data <- mlogit_clean %>%
 distinct(RID, .keep_all = TRUE) %>%
 group_by(Zipverified) %>%
@@ -682,6 +943,13 @@ ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) 
     vjust = -0.5,                               # position above the bar
     size = 2.5,                                 # smaller text
     color = "black"
+  ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
   labs(
     title = "Mean of Likelihood of Using Trails with User Fee (Bar Graph)",
@@ -726,6 +994,13 @@ ggplot(summary_data, aes(x = Self.Eff_UF_HQ, y = prop, fill = Zipverified)) +
     vjust = -0.5,
     size = 3
   ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Your contribution (via user fees) is making a meaningful difference on improving Habitat Quality (1-MOST confident & 3-LEAST confident)",
     x = "",
@@ -761,6 +1036,13 @@ ggplot(summary_data, aes(x = Self.Eff_UF_TC, y = prop, fill = Zipverified)) +
     vjust = -0.5,
     size = 3
   ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Your contribution (via user fees) is making a meaningful difference on improving Trail Condition (1-MOST confident & 3-LEAST confident)",
     x = "",
@@ -795,6 +1077,13 @@ ggplot(summary_data, aes(x = Self.Eff_UF_Crowd, y = prop, fill = Zipverified)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
   labs(
     title = "Your contribution (via user fees) is making a meaningful difference on improving Crowding (1-MOST confident & 3-LEAST confident)",
@@ -835,6 +1124,13 @@ ggplot(summary_data, aes(x = Collective.Eff_UF_HQ, y = prop, fill = Zipverified)
     vjust = -0.5,
     size = 3
   ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "If most trail users choose to pay usage fees, do you think improvement on Habitat Quality would be addressed? (1-MOST addressed & 3-LEAST adressed)",
     x = "",
@@ -871,6 +1167,13 @@ ggplot(summary_data, aes(x = Collective.Eff_UF_TC, y = prop, fill = Zipverified)
     vjust = -0.5,
     size = 3
   ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "If most trail users choose to pay usage fees, do you think improvement on Trail Condition would be addressed? (1-MOST addressed & 3-LEAST adressed)",
     x = "",
@@ -906,6 +1209,13 @@ ggplot(summary_data, aes(x = Collective.Eff_UF_Crowd, y = prop, fill = Zipverifi
     vjust = -0.5,
     size = 3
   ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "If most trail users choose to pay usage fees, do you think improvement on Crowding would be addressed? (1-MOST addressed & 3-LEAST adressed)",
     x = "",
@@ -924,37 +1234,92 @@ rm(summary_data)
 Empirical expectation is a person's belief about what others are actually doing, and it significantly influences their own behavior change.
 
 ```{r}
-mlogit_clean %>%
+summary_data <- mlogit_clean %>%
 distinct(RID, .keep_all = TRUE) %>%
-ggplot(aes(x = Zipverified, y = Empirical.Expec_Trail.Use, fill = Zipverified)) +
-geom_boxplot() +
-labs(
-title = "Imagine 10 people you know—friends, family, coworkers. How many of them would be willing to use trails that require a user fee?",
-x = "", y = ""
-) +
-theme_minimal() + 
-  theme(
-    plot.title = element_text(size = 7, face = "bold")
+group_by(Zipverified) %>%
+summarise(
+mean_rating = mean(Empirical.Expec_Trail.Use, na.rm = TRUE),
+sd_rating = sd(Empirical.Expec_Trail.Use, na.rm = TRUE),
+n = n(),
+se = sd_rating / sqrt(n),
+ci_lower = mean_rating - 1.96 * se,
+ci_upper = mean_rating + 1.96 * se
+)
+
+ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
+  geom_col(width = 0.5) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+  geom_text(
+    aes(label = sprintf("%.2f", mean_rating)),  # show mean rounded to 2 decimals
+    vjust = -0.5,                               # position above the bar
+    size = 2.5,                                 # smaller text
+    color = "black"
+  ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
     )
+  ) +
+  labs(
+    title = "Imagine 10 people you know. How many of them would be willing to use trails that require a user fee?",
+    x = "",
+    y = "Likelihood Rating (1–10)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.text = element_text(size = 9),
+    legend.position = "none"
+  )
+rm(summary_data)
 ```
 
 ## Normative Expectation
 
 Normative expectation behavior change involves altering an individual's or group's actions by changing their beliefs about what is considered acceptable or typical behavior within a social group.
 ```{r}
-mlogit_clean %>%
+summary_data <- mlogit_clean %>%
 distinct(RID, .keep_all = TRUE) %>%
-ggplot(aes(x = Zipverified, y = Normative.Expec_Trail.Use, fill = Zipverified)) +
-geom_boxplot() +
-labs(
-title = "Imagine 10 people you know—friends, family, or coworkers. How many of them think that people should pay a user fee to use trails?",
-x = "", y = ""
-) +
-theme_minimal() + 
-  theme(
-    plot.title = element_text(size = 7, face = "bold")
-    )
+group_by(Zipverified) %>%
+summarise(
+mean_rating = mean(Normative.Expec_Trail.Use, na.rm = TRUE),
+sd_rating = sd(Normative.Expec_Trail.Use, na.rm = TRUE),
+n = n(),
+se = sd_rating / sqrt(n),
+ci_lower = mean_rating - 1.96 * se,
+ci_upper = mean_rating + 1.96 * se
+)
 
+ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
+  geom_col(width = 0.5) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+  geom_text(
+    aes(label = sprintf("%.2f", mean_rating)),  # show mean rounded to 2 decimals
+    vjust = -0.5,                               # position above the bar
+    size = 2.5,                                 # smaller text
+    color = "black"
+  ) +
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
+  labs(
+    title = "Imagine 10 people you know. How many of them that think people should pay a user fee to use trails?",
+    x = "",
+    y = "Likelihood Rating (1–10)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 9, face = "bold"),
+    axis.text = element_text(size = 9),
+    legend.position = "none"
+  )
+rm(summary_data)
 ```
 
 
@@ -975,6 +1340,13 @@ ci_upper = mean_rating + 1.96 * se
 ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
 geom_col(width = 0.5) +
 geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
 labs(
 title = "Average of WTP to Support Volunteers",
 x = "Residency Status",
@@ -1000,6 +1372,13 @@ geom_col(position = position_dodge(0.9)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
 labs(
 title = "Number of hours willing to volunteer as a one-time contribution to support trail management",
@@ -1044,6 +1423,13 @@ geom_col(position = position_dodge(0.9)) +
     vjust = -0.5,
     size = 3
   ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
 labs(
 title = "Age Distribution by Residency",
 x = "",
@@ -1070,6 +1456,13 @@ geom_col(position = position_dodge(0.9)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
 labs(
 title = "Education Distribution by Residency",
@@ -1101,6 +1494,13 @@ geom_col(position = position_dodge(0.9)) +
     vjust = -0.5,
     size = 3
   ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
 labs(
 title = "Sex Distribution by Residency",
 x = "",
@@ -1130,6 +1530,13 @@ geom_text(
     vjust = -0.5,
     size = 3
   ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
 labs(
 title = "Income Distribution by Residency",
 x = "",
@@ -1138,7 +1545,7 @@ fill = "Residency"
 ) +
 theme_minimal() +
 theme(axis.text.x = element_text(angle = 45, hjust = 1))
-rm(summary_data)
+#rm(summary_data)
 ```
 
 
@@ -1157,6 +1564,13 @@ geom_col(position = position_dodge(0.9)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
 labs(
 title = "Ethnicity Distribution by Residency",
@@ -1186,6 +1600,13 @@ geom_col(position = position_dodge(0.9)) +
     vjust = -0.5,
     size = 3
   ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
 labs(
 title = "Employment Distribution by Residency",
 x = "",
@@ -1213,6 +1634,13 @@ summary_block.distribution <- merge.data.1 %>%
 # Plot as bar chart with percentages
 ggplot(summary_block.distribution, aes(x = block, y = percentage, fill = Zipverified)) +
   geom_col(position = "dodge") +  # side-by-side bars
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
+  ) +
   labs(
     title = "Distribution per Block by Residence Status",
     x = "Block",
@@ -1223,7 +1651,7 @@ ggplot(summary_block.distribution, aes(x = block, y = percentage, fill = Zipveri
    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
          plot.title = element_text(size = 11, face = "bold"))
 
-rm(summary_block.distribution)
+#rm(summary_block.distribution)
 ```
 
 ```{r}
@@ -1248,6 +1676,13 @@ ggplot(summary_data, aes(x = Member_Env.Group, y = prop, fill = Zipverified)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  )+
+   # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
   labs(
     title = "Are you currently a member of an environmental group / do you participate in environmental activities (e.g., volunteer for clean-up events)? ",
@@ -1282,6 +1717,13 @@ ggplot(summary_data, aes(x = Pay_Access.Fee, y = prop, fill = Zipverified)) +
     position = position_dodge(0.9),
     vjust = -0.5,
     size = 3
+  ) +
+     # Add custom colors
+  scale_fill_manual(
+    values = c(
+      "Tourist" = "#ae9864",  # Your specified color for Tourist
+      "Resident" = "#6a906c"  # Your specified color for Resident
+    )
   ) +
   labs(
     title = "In the past 12 months, have you paid a fee to access a natural area (e.g., park entrance fee, trail permit)? ",

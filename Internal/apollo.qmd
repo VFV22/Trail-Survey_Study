@@ -4,6 +4,12 @@ format: html
 editor: visual
 ---
 
+```{r}
+library(apollo)
+
+apollo_initialise()
+```
+
 ## RUM For Trails
 
 Here need to make the data into wide format to create the utility functions.
@@ -239,7 +245,7 @@ coef_table <- coef_table %>%
 
 ```
 
-## RUM For Trails (Residents Only) 
+## RUM For Trails (Residents Only)
 
 Here need to make the data into wide format to create the utility functions.
 
@@ -474,7 +480,7 @@ coef_residents <- coef_residents %>%
 
 ```
 
-## RUM For Trails (Tourists Only) 
+## RUM For Trails (Tourists Only)
 
 Here need to make the data into wide format to create the utility functions.
 
@@ -737,7 +743,7 @@ coef_table %<>%
 
 ```
 
-##  
+## 
 
 ```{r}
 format_coef <- function(df, col_name) {
@@ -820,7 +826,7 @@ gtsave(
 
 ```
 
-# Create WTP table 
+# Create WTP table
 
 ```{r}
 extract_coef <- function(x) as.numeric(str_extract(x, "^-?[0-9.]+"))
