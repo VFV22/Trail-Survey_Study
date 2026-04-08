@@ -2447,271 +2447,1138 @@ ggsave("WTP_incremental_Crowding.png", r, width = 10, height = 6, dpi = 300)
 
 ```{r}
 # ══════════════════════════════════════════════════════
-# WELFARE / COMPENSATING VARIATION CALCULATION
-# Policy Scenarios: Baseline → Medium → High Improvement
-# Method: Small-Rosen logsum formula
+# SIMULATION-BASED WELFARE CALCULATION
+# Mixed Logit — Parametric Normal Draws
+# 1000 draws, attribute-by-attribute + bundle scenarios
 # ══════════════════════════════════════════════════════
 
-library(tibble)
-library(dplyr)
+set.seed(123)  # for reproducibility
+n_draws <- 1000
 
-# ── Step 1: Extract coefficients from pooled MXL model ──
+# ── Step 1: Extract means and SDs from estimated model ──
 bhat <- model_mxl$estimate
 
-b_HabitatMed   <- bhat["b_Habitat_QualityMed"]
-b_HabitatHigh  <- bhat["b_Habitat_QualityHigh"]
-b_TrailCondMed <- bhat["b_Trail_ConditionMed"]
-b_TrailCondHigh<- bhat["b_Trail_ConditionHigh"]
-b_CrowdingMed  <- bhat["b_CrowdingMed"]
-b_CrowdingLow  <- bhat["b_CrowdingLow"]
-b_cost         <- bhat["b_cost"]
-asc_optout     <- bhat["asc_optout"]
+# Means of random parameters
+mu_HabitatMed    <- bhat["b_Habitat_QualityMed"]
+mu_HabitatHigh   <- bhat["b_Habitat_QualityHigh"]
+mu_TrailCondMed  <- bhat["b_Trail_ConditionMed"]
+mu_TrailCondHigh <- bhat["b_Trail_ConditionHigh"]
+mu_CrowdingMed   <- bhat["b_CrowdingMed"]
+mu_CrowdingLow   <- bhat["b_CrowdingLow"]
 
-cat("Extracted coefficients:\n")
-cat("b_HabitatMed:   ", round(b_HabitatMed,   4), "\n")
-cat("b_HabitatHigh:  ", round(b_HabitatHigh,  4), "\n")
-cat("b_TrailCondMed: ", round(b_TrailCondMed, 4), "\n")
-cat("b_TrailCondHigh:", round(b_TrailCondHigh,4), "\n")
-cat("b_CrowdingMed:  ", round(b_CrowdingMed,  4), "\n")
-cat("b_CrowdingLow:  ", round(b_CrowdingLow,  4), "\n")
-cat("b_cost:         ", round(b_cost,          4), "\n")
-cat("asc_optout:     ", round(asc_optout,      4), "\n")
+# SDs of random parameters
+sd_HabitatMed    <- abs(bhat["sd_Habitat_QualityMed"])
+sd_HabitatHigh   <- abs(bhat["sd_Habitat_QualityHigh"])
+sd_TrailCondMed  <- abs(bhat["sd_Trail_ConditionMed"])
+sd_TrailCondHigh <- abs(bhat["sd_Trail_ConditionHigh"])
+sd_CrowdingMed   <- abs(bhat["sd_CrowdingMed"])
+sd_CrowdingLow   <- abs(bhat["sd_CrowdingLow"])
 
-```
+# Fixed parameters
+b_cost     <- bhat["b_cost"]
+asc_optout <- bhat["asc_optout"]
 
-```{r}
-
-# ══════════════════════════════════════════════════════
-# Step 2: Define scenario deterministic utilities
-# ══════════════════════════════════════════════════════
-# Notes:
-# - Alt1 and Alt2 are trail alternatives (vary by cost)
-# - Alt3 is opt-out (ASC only, no attributes)
-# - Baseline: all attributes at reference level (dummies = 0)
-# - We use mean cost across all alternatives as representative cost
-# - Attribute utility is added on top of cost utility
-
-# ── Mean cost across alt1 and alt2 in dataset ──
-mean_cost <- mean(c(database$Cost.alt1, database$Cost.alt2), na.rm = TRUE)
-cat("\nMean cost used in welfare calculation: $", round(mean_cost, 2), "\n")
-
-# ── Scenario attribute utility components ──
-# (cost term is the same across scenarios — cancels in CS difference)
-
-# Baseline: Low habitat, Low trail condition, High crowding
-# All attribute dummies = 0 → no attribute utility
-V_attr_baseline <- 0
-
-# Medium improvement: Medium habitat, Medium trail condition, Medium crowding
-V_attr_medium <- b_HabitatMed + b_TrailCondMed + b_CrowdingMed
-
-# High improvement: High habitat, High trail condition, Low crowding
-V_attr_high <- b_HabitatHigh + b_TrailCondHigh + b_CrowdingLow
-
-cat("\nAttribute utility components:\n")
-cat("Baseline:          ", round(V_attr_baseline, 4), "\n")
-cat("Medium improvement:", round(V_attr_medium,   4), "\n")
-cat("High improvement:  ", round(V_attr_high,     4), "\n")
+cat("═══════════════════════════════════════\n")
+cat("Random parameter distributions:\n")
+cat("═══════════════════════════════════════\n")
+cat(sprintf("%-20s %8s %8s\n", "Parameter", "Mean", "SD"))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Habitat Med",    mu_HabitatMed,    sd_HabitatMed))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Habitat High",   mu_HabitatHigh,   sd_HabitatHigh))
+cat(sprintf("%-20s %8.4f %8.4f\n", "TrailCond Med",  mu_TrailCondMed,  sd_TrailCondMed))
+cat(sprintf("%-20s %8.4f %8.4f\n", "TrailCond High", mu_TrailCondHigh, sd_TrailCondHigh))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Crowding Med",   mu_CrowdingMed,   sd_CrowdingMed))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Crowding Low",   mu_CrowdingLow,   sd_CrowdingLow))
+cat(sprintf("%-20s %8.4f %8s\n",   "Cost (fixed)",   b_cost,           "—"))
+cat(sprintf("%-20s %8.4f %8s\n",   "ASC optout",     asc_optout,       "—"))
 
 ```
 
 ```{r}
+# ── Step 2: Generate parametric draws ──
+# Each draw r gives one complete set of preference parameters
+# representing one "type" of individual from the population
+
+draws <- data.frame(
+  b_HabitatMed    = rnorm(n_draws, mu_HabitatMed,    sd_HabitatMed),
+  b_HabitatHigh   = rnorm(n_draws, mu_HabitatHigh,   sd_HabitatHigh),
+  b_TrailCondMed  = rnorm(n_draws, mu_TrailCondMed,  sd_TrailCondMed),
+  b_TrailCondHigh = rnorm(n_draws, mu_TrailCondHigh, sd_TrailCondHigh),
+  b_CrowdingMed   = rnorm(n_draws, mu_CrowdingMed,   sd_CrowdingMed),
+  b_CrowdingLow   = rnorm(n_draws, mu_CrowdingLow,   sd_CrowdingLow)
+)
+
+cat("\nDraws generated:", n_draws, "\n")
+cat("Verifying draw means match parameters:\n")
+cat(sprintf("  b_HabitatMed mean:    %.4f (target: %.4f)\n", 
+            mean(draws$b_HabitatMed), mu_HabitatMed))
+cat(sprintf("  b_HabitatHigh mean:   %.4f (target: %.4f)\n", 
+            mean(draws$b_HabitatHigh), mu_HabitatHigh))
+
+```
+
+```{r}
+# ── Step 3: Define logsum function ──
+# For each draw r, compute logsum per choice occasion
+# then average across choice tasks per respondent
+# then average across respondents and draws
+
+compute_cv_sim <- function(V_attr_scenario, 
+                           cost_alt1, cost_alt2,
+                           b_cost_fixed, asc_optout_fixed,
+                           draws_vec) {
+  # draws_vec: vector of length n_draws — the simulated attribute utility
+  # for this scenario under each draw
+  
+  cv_per_draw <- sapply(1:length(draws_vec), function(r) {
+    
+    # Baseline logsum (all attributes at reference = 0)
+    V1_base <- b_cost_fixed * cost_alt1
+    V2_base <- b_cost_fixed * cost_alt2
+    V3_base <- rep(asc_optout_fixed, length(cost_alt1))
+    ls_base  <- log(exp(V1_base) + exp(V2_base) + exp(V3_base))
+    
+    # Scenario logsum
+    V1_scen <- draws_vec[r] + b_cost_fixed * cost_alt1
+    V2_scen <- draws_vec[r] + b_cost_fixed * cost_alt2
+    V3_scen <- rep(asc_optout_fixed, length(cost_alt1))
+    ls_scen  <- log(exp(V1_scen) + exp(V2_scen) + exp(V3_scen))
+    
+    # CV per choice occasion
+    cv_occ <- (ls_scen - ls_base) / (-b_cost_fixed)
+    
+    # Average across choice occasions (panel)
+    mean(cv_occ)
+  })
+  
+  return(cv_per_draw)
+}
+```
+
+```{r}
+# ── Step 4: Define all scenarios ──
+# Each scenario is defined by which attribute coefficients are active
+# Attribute utility for draw r = sum of relevant beta draws
+
+cost_alt1 <- database$Cost.alt1
+cost_alt2 <- database$Cost.alt2
+
+scenarios <- list(
+  # ── Individual attribute scenarios — Baseline → Medium ──
+  "Habitat Quality: Low → Medium"   = draws$b_HabitatMed,
+  "Habitat Quality: Low → High"     = draws$b_HabitatHigh,
+  "Trail Condition: Low → Medium"   = draws$b_TrailCondMed,
+  "Trail Condition: Low → High"     = draws$b_TrailCondHigh,
+  "Crowding: High → Medium"         = draws$b_CrowdingMed,
+  "Crowding: High → Low"            = draws$b_CrowdingLow,
+  
+  # ── Individual attribute scenarios — Medium → High ──
+  # These are the DIFFERENCE between high and medium draws
+  # Correctly propagates uncertainty across both estimates
+  "Habitat Quality: Medium → High"  = draws$b_HabitatHigh - draws$b_HabitatMed,
+  "Trail Condition: Medium → High"  = draws$b_TrailCondHigh - draws$b_TrailCondMed,
+  "Crowding: Medium → Low"          = draws$b_CrowdingLow - draws$b_CrowdingMed,
+  
+  # ── Bundle scenarios ──
+  "Medium Bundle (all → Medium)"    = 
+    draws$b_HabitatMed + draws$b_TrailCondMed + draws$b_CrowdingMed,
+  
+  "High Bundle (all → High/Best)"   = 
+    draws$b_HabitatHigh + draws$b_TrailCondHigh + draws$b_CrowdingLow,
+  
+  # ── Bundle Medium → High ──
+  "Medium → High Bundle"            = 
+    (draws$b_HabitatHigh - draws$b_HabitatMed) + 
+    (draws$b_TrailCondHigh - draws$b_TrailCondMed) + 
+    (draws$b_CrowdingLow - draws$b_CrowdingMed)
+)
+```
+
+```{r}
+# ── Step 5: Compute CV for each scenario ──
+cat("\nRunning simulations...\n")
+
+results_list <- lapply(names(scenarios), function(scen_name) {
+  
+  cat("  Computing:", scen_name, "\n")
+  
+  cv_draws <- compute_cv_sim(
+    V_attr_scenario  = NULL,       # not used directly
+    cost_alt1        = cost_alt1,
+    cost_alt2        = cost_alt2,
+    b_cost_fixed     = b_cost,
+    asc_optout_fixed = asc_optout,
+    draws_vec        = scenarios[[scen_name]]
+  )
+  
+  tibble(
+    Scenario  = scen_name,
+    CV_mean   = mean(cv_draws),
+    CV_median = median(cv_draws),
+    CV_se     = sd(cv_draws),
+    CV_lo95   = quantile(cv_draws, 0.025),
+    CV_hi95   = quantile(cv_draws, 0.975)
+  )
+})
+
+welfare_results <- bind_rows(results_list)
+
+```
+
+```{r}
+# ── Step 6: Print results table ──
+cat("\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Simulation-Based Welfare Estimates (CV per person per trip)\n")
+cat("1000 parametric draws from estimated MXL parameter distributions\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat(sprintf("%-45s %8s %8s %20s\n", 
+            "Scenario", "CV Mean", "SE", "95% Sim CI"))
+cat(sprintf("%-45s %8s %8s %20s\n", 
+            "—", "($)", "($)", ""))
+cat("───────────────────────────────────────────────────────────────────────\n")
+
+for(i in 1:nrow(welfare_results)) {
+  cat(sprintf("%-45s %8.2f %8.2f   [%6.2f, %6.2f]\n",
+              welfare_results$Scenario[i],
+              welfare_results$CV_mean[i],
+              welfare_results$CV_se[i],
+              welfare_results$CV_lo95[i],
+              welfare_results$CV_hi95[i]))
+  
+  # Separators between sections
+  if(i == 6) cat("── Medium → High improvements ─────────────────────────────────────────\n")
+  if(i == 9) cat("── Bundle scenarios ────────────────────────────────────────────────────\n")
+}
+
+
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Note: CV = compensating variation. Positive values = welfare gains.\n")
+cat("SE and CI derived from simulation across 1000 parameter draws.\n")
+```
+
+```{r}
+
+# ── Step 7: Save results ──
+write.csv(welfare_results, "welfare_simulation_results.csv", row.names = FALSE)
+cat("\nResults saved to welfare_simulation_results.csv\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# DELTA METHOD CV — ATTRIBUTE BY ATTRIBUTE
+# ══════════════════════════════════════════════════════
+
+cv_single_delta <- function(model, attr_par, cost_par = "b_cost", 
+                             scenario_name, use_robust = TRUE) {
+  bhat <- model$estimate
+  Vhat <- if(use_robust) model$robvarcov else model$varcov
+  bc   <- bhat[cost_par]
+  bk   <- bhat[attr_par]
+  cv   <- bk / (-bc)
+  grad <- c(d_bk = 1/(-bc), d_bc = bk/(bc^2))
+  V2   <- as.matrix(Vhat[c(attr_par, cost_par), c(attr_par, cost_par)])
+  se_cv <- sqrt(as.numeric(t(grad) %*% V2 %*% grad))
+  tibble(Scenario = scenario_name,
+         CV       = round(cv, 2),
+         SE       = round(se_cv, 2),
+         CI_low   = round(cv - 1.96 * se_cv, 2),
+         CI_high  = round(cv + 1.96 * se_cv, 2))
+}
+
+cv_diff_delta <- function(model, attr_high, attr_med,
+                           cost_par = "b_cost",
+                           scenario_name, use_robust = TRUE) {
+  bhat   <- model$estimate
+  Vhat   <- if(use_robust) model$robvarcov else model$varcov
+  bc     <- bhat[cost_par]
+  b_high <- bhat[attr_high]
+  b_med  <- bhat[attr_med]
+  b_diff <- b_high - b_med
+  cv     <- b_diff / (-bc)
+  grad   <- c(d_bhigh = 1/(-bc), d_bmed = -1/(-bc), d_bc = b_diff/(bc^2))
+  V3     <- as.matrix(Vhat[c(attr_high, attr_med, cost_par),
+                            c(attr_high, attr_med, cost_par)])
+  se_cv  <- sqrt(as.numeric(t(grad) %*% V3 %*% grad))
+  tibble(Scenario = scenario_name,
+         CV       = round(cv, 2),
+         SE       = round(se_cv, 2),
+         CI_low   = round(cv - 1.96 * se_cv, 2),
+         CI_high  = round(cv + 1.96 * se_cv, 2))
+}
+
+cv_bundle_diff_delta <- function(model,
+                                  attr_high_pars,
+                                  attr_med_pars,
+                                  cost_par = "b_cost",
+                                  scenario_name,
+                                  use_robust = TRUE) {
+  bhat   <- model$estimate
+  Vhat   <- if(use_robust) model$robvarcov else model$varcov
+  bc     <- bhat[cost_par]
+  b_high <- sum(bhat[attr_high_pars])
+  b_med  <- sum(bhat[attr_med_pars])
+  b_diff <- b_high - b_med
+  cv     <- b_diff / (-bc)
+  grad   <- c(rep(1/(-bc),  length(attr_high_pars)),
+              rep(-1/(-bc), length(attr_med_pars)),
+              b_diff/(bc^2))
+  all_pars <- c(attr_high_pars, attr_med_pars, cost_par)
+  V_block  <- as.matrix(Vhat[all_pars, all_pars])
+  se_cv    <- sqrt(as.numeric(t(grad) %*% V_block %*% grad))
+  tibble(Scenario = scenario_name,
+         CV       = round(cv, 2),
+         SE       = round(se_cv, 2),
+         CI_low   = round(cv - 1.96 * se_cv, 2),
+         CI_high  = round(cv + 1.96 * se_cv, 2))
+}
 
 # ══════════════════════════════════════════════════════
-# Step 3: Compute logsum per scenario
+# Compute all CVs
 # ══════════════════════════════════════════════════════
-# Logsum = log[exp(V_alt1) + exp(V_alt2) + exp(V_alt3)]
-# V_alt1 = V_attr + b_cost * cost_alt1  (per observation)
-# V_alt2 = V_attr + b_cost * cost_alt2  (per observation)
-# V_alt3 = asc_optout
+cv_individual <- bind_rows(
+  
+  # ── Habitat Quality ──
+  cv_single_delta(model_mxl,
+                  "b_Habitat_QualityMed",
+                  scenario_name = "Habitat Quality: Low -> Medium"),
+  cv_single_delta(model_mxl,
+                  "b_Habitat_QualityHigh",
+                  scenario_name = "Habitat Quality: Low -> High"),
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_Habitat_QualityHigh",
+                attr_med      = "b_Habitat_QualityMed",
+                scenario_name = "Habitat Quality: Medium -> High"),
+  
+  # ── Trail Condition ──
+  cv_single_delta(model_mxl,
+                  "b_Trail_ConditionMed",
+                  scenario_name = "Trail Condition: Low -> Medium"),
+  cv_single_delta(model_mxl,
+                  "b_Trail_ConditionHigh",
+                  scenario_name = "Trail Condition: Low -> High"),
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_Trail_ConditionHigh",
+                attr_med      = "b_Trail_ConditionMed",
+                scenario_name = "Trail Condition: Medium -> High"),
+  
+  # ── Crowding ──
+  cv_single_delta(model_mxl,
+                  "b_CrowdingMed",
+                  scenario_name = "Crowding: High -> Medium"),
+  cv_single_delta(model_mxl,
+                  "b_CrowdingLow",
+                  scenario_name = "Crowding: High -> Low"),
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_CrowdingLow",
+                attr_med      = "b_CrowdingMed",
+                scenario_name = "Crowding: Medium -> Low"),
+  
+  # ── Bundles ──
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityMed",
+                                "b_Trail_ConditionMed",
+                                "b_CrowdingMed"),
+              cost_par      = "b_cost",
+              scenario_name = "Medium Bundle (all -> Medium)"),
+  
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityHigh",
+                                "b_Trail_ConditionHigh",
+                                "b_CrowdingLow"),
+              cost_par      = "b_cost",
+              scenario_name = "High Bundle (all -> High/Best)"),
+  
+  # ── Medium to High Bundle ──
+  cv_bundle_diff_delta(
+    model_mxl,
+    attr_high_pars = c("b_Habitat_QualityHigh",
+                       "b_Trail_ConditionHigh",
+                       "b_CrowdingLow"),
+    attr_med_pars  = c("b_Habitat_QualityMed",
+                       "b_Trail_ConditionMed",
+                       "b_CrowdingMed"),
+    cost_par       = "b_cost",
+    scenario_name  = "Medium -> High Bundle"
+  )
+)  # <-- THIS closing parenthesis was missing before
 
-compute_logsum <- function(V_attr, cost_alt1, cost_alt2, b_cost, asc_optout) {
+# ══════════════════════════════════════════════════════
+# Confirm row count before printing
+# ══════════════════════════════════════════════════════
+cat("Rows in cv_individual:", nrow(cv_individual), "\n")
+print(cv_individual$Scenario)
+
+# ══════════════════════════════════════════════════════
+# Print priority setting table
+# ══════════════════════════════════════════════════════
+cat("\n")
+cat("=================================================================\n")
+cat("Welfare Estimates - Attribute Priority Setting Table\n")
+cat("Delta method, mean coefficients, MXL pooled model\n")
+cat("=================================================================\n")
+cat(sprintf("%-42s %8s %8s %22s\n",
+            "Scenario", "CV ($)", "SE ($)", "95% CI"))
+cat("-----------------------------------------------------------------\n")
+
+groups <- list(
+  "Habitat Quality"  = 1:3,
+  "Trail Condition"  = 4:6,
+  "Crowding"         = 7:9,
+  "Bundle Scenarios" = 10:12
+)
+
+for(grp_name in names(groups)) {
+  cat(paste0("  [", grp_name, "]\n"))
+  idx <- groups[[grp_name]]
+  for(i in idx) {
+    cat(sprintf("  %-40s %8.2f %8.2f   [%7.2f, %7.2f]\n",
+                cv_individual$Scenario[i],
+                cv_individual$CV[i],
+                cv_individual$SE[i],
+                cv_individual$CI_low[i],
+                cv_individual$CI_high[i]))
+  }
+  cat("-----------------------------------------------------------------\n")
+}
+
+cat("Note: CV = compensating variation per person per trip.\n")
+cat("All CIs exclude zero unless marked ns.\n")
+
+# write.csv(cv_individual, "welfare_priority_table.csv", row.names = FALSE)
+# cat("Saved to welfare_priority_table.csv\n")
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# COMBINED TABLE — Mean CV + Both CI types
+# ══════════════════════════════════════════════════════
+
+# ── Step 1: Run simulation for all scenarios ──
+set.seed(123)
+n_draws <- 1000
+
+# Regenerate draws
+draws <- data.frame(
+  b_HabitatMed    = rnorm(n_draws, mu_HabitatMed,    sd_HabitatMed),
+  b_HabitatHigh   = rnorm(n_draws, mu_HabitatHigh,   sd_HabitatHigh),
+  b_TrailCondMed  = rnorm(n_draws, mu_TrailCondMed,  sd_TrailCondMed),
+  b_TrailCondHigh = rnorm(n_draws, mu_TrailCondHigh, sd_TrailCondHigh),
+  b_CrowdingMed   = rnorm(n_draws, mu_CrowdingMed,   sd_CrowdingMed),
+  b_CrowdingLow   = rnorm(n_draws, mu_CrowdingLow,   sd_CrowdingLow)
+)
+
+# ── Step 2: Simulation CV per draw per scenario ──
+# For each draw r, CV = sum(b_attr_r) / (-b_cost)
+# b_cost is fixed so it doesn't vary across draws
+
+sim_cv <- data.frame(
+  
+  # Individual attributes
+  HabitatMed     = draws$b_HabitatMed    / (-b_cost),
+  HabitatHigh    = draws$b_HabitatHigh   / (-b_cost),
+  HabitatMedHigh = (draws$b_HabitatHigh - draws$b_HabitatMed) / (-b_cost),
+  
+  TrailCondMed   = draws$b_TrailCondMed  / (-b_cost),
+  TrailCondHigh  = draws$b_TrailCondHigh / (-b_cost),
+  TrailMedHigh   = (draws$b_TrailCondHigh - draws$b_TrailCondMed) / (-b_cost),
+  
+  CrowdingMed    = draws$b_CrowdingMed   / (-b_cost),
+  CrowdingLow    = draws$b_CrowdingLow   / (-b_cost),
+  CrowdingMedLow = (draws$b_CrowdingLow - draws$b_CrowdingMed) / (-b_cost),
+  
+  # Bundles
+  BundleMed      = (draws$b_HabitatMed + 
+                    draws$b_TrailCondMed + 
+                    draws$b_CrowdingMed)  / (-b_cost),
+  
+  BundleHigh     = (draws$b_HabitatHigh + 
+                    draws$b_TrailCondHigh + 
+                    draws$b_CrowdingLow)  / (-b_cost),
+  
+  BundleMedHigh  = (draws$b_HabitatHigh - draws$b_HabitatMed +
+                    draws$b_TrailCondHigh - draws$b_TrailCondMed +
+                    draws$b_CrowdingLow  - draws$b_CrowdingMed)  / (-b_cost)
+)
+
+# ── Step 3: Extract simulation CIs ──
+sim_summary <- data.frame(
+  Scenario = c(
+    "Habitat Quality: Low -> Medium",
+    "Habitat Quality: Low -> High",
+    "Habitat Quality: Medium -> High",
+    "Trail Condition: Low -> Medium",
+    "Trail Condition: Low -> High",
+    "Trail Condition: Medium -> High",
+    "Crowding: High -> Medium",
+    "Crowding: High -> Low",
+    "Crowding: Medium -> Low",
+    "Medium Bundle (all -> Medium)",
+    "High Bundle (all -> High/Best)",
+    "Medium -> High Bundle"
+  ),
+  Sim_mean   = round(colMeans(sim_cv), 2),
+  Sim_CI_low = round(apply(sim_cv, 2, quantile, 0.025), 2),
+  Sim_CI_high= round(apply(sim_cv, 2, quantile, 0.975), 2)
+)
+
+# ── Step 4: Merge with delta method results ──
+combined_table <- merge(
+  cv_individual[, c("Scenario", "CV", "CI_low", "CI_high")],
+  sim_summary[, c("Scenario", "Sim_CI_low", "Sim_CI_high")],
+  by = "Scenario",
+  sort = FALSE
+)
+
+# Restore original row order
+combined_table <- combined_table[match(cv_individual$Scenario, 
+                                        combined_table$Scenario), ]
+
+# ── Step 5: Print combined table ──
+cat("\n")
+cat("================================================================\n")
+cat("Welfare Estimates — Mean CV with Estimation and Heterogeneity CIs\n")
+cat("================================================================\n")
+cat(sprintf("%-38s %7s %18s %20s\n",
+            "Scenario", "Mean CV",
+            "Delta 95% CI",
+            "Simulation 95% CI"))
+cat(sprintf("%-38s %7s %18s %20s\n",
+            "", "($)",
+            "(estimation uncertainty)",
+            "(preference heterogeneity)"))
+cat("----------------------------------------------------------------\n")
+
+groups <- list(
+  "Habitat Quality"  = 1:3,
+  "Trail Condition"  = 4:6,
+  "Crowding"         = 7:9,
+  "Bundle Scenarios" = 10:12
+)
+
+for(grp_name in names(groups)) {
+  cat(paste0("  [", grp_name, "]\n"))
+  idx <- groups[[grp_name]]
+  for(i in idx) {
+    cat(sprintf("  %-36s %7.2f  [%6.2f, %7.2f]    [%7.2f, %7.2f]\n",
+                combined_table$Scenario[i],
+                combined_table$CV[i],
+                combined_table$CI_low[i],
+                combined_table$CI_high[i],
+                combined_table$Sim_CI_low[i],
+                combined_table$Sim_CI_high[i]))
+  }
+  cat("----------------------------------------------------------------\n")
+}
+
+cat("\nNote: Delta CI = 95% CI from delta method reflecting estimation\n")
+cat("uncertainty around mean CV. Simulation CI = 95% interval from\n")
+cat("1000 parametric draws reflecting preference heterogeneity.\n")
+```
+
+## Welfare Graph 
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 1: PREPARE DATA FOR CHARTS
+# ══════════════════════════════════════════════════════
+
+# ── Add simulation CIs to cv_individual ──
+# Make sure combined_table exists from previous step
+# If not, re-merge:
+plot_data <- combined_table
+
+# ── Label cleanup for plotting ──
+plot_data$Scenario_clean <- c(
+  # Habitat
+  "Habitat:\nLow → Med",
+  "Habitat:\nLow → High",
+  "Habitat:\nMed → High",
+  # Trail Condition
+  "Trail Cond:\nLow → Med",
+  "Trail Cond:\nLow → High",
+  "Trail Cond:\nMed → High",
+  # Crowding
+  "Crowding:\nHigh → Med",
+  "Crowding:\nHigh → Low",
+  "Crowding:\nMed → Low",
+  # Bundles
+  "Medium\nBundle",
+  "High\nBundle",
+  "Med → High\nBundle"
+)
+
+# ── Split into individual and bundle ──
+plot_individual <- plot_data[1:9, ]
+plot_bundle     <- plot_data[10:12, ]
+
+# ── Add attribute grouping for color coding ──
+plot_individual$Attribute <- c(
+  rep("Habitat Quality", 3),
+  rep("Trail Condition", 3),
+  rep("Crowding", 3)
+)
+
+plot_bundle$Attribute <- rep("Bundle", 3)
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 2: CHART 1 — INDIVIDUAL ATTRIBUTES
+# ══════════════════════════════════════════════════════
+
+# Fix factor order for x axis
+plot_individual$Scenario_clean <- factor(
+  plot_individual$Scenario_clean,
+  levels = plot_individual$Scenario_clean
+)
+
+chart1 <- ggplot(plot_individual, 
+                 aes(x = Scenario_clean, y = CV, fill = Attribute)) +
+  
+  # Bars
+  geom_bar(stat = "identity", width = 0.6, alpha = 0.85) +
+  
+  # Delta method CI (estimation uncertainty) — thin black whiskers
+  geom_errorbar(aes(ymin = CI_low, ymax = CI_high),
+                width = 0.15, linewidth = 0.8, color = "black") +
+  
+  # Simulation CI (preference heterogeneity) — wider grey whiskers
+  geom_errorbar(aes(ymin = Sim_CI_low, ymax = Sim_CI_high),
+                width = 0.25, linewidth = 0.5, 
+                color = "grey40", linetype = "dashed") +
+  
+  # Zero reference line
+  geom_hline(yintercept = 0, linewidth = 0.6, color = "black") +
+  
+  # Value labels on bars
+  geom_text(aes(label = paste0("$", CV),
+                y = ifelse(CV >= 0, CV + 3, CV - 3)),
+            size = 3.2, fontface = "bold") +
+  
+  # Color scheme
+  scale_fill_manual(values = c(
+    "Habitat Quality" = "#2E8B57",   # forest green
+    "Trail Condition" = "#4682B4",   # steel blue
+    "Crowding"        = "#CD853F"    # peru/brown
+  )) +
+  
+  # Labels
+  labs(
+    title    = "Welfare Gains from Individual Trail Attribute Improvements",
+    subtitle = "Compensating variation per person per trip\nBlack bars = estimation uncertainty (delta method 95% CI)\nDashed grey bars = preference heterogeneity (simulation 95% CI)",
+    x        = NULL,
+    y        = "Compensating Variation ($ per person per trip)",
+    fill     = "Attribute"
+  ) +
+  
+  # Theme
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title      = element_text(face = "bold", size = 13),
+    plot.subtitle   = element_text(size = 9, color = "grey40"),
+    axis.text.x     = element_text(size = 9, lineheight = 1.3),
+    axis.text.y     = element_text(size = 10),
+    legend.position = "bottom",
+    legend.title    = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(chart1)
+ggsave("welfare_chart1_individual.png", chart1, 
+       width = 12, height = 7, dpi = 300, bg = "white")
+cat("Chart 1 saved\n")
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 3: CHART 2 — BUNDLE SCENARIOS
+# ══════════════════════════════════════════════════════
+
+plot_bundle$Scenario_clean <- factor(
+  plot_bundle$Scenario_clean,
+  levels = plot_bundle$Scenario_clean
+)
+
+chart2 <- ggplot(plot_bundle,
+                 aes(x = Scenario_clean, y = CV)) +
+  
+  # Bars
+  geom_bar(stat = "identity", width = 0.4, 
+           fill = "#6A5ACD", alpha = 0.85) +
+  
+  # Delta method CI
+  geom_errorbar(aes(ymin = CI_low, ymax = CI_high),
+                width = 0.08, linewidth = 0.8, color = "black") +
+  
+  # Simulation CI
+  geom_errorbar(aes(ymin = Sim_CI_low, ymax = Sim_CI_high),
+                width = 0.15, linewidth = 0.5,
+                color = "grey40", linetype = "dashed") +
+  
+  # Zero reference line
+  geom_hline(yintercept = 0, linewidth = 0.6, color = "black") +
+  
+  # Value labels
+  geom_text(aes(label = paste0("$", CV),
+                y = CV + 6),
+            size = 4, fontface = "bold") +
+  
+  # Y axis — extend to show full simulation CI
+  scale_y_continuous(
+    limits = c(
+      min(plot_bundle$Sim_CI_low) - 20,
+      max(plot_bundle$Sim_CI_high) + 40
+    )
+  ) +
+  
+  # Labels
+  labs(
+    title    = "Welfare Gains from Bundle Trail Improvement Scenarios",
+    subtitle = "Compensating variation per person per trip — all attributes improved simultaneously\nBlack bars = estimation uncertainty (delta method 95% CI)\nDashed grey bars = preference heterogeneity (simulation 95% CI)",
+    x        = NULL,
+    y        = "Compensating Variation ($ per person per trip)"
+  ) +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title         = element_text(face = "bold", size = 13),
+    plot.subtitle      = element_text(size = 9, color = "grey40"),
+    axis.text.x        = element_text(size = 11, lineheight = 1.3),
+    axis.text.y        = element_text(size = 10),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(chart2)
+ggsave("welfare_chart2_bundles.png", chart2,
+       width = 8, height = 7, dpi = 300, bg = "white")
+cat("Chart 2 saved\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 4: ACCESS VALUE CALCULATION
+# Value of having trail access vs opt-out only
+# ══════════════════════════════════════════════════════
+
+# ── Formula ──
+# Access value = [logsum(with trails) - logsum(opt-out only)] / (-b_cost)
+# logsum(opt-out only) = asc_optout (scalar, no cost term)
+# logsum(with trails)  = log[exp(V1) + exp(V2) + exp(V3)]
+
+compute_access_value <- function(V_attr, cost_alt1, cost_alt2,
+                                  b_cost, asc_optout,
+                                  scenario_name) {
+  
+  # Logsum with trail access
   V1 <- V_attr + b_cost * cost_alt1
   V2 <- V_attr + b_cost * cost_alt2
   V3 <- rep(asc_optout, length(cost_alt1))
+  ls_access <- log(exp(V1) + exp(V2) + exp(V3))
   
-  # Small-Rosen logsum per choice occasion
-  logsum <- log(exp(V1) + exp(V2) + exp(V3))
-  return(logsum)
-}
-
-# ── Compute logsum for each scenario across all choice occasions ──
-ls_baseline <- compute_logsum(
-  V_attr_baseline, 
-  database$Cost.alt1, database$Cost.alt2,
-  b_cost, asc_optout)
-
-ls_medium <- compute_logsum(
-  V_attr_medium,
-  database$Cost.alt1, database$Cost.alt2,
-  b_cost, asc_optout)
-
-ls_high <- compute_logsum(
-  V_attr_high,
-  database$Cost.alt1, database$Cost.alt2,
-  b_cost, asc_optout)
-
-cat("\nMean logsum per scenario:\n")
-cat("Baseline: ", round(mean(ls_baseline), 4), "\n")
-cat("Medium:   ", round(mean(ls_medium),   4), "\n")
-cat("High:     ", round(mean(ls_high),     4), "\n")
-
-```
-
-```{r}
-# ══════════════════════════════════════════════════════
-# Step 4: Aggregate logsum to respondent level
-# (panel structure — average across choice tasks per person)
-# ══════════════════════════════════════════════════════
-database$ls_baseline <- ls_baseline
-database$ls_medium   <- ls_medium
-database$ls_high     <- ls_high
-
-respondent_logsum <- database %>%
-  group_by(RID) %>%
-  summarise(
-    ls_baseline = mean(ls_baseline),
-    ls_medium   = mean(ls_medium),
-    ls_high     = mean(ls_high),
-    .groups     = "drop"
-  )
-
-cat("\nRespondent-level mean logsums:\n")
-cat("Baseline: ", round(mean(respondent_logsum$ls_baseline), 4), "\n")
-cat("Medium:   ", round(mean(respondent_logsum$ls_medium),   4), "\n")
-cat("High:     ", round(mean(respondent_logsum$ls_high),     4), "\n")
-
-```
-
-```{r}
-# ══════════════════════════════════════════════════════
-# Step 5: Compute Compensating Variation (CV)
-# CV = [logsum(scenario) - logsum(baseline)] / (-b_cost)
-# ══════════════════════════════════════════════════════
-respondent_logsum$CV_medium <- (respondent_logsum$ls_medium - 
-                                 respondent_logsum$ls_baseline) / (-b_cost)
-
-respondent_logsum$CV_high   <- (respondent_logsum$ls_high - 
-                                 respondent_logsum$ls_baseline) / (-b_cost)
-
-cat("\n═══════════════════════════════════════════════\n")
-cat("Compensating Variation — Per Trip, Per Person\n")
-cat("═══════════════════════════════════════════════\n")
-cat("CV Medium improvement: $", round(mean(respondent_logsum$CV_medium), 2), "\n")
-cat("CV High improvement:   $", round(mean(respondent_logsum$CV_high),   2), "\n")
-cat("═══════════════════════════════════════════════\n")
-
-
-```
-
-```{r}
-# ══════════════════════════════════════════════════════
-# Step 6: Delta method standard errors for CV
-# ══════════════════════════════════════════════════════
-Vhat <- model_mxl$robvarcov
-
-cv_delta_se <- function(attr_pars, cost_par, model, scenario_name) {
-  bhat <- model$estimate
-  Vhat <- model$robvarcov
-  bc   <- bhat[cost_par]
+  # Logsum without trail access (opt-out only)
+  ls_no_access <- asc_optout  # scalar
   
-  # Sum of attribute coefficients for this scenario
-  b_attr_sum <- sum(bhat[attr_pars])
+  # Access value per choice occasion
+  av_occ <- (ls_access - ls_no_access) / (-b_cost)
   
-  # CV point estimate (at mean cost — cost cancels in logsum difference)
-  # CV = b_attr_sum / (-bc)  [simplified for linear utility]
-  cv <- b_attr_sum / (-bc)
-  
-  # Gradient with respect to each attribute parameter and cost
-  n_attr <- length(attr_pars)
-  grad <- c(rep(1/(-bc), n_attr),        # d(CV)/d(b_attr_k) = 1/(-bc)
-            b_attr_sum / (bc^2))          # d(CV)/d(bc)
-  
-  # Extract relevant varcov block
-  all_pars <- c(attr_pars, cost_par)
-  V2 <- as.matrix(Vhat[all_pars, all_pars])
-  
-  var_cv <- as.numeric(t(grad) %*% V2 %*% grad)
-  se_cv  <- sqrt(var_cv)
+  # Average across choice occasions then respondents
+  database$av <- av_occ
+  av_respondent <- database %>%
+    group_by(RID) %>%
+    summarise(av = mean(av), .groups = "drop")
   
   tibble(
-    Scenario = scenario_name,
-    CV       = round(cv, 2),
-    SE       = round(se_cv, 2),
-    CI_low   = round(cv - 1.96 * se_cv, 2),
-    CI_high  = round(cv + 1.96 * se_cv, 2)
+    Scenario     = scenario_name,
+    Access_Value = round(mean(av_respondent$av), 2),
+    Min          = round(min(av_respondent$av), 2),
+    Max          = round(max(av_respondent$av), 2)
   )
 }
 
-# ── Medium scenario: HabitatMed + TrailCondMed + CrowdingMed ──
-cv_medium_se <- cv_delta_se(
-  attr_pars     = c("b_Habitat_QualityMed", 
-                    "b_Trail_ConditionMed", 
-                    "b_CrowdingMed"),
-  cost_par      = "b_cost",
-  model         = model_mxl,
-  scenario_name = "Medium Improvement"
+# ── Compute access value for each scenario ──
+access_values <- bind_rows(
+  
+  # Baseline — current degraded conditions
+  compute_access_value(
+    V_attr       = 0,   # all attributes at reference level
+    cost_alt1    = database$Cost.alt1,
+    cost_alt2    = database$Cost.alt2,
+    b_cost       = b_cost,
+    asc_optout   = asc_optout,
+    scenario_name = "Baseline (current conditions)"
+  ),
+  
+  # Medium improvement
+  compute_access_value(
+    V_attr       = as.numeric(bhat["b_Habitat_QualityMed"] +
+                               bhat["b_Trail_ConditionMed"] +
+                               bhat["b_CrowdingMed"]),
+    cost_alt1    = database$Cost.alt1,
+    cost_alt2    = database$Cost.alt2,
+    b_cost       = b_cost,
+    asc_optout   = asc_optout,
+    scenario_name = "Medium improvement"
+  ),
+  
+  # High improvement
+  compute_access_value(
+    V_attr       = as.numeric(bhat["b_Habitat_QualityHigh"] +
+                               bhat["b_Trail_ConditionHigh"] +
+                               bhat["b_CrowdingLow"]),
+    cost_alt1    = database$Cost.alt1,
+    cost_alt2    = database$Cost.alt2,
+    b_cost       = b_cost,
+    asc_optout   = asc_optout,
+    scenario_name = "High improvement"
+  )
 )
 
-# ── High scenario: HabitatHigh + TrailCondHigh + CrowdingLow ──
-cv_high_se <- cv_delta_se(
-  attr_pars     = c("b_Habitat_QualityHigh", 
-                    "b_Trail_ConditionHigh", 
-                    "b_CrowdingLow"),
-  cost_par      = "b_cost",
-  model         = model_mxl,
-  scenario_name = "High Improvement"
+cat("\n")
+cat("═══════════════════════════════════════════════════════\n")
+cat("Access Value — Value of Trail Access vs Opt-Out\n")
+cat("Per person per trip, mean across respondents\n")
+cat("═══════════════════════════════════════════════════════\n")
+cat(sprintf("%-30s %12s %10s %10s\n",
+            "Scenario", "Access Value", "Min", "Max"))
+cat("───────────────────────────────────────────────────────\n")
+for(i in 1:nrow(access_values)) {
+  cat(sprintf("%-30s %12.2f %10.2f %10.2f\n",
+              access_values$Scenario[i],
+              access_values$Access_Value[i],
+              access_values$Min[i],
+              access_values$Max[i]))
+}
+cat("═══════════════════════════════════════════════════════\n")
+cat("Note: Access value = welfare gain from having trail\n")
+cat("alternatives available vs opt-out only.\n")
+
+```
+
+## Total welfare measure 
+
+```{r}
+
+# ══════════════════════════════════════════════════════
+# TOTAL WELFARE CALCULATION
+# Pooled model CV × hiking population × Na Ala Hele share
+# ══════════════════════════════════════════════════════
+
+# ══════════════════════════════════════════════════════
+# STEP 1: POPULATION DATA
+# ══════════════════════════════════════════════════════
+
+# ── Island population and visitor data ──
+# Replace with your exact numbers
+island_data <- data.frame(
+  Island = c("Oahu", "Maui", "Hawaii (Big Island)", 
+             "Kauai"),
+  #Based on 2024 census 
+  Resident_pop = c(
+    998747,   # Oahu 
+    163769,    # Maui
+    209790	,    # Big Island
+    73840     # Kauai
+  ),
+  
+  Annual_visitors = c(
+    5794854,   # Oahu 
+    2427626,   # Maui
+    1735380,   # Big Island
+    1393101   # Kauai
+  )
 )
 
-cv_results <- bind_rows(cv_medium_se, cv_high_se)
+# ── Total population (residents + visitors) ──
+island_data$Total_pop <- island_data$Resident_pop + island_data$Annual_visitors
 
-cat("\n═══════════════════════════════════════════════════════\n")
-cat("CV Estimates with 95% Confidence Intervals\n")
 cat("═══════════════════════════════════════════════════════\n")
-print(cv_results)
+cat("Island Population Summary\n")
 cat("═══════════════════════════════════════════════════════\n")
+cat(sprintf("%-22s %12s %15s %12s\n",
+            "Island", "Residents", "Visitors", "Total"))
+cat("───────────────────────────────────────────────────────\n")
+for(i in 1:nrow(island_data)) {
+  cat(sprintf("%-22s %12s %15s %12s\n",
+              island_data$Island[i],
+              format(island_data$Resident_pop[i],   big.mark=","),
+              format(island_data$Annual_visitors[i], big.mark=","),
+              format(island_data$Total_pop[i],       big.mark=",")))
+}
+cat("───────────────────────────────────────────────────────\n")
+cat(sprintf("%-22s %12s %15s %12s\n",
+            "TOTAL HAWAII",
+            format(sum(island_data$Resident_pop),   big.mark=","),
+            format(sum(island_data$Annual_visitors), big.mark=","),
+            format(sum(island_data$Total_pop),       big.mark=",")))
+cat("═══════════════════════════════════════════════════════\n")
+
 ```
 
 ```{r}
 # ══════════════════════════════════════════════════════
-# Step 7: Summary table 
+# STEP 2: PARAMETERS
 # ══════════════════════════════════════════════════════
-cat("\n═══════════════════════════════════════════════════════════\n")
-cat("Welfare Summary Table\n")
-cat("═══════════════════════════════════════════════════════════\n")
-cat(sprintf("%-25s %10s %10s %12s\n", 
-            "Scenario", "CV ($/trip)", "SE", "95% CI"))
-cat(sprintf("%-25s %10s %10s %12s\n", 
-            "Baseline", "$0.00", "—", "—"))
-cat(sprintf("%-25s %10s %10s %12s\n",
-            "Medium improvement",
-            paste0("$", cv_results$CV[1]),
-            paste0("$", cv_results$SE[1]),
-            paste0("[$", cv_results$CI_low[1], 
-                   ", $", cv_results$CI_high[1], "]")))
-cat(sprintf("%-25s %10s %10s %12s\n",
-            "High improvement",
-            paste0("$", cv_results$CV[2]),
-            paste0("$", cv_results$SE[2]),
-            paste0("[$", cv_results$CI_low[2], 
-                   ", $", cv_results$CI_high[2], "]")))
-cat("═══════════════════════════════════════════════════════════\n")
-cat("Note: CV = compensating variation per person per trip.\n")
-cat("Positive values indicate welfare gains from improvement.\n")
 
-# **What this gives you:**
-# 
-# - **CV Medium** — dollar value per person per trip of moving all attributes from baseline to medium improvement
-# - **CV High** — dollar value per person per trip of moving all attributes from baseline to high improvement
-# - **Standard errors and 95% CIs** via delta method
-# - A clean summary table ready for your thesis
-# 
-# ---
-# 
-# **Next step after this runs:**
-# 
-# Once you have the per-person per-trip CV values, multiplying by visitor numbers gives you **aggregate welfare:**
-# ```
-# Total welfare = CV × annual trail visits × proportion resident/tourist
+# ── Hiking participation rate ──
+hiking_rate <- 0.40   # 40% of population hikes/backpacks
 
+# ── Na Ala Hele share assumptions ──
+# Range of assumptions for sensitivity analysis
+nah_shares <- c(0.01, 0.05, 0.10)   # 1%, 5%, 10%
+nah_labels <- c("Conservative (1%)", 
+                "Moderate (5%)", 
+                "Optimistic (10%)")
+
+# ── CV values from your results ──
+# Individual attributes
+cv_values <- list(
+  # Individual attribute improvements
+  "Habitat Quality: Low -> Medium"   = combined_table$CV[
+    combined_table$Scenario == "Habitat Quality: Low -> Medium"],
+  "Habitat Quality: Low -> High"     = combined_table$CV[
+    combined_table$Scenario == "Habitat Quality: Low -> High"],
+  "Habitat Quality: Medium -> High"  = combined_table$CV[
+    combined_table$Scenario == "Habitat Quality: Medium -> High"],
+  "Trail Condition: Low -> Medium"   = combined_table$CV[
+    combined_table$Scenario == "Trail Condition: Low -> Medium"],
+  "Trail Condition: Low -> High"     = combined_table$CV[
+    combined_table$Scenario == "Trail Condition: Low -> High"],
+  "Trail Condition: Medium -> High"  = combined_table$CV[
+    combined_table$Scenario == "Trail Condition: Medium -> High"],
+  "Crowding: High -> Medium"         = combined_table$CV[
+    combined_table$Scenario == "Crowding: High -> Medium"],
+  "Crowding: High -> Low"            = combined_table$CV[
+    combined_table$Scenario == "Crowding: High -> Low"],
+  "Crowding: Medium -> Low"          = combined_table$CV[
+    combined_table$Scenario == "Crowding: Medium -> Low"],
+  # Bundle scenarios
+  "Medium Bundle (all -> Medium)"    = combined_table$CV[
+    combined_table$Scenario == "Medium Bundle (all -> Medium)"],
+  "High Bundle (all -> High/Best)"   = combined_table$CV[
+    combined_table$Scenario == "High Bundle (all -> High/Best)"],
+  "Medium -> High Bundle"            = combined_table$CV[
+    combined_table$Scenario == "Medium -> High Bundle"]
+)
+
+cat("\nCV values loaded:\n")
+for(nm in names(cv_values)) {
+  cat(sprintf("  %-40s $%.2f\n", nm, cv_values[[nm]]))
+}
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 3: TOTAL WELFARE CALCULATION
+# Formula: CV × Total_pop × hiking_rate × nah_share
+# ══════════════════════════════════════════════════════
+
+# ── Function to compute total welfare ──
+compute_welfare <- function(cv, total_pop, hiking_rate, nah_share) {
+  # Number of trail users
+  trail_users <- total_pop * hiking_rate * nah_share
+  # Total welfare
+  total_welfare <- cv * trail_users
+  return(list(
+    trail_users   = round(trail_users),
+    total_welfare = round(total_welfare)
+  ))
+}
+
+# ── Total Hawaii welfare across Na Ala Hele share scenarios ──
+total_hawaii_pop <- sum(island_data$Total_pop)
+
+cat("\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Total Welfare — State of Hawaii\n")
+cat("Based on 40% hiking participation rate\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+
+# Build results table
+welfare_results <- do.call(rbind, lapply(names(cv_values), function(scen) {
+  do.call(rbind, lapply(1:length(nah_shares), function(j) {
+    wf <- compute_welfare(cv_values[[scen]], 
+                          total_hawaii_pop,
+                          hiking_rate, 
+                          nah_shares[j])
+    data.frame(
+      Scenario      = scen,
+      NAH_share     = nah_labels[j],
+      NAH_pct       = nah_shares[j] * 100,
+      Trail_users   = wf$trail_users,
+      CV_per_trip   = cv_values[[scen]],
+      Total_welfare = wf$total_welfare,
+      stringsAsFactors = FALSE
+    )
+  }))
+}))
+
+# ── Print by scenario group ──
+scenario_groups <- list(
+  "Habitat Quality"  = grep("Habitat",  names(cv_values), value=TRUE),
+  "Trail Condition"  = grep("Trail",    names(cv_values), value=TRUE),
+  "Crowding"         = grep("Crowding", names(cv_values), value=TRUE),
+  "Bundle Scenarios" = grep("Bundle",   names(cv_values), value=TRUE)
+)
+
+for(grp in names(scenario_groups)) {
+  cat(sprintf("\n  [%s]\n", grp))
+  cat(sprintf("  %-38s %-22s %12s %18s\n",
+              "Scenario", "NAH Share Assumption",
+              "Trail Users", "Total Welfare ($)"))
+  cat("  ", paste(rep("-", 90), collapse=""), "\n")
+  
+  for(scen in scenario_groups[[grp]]) {
+    scen_data <- welfare_results[welfare_results$Scenario == scen, ]
+    for(j in 1:nrow(scen_data)) {
+      cat(sprintf("  %-38s %-22s %12s %18s\n",
+                  ifelse(j==1, scen, ""),
+                  scen_data$NAH_share[j],
+                  format(scen_data$Trail_users[j],   big.mark=","),
+                  paste0("$", format(round(scen_data$Total_welfare[j]/1e6, 2), 
+                                     big.mark=","), "M")))
+    }
+    cat("\n")
+  }
+}
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 4: ISLAND-LEVEL WELFARE BREAKDOWN
+# Focus on bundle scenarios for island breakdown
+# ══════════════════════════════════════════════════════
+
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Island-Level Welfare Breakdown — Bundle Scenarios\n")
+cat("Moderate assumption: 10% Na Ala Hele share\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+
+nah_share_main <- 0.10  # use moderate assumption for island breakdown
+
+bundle_scenarios <- c(
+  "Medium Bundle (all -> Medium)",
+  "High Bundle (all -> High/Best)",
+  "Medium -> High Bundle"
+)
+
+for(scen in bundle_scenarios) {
+  cat(sprintf("\n  Scenario: %s (CV = $%.2f/person/trip)\n", 
+              scen, cv_values[[scen]]))
+  cat(sprintf("  %-22s %12s %12s %18s\n",
+              "Island", "Total Pop", "Trail Users", "Total Welfare"))
+  cat("  ", paste(rep("-", 66), collapse=""), "\n")
+  
+  island_welfare <- island_data %>%
+    mutate(
+      Trail_users   = round(Total_pop * hiking_rate * nah_share_main),
+      Total_welfare = round(cv_values[[scen]] * Trail_users)
+    )
+  
+  for(i in 1:nrow(island_welfare)) {
+    cat(sprintf("  %-22s %12s %12s %18s\n",
+                island_welfare$Island[i],
+                format(island_welfare$Total_pop[i],   big.mark=","),
+                format(island_welfare$Trail_users[i], big.mark=","),
+                paste0("$", format(round(island_welfare$Total_welfare[i]/1e6, 2),
+                                   big.mark=","), "M")))
+  }
+  cat("  ", paste(rep("-", 66), collapse=""), "\n")
+  cat(sprintf("  %-22s %12s %12s %18s\n",
+              "TOTAL HAWAII",
+              format(sum(island_welfare$Total_pop),   big.mark=","),
+              format(sum(island_welfare$Trail_users), big.mark=","),
+              paste0("$", format(round(sum(island_welfare$Total_welfare)/1e6, 2),
+                                 big.mark=","), "M")))
+}
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 5: SENSITIVITY ANALYSIS CHART
+# Show how total welfare varies across NAH share assumptions
+# Focus on bundle scenarios
+# ══════════════════════════════════════════════════════
+
+
+bundle_welfare_clean <- bundle_welfare %>%
+  filter(Scenario %in% c(
+    "Medium Bundle (all -> Medium)",
+    "High Bundle (all -> High/Best)"
+  )) %>%
+  mutate(
+    Scenario_clean = case_when(
+      grepl("Medium Bundle", Scenario) ~ "Medium\nBundle",
+      grepl("High Bundle",   Scenario) ~ "High\nBundle"
+    ),
+    Scenario_clean = factor(Scenario_clean, 
+                            levels = c("Medium\nBundle", "High\nBundle")),
+    NAH_share = factor(NAH_share, levels = nah_labels)
+  )
+
+# Verify data looks right before plotting
+cat("\nCleaned data for chart:\n")
+print(bundle_welfare_clean[, c("Scenario_clean", "NAH_share", "Total_welfare_M")])
+
+sensitivity_chart_clean <- ggplot(bundle_welfare_clean,
+                                   aes(x    = Scenario_clean,
+                                       y    = Total_welfare_M,
+                                       fill = NAH_share)) +
+  
+  geom_bar(stat     = "identity",
+           position = position_dodge(width = 0.75),
+           width    = 0.65,
+           alpha    = 0.85) +
+  
+  geom_text(aes(label = paste0("$", round(Total_welfare_M, 0), "M"),
+                y     = Total_welfare_M + 1.5),
+            position  = position_dodge(width = 0.75),
+            size      = 3.8,
+            fontface  = "bold") +
+  
+  scale_fill_manual(values = c(
+    "Conservative (1%)"  = "#CD853F",
+    "Moderate (5%)"     = "#4682B4",
+    "Optimistic (10%)"   = "#2E8B57"
+  )) +
+  
+  scale_y_continuous(
+    labels   = function(x) paste0("$", x, "M"),
+    expand   = expansion(mult = c(0, 0.15))
+  ) +
+  
+  labs(
+    title    = "Total Welfare by Policy Scenario and Na Ala Hele Trail Share Assumption",
+    subtitle = paste0(
+      "Based on 40% hiking participation rate across total Hawaii population\n",
+      "Na Ala Hele share assumptions: Conservative (1%), Moderate (5%), Optimistic (10%)"
+    ),
+    x        = "Policy Scenario",
+    y        = "Total Welfare ($ millions)",
+    fill     = "Na Ala Hele\nTrail Share"
+  ) +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title         = element_text(face = "bold", size = 13),
+    plot.subtitle      = element_text(size = 9, color = "grey40"),
+    axis.text.x        = element_text(size = 12, lineheight = 1.3),
+    axis.text.y        = element_text(size = 10),
+    legend.position    = "right",
+    legend.title       = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(sensitivity_chart_clean)
+ggsave("total_welfare_sensitivity_clean.png", sensitivity_chart_clean,
+       width = 10, height = 7, dpi = 300, bg = "white")
+cat("Clean chart saved\n")
 ```
