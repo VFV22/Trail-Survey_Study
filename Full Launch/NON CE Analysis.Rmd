@@ -257,24 +257,25 @@ summary_data <- mlogit_clean %>%
     # ci_upper = (prop + 1.96 * se) * total   # upper CI (optional)
   )
 
-ggplot(summary_data, aes(x = User.fee_Y.N, y = n, fill = Zipverified)) +
-  geom_col(position = position_dodge(0.9)) +  # side-by-side bars
-geom_text(
-  aes(label = paste0(round(prop, 0), "%")),
-  position = position_dodge(0.9),
-  vjust = -0.5,
-  size = 3
-) +
+ggplot(summary_data, aes(x = User.fee_Y.N, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9)) +
+  geom_text(
+    aes(label = paste0("n = ", n)),
+    position = position_dodge(0.9),
+    vjust = 1.4,      # move inside the bar
+    size = 3,
+    color = "white"
+  ) +
   # Add custom colors
   scale_fill_manual(
     values = c(
-      "Tourist" = "#ae9864",  # Your specified color for Tourist
-      "Resident" = "#6a906c"  # Your specified color for Resident
+      "Tourist" = "#5992c6",  # Your specified color for Tourist
+      "Resident" = "#c87620"  # Your specified color for Resident
     )
   ) +
   # scale_y_continuous(labels = function(x) paste0(x, "%")) + # Percentage on the x axis
   labs(
-    title = "Would you be willing to pay a user fee to support trail management efforts?",
+    title = "Would you be willing to support a user fee mechanism to enhance trail management efforts? ",
     x = "",
     y = "Percentage of responses",
     fill = ""
@@ -282,7 +283,7 @@ geom_text(
   theme_minimal() +
   theme(
     axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold"),
-    plot.title = element_text(size = 11, face = "bold")
+    plot.title = element_text(size = 9.5, face = "bold")
   )
 #rm(summary_data)
 ```
@@ -376,7 +377,7 @@ p1 <- ggplot(tourist_data, aes(x = 2, y = prop, fill = User.fee_Payment.Type)) +
   scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
     title = "Tourists",
-    fill = "Payment Type"
+    fill = "Funding Options"
   ) +
   theme_void() +
   theme(
@@ -397,7 +398,7 @@ p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = User.fee_Payment.Type)) 
   scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
     title = "Residents",
-    fill = "Payment Type"
+    fill = "Funding Options"
   ) +
   theme_void() +
   theme(
@@ -408,7 +409,7 @@ p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = User.fee_Payment.Type)) 
 # Combine with patchwork
 p1 + p2 + 
   plot_annotation(
-    title = "Preferred Payment Type for Trail User Fees",
+    title = "Preferred Supplemental Funding Options",
     theme = theme(plot.title = element_text(size = 11, face = "bold"))
   )
 ```
@@ -478,7 +479,7 @@ p1 <- ggplot(tourist_data, aes(x = 2, y = prop, fill = User.fee_Payment.Method))
   scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
     title = "Tourists",
-    fill = "Payment Method"
+    fill = "Funding Methods"
   ) +
   theme_void() +
   theme(
@@ -499,7 +500,7 @@ p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = User.fee_Payment.Method)
   scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
     title = "Residents",
-    fill = "Payment Method"
+    fill = "Funding Methods"
   ) +
   theme_void() +
   theme(
@@ -510,7 +511,7 @@ p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = User.fee_Payment.Method)
 # Combine with patchwork
 p1 + p2 + 
   plot_annotation(
-    title = "Preferred Payment Method for Trail User Fees",
+    title = "Preferred Supplemental Funding Methods",
     theme = theme(plot.title = element_text(size = 11, face = "bold"))
   )
 ```
@@ -797,7 +798,7 @@ p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = Cost.Allocation)) +
   scale_fill_manual(values = custom_colors) +  # ADDED: Apply custom colors
   labs(
     title = "Residents",
-    fill = "Cost.Allocation"
+    fill = "Cost Allocation"
   ) +
   theme_void() +
   theme(
@@ -808,7 +809,7 @@ p2 <- ggplot(resident_data, aes(x = 2, y = prop, fill = Cost.Allocation)) +
 # Combine with patchwork
 p1 + p2 + 
   plot_annotation(
-    title = "Preferred Cost Allocation for Trail User Fees",
+    title = "Preferred Cost Allocation for Supplemental Funding Mechanism",
     theme = theme(plot.title = element_text(size = 11, face = "bold"))
   )
 rm(summary_data)
@@ -947,20 +948,19 @@ ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) 
    # Add custom colors
   scale_fill_manual(
     values = c(
-      "Tourist" = "#ae9864",  # Your specified color for Tourist
-      "Resident" = "#6a906c"  # Your specified color for Resident
+  "Tourist" = "#5992c6",  # Your specified color for Tourist
+      "Resident" = "#c87620"  # Your specified color for Resident
     )
   ) +
   labs(
-    title = "Mean of Likelihood of Using Trails with User Fee (Bar Graph)",
+    title = "Likelihood of Using Trails with User Fee",
     x = "",
-    y = "Likelihood Rating (1–10)"
+    y = "Likelihood Rating (Very Unlikely - Very Likely)"
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 11, face = "bold"),
-    axis.text = element_text(size = 9),
-    legend.position = "none"
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold"),
+    plot.title = element_text(size = 9.5, face = "bold")
   )
 rm(summary_data)
 ```
@@ -1258,20 +1258,19 @@ ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) 
    # Add custom colors
   scale_fill_manual(
     values = c(
-      "Tourist" = "#ae9864",  # Your specified color for Tourist
-      "Resident" = "#6a906c"  # Your specified color for Resident
+  "Tourist" = "#5992c6",  # Your specified color for Tourist
+      "Resident" = "#c87620"  # Your specified color for Resident
     )
   ) +
   labs(
     title = "Imagine 10 people you know. How many of them would be willing to use trails that require a user fee?",
     x = "",
-    y = "Likelihood Rating (1–10)"
+    y = "Number of people (1–10)"
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 9, face = "bold"),
-    axis.text = element_text(size = 9),
-    legend.position = "none"
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold"),
+    plot.title = element_text(size = 9.5, face = "bold")
   )
 rm(summary_data)
 ```
@@ -1304,20 +1303,19 @@ ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) 
    # Add custom colors
   scale_fill_manual(
     values = c(
-      "Tourist" = "#ae9864",  # Your specified color for Tourist
-      "Resident" = "#6a906c"  # Your specified color for Resident
+  "Tourist" = "#5992c6",  # Your specified color for Tourist
+      "Resident" = "#c87620"  # Your specified color for Resident
     )
   ) +
   labs(
     title = "Imagine 10 people you know. How many of them that think people should pay a user fee to use trails?",
     x = "",
-    y = "Likelihood Rating (1–10)"
+    y = "Number of people (1-10)"
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 9, face = "bold"),
-    axis.text = element_text(size = 9),
-    legend.position = "none"
+    axis.text.x = element_text(angle = 0, hjust = 0.5, size = 10, face = "bold"),
+    plot.title = element_text(size = 9.5, face = "bold")
   )
 rm(summary_data)
 ```
@@ -1326,16 +1324,17 @@ rm(summary_data)
 ## Support Volunteers and WTP 
 ```{r}
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
-group_by(Zipverified) %>%
-summarise(
-mean_rating = mean(Volunteer.WTP, na.rm = TRUE),
-sd_rating = sd(Volunteer.WTP, na.rm = TRUE),
-n = n(),
-se = sd_rating / sqrt(n),
-ci_lower = mean_rating - 1.96 * se,
-ci_upper = mean_rating + 1.96 * se
-)
+  distinct(RID, .keep_all = TRUE) %>%
+  filter(Volunteer.WTP < 100) %>%
+  group_by(Zipverified) %>%
+  summarise(
+    mean_rating = mean(Volunteer.WTP, na.rm = TRUE),
+    sd_rating = sd(Volunteer.WTP, na.rm = TRUE),
+    n = n(),
+    se = sd_rating / sqrt(n),
+    ci_lower = mean_rating - 1.96 * se,
+    ci_upper = mean_rating + 1.96 * se
+  )
 
 ggplot(summary_data, aes(x = Zipverified, y = mean_rating, fill = Zipverified)) +
 geom_col(width = 0.5) +
@@ -1343,53 +1342,168 @@ geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
      # Add custom colors
   scale_fill_manual(
     values = c(
-      "Tourist" = "#ae9864",  # Your specified color for Tourist
-      "Resident" = "#6a906c"  # Your specified color for Resident
+  "Tourist" = "#5992c6",  # Your specified color for Tourist
+      "Resident" = "#c87620"  # Your specified color for Resident
     )
   ) +
 labs(
 title = "Average of WTP to Support Volunteers",
 x = "Residency Status",
-y = "Mean WTP (USD, one-time payment)"
+y = "WTP Amount in $ (One-time Payment)"
 ) +
 theme_minimal() + 
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
          plot.title = element_text(size = 11, face = "bold"))
-rm(summary_data)
+(summary_data)
+```
 
+## Average Donation Estimates 
+```{r}
+# Survey median income
+mlogit_clean %<>%
+  mutate(income_midpoint = case_when(
+    Demo_HH.Income == "Less than $25,000"       ~ 12500,
+    Demo_HH.Income == "$25,000 -$49,999"        ~ 37500,
+    Demo_HH.Income == "$50,000 -$74,999"        ~ 62500,
+    Demo_HH.Income == "$75,000 -$99,999"        ~ 87500,
+    Demo_HH.Income == "$100,000 -$149,999"      ~ 125000,
+    Demo_HH.Income == "$150,000 or more"        ~ 175000,
+    TRUE ~ NA_real_
+  ))
+
+# Median survey income by group
+median_income <- mlogit_clean %>%
+  group_by(Zipverified) %>%
+  summarise(median_survey_income = median(income_midpoint, na.rm = TRUE))
+
+
+# Benchmark incomes (Federal Reserve 2024)
+hawaii_median <- 98240
+us_national_median <- 83730
+
+# Extract survey averages for each group
+resident_survey_income <- median_income %>% filter(Zipverified == "Resident") %>% pull(median_survey_income)
+tourist_survey_income  <- median_income %>% filter(Zipverified == "Tourist")  %>% pull(median_survey_income)
+
+# Weighting factors
+resident_weight <- hawaii_median / resident_survey_income
+tourist_weight  <- us_national_median / tourist_survey_income
+
+cat("Resident weighting factor:", round(resident_weight, 3), "\n")
+cat("Tourist weighting factor:",  round(tourist_weight, 3),  "\n")
+
+# Unweighted donation bounds - drew from voluntary donation estimates AND estimates from opportunity costs of volunteer time. Amount below are the conservatives estimates. 
+
+resident_donation_lower <- 11
+resident_donation_upper <- 19
+tourist_donation_lower  <- 20
+tourist_donation_upper  <- 33
+
+# Weighted donation bounds
+cat("\nWeighted Donation Estimates:\n")
+cat("Resident: $", round(resident_donation_lower * resident_weight, 2), 
+    "- $", round(resident_donation_upper * resident_weight, 2), "\n")
+cat("Tourist:  $", round(tourist_donation_lower  * tourist_weight,  2), 
+    "- $", round(tourist_donation_upper  * tourist_weight,  2),  "\n")
+```
+
+
+```{r}
 summary_data <- mlogit_clean %>%
-distinct(RID, .keep_all = TRUE) %>%
-filter(!is.na(Volunteer.hours)) %>%
-group_by(Zipverified, Volunteer.hours) %>%
-summarise(n = n(), .groups = "drop") %>%
-group_by(Zipverified) %>%
-mutate(total = sum(n), prop = n / total)
+ distinct(RID, .keep_all = TRUE) %>%
+ filter(!is.na(Volunteer.hours)) %>%
+ group_by(Zipverified, Volunteer.hours) %>%
+ summarise(n = n(), .groups = "drop") %>%
+ group_by(Zipverified) %>%
+ mutate(total = sum(n), prop = n / total)
 
-ggplot(summary_data, aes(x = Volunteer.hours, y = prop, fill = Zipverified)) +
-geom_col(position = position_dodge(0.9)) +
-    geom_text(
-    aes(label = paste0("n=", n)),   # use total from the same data
-    position = position_dodge(0.9),
-    vjust = -0.5,
-    size = 3
-  ) +
-     # Add custom colors
-  scale_fill_manual(
-    values = c(
-      "Tourist" = "#ae9864",  # Your specified color for Tourist
-      "Resident" = "#6a906c"  # Your specified color for Resident
-    )
-  ) +
-labs(
-title = "Number of hours willing to volunteer as a one-time contribution to support trail management",
-x = "",
-y = "Proportion of Responses",
-fill = ""
-) +
-theme_minimal() + 
-    theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
-         plot.title = element_text(size = 11, face = "bold"))
-rm(summary_data)
+ ggplot(summary_data, aes(x = Volunteer.hours, y = prop, fill = Zipverified)) +
+ geom_col(position = position_dodge(0.9)) +
+     geom_text(
+     aes(label = paste0("n=", n)),   # use total from the same data
+     position = position_dodge(0.9),
+     vjust = -0.5,
+     size = 3
+   ) +
+      # Add custom colors
+   scale_fill_manual(
+     values = c(
+  "Tourist" = "#5992c6",  # Your specified color for Tourist
+      "Resident" = "#c87620"  # Your specified color for Resident
+     )
+   ) +
+ labs(
+ title = "Number of hours willing to volunteer as a one-time contribution to support trail management",
+ x = "",
+ y = "Proportion of Responses",
+ fill = ""
+ ) +
+ theme_minimal() + 
+     theme(axis.text.x = element_text(angle = 0, hjust = 0.5, size=6),
+          plot.title = element_text(size = 11, face = "bold"))
+ rm(summary_data)
+```
+
+```{r}
+# Convert factor to numeric midpoints
+# Convert factor to numeric midpoints
+mlogit_clean$volunteer_hours_numeric <- dplyr::recode(mlogit_clean$Volunteer.hours,
+  "None"               = 0,
+  "1-2 hours"          = 1.5,
+  "3-5 hours"          = 4,
+  "More than 6 hours"  = 6
+)
+
+# Calculate average
+avg_volunteer_hours <- mlogit_clean %>%
+  group_by(Zipverified) %>%
+  summarise(avg_hours = mean(volunteer_hours_numeric, na.rm = TRUE))
+
+print(avg_volunteer_hours)
+```
+
+```{r}
+
+# Filter for residents only and calculate average hours
+# Filter for residents only and calculate average hours
+avg_volunteer_hours_resident <- mlogit_clean %>%
+  filter(Zipverified == "Resident") %>%  # adjust label to match your data
+  summarise(avg_hours = mean(volunteer_hours_numeric, na.rm = TRUE)) %>%
+  pull(avg_hours)
+
+# Convert annual wage to hourly (assuming 2080 work hours/year)
+Resident_hourly_wage_lower <- 50000 / 2080
+Resident_hourly_wage_upper <- 75000 / 2080
+
+# Apply 1/3 to 2/3 fraction of wage (opportunity cost of leisure time)
+Resident_donation_lower <- avg_volunteer_hours_resident * (1/3) * Resident_hourly_wage_lower
+Resident_donation_upper <- avg_volunteer_hours_resident * (2/3) * Resident_hourly_wage_upper
+
+cat("Estimated donation value of time:\n")
+cat("Lower bound: $", round(Resident_donation_lower, 2), "\n")
+cat("Upper bound: $", round(Resident_donation_upper, 2), "\n")
+```
+
+```{r}
+
+# Filter for tourists only and calculate average hours
+avg_volunteer_hours_tourist <- mlogit_clean %>%
+  filter(Zipverified == "Tourist") %>%  
+  summarise(avg_hours = mean(volunteer_hours_numeric, na.rm = TRUE)) %>%
+  pull(avg_hours)
+
+# Convert annual wage to hourly (assuming 2080 work hours/year)
+Tourist_hourly_wage_lower <- 75000 / 2080
+Tourist_hourly_wage_upper <- 100000 / 2080
+
+# Apply 1/3 to 2/3 fraction of wage (opportunity cost of leisure time)
+Tourist_donation_lower <- avg_volunteer_hours_tourist * (1/3) * Tourist_hourly_wage_lower
+Tourist_donation_upper <- avg_volunteer_hours_tourist * (2/3) * Tourist_hourly_wage_upper
+
+cat("Tourist Estimated donation value of time:\n")
+cat("Lower bound: $", round(Tourist_donation_lower, 2), "\n")
+cat("Upper bound: $", round(Tourist_donation_upper, 2), "\n")
+
 ```
 
 ### Survey Duration
@@ -1580,7 +1694,7 @@ fill = "Residency"
 ) +
 theme_minimal() +
 theme(axis.text.x = element_text(angle = 15, hjust = 1, size=5))
-rm(summary_data)
+(summary_data)
 ```
 
 

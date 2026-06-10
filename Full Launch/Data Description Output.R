@@ -14,6 +14,7 @@ library(car)      #Checking for collinearity
 library(apollo)
 library(knitr)
 library(kableExtra)
+library(stargazer)
 #library(patchwork)  #combine multiple plots 
 
 # ------------------------------
@@ -74,7 +75,12 @@ make_summary <- function(data, var, label, description, use_median = FALSE) {
       .groups  = "drop"
     ) %>%
     mutate(
-      value = paste0(round(mean_val), " (", round(sd_val, 2), ")")
+      value = paste0(
+        formatC(mean_val, format = "f", digits = 2),
+        " (",
+        formatC(sd_val, format = "f", digits = 2),
+        ")"
+      )
     ) %>%
     select(Zipverified, value) %>%
     pivot_wider(
@@ -165,30 +171,15 @@ socio_demo_table <- bind_rows(
 
 # ── footnote text ─────────────────────────────────────────────────────────────
 
-footnote <- paste(
-  "Notes:Education reported as Median (SD)."
-  ,"<br>",
-  "¹ Income levels: 1 = Less than $25,000; 2 = $25,000–$49,999;",
-  "3 = $50,000–$74,999; 4 = $75,000–$99,999;",
-  "5 = $100,000–$149,999; 6 = $150,000 or more.",
-  "<br>",
-  "² Education levels: 1 = Some high school or less; 2 = High school diploma or GED;",
-  "3 = Some college, no degree; 4 = Associate's or technical degree;",
-  "<br>",
-  "5 = Bachelor's degree; 6 = Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, etc.).",
-  "<br>"
-)
-
 
 # ── stargazer output ──────────────────────────────────────────────────────────
-
 stargazer(
   socio_demo_table,
   type        = "html",
   summary     = FALSE,
   rownames    = FALSE,
   title       = "Socio-demographic Characteristics by Residency Status",
-  notes       = footnote,
+  notes       = "",
   notes.align = "l",
   notes.label = "",
   out         = "socio_demo_table.html"
@@ -197,17 +188,14 @@ stargazer(
 # Read the HTML output
 html_content <- readLines("socio_demo_table.html")
 
-# Find the header row and replace it with a two-line header
-old_header <- grep("<tr>.*Resident.*Tourist.*</tr>", html_content)
-
-# Replace the single header row with a grouped two-row header
+# Fix header
 html_content <- gsub(
   pattern     = "<td>Resident</td>.*<td>Tourist</td>",
   replacement = "<td colspan='1'>Resident<br>Mean (SD)</td><td colspan='1'>Tourist<br>Mean (SD)</td>",
   x           = html_content
 )
 
-# Inject CSS
+# ── inject CSS ────────────────────────────────────────────────────────────────
 css_fix <- '<style>
   table { border-collapse: collapse; width: auto; }
   td, th { padding: 4px 10px; text-align: center; white-space: nowrap; }
@@ -215,8 +203,7 @@ css_fix <- '<style>
 </style>'
 
 html_content <- c(css_fix, html_content)
-writeLines(html_content, "socio_demo_table.html")
-
+writeLines(html_content, "socio_demo_table1.html")
 
 
 # socio_demo_table  %>%

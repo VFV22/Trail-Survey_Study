@@ -192,7 +192,7 @@ apollo_beta <- c(
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
   b_cost                = 0,
-  #b_Crowding_WF         = 0, 
+  b_Crowding_WF         = 0, 
 
   # sociodems (fixed)
   b_resident  = 0,
@@ -272,7 +272,7 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
   b_CrowdingMed_R         * CrowdingM.alt1 +
   b_CrowdingLow_R         * CrowdingL.alt1 +
-  #b_Crowding_WF           * Crowding_WF.alt1 +
+  b_Crowding_WF           * Crowding_WF.alt1 +
   b_cost                  * Cost.alt1 +
   #b_viewpoint  * viewpoint +
   b_resident   * Resident +
@@ -290,7 +290,7 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
   b_CrowdingMed_R         * CrowdingM.alt2 +
   b_CrowdingLow_R         * CrowdingL.alt2 +
-  #b_Crowding_WF           * Crowding_WF.alt2 +
+  b_Crowding_WF           * Crowding_WF.alt2 +
   b_cost                  * Cost.alt2 +
   #b_viewpoint  * viewpoint +
   b_resident   * Resident +
@@ -418,11 +418,11 @@ MXL_crowd.WF <- coef_table %>%
 ## **Create Table: Combine output: Stargazer**
 
 ```{r}
+# ── 0. Helper: extract estimates from apollo ──────────────────────────────────
 get_apollo_stargazer_inputs <- function(model, robust = TRUE, p_sided = 2) {
-  M <- as.matrix(apollo_modelOutput(model, modelOutput_settings = list(silent = TRUE)))
-
+  M  <- as.matrix(apollo_modelOutput(model,
+                  modelOutput_settings = list(silent = TRUE)))
   b  <- M[, "Estimate"]
-
   if (robust) {
     se <- M[, "Rob.s.e."]
     t  <- M[, "Rob.t.rat.(0)"]
@@ -430,87 +430,12 @@ get_apollo_stargazer_inputs <- function(model, robust = TRUE, p_sided = 2) {
     se <- M[, "s.e."]
     t  <- M[, "t.rat.(0)"]
   }
-
-  # p-values from t-ratio (normal approximation)
-  if (p_sided == 1) {
-    p <- 1 - pnorm(abs(t))             # 1-sided
-  } else {
-    p <- 2 * (1 - pnorm(abs(t)))       # 2-sided (typical)
-  }
-
-  names(b)  <- rownames(M)
-  names(se) <- rownames(M)
-  names(p)  <- rownames(M)
-
+  p <- if (p_sided == 1) 1 - pnorm(abs(t)) else 2 * (1 - pnorm(abs(t)))
+  names(b) <- names(se) <- names(p) <- rownames(M)
   list(b = b, se = se, p = p)
 }
-```
 
-```{r}
-library(stargazer)
-
-# Extract
-v_all  <- get_apollo_stargazer_inputs(model,      robust = TRUE, p_sided = 2)
-v_res  <- get_apollo_stargazer_inputs(model_residents, robust = TRUE, p_sided = 2)
-v_tour <- get_apollo_stargazer_inputs(model_tourists,  robust = TRUE, p_sided = 2)
-
-# Choose your row order (edit if needed)
-order <- c(
-  "b_Habitat_QualityMed","b_Habitat_QualityHigh",
-  "b_Trail_ConditionMed","b_Trail_ConditionHigh",
-  "b_CrowdingMed","b_CrowdingLow",
-  "b_cost",
-  "b_resident",
-  "b_age","b_education","b_income","b_sex"
-)
-
-# Labels to print (same length/order as 'order')
-labels <- c(
-  "Habitat quality (Medium)","Habitat quality (High)",
-  "Trail condition (Medium)","Trail condition (High)",
-  "Crowding (Medium)","Crowding (Low)",
-  "Cost",
-  "Resident",
-  "Age","Education","Income","Sex"
-)
-
-# Align each model’s vectors to the same coefficient list
-coef_list <- list(
-  align_to(v_all$b,  order),
-  align_to(v_res$b,  order),
-  align_to(v_tour$b, order)
-)
-
-se_list <- list(
-  align_to(v_all$se,  order),
-  align_to(v_res$se,  order),
-  align_to(v_tour$se, order)
-)
-
-p_list <- list(
-  align_to(v_all$p,  order),
-  align_to(v_res$p,  order),
-  align_to(v_tour$p, order)
-)
-
-# Dummy models for stargazer
-make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
-  set.seed(seed)
-  K <- length(coef_names)
-  X <- as.data.frame(matrix(rnorm(n * K), nrow = n, ncol = K))
-  names(X) <- coef_names
-  X$y <- rnorm(n)
-  lm(y ~ 0 + ., data = X)  # no intercept, so exactly K coefs with these names
-}
-
-d1 <- make_dummy_lm_named(order, seed = 1)
-d2 <- make_dummy_lm_named(order, seed = 2)
-d3 <- make_dummy_lm_named(order, seed = 3)
-
-
-```
-
-```{r}
+# ── 1. Helper: align coefficient vector to a fixed order ─────────────────────
 align_to <- function(x, order) {
   out <- rep(NA_real_, length(order))
   names(out) <- order
@@ -518,96 +443,74 @@ align_to <- function(x, order) {
   out
 }
 
-coef_list <- list(
-  align_to(v_all$b,  order),
-  align_to(v_res$b,  order),
-  align_to(v_tour$b, order)
-)
-se_list <- list(
-  align_to(v_all$se,  order),
-  align_to(v_res$se,  order),
-  align_to(v_tour$se, order)
-)
-p_list <- list(
-  align_to(v_all$p,  order),
-  align_to(v_res$p,  order),
-  align_to(v_tour$p, order)
-)
-```
+# ── 2. Extract from model ─────────────────────────────────────────────────────
+v_all <- get_apollo_stargazer_inputs(model_mxl_crowd, robust = TRUE, p_sided = 2)
 
-```{r}
-obs <- c(
-  model$nObs,
-  model_residents$nObs,
-  model_tourists$nObs
+# ── 3. Coefficient order and display labels ───────────────────────────────────
+order <- c(
+  "b_Habitat_QualityMed",  "b_Habitat_QualityHigh",
+  "b_Trail_ConditionMed",  "b_Trail_ConditionHigh",
+  "b_CrowdingMed",         "b_CrowdingLow",
+  "b_Crowding_WF",
+  "b_cost",
+  "b_resident",
+  "b_age", "b_education", "b_income", "b_sex"
 )
 
-respondents <- c(
-  model$nIndivs,
-  model_residents$nIndivs,
-  model_tourists$nIndivs
+labels <- c(
+  "Habitat quality (Medium)", "Habitat quality (High)",
+  "Trail condition (Medium)", "Trail condition (High)",
+  "Crowding (Medium)",        "Crowding (Low)",
+  "Crowding \u00d7 Viewpoint",
+  "Cost",
+  "Resident",
+  "Age", "Education", "Income", "Sex"
 )
 
-aic <- round(c(
-  model$AIC,
-  model_residents$AIC,
-  model_tourists$AIC
-), 2)
+# ── 4. Align vectors ──────────────────────────────────────────────────────────
+coef_list <- list(align_to(v_all$b,  order))
+se_list   <- list(align_to(v_all$se, order))
+p_list    <- list(align_to(v_all$p,  order))
 
-```
+# ── 5. Dummy OLS model ────────────────────────────────────────────────────────
+make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
+  set.seed(seed)
+  K <- length(coef_names)
+  X <- as.data.frame(matrix(rnorm(n * K), nrow = n, ncol = K))
+  names(X) <- coef_names
+  X$y <- rnorm(n)
+  lm(y ~ 0 + ., data = X)
+}
 
-```{r}
+d1 <- make_dummy_lm_named(order, seed = 1)
+
+# ── 6. Model fit statistics ───────────────────────────────────────────────────
+obs         <- model_mxl_crowd$nObs
+respondents <- model_mxl_crowd$nIndivs
+aic         <- round(model_mxl_crowd$AIC, 2)
+
+# ── 7. Render table ───────────────────────────────────────────────────────────
 stargazer(
-  d1, d2, d3,
-  type = "latex",
-  out  = "mxl_3models.tex",
-  title = "Trail Choice Model Results",
-  column.labels = c("All Respondents", "Residents only", "Tourists only"),
+  d1,
+  type  = "html",
+  out   = "mxl_crowd_robustness.html",
+  title = "Mixed Logit Model — Crowding Context Robustness Test",
+  column.labels          = c("All Respondents"),
   dep.var.labels.include = FALSE,
-  covariate.labels = labels,
-  coef = coef_list,
-  se   = se_list,
-  p    = p_list,
-  digits = 3,
-  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+  covariate.labels       = labels,
+  coef   = coef_list,
+  se     = se_list,
+  p      = p_list,
+  digits    = 3,
+  omit.stat = c("n", "f", "ser", "adj.rsq", "rsq"),
   add.lines = list(
-    c("Observations", obs),
-    c("Respondents", respondents),
-    c("AIC", aic)
+    c("Observations",  obs),
+    c("Respondents",   respondents),
+    c("AIC",           aic)
   ),
-  notes = "Robust standard errors in parentheses.",
+  notes        = "Robust standard errors in parentheses.",
   notes.append = FALSE
 )
-
-
-
-```
-
-```{r}
-stargazer(
-  d1, d2, d3,
-  type = "html",
-  out  = "mxl_3models.html",
-  title = "Trail Choice Model Results",
-  column.labels = c("All Respondents", "Residents only", "Tourists only"),
-  dep.var.labels.include = FALSE,
-  covariate.labels = labels,
-  coef = coef_list,
-  se   = se_list,
-  p    = p_list,
-  digits = 3,
-  omit.stat = c("n","f","ser","adj.rsq","rsq"),
-  add.lines = list(
-    c("Observations", obs),
-    c("Respondents", respondents),
-    c("AIC", aic)
-  ),
-  notes = "Robust standard errors in parentheses.",
-  notes.append = FALSE
-)
-
-
-
 ```
 
 ## MXL For All Respondents - User group Test

@@ -1,0 +1,13 @@
+"Bundle_group","Level","CV","Total_welfare_M"
+"Bundle 1: Habitat Quality","Baseline",0,0
+"Bundle 1: Habitat Quality","Low → Medium",25.9,13.26
+"Bundle 1: Habitat Quality","Low → High",62.68,32.08
+"Bundle 2: Trail Condition","Baseline",0,0
+"Bundle 2: Trail Condition","Low → Medium",35.64,18.24
+"Bundle 2: Trail Condition","Low → High",59.48,30.45
+"Bundle 3: Crowding","Baseline",0,0
+"Bundle 3: Crowding","High → Medium",20.09,10.28
+"Bundle 3: Crowding","High → Low",25.3,12.95
+"Full Bundle: All Attributes","Baseline",0,0
+"Full Bundle: All Attributes","All → Medium",81.63,41.79
+"Full Bundle: All Attributes","All → High",147.45,75.48
