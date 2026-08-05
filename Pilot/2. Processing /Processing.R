@@ -32,7 +32,7 @@ Reshape.long.1 <- Pilot %>%
 
 
 # Load experimental design from edited ngene 
-design_ngene <- read_csv("~/Documents/GitHub/Trail-Survey_Study/Ngene_reshape_edited 11.18.56 PM.csv") 
+design_ngene <- read_csv("0. Data/Ngene_reshape_edited 11.18.56 PM.csv") 
 
 
 # Match data format for before merging

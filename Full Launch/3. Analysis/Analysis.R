@@ -12,6 +12,7 @@ library(mlogit)   # Function for mlogit
 library(car)      #Checking for collinearity
 library(apollo)
 library(knitr)
+library(stargazer)
 #library(patchwork)  #combine multiple plots 
 
 

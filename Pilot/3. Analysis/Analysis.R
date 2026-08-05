@@ -18,7 +18,6 @@ library(knitr)
 # 1 — User settings / file paths
 # ------------------------------
 
-source("2. Processing /Processing.R")
 
 
 # ----------------------------------

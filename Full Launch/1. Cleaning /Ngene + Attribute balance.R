@@ -15,8 +15,11 @@ library(corrplot)    # corrplot visualization
 # ------------------------------
 # 0 — Load data
 # ------------------------------
-original.ngene <- read_excel(ngene_file)
-design <- read_excel("~/Downloads/ALM Design - 44.xlsx" )  # we will modify 'design' in-place
+setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
+
+
+design <- read_excel("0. Data/ALM Design - 44.xlsx" )  # we will modify 'design' in-place
+
 
 
 # ------------------------------

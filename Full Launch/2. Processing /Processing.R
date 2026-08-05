@@ -32,7 +32,7 @@ Reshape.long.1 <- Full.data  %>%
 
 
 # Load experimental design from edited ngene 
-design_ngene <- read_csv("Ngene_reshape_edited.csv") 
+design_ngene <- read_csv("0. Data/Ngene_reshape_edited.csv") 
 
 
 # Match data format for before merging

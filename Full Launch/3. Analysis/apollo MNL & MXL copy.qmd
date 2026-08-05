@@ -1,0 +1,4179 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+```{r}
+library(apollo)
+
+apollo_initialise()
+
+```
+
+# MNL - RUM For All Respondents
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean=mlogit_clean[c(1:11,15,19,38:47, 71)]
+mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+#viewpoint
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+
+#Resident 
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+#Age
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+#Income 
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c(
+    "Less than $25,000",
+    "$25,000 -$49,999",
+    "$50,000 -$74,999",
+    "$75,000 -$99,999",
+    "$100,000 -$149,999",
+    "$150,000 or more"
+  ),
+  labels = 1:6
+))
+
+#Education 
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"
+  ),
+  1, 0
+)
+
+
+#member of environmental group
+database$Member.Environment_binary <- ifelse(database$Member_Env.Group.alt1 == "Yes", 1, 0)
+database$WTP_User.fee_binary       <- ifelse(database$User.fee_Y.N.alt1      == "Yes", 1, 0)
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1=="Female", 1,
+                             ifelse(database$Demo_Sex.alt1=="Male", 0, NA))
+database$Sex_binary[is.na(database$Sex_binary)] <- 0   # if you still want to force it
+
+database$Resident                  <- ifelse(database$Zipverified.alt1       == "Resident", 1, 0)
+
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+## MNL - Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+
+apollo_beta <- c(
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow         = 0,
+  b_cost                = 0,
+  asc_optout            = 0, 
+  b_resident            = 0,
+  b_age                 = 0,
+  b_education           = 0,
+  #b_environment = 0, 
+  #b_userfee = 0, 
+  b_income              = 0, 
+  b_sex = 0
+)
+apollo_fixed <- c()
+
+```
+
+```{r}
+
+apollo_inputs<-apollo_validateInputs()
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  P = list()
+  V = list()
+  
+  # Utility for alt1
+  V[["alt1"]]  =
+    b_Habitat_QualityMed  * Habitat_QualityM.alt1 +
+    b_Habitat_QualityHigh * Habitat_QualityH.alt1 +
+    b_Trail_ConditionMed  * Trail_ConditionM.alt1 +
+    b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
+    b_CrowdingMed         * CrowdingM.alt1 +
+    b_CrowdingLow         * CrowdingL.alt1 +
+    b_cost                * Cost.alt1 +
+    
+    # person-specific covariates (shift alt1 vs opt-out)
+    b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+    #b_environment* Member.Environment_binary +
+    #b_userfee    * WTP_User.fee_binary +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+  
+  # Utility for alt2
+  V[["alt2"]]  =
+    b_Habitat_QualityMed  * Habitat_QualityM.alt2 +
+    b_Habitat_QualityHigh * Habitat_QualityH.alt2 +
+    b_Trail_ConditionMed  * Trail_ConditionM.alt2 +
+    b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
+    b_CrowdingMed         * CrowdingM.alt2 +
+    b_CrowdingLow         * CrowdingL.alt2 +
+    b_cost                * Cost.alt2 +
+    
+    # person-specific covariates (shift alt2 vs opt-out)
+    b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+    #b_environment* Member.Environment_binary +
+   #b_userfee    * WTP_User.fee_binary +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+  
+  # Opt-out / status quo fixed at 0
+  V[["alt3"]] = asc_optout
+  
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3),
+    avail         = list(alt1=1, alt2=1, alt3=1),
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  
+  return(P)
+}
+
+```
+
+```{r}
+model = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+
+summary(model)
+```
+
+```{r}
+
+#Extract apollo model result 
+est <- model$estimate
+
+#Extract standard error
+se <- sqrt(diag(model$robvarcov))
+
+#Create coefficient table 
+coef_table <- tibble(
+  Parameter = names(est),
+  Estimate  = est,
+  SE        = se[names(est)]
+)
+
+#Add significance stars
+coef_table <- coef_table %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+```
+
+# RUM For Trails (Residents Only)
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+
+mlogit_clean_Residents=mlogit_clean_Residents[c(1:11,15,19,38:47, 71)]
+mlogit_clean_Residents$Alternative[which(mlogit_clean_Residents$Alternative==1)]="alt1"
+mlogit_clean_Residents$Alternative[which(mlogit_clean_Residents$Alternative=="2")]="alt2"
+mlogit_clean_Residents$Alternative[which(mlogit_clean_Residents$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_Residents_wide=reshape(mlogit_clean_Residents,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_Residents_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+#Resident 
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+#Age
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+#Income 
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c(
+    "Less than $25,000",
+    "$25,000 -$49,999",
+    "$50,000 -$74,999",
+    "$75,000 -$99,999",
+    "$100,000 -$149,999",
+    "$150,000 or more"
+  ),
+  labels = 1:6
+))
+
+#Education 
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"
+  ),
+  1, 0
+)
+
+#member of environmental group
+database$Member.Environment_binary <- ifelse(database$Member_Env.Group.alt1 == "Yes", 1, 0)
+database$WTP_User.fee_binary       <- ifelse(database$User.fee_Y.N.alt1      == "Yes", 1, 0)
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1=="Female", 1,
+                             ifelse(database$Demo_Sex.alt1=="Male", 0, NA))
+database$Sex_binary[is.na(database$Sex_binary)] <- 0   # if you still want to force it
+
+database$Resident                  <- ifelse(database$Zipverified.alt1       == "Resident", 1, 0)
+
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+## MNL Resident - Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+apollo_beta <- c(
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow         = 0,
+  b_cost                = 0,
+  asc_optout            = 0, 
+  b_age                 = 0,
+  b_education           = 0,
+  #b_environment = 0, 
+  b_income              = 0, 
+  b_sex = 0
+)
+apollo_fixed <- c()
+
+
+apollo_inputs<-apollo_validateInputs()
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  P = list()
+  V = list()
+  
+  # Utility for alt1
+  V[["alt1"]]  =
+    b_Habitat_QualityMed  * Habitat_QualityM.alt1 +
+    b_Habitat_QualityHigh * Habitat_QualityH.alt1 +
+    b_Trail_ConditionMed  * Trail_ConditionM.alt1 +
+    b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
+    b_CrowdingMed         * CrowdingM.alt1 +
+    b_CrowdingLow         * CrowdingL.alt1 +
+    b_cost                * Cost.alt1 +
+    
+    # person-specific covariates (shift alt1 vs opt-out)
+    #b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+   #b_environment* Member.Environment_binary +
+    #b_userfee    * WTP_User.fee_binary +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+  
+  # Utility for alt2
+  V[["alt2"]]  =
+    b_Habitat_QualityMed  * Habitat_QualityM.alt2 +
+    b_Habitat_QualityHigh * Habitat_QualityH.alt2 +
+    b_Trail_ConditionMed  * Trail_ConditionM.alt2 +
+    b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
+    b_CrowdingMed         * CrowdingM.alt2 +
+    b_CrowdingLow         * CrowdingL.alt2 +
+    b_cost                * Cost.alt2 +
+    
+    # person-specific covariates (shift alt2 vs opt-out)
+   # b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+    #b_environment* Member.Environment_binary +
+   #b_userfee    * WTP_User.fee_binary +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+  
+  # Opt-out / status quo fixed at 0
+  V[["alt3"]] = asc_optout
+  
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3),
+    avail         = list(alt1=1, alt2=1, alt3=1),
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  
+  return(P)
+}
+```
+
+```{r}
+model_residents = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+
+summary(model_residents)
+```
+
+```{r}
+
+# Extract Apollo model results
+est.residents <- model_residents$estimate
+
+# Extract standard errors
+se.residents <- sqrt(diag(model_residents$robvarcov))
+
+# Create coefficient table
+coef_residents <- tibble(
+  Parameter = names(est.residents),
+  Estimate  = est.residents,
+  SE        = se.residents[names(est.residents)]
+)
+
+# Add significance stars
+coef_residents <- coef_residents %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+```
+
+# RUM For Trails (Tourists Only)
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+mlogit_clean_Tourists=mlogit_clean_Tourists[c(1:11,15,19,38:47, 71)]
+mlogit_clean_Tourists$Alternative[which(mlogit_clean_Tourists$Alternative==1)]="alt1"
+mlogit_clean_Tourists$Alternative[which(mlogit_clean_Tourists$Alternative=="2")]="alt2"
+mlogit_clean_Tourists$Alternative[which(mlogit_clean_Tourists$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_Tourists_wide=reshape(mlogit_clean_Tourists,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_Tourists_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+#Resident 
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+#Age
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+#Income 
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c(
+    "Less than $25,000",
+    "$25,000 -$49,999",
+    "$50,000 -$74,999",
+    "$75,000 -$99,999",
+    "$100,000 -$149,999",
+    "$150,000 or more"
+  ),
+  labels = 1:6
+))
+
+#Education 
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"
+  ),
+  1, 0
+)
+
+
+#member of environmental group
+database$Member.Environment_binary <- ifelse(database$Member_Env.Group.alt1 == "Yes", 1, 0)
+database$WTP_User.fee_binary       <- ifelse(database$User.fee_Y.N.alt1      == "Yes", 1, 0)
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1=="Female", 1,
+                             ifelse(database$Demo_Sex.alt1=="Male", 0, NA))
+database$Sex_binary[is.na(database$Sex_binary)] <- 0   # if you still want to force it
+
+database$Resident                  <- ifelse(database$Zipverified.alt1       == "Resident", 1, 0)
+
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+## MNL Tourist Apollo code
+
+b_HHIncome_num = 0,
+
+```{r}
+
+apollo_beta <- c(
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow        = 0,
+  b_cost                = 0,
+  asc_optout            = 0, 
+  b_age                 = 0,
+  b_education           = 0,
+  #b_environment = 0, 
+  b_income              = 0, 
+  b_sex = 0
+)
+apollo_fixed <- c()
+
+
+apollo_inputs<-apollo_validateInputs()
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  P = list()
+  V = list()
+  
+  # Utility for alt1
+  V[["alt1"]]  =
+    b_Habitat_QualityMed  * Habitat_QualityM.alt1 +
+    b_Habitat_QualityHigh * Habitat_QualityH.alt1 +
+    b_Trail_ConditionMed  * Trail_ConditionM.alt1 +
+    b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
+    b_CrowdingMed         * CrowdingM.alt1 +
+    b_CrowdingLow         * CrowdingL.alt1 +
+    b_cost                * Cost.alt1 +
+    
+    # person-specific covariates (shift alt1 vs opt-out)
+    #b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+   #b_environment* Member.Environment_binary +
+    #b_userfee    * WTP_User.fee_binary +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+  
+  # Utility for alt2
+  V[["alt2"]]  =
+    b_Habitat_QualityMed  * Habitat_QualityM.alt2 +
+    b_Habitat_QualityHigh * Habitat_QualityH.alt2 +
+    b_Trail_ConditionMed  * Trail_ConditionM.alt2 +
+    b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
+    b_CrowdingMed         * CrowdingM.alt2 +
+    b_CrowdingLow         * CrowdingL.alt2 +
+    b_cost                * Cost.alt2 +
+    
+    # person-specific covariates (shift alt2 vs opt-out)
+   # b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+    #b_environment* Member.Environment_binary +
+   #b_userfee    * WTP_User.fee_binary +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+  
+  # Opt-out / status quo fixed at 0
+  V[["alt3"]] = asc_optout
+  
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3),
+    avail         = list(alt1=1, alt2=1, alt3=1),
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  
+  return(P)
+}
+```
+
+```{r}
+model_tourists = apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+
+summary(model_tourists)
+```
+
+```{r}
+
+# Extract Apollo model results
+est.tourists <- model_tourists$estimate
+
+# Extract standard errors
+se.tourists<- sqrt(diag(model_tourists$robvarcov))
+
+# Create coefficient table
+coef_tourists <- tibble(
+  Parameter = names(est.tourists),
+  Estimate  = est.tourists,
+  SE        = se.residents[names(est.tourists)]
+)
+
+# Add significance stars
+coef_tourists <- coef_tourists%>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+```
+
+# MXL For All Respondents
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+database=mlogit_clean_wide
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+#Crowding viewpoint
+database %<>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+
+
+#Resident 
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+#Age
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+#Income 
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c(
+    "Less than $25,000",
+    "$25,000 -$49,999",
+    "$50,000 -$74,999",
+    "$75,000 -$99,999",
+    "$100,000 -$149,999",
+    "$150,000 or more"
+  ),
+  labels = 1:6
+))
+
+#Education 
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"
+  ),
+  1, 0
+)
+
+
+#member of environmental group
+database$Member.Environment_binary <- ifelse(database$Member_Env.Group.alt1 == "Yes", 1, 0)
+database$WTP_User.fee_binary       <- ifelse(database$User.fee_Y.N.alt1      == "Yes", 1, 0)
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1=="Female", 1,
+                             ifelse(database$Demo_Sex.alt1=="Male", 0, NA))
+database$Sex_binary[is.na(database$Sex_binary)] <- 0   # if you still want to force it
+
+database$Resident                  <- ifelse(database$Zipverified.alt1       == "Resident", 1, 0)
+
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+## MXL - Apollo code
+
+```{r}
+apollo_beta <- c(
+  # means
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow         = 0,
+# #Crowding with water fall 
+#   b_CrowdingM_WF        = 0,
+#   b_CrowdingL_WF        = 0,
+  b_cost                = 0,
+  asc_optout            = 0, 
+
+  # sociodems (fixed)
+    b_resident  = 0,
+    b_age       = 0,
+    b_education = 0,
+    b_income    = 0,
+    b_sex       = 0,
+
+  # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
+  sd_Habitat_QualityMed  = 0.1,
+  sd_Habitat_QualityHigh = 0.1,
+  sd_Trail_ConditionMed  = 0.1,
+  sd_Trail_ConditionHigh = 0.1,
+  sd_CrowdingMed         = 0.1,
+  sd_CrowdingLow         = 0.1 
+)
+apollo_fixed <- c()
+
+```
+
+```{r}
+apollo_draws <- list(
+  interDrawsType = "halton",
+  interNDraws    = 500,     # start with 200–500; increase later
+  interNormDraws = c(
+    "draw_Habitat_QualityMed",
+    "draw_Habitat_QualityHigh",
+    "draw_Trail_ConditionMed",
+    "draw_Trail_ConditionHigh",
+    "draw_CrowdingMed",
+    "draw_CrowdingLow"
+  )
+)
+
+apollo_randCoeff <- function(apollo_beta, apollo_inputs){
+
+  randcoeff <- list()
+
+  randcoeff[["b_Habitat_QualityMed_R"]]  <- b_Habitat_QualityMed +
+    sd_Habitat_QualityMed * draw_Habitat_QualityMed
+
+  randcoeff[["b_Habitat_QualityHigh_R"]] <- b_Habitat_QualityHigh +
+    sd_Habitat_QualityHigh * draw_Habitat_QualityHigh
+
+  randcoeff[["b_Trail_ConditionMed_R"]]  <- b_Trail_ConditionMed +
+    sd_Trail_ConditionMed * draw_Trail_ConditionMed
+
+  randcoeff[["b_Trail_ConditionHigh_R"]] <- b_Trail_ConditionHigh +
+    sd_Trail_ConditionHigh * draw_Trail_ConditionHigh
+
+  randcoeff[["b_CrowdingMed_R"]] <- b_CrowdingMed +
+    sd_CrowdingMed * draw_CrowdingMed
+
+  randcoeff[["b_CrowdingLow_R"]] <- b_CrowdingLow +
+    sd_CrowdingLow * draw_CrowdingLow
+  
+
+  return(randcoeff)
+}
+
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  P = list()
+  V = list()
+  
+  # Utility for alt1
+
+V[["alt1"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt1 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt1 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt1 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
+  b_CrowdingMed_R         * CrowdingM.alt1 +
+  b_CrowdingLow_R         * CrowdingL.alt1 +
+ # b_CrowdingM_WF           * CrowdingM_WF.alt1 + 
+ # b_CrowdingL_WF          * CrowdingL_WF.alt1 +
+  b_cost                  * Cost.alt1 +
+  b_resident   * Resident +
+  b_age        * Demo_Age_num +
+  b_education  * CollegePlus +
+  b_income     * HHIncome_num +
+  b_sex        * Sex_binary
+
+  
+  # Utility for alt2
+  V[["alt2"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt2 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt2 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt2 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
+  b_CrowdingMed_R         * CrowdingM.alt2 +
+  b_CrowdingLow_R         * CrowdingL.alt2 +
+ # b_CrowdingM_WF           * CrowdingM_WF.alt2 + 
+ # b_CrowdingL_WF          * CrowdingL_WF.alt2 +
+   b_cost                  * Cost.alt2 +
+   b_resident   * Resident +
+   b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+   b_income     * HHIncome_num +
+   b_sex        * Sex_binary
+  
+  # Opt-out / status quo fixed at 0
+ # V[["alt3"]] = 0
+    # utility for alt 3 
+V[["alt3"]] = asc_optout
+  
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3),
+    avail         = list(alt1=1, alt2=1, alt3=1),
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+P[["model"]] = apollo_mnl(mnl_settings, functionality)
+
+P = apollo_panelProd(P, apollo_inputs, functionality)
+
+P = apollo_avgInterDraws(P, apollo_inputs, functionality)  # <-- mixed logit integration  
+
+P = apollo_prepareProb(P, apollo_inputs, functionality)
+
+  
+  return(P)
+}
+
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
+```
+
+```{r}
+model_mxl <- apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+summary(model_mxl)
+```
+
+```{r}
+
+#Extract apollo model result 
+est <- model_mxl$estimate
+
+#Extract standard error
+se <- sqrt(diag(model_mxl$robvarcov))
+
+#Create coefficient table 
+coef_table <- tibble(
+  Parameter = names(est),
+  Estimate  = est,
+  SE        = se[names(est)]
+)
+
+#Add significance stars
+MXL_coef_table <- coef_table %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+```
+
+# MXL For Trails (Residents Only)
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+database=mlogit_clean_Residents_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+#Resident 
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+#Age
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+#Income 
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c(
+    "Less than $25,000",
+    "$25,000 -$49,999",
+    "$50,000 -$74,999",
+    "$75,000 -$99,999",
+    "$100,000 -$149,999",
+    "$150,000 or more"
+  ),
+  labels = 1:6
+))
+
+#Education 
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"
+  ),
+  1, 0
+)
+
+#member of environmental group
+database$Member.Environment_binary <- ifelse(database$Member_Env.Group.alt1 == "Yes", 1, 0)
+database$WTP_User.fee_binary       <- ifelse(database$User.fee_Y.N.alt1      == "Yes", 1, 0)
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1=="Female", 1,
+                             ifelse(database$Demo_Sex.alt1=="Male", 0, NA))
+database$Sex_binary[is.na(database$Sex_binary)] <- 0   # if you still want to force it
+
+database$Resident                  <- ifelse(database$Zipverified.alt1       == "Resident", 1, 0)
+
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+## MXL - Apollo code
+
+```{r}
+apollo_beta <- c(
+  # means
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow         = 0,
+  b_cost                = 0,
+  asc_optout  = 0,   
+
+  # sociodems (fixed)
+   #b_resident  = 0,
+   b_age       = 0,
+   b_education = 0,
+   b_income    = 0,
+   b_sex       = 0,
+
+  # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
+  sd_Habitat_QualityMed  = 0.1,
+  sd_Habitat_QualityHigh = 0.1,
+  sd_Trail_ConditionMed  = 0.1,
+  sd_Trail_ConditionHigh = 0.1,
+  sd_CrowdingMed         = 0.1,
+  sd_CrowdingLow         = 0.1
+)
+apollo_fixed <- c()
+
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
+```
+
+```{r}
+apollo_draws <- list(
+  interDrawsType = "halton",
+  interNDraws    = 500,     # start with 200–500; increase later
+  interNormDraws = c(
+    "draw_Habitat_QualityMed",
+    "draw_Habitat_QualityHigh",
+    "draw_Trail_ConditionMed",
+    "draw_Trail_ConditionHigh",
+    "draw_CrowdingMed",
+    "draw_CrowdingLow"
+  )
+)
+
+apollo_randCoeff <- function(apollo_beta, apollo_inputs){
+
+  randcoeff <- list()
+
+  randcoeff[["b_Habitat_QualityMed_R"]]  <- b_Habitat_QualityMed +
+    sd_Habitat_QualityMed * draw_Habitat_QualityMed
+
+  randcoeff[["b_Habitat_QualityHigh_R"]] <- b_Habitat_QualityHigh +
+    sd_Habitat_QualityHigh * draw_Habitat_QualityHigh
+
+  randcoeff[["b_Trail_ConditionMed_R"]]  <- b_Trail_ConditionMed +
+    sd_Trail_ConditionMed * draw_Trail_ConditionMed
+
+  randcoeff[["b_Trail_ConditionHigh_R"]] <- b_Trail_ConditionHigh +
+    sd_Trail_ConditionHigh * draw_Trail_ConditionHigh
+
+  randcoeff[["b_CrowdingMed_R"]] <- b_CrowdingMed +
+    sd_CrowdingMed * draw_CrowdingMed
+
+  randcoeff[["b_CrowdingLow_R"]] <- b_CrowdingLow +
+    sd_CrowdingLow * draw_CrowdingLow
+
+  return(randcoeff)
+}
+
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  P = list()
+  V = list()
+  
+  # Utility for alt1
+
+V[["alt1"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt1 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt1 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt1 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
+  b_CrowdingMed_R         * CrowdingM.alt1 +
+  b_CrowdingLow_R         * CrowdingL.alt1 +
+  b_cost                  * Cost.alt1 +
+ #b_resident   * Resident +
+  b_age        * Demo_Age_num +
+  b_education  * CollegePlus +
+  b_income     * HHIncome_num +
+  b_sex        * Sex_binary
+
+  
+  # Utility for alt2
+  V[["alt2"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt2 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt2 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt2 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
+  b_CrowdingMed_R         * CrowdingM.alt2 +
+  b_CrowdingLow_R         * CrowdingL.alt2 +
+  b_cost                  * Cost.alt2 +
+   #b_resident   * Resident +
+   b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+   b_income     * HHIncome_num +
+   b_sex        * Sex_binary
+  
+  # Opt-out / status quo fixed at 0
+ # V[["alt3"]] = 0
+    # utility for alt 3 
+V[["alt3"]] = asc_optout
+  
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3),
+    avail         = list(alt1=1, alt2=1, alt3=1),
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+P[["model"]] = apollo_mnl(mnl_settings, functionality)
+
+P = apollo_panelProd(P, apollo_inputs, functionality)
+
+P = apollo_avgInterDraws(P, apollo_inputs, functionality)  # <-- mixed logit integration  
+
+P = apollo_prepareProb(P, apollo_inputs, functionality)
+
+  
+  return(P)
+}
+```
+
+```{r}
+model_mxl_Resident <- apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+summary(model_mxl_Resident)
+```
+
+```{r}
+
+#Extract apollo model result 
+est <- model_mxl_Resident$estimate
+
+#Extract standard error
+se <- sqrt(diag(model_mxl_Resident$robvarcov))
+
+#Create coefficient table 
+coef_table <- tibble(
+  Parameter = names(est),
+  Estimate  = est,
+  SE        = se[names(est)]
+)
+
+#Add significance stars
+MXL_coef_table_Resident <- coef_table %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+```
+
+# MXL For Trails (Tourist Only)
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+database=mlogit_clean_Tourists_wide
+
+```
+
+To expand we will create for each alternative there is a low, medium, high for each alternative 1 and 2 . Alternative 3 is all zeros so we can deal with that in the utility function.
+
+```{r}
+database$Habitat_QualityL.alt1=0
+database$Habitat_QualityL.alt1[which(database$Habitat_Quality.alt1=="Low")]=1
+database$Habitat_QualityM.alt1=0
+database$Habitat_QualityM.alt1[which(database$Habitat_Quality.alt1=="Medium")]=1
+database$Habitat_QualityH.alt1=0
+database$Habitat_QualityH.alt1[which(database$Habitat_Quality.alt1=="High")]=1
+
+database$Habitat_QualityL.alt2=0
+database$Habitat_QualityL.alt2[which(database$Habitat_Quality.alt2=="Low")]=1
+database$Habitat_QualityM.alt2=0
+database$Habitat_QualityM.alt2[which(database$Habitat_Quality.alt2=="Medium")]=1
+database$Habitat_QualityH.alt2=0
+database$Habitat_QualityH.alt2[which(database$Habitat_Quality.alt2=="High")]=1
+
+
+database$Trail_ConditionL.alt1=0
+database$Trail_ConditionL.alt1[which(database$Trail_Condition.alt1=="Low")]=1
+database$Trail_ConditionM.alt1=0
+database$Trail_ConditionM.alt1[which(database$Trail_Condition.alt1=="Medium")]=1
+database$Trail_ConditionH.alt1=0
+database$Trail_ConditionH.alt1[which(database$Trail_Condition.alt1=="High")]=1
+
+database$Trail_ConditionL.alt2=0
+database$Trail_ConditionL.alt2[which(database$Trail_Condition.alt2=="Low")]=1
+database$Trail_ConditionM.alt2=0
+database$Trail_ConditionM.alt2[which(database$Trail_Condition.alt2=="Medium")]=1
+database$Trail_ConditionH.alt2=0
+database$Trail_ConditionH.alt2[which(database$Trail_Condition.alt2=="High")]=1
+
+
+
+## Crowding logic is reverse here when crowdings is coded at low it means there is high crowding when it is coded as high it means low crowding so here we reverse so that the one we drop is high crowding and compare what they would pay for medium or Low crowds.
+
+database$CrowdingH.alt1=0
+database$CrowdingH.alt1[which(database$Crowding.alt1=="Low")]=1
+database$CrowdingM.alt1=0
+database$CrowdingM.alt1[which(database$Crowding.alt1=="Medium")]=1
+database$CrowdingL.alt1=0
+database$CrowdingL.alt1[which(database$Crowding.alt1=="High")]=1
+
+
+
+database$CrowdingH.alt2=0
+database$CrowdingH.alt2[which(database$Crowding.alt2=="Low")]=1
+database$CrowdingM.alt2=0
+database$CrowdingM.alt2[which(database$Crowding.alt2=="Medium")]=1
+database$CrowdingL.alt2=0
+database$CrowdingL.alt2[which(database$Crowding.alt2=="High")]=1
+
+
+
+```
+
+Need to create some demographic info to control in the regression.
+
+```{r}
+database$Choice.Task.alt1
+
+
+#Resident 
+database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+database$Resident=0
+database$Resident[which(database$Zipverified.alt1=="Resident")]=1
+
+#Age
+database$Demo_Age_num=as.integer(factor(
+    database$Demo_Age.alt1,
+    levels = c(
+        "Under 18",
+        "18-24 years old",
+        "25-34 years old",
+        "35-44 years old",
+        "45-54 years old",
+        "55-64 years old",
+        "65+ years old"
+    ),
+    labels = 1:7
+))
+
+#Income 
+database$HHIncome_num <- as.integer(factor(
+  database$Demo_HH.Income.alt1,
+  levels = c(
+    "Less than $25,000",
+    "$25,000 -$49,999",
+    "$50,000 -$74,999",
+    "$75,000 -$99,999",
+    "$100,000 -$149,999",
+    "$150,000 or more"
+  ),
+  labels = 1:6
+))
+
+#Education 
+database$CollegePlus <- ifelse(
+  database$Demo_Education.alt1 %in% c(
+    "Bachelor's degree",
+    "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS etc.)"
+  ),
+  1, 0
+)
+
+#member of environmental group
+database$Member.Environment_binary <- ifelse(database$Member_Env.Group.alt1 == "Yes", 1, 0)
+database$WTP_User.fee_binary       <- ifelse(database$User.fee_Y.N.alt1      == "Yes", 1, 0)
+database$Sex_binary <- ifelse(database$Demo_Sex.alt1=="Female", 1,
+                             ifelse(database$Demo_Sex.alt1=="Male", 0, NA))
+database$Sex_binary[is.na(database$Sex_binary)] <- 0   # if you still want to force it
+
+database$Resident                  <- ifelse(database$Zipverified.alt1       == "Resident", 1, 0)
+
+
+#database=database[c(1,3,4,6,10,11:18,28,46, 55:81)]
+colnames(database)[1]="RID"
+colnames(database)[4]="choice"
+
+database$choice=as.numeric(
+  database$choice
+)
+database$choice=as.numeric(database$choice)
+```
+
+## MXL - Apollo code
+
+```{r}
+apollo_beta <- c(
+  # means
+  b_Habitat_QualityMed  = 0,
+  b_Habitat_QualityHigh = 0,
+  b_Trail_ConditionMed  = 0,
+  b_Trail_ConditionHigh = 0,
+  b_CrowdingMed         = 0,
+  b_CrowdingLow         = 0,
+  b_cost                = 0,
+  asc_optout = 0,
+
+  # sociodems (fixed)
+  #b_resident  = 0,
+    b_age       = 0,
+    b_education = 0,
+    b_income    = 0,
+    b_sex       = 0,
+
+
+  # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
+  sd_Habitat_QualityMed  = 0.1,
+  sd_Habitat_QualityHigh = 0.1,
+  sd_Trail_ConditionMed  = 0.1,
+  sd_Trail_ConditionHigh = 0.1,
+  sd_CrowdingMed         = 0.1,
+  sd_CrowdingLow         = 0.1
+)
+apollo_fixed <- c()
+
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
+```
+
+```{r}
+apollo_draws <- list(
+  interDrawsType = "halton",
+  interNDraws    = 500,     # start with 200–500; increase later
+  interNormDraws = c(
+    "draw_Habitat_QualityMed",
+    "draw_Habitat_QualityHigh",
+    "draw_Trail_ConditionMed",
+    "draw_Trail_ConditionHigh",
+    "draw_CrowdingMed",
+    "draw_CrowdingLow"
+  )
+)
+
+apollo_randCoeff <- function(apollo_beta, apollo_inputs){
+
+  randcoeff <- list()
+
+  randcoeff[["b_Habitat_QualityMed_R"]]  <- b_Habitat_QualityMed +
+    sd_Habitat_QualityMed * draw_Habitat_QualityMed
+
+  randcoeff[["b_Habitat_QualityHigh_R"]] <- b_Habitat_QualityHigh +
+    sd_Habitat_QualityHigh * draw_Habitat_QualityHigh
+
+  randcoeff[["b_Trail_ConditionMed_R"]]  <- b_Trail_ConditionMed +
+    sd_Trail_ConditionMed * draw_Trail_ConditionMed
+
+  randcoeff[["b_Trail_ConditionHigh_R"]] <- b_Trail_ConditionHigh +
+    sd_Trail_ConditionHigh * draw_Trail_ConditionHigh
+
+  randcoeff[["b_CrowdingMed_R"]] <- b_CrowdingMed +
+    sd_CrowdingMed * draw_CrowdingMed
+
+  randcoeff[["b_CrowdingLow_R"]] <- b_CrowdingLow +
+    sd_CrowdingLow * draw_CrowdingLow
+
+  return(randcoeff)
+}
+
+```
+
+```{r}
+apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  P = list()
+  V = list()
+  
+  # Utility for alt1
+
+V[["alt1"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt1 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt1 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt1 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
+  b_CrowdingMed_R         * CrowdingM.alt1 +
+  b_CrowdingLow_R         * CrowdingL.alt1 +
+  b_cost                  * Cost.alt1 +
+  # # #b_resident   * Resident +
+    b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+
+  
+  # Utility for alt2
+  V[["alt2"]]  =
+  b_Habitat_QualityMed_R  * Habitat_QualityM.alt2 +
+  b_Habitat_QualityHigh_R * Habitat_QualityH.alt2 +
+  b_Trail_ConditionMed_R  * Trail_ConditionM.alt2 +
+  b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
+  b_CrowdingMed_R         * CrowdingM.alt2 +
+  b_CrowdingLow_R         * CrowdingL.alt2 +
+  b_cost                  * Cost.alt2 +
+  # #b_resident   * Resident +
+    b_age        * Demo_Age_num +
+    b_education  * CollegePlus +
+    b_income     * HHIncome_num +
+    b_sex        * Sex_binary
+   
+  # utility for alt 3 
+V[["alt3"]] = asc_optout
+  
+  mnl_settings = list(
+    alternatives  = c(alt1=1, alt2=2, alt3=3),
+    avail         = list(alt1=1, alt2=1, alt3=1),
+    choiceVar     = choice,
+    utilities     = V
+  )
+  
+P[["model"]] = apollo_mnl(mnl_settings, functionality)
+
+P = apollo_panelProd(P, apollo_inputs, functionality)
+
+P = apollo_avgInterDraws(P, apollo_inputs, functionality)  # <-- mixed logit integration  
+
+P = apollo_prepareProb(P, apollo_inputs, functionality)
+
+  
+  return(P)
+}
+
+```
+
+```{r}
+model_mxl_Tourist <- apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
+summary(model_mxl_Tourist)
+```
+
+```{r}
+
+#Extract apollo model result 
+est <- model_mxl_Tourist$estimate
+
+#Extract standard error
+se <- sqrt(diag(model_mxl_Tourist$robvarcov))
+
+#Create coefficient table 
+coef_table <- tibble(
+  Parameter = names(est),
+  Estimate  = est,
+  SE        = se[names(est)]
+)
+
+#Add significance stars
+MXL_coef_table_Tourist <- coef_table %>%
+  mutate(
+    z = Estimate / SE,
+    Stars = case_when(
+      abs(z) > 3.29 ~ "***",
+      abs(z) > 2.58 ~ "**",
+      abs(z) > 1.96 ~ "*",
+      TRUE ~ ""
+    )
+  )
+```
+
+# **Create Utility Table: Combine output: Stargazer**
+
+```{r}
+get_apollo_stargazer_inputs <- function(model, robust = TRUE, p_sided = 2) {
+  M <- as.matrix(apollo_modelOutput(model, modelOutput_settings = list(silent = TRUE)))
+
+  b <- M[, "Estimate"]
+
+  if (robust) {
+    se <- M[, "Rob.s.e."]
+    t  <- M[, "Rob.t.rat.(0)"]
+  } else {
+    se <- M[, "s.e."]
+    t  <- M[, "t.rat.(0)"]
+  }
+
+  # p-values from t-ratio (normal approximation)
+  if (p_sided == 1) {
+    p <- 1 - pnorm(abs(t))             # 1-sided
+  } else {
+    p <- 2 * (1 - pnorm(abs(t)))       # 2-sided
+  }
+
+  names(b)  <- rownames(M)
+  names(se) <- rownames(M)
+  names(p)  <- rownames(M)
+
+  list(b = b, se = se, p = p)
+}
+
+align_to <- function(x, order) {
+  out <- rep(NA_real_, length(order))
+  names(out) <- order
+  out[names(x)] <- x
+  out
+}
+
+make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
+  set.seed(seed)
+  K <- length(coef_names)
+  X <- as.data.frame(matrix(rnorm(n * K), nrow = n, ncol = K))
+  names(X) <- coef_names
+  X$y <- rnorm(n)
+  lm(y ~ 0 + ., data = X)  # no intercept
+}
+```
+
+```{r}
+#library(stargazer)
+
+# Extract
+v_MNL_all  <- get_apollo_stargazer_inputs(model,      robust = TRUE, p_sided = 2)
+v_MNL_res  <- get_apollo_stargazer_inputs(model_residents, robust = TRUE, p_sided = 2)
+v_MNL_tour <- get_apollo_stargazer_inputs(model_tourists,  robust = TRUE, p_sided = 2)
+v_MXL_all  <- get_apollo_stargazer_inputs(model_mxl,      robust = TRUE, p_sided = 2)
+v_MXL_res  <- get_apollo_stargazer_inputs(model_mxl_Resident, robust = TRUE, p_sided = 2)
+v_MXL_tour <- get_apollo_stargazer_inputs(model_mxl_Tourist,  robust = TRUE, p_sided = 2)
+
+# Choose your row order (edit if needed)
+order <- c(
+  "b_Habitat_QualityMed","b_Habitat_QualityHigh",
+  "b_Trail_ConditionMed","b_Trail_ConditionHigh",
+  "b_CrowdingMed","b_CrowdingLow", "asc_optout",
+  "b_cost",
+  "b_resident",
+  "b_age","b_education","b_income","b_sex",
+
+
+  "sd_Habitat_QualityMed","sd_Habitat_QualityHigh",
+  "sd_Trail_ConditionMed","sd_Trail_ConditionHigh",
+  "sd_CrowdingMed","sd_CrowdingLow"
+)
+
+
+labels <- c(
+  "Habitat quality (Medium)","Habitat quality (High)",
+  "Trail condition (Medium)","Trail condition (High)",
+  "Crowding (Medium)","Crowding (Low)","ASC",
+  "Cost",
+  "Resident",
+  "Age","Education","Income","Sex",
+  "SD: Habitat quality (Medium)","SD: Habitat quality (High)",
+  "SD: Trail condition (Medium)","SD: Trail condition (High)",
+  "SD: Crowding (Medium)","SD: Crowding (Low)"
+)
+
+
+# Align each model’s vectors to the same coefficient list
+coef_list <- list(
+  align_to(v_MNL_all$b,  order),
+  align_to(v_MNL_res$b,  order),
+  align_to(v_MNL_tour$b, order),
+  align_to(v_MXL_all$b,  order),
+  align_to(v_MXL_res$b,  order),
+  align_to(v_MXL_tour$b, order)
+)
+
+se_list <- list(
+  align_to(v_MNL_all$se,  order),
+  align_to(v_MNL_res$se,  order),
+  align_to(v_MNL_tour$se, order),
+  align_to(v_MXL_all$se,  order),
+  align_to(v_MXL_res$se,  order),
+  align_to(v_MXL_tour$se, order)
+)
+
+p_list <- list(
+  align_to(v_MNL_all$p,  order),
+  align_to(v_MNL_res$p,  order),
+  align_to(v_MNL_tour$p, order),
+  align_to(v_MXL_all$p,  order),
+  align_to(v_MXL_res$p,  order),
+  align_to(v_MXL_tour$p, order)
+)
+
+# Dummy models for stargazer
+make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
+  set.seed(seed)
+  K <- length(coef_names)
+  X <- as.data.frame(matrix(rnorm(n * K), nrow = n, ncol = K))
+  names(X) <- coef_names
+  X$y <- rnorm(n)
+  lm(y ~ 0 + ., data = X)  # no intercept, so exactly K coefs with these names
+}
+
+d1 <- make_dummy_lm_named(order, seed = 1)
+d2 <- make_dummy_lm_named(order, seed = 2)
+d3 <- make_dummy_lm_named(order, seed = 3)
+d4 <- make_dummy_lm_named(order, seed = 4)
+d5 <- make_dummy_lm_named(order, seed = 5)
+d6 <- make_dummy_lm_named(order, seed = 6)
+
+
+
+```
+
+```{r}
+obs <- c(model$nObs, model_residents$nObs, model_tourists$nObs,
+         model_mxl$nObs, model_mxl_Resident$nObs, model_mxl_Tourist$nObs)
+
+resp <- c(model$nIndivs, model_residents$nIndivs, model_tourists$nIndivs,
+          model_mxl$nIndivs, model_mxl_Resident$nIndivs, model_mxl_Tourist$nIndivs)
+
+aic <- round(c(model$AIC, model_residents$AIC, model_tourists$AIC,
+               model_mxl$AIC, model_mxl_Resident$AIC, model_mxl_Tourist$AIC), 2)
+
+
+```
+
+```{r}
+#Combined MXL and MNL 
+
+stargazer(
+ d1, d2, d3, d4, d5, d6, 
+  type = "html",
+  out  = "Mnl_Mxl_table.html",
+  title = "Trail Choice Model Results",
+
+  column.labels   = c("MNL", "MXL"),
+  column.separate = c(3, 3),
+
+  model.numbers = TRUE,            # shows (1)-(6)
+  dep.var.labels.include = FALSE,
+
+  covariate.labels = labels,
+  coef = coef_list, se = se_list, p = p_list,
+  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+  add.lines = list(
+    c("Observations", obs),
+    c("Respondents",  resp),
+    c("AIC",          aic)
+  ),
+  notes = "Columns (1)-(3): All / Residents / Tourists (MNL). Columns (4)-(6): All / Residents / Tourists (MXL). SE in parentheses.",
+  notes.append = FALSE
+)
+
+
+
+
+```
+
+```{r}
+#Only MNL model 
+stargazer(
+  d1, d2, d3,
+  type = "html",
+  out  = "MNL_table1.html",
+  title = "Multinomial Logit Model Results",
+
+  model.numbers = FALSE,
+  dep.var.labels.include = FALSE,
+
+  column.labels = c("All respondents", "Residents", "Tourists"),
+  column.separate = c(1,1,1),
+
+  covariate.labels = labels,
+
+  coef = coef_list[1:3],
+  se   = se_list[1:3],
+  p    = p_list[1:3],
+
+  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+
+  add.lines = list(
+    c("Observations", obs[1:3]),
+    c("Respondents",  resp[1:3]),
+    c("AIC",          aic[1:3])
+  ),
+
+  notes = "Robust standard errors in parentheses.",
+  notes.append = FALSE
+)
+
+```
+
+```{r}
+#Only MXL model 
+stargazer(
+  d4, d5, d6,
+  type = "html",
+  out  = "MXL_table1.html",
+  title = "Mixed Logit (MXL) Model Results",
+
+  model.numbers = FALSE,
+  dep.var.labels.include = FALSE,
+
+  column.labels = c("All respondents", "Residents", "Tourists"),
+  column.separate = c(1,1,1),
+
+  covariate.labels = labels,
+
+  coef = coef_list[4:6],
+  se   = se_list[4:6],
+  p    = p_list[4:6],
+
+  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+
+  add.lines = list(
+    c("Observations", obs[4:6]),
+    c("Respondents",  resp[4:6]),
+    c("AIC",          aic[4:6])
+  ),
+
+  notes = "Robust standard errors in parentheses.",
+  notes.append = FALSE
+)
+```
+
+```{r}
+#Only MXL model (column number)
+stargazer(
+  d4, d5, d6,
+  type = "html",
+  out  = "MXL_table2.html",
+  title = "Mixed Logit (MXL) Model Results",
+
+  model.numbers = TRUE,
+  dep.var.labels.include = FALSE,
+
+  column.labels = c("All respondents", "Residents", "Tourists"),
+  column.separate = c(1,1,1),
+
+  covariate.labels = labels,
+
+  coef = coef_list[4:6],
+  se   = se_list[4:6],
+  p    = p_list[4:6],
+
+  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+
+  add.lines = list(
+    c("Observations", obs[4:6]),
+    c("Respondents",  resp[4:6]),
+    c("AIC",          aic[4:6])
+  ),
+  notes.append = FALSE
+)
+```
+
+# WTP Mean
+
+```{r}
+
+# Attributes you want WTP for (these are the *mean* taste parameters)
+wtp_pars <- c(
+  "b_Habitat_QualityMed",
+  "b_Habitat_QualityHigh",
+  "b_Trail_ConditionMed",
+  "b_Trail_ConditionHigh",
+  "b_CrowdingMed",
+  "b_CrowdingLow"
+)
+
+cost_par <- "b_cost"   # <- fixed cost coefficient name in the fixed-cost model
+
+```
+
+```{r}
+wtp_delta <- function(model, wtp_pars, cost_par = "b_cost", use_robust = TRUE){
+  bhat <- model$estimate
+  Vhat <- if(use_robust) (model$robvarcov %||% model$varcov) else model$varcov
+  if(is.null(Vhat)) stop("No varcov/robvarcov found in model object.")
+
+  needed <- c(wtp_pars, cost_par)
+  missing <- setdiff(needed, names(bhat))
+  if(length(missing) > 0) stop("Missing parameters in model$estimate: ", paste(missing, collapse=", "))
+
+  bc <- as.numeric(bhat[cost_par])
+  if(is.na(bc)) stop("Cost parameter not found.")
+
+  out <- lapply(wtp_pars, function(p){
+    bk <- as.numeric(bhat[p])
+
+    wtp <- -bk / bc
+
+    # gradient vector aligned to (bk, bc)
+    g <- c(d_bk = -1/bc,
+           d_bc =  bk/(bc^2))
+
+    # extract 2x2 varcov for (bk, bc)
+    V2 <- as.matrix(Vhat[c(p, cost_par), c(p, cost_par)])
+
+    var_wtp <- as.numeric(t(g) %*% V2 %*% g)
+    se_wtp  <- sqrt(var_wtp)
+
+    tibble(
+      Attribute = p,
+      wtp = wtp,
+      lo95 = wtp - 1.96 * se_wtp,
+      hi95 = wtp + 1.96 * se_wtp
+    )
+  })
+
+  bind_rows(out)
+}
+
+```
+
+```{r}
+# wtp_krinsky_robb <- function(model, wtp_pars, cost_par="b_cost",
+#                              R = 20000, use_robust = TRUE, seed = 123){
+#   set.seed(seed)
+# 
+#   bhat <- model$estimate
+#   Vhat <- if(use_robust) (model$robvarcov %||% model$varcov) else model$varcov
+#   if(is.null(Vhat)) stop("No varcov/robvarcov found in model object.")
+# 
+#   needed <- c(wtp_pars, cost_par)
+#   missing <- setdiff(needed, names(bhat))
+#   if(length(missing) > 0) stop("Missing parameters in model$estimate: ", paste(missing, collapse=", "))
+# 
+#   # Work on the subset vector (wtp_pars + cost_par)
+#   pars <- c(wtp_pars, cost_par)
+#   mu   <- as.numeric(bhat[pars])
+#   Sig  <- as.matrix(Vhat[pars, pars])
+# 
+#   draws <- MASS::mvrnorm(n = R, mu = mu, Sigma = Sig)
+#   colnames(draws) <- pars
+# 
+#   bc_draw <- draws[, cost_par]
+# 
+#   # WTP draws for each attribute
+#   wtp_draws <- sapply(wtp_pars, function(p){
+#     -draws[, p] / bc_draw
+#   })
+#   colnames(wtp_draws) <- wtp_pars
+# 
+#   # Point estimate from bhat (same formula)
+#   bc <- as.numeric(bhat[cost_par])
+# 
+#   tibble(
+#     Attribute = wtp_pars,
+#     wtp  = -as.numeric(bhat[wtp_pars]) / bc,
+#     lo95 = apply(wtp_draws, 2, quantile, 0.025, na.rm=TRUE),
+#     hi95 = apply(wtp_draws, 2, quantile, 0.975, na.rm=TRUE)
+#   )
+# }
+
+```
+
+```{r}
+# wtp_all  <- wtp_krinsky_robb(model_mxl,  wtp_pars, cost_par, R=20000, seed=1)
+# wtp_res  <- wtp_krinsky_robb(model_mxl_Resident,  wtp_pars, cost_par, R=20000, seed=2)
+# wtp_tour <- wtp_krinsky_robb(model_mxl_Tourist, wtp_pars, cost_par, R=20000, seed=3)
+
+
+```
+
+```{r}
+ wtp_all_delta  <- wtp_delta(model_mxl, wtp_pars, cost_par)
+ wtp_res_delta  <- wtp_delta(model_mxl_Resident,  wtp_pars, cost_par)
+ wtp_tour_delta<- wtp_delta(model_mxl_Tourist, wtp_pars, cost_par)
+
+```
+
+```{r}
+# fmt_cell <- function(est, lo, hi, digits=2){
+#   sprintf(paste0("%.",digits,"f (%.",digits,"f\u2013%.",digits,"f)"), est, lo, hi)
+# }
+# 
+# order_pars <- wtp_pars
+# row_labels <- c(
+#   "Habitat Quality: Medium",
+#   "Habitat Quality: High",
+#   "Trail Condition: Medium",
+#   "Trail Condition: High",
+#   "Crowding: Medium",
+#   "Crowding: Low"
+# )
+# 
+# prep_col <- function(df){
+#   df <- df[match(order_pars, df$Attribute), ]
+#   mapply(fmt_cell, df$wtp, df$lo95, df$hi95, MoreArgs=list(digits=2))
+# }
+# 
+# wtp_table <- data.frame(
+#   `Attributes` = row_labels,
+#   `All respondents` = prep_col(wtp_all_delta),
+#   `Residents`       = prep_col(wtp_res_delta),
+#   `Tourists`        = prep_col(wtp_tour_delta),
+#   check.names = FALSE
+# )
+
+# stargazer(wtp_table,
+#           summary = FALSE,
+#           rownames = FALSE,
+#           title = "Willingness to pay per entrance for trail improvements across groups.",
+#           notes = "95% confidence intervals in parentheses",
+#           type = "text")
+
+```
+
+```{r}
+# stargazer(
+#   wtp_table,
+#   summary = FALSE,
+#   rownames = FALSE,
+#   title = "Willingness to pay per trip for trail improvements across groups.",
+#   notes = "95% confidence intervals in parentheses.",
+#   type = "html",
+#   out  = "WTP_table.html"
+# )
+
+```
+
+```{r}
+# First, let's get the data in the right format
+order_pars <- wtp_pars
+row_labels <- c(
+  "Habitat Quality: Medium",
+  "Habitat Quality: High",
+  "Trail Condition: Medium", 
+  "Trail Condition: High",
+  "Crowding: Medium",
+  "Crowding: Low"
+)
+
+# Create a function to prepare data for stargazer with two rows per attribute
+create_stargazer_data <- function(wtp_all, wtp_res, wtp_tour) {
+  # Reorder to match the desired order
+  wtp_all <- wtp_all[match(order_pars, wtp_all$Attribute), ]
+  wtp_res <- wtp_res[match(order_pars, wtp_res$Attribute), ]
+  wtp_tour <- wtp_tour[match(order_pars, wtp_tour$Attribute), ]
+  
+  # Initialize vectors for the table
+  attributes_col <- character()
+  all_resp_col <- character()
+  residents_col <- character()
+  tourists_col <- character()
+  
+  # For each attribute, add two rows: one for mean, one for CI
+for(i in 1:nrow(wtp_all)) {
+    # Row 1: Mean value
+attributes_col <- c(attributes_col, row_labels[i])
+all_resp_col   <- c(all_resp_col,  sprintf("DOLLARSIGN%.2f", wtp_all$wtp[i]))
+residents_col  <- c(residents_col, sprintf("DOLLARSIGN%.2f", wtp_res$wtp[i]))
+tourists_col   <- c(tourists_col,  sprintf("DOLLARSIGN%.2f", wtp_tour$wtp[i]))
+
+
+    # Row 2: Confidence interval
+    attributes_col <- c(attributes_col, "")
+    all_resp_col <- c(all_resp_col, sprintf("(%.2f\u2013%.2f)", wtp_all$lo95[i], wtp_all$hi95[i]))
+    residents_col <- c(residents_col, sprintf("(%.2f\u2013%.2f)", wtp_res$lo95[i], wtp_res$hi95[i]))
+    tourists_col <- c(tourists_col, sprintf("(%.2f\u2013%.2f)", wtp_tour$lo95[i], wtp_tour$hi95[i]))
+  }
+  
+  # Create the data frame
+  data.frame(
+    Attributes = attributes_col,
+    `All respondents` = all_resp_col,
+    Residents = residents_col,
+    Tourists = tourists_col,
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  )
+}
+
+```
+
+```{r}
+# Create the table data
+stargazer_data <- create_stargazer_data(wtp_all_delta, wtp_res_delta, wtp_tour_delta)
+
+# Rename columns to include numbers
+colnames(stargazer_data) <- c(
+  "Attribute",
+  "All respondents<br/>(1)",
+  "Residents<br/>(2)",
+  "Tourists<br/>(3)"
+)
+
+# Create the table with stargazer
+stargazer(
+  stargazer_data,
+  summary = FALSE,
+  rownames = FALSE,
+  title = "Willingness to Pay Per Use For Trail Improvements Across Groups",
+  type = "html",
+  out = "WTP_table.CI.html",
+  # Add styling to improve appearance
+  column.sep.width = "10pt",
+ # font.size = "small",
+  # Remove default note about number of observations
+  notes.align = "l",
+  notes.append = FALSE
+)
+
+# Then replace the placeholder with $ in the output file
+html_content <- readLines("WTP_table.CI.html")
+html_content <- gsub("DOLLARSIGN", "$", html_content, fixed = TRUE)
+html_content <- gsub("< br/> ", "<br/>", html_content, fixed = TRUE)
+writeLines(html_content, "WTP_table.CI.html")
+```
+
+# WTP Graph: TC and HQ
+
+```{r}
+# --- Step 1: Create Attribute level table 
+attr_levels <- data.frame(
+  Attribute = c("b_Habitat_QualityMed", "b_Habitat_QualityHigh", "b_Trail_ConditionMed", "b_Trail_ConditionHigh"),
+  AttributeName = c("Habitat Quality", "Habitat Quality", "Trail Condition", "Trail Condition"),
+  Level = c("Medium", "High", "Medium", "High"),
+  stringsAsFactors = FALSE
+)
+
+wtp_all  <- wtp_all_delta  %>% mutate(Group = "All respondents")
+wtp_res  <- wtp_res_delta  %>% mutate(Group = "Residents")
+wtp_tour <- wtp_tour_delta %>% mutate(Group = "Tourists")
+
+wtp_combined <- bind_rows(wtp_all, wtp_res, wtp_tour) %>%
+  right_join(attr_levels, by = "Attribute")
+
+# --- Step 2: Build gap annotation data (Tourists minus Residents, at "High" level)
+gap_data <- wtp_combined %>%
+  filter(Group %in% c("Residents", "Tourists")) %>%
+  select(AttributeName, Level, Group, wtp) %>%
+  pivot_wider(names_from = Group, values_from = wtp) %>%33
+  mutate(
+    gap = round(Tourists - Residents),        # rounded difference
+    label = paste0("+$", gap)                 # label e.g. "+$52"
+  )
+
+group_colors <- c("All respondents" = "grey", "Residents" = "#6a906c", "Tourists" = "#ae9864")
+
+p <- ggplot(wtp_combined, aes(x = Level, y = wtp, color = Group, group = Group)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  # Rounded value labels above points
+  geom_text(aes(label = paste0("$", round(wtp))),
+            vjust = -0.8,
+            size = 3,
+            show.legend = FALSE,
+            fontface = "bold",
+            color = "black") +
+  # # Gap bracket: vertical segment between Residents and Tourists
+  # geom_segment(
+  #   data = gap_data,
+  #   aes(x = Level, xend = Level,
+  #       y = Residents, yend = Tourists),
+  #   inherit.aes = FALSE,
+  #   color = "black",
+  #   linewidth = 0.6,
+  #   linetype = "dashed",
+  #   arrow = arrow(ends = "both", length = unit(0.15, "cm"), type = "closed")
+  # ) +
+  # # Gap label to the right of the bracket
+  # geom_text(
+  #   data = gap_data,
+  #   aes(x = Level,
+  #       y = (Residents + Tourists) / 2,
+  #       label = label),
+  #   inherit.aes = FALSE,
+  #   hjust = -0.2,
+  #   size = 3,
+  #   color = "black"
+  # ) +
+  facet_wrap(~ AttributeName, scales = "free_y") +
+  scale_color_manual(values = group_colors) +
+  scale_y_continuous(limits = c(0, 110)) +
+  labs(
+    title = "Willingness to Pay for Trail Improvements",
+    x = "Management Level",
+    y = "Average WTP per use ($)",
+    color = "Group"
+  ) +
+  theme_minimal(base_size = 12) +
+ theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 16),   # facet titles: "Habitat Quality", "Trail Condition"
+    legend.text  = element_text(size = 13),                # group names in legend
+    legend.title = element_blank(),, # "Group" label
+      panel.grid.minor = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(size = 12)
+
+  )
+
+print(p)
+ggsave("WTP_incremental.png", p, width = 10, height = 6, dpi = 300)
+```
+
+# WTP Graph: Crowding
+
+```{r}
+# --- Step 1: Create Attribute level table 
+attr_levels_crowding <- data.frame(
+  Attribute = c("b_CrowdingMed", "b_CrowdingLow"),
+  AttributeName = c("Crowding", "Crowding"),
+  Level = c("Medium", "Low"),
+  stringsAsFactors = FALSE
+)
+
+# Combine groups
+wtp_all <- wtp_all_delta %>% mutate(Group = "All respondents")
+wtp_res <- wtp_res_delta %>% mutate(Group = "Residents")
+wtp_tour <- wtp_tour_delta %>% mutate(Group = "Tourists")
+
+wtp_combined_crowding <- bind_rows(wtp_all, wtp_res, wtp_tour) %>%
+  right_join(attr_levels_crowding, by = "Attribute")
+```
+
+```{r}
+group_colors <- c("All respondents" = "grey", "Residents" = "#6a906c", "Tourists" = "#ae9864")
+
+r <- ggplot(wtp_combined_crowding, aes(x = Level, y = wtp, color = Group, group = Group)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  # geom_errorbar(aes(ymin = lo95, ymax = hi95), width = 0.1, size = 0.5) +
+  # Add value labels above points
+  geom_text(aes(label = paste0("$", round(wtp))),
+            vjust = -0.8,
+            size = 3,
+            show.legend = FALSE,
+            fontface = "bold",
+            color = "black") +     # use black for readability (or match group colors)
+  facet_wrap(~ AttributeName, scales = "free_y") +
+  scale_color_manual(values = group_colors) +
+   scale_y_continuous(limits = c(0, 100)) + 
+  labs(
+    title = "Willingness to Pay for Trail Improvements",
+    x = "Management Level",
+    y = "Average WTP per use ($)",
+    color = "Group"
+  ) +
+  theme_minimal(base_size = 12) +
+ theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold", size = 16),   # facet titles: "Crowding"
+    legend.text  = element_text(size = 13),                # group names in legend
+    legend.title = element_blank(),, # "Group" label
+      panel.grid.minor = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(size = 12)
+
+  )
+
+
+print(r)
+ggsave("WTP_incremental_Crowding.png", r, width = 10, height = 6, dpi = 300)
+```
+
+# Welfare Calculation
+
+```{r}
+# ══════════════════════════════════════════════════════
+# SIMULATION-BASED WELFARE CALCULATION
+# Mixed Logit — Parametric Normal Draws
+# 1000 draws, attribute-by-attribute + bundle scenarios
+# ══════════════════════════════════════════════════════
+
+set.seed(123)  # for reproducibility
+n_draws <- 1000
+
+# ── Step 1: Extract means and SDs from estimated model ──
+bhat <- model_mxl$estimate
+
+# Means of random parameters
+mu_HabitatMed    <- bhat["b_Habitat_QualityMed"]
+mu_HabitatHigh   <- bhat["b_Habitat_QualityHigh"]
+mu_TrailCondMed  <- bhat["b_Trail_ConditionMed"]
+mu_TrailCondHigh <- bhat["b_Trail_ConditionHigh"]
+mu_CrowdingMed   <- bhat["b_CrowdingMed"]
+mu_CrowdingLow   <- bhat["b_CrowdingLow"]
+
+# SDs of random parameters
+sd_HabitatMed    <- abs(bhat["sd_Habitat_QualityMed"])
+sd_HabitatHigh   <- abs(bhat["sd_Habitat_QualityHigh"])
+sd_TrailCondMed  <- abs(bhat["sd_Trail_ConditionMed"])
+sd_TrailCondHigh <- abs(bhat["sd_Trail_ConditionHigh"])
+sd_CrowdingMed   <- abs(bhat["sd_CrowdingMed"])
+sd_CrowdingLow   <- abs(bhat["sd_CrowdingLow"])
+
+# Fixed parameters
+b_cost     <- bhat["b_cost"]
+asc_optout <- bhat["asc_optout"]
+
+#Print output 
+cat("═══════════════════════════════════════\n")
+cat("Random parameter distributions:\n")
+cat("═══════════════════════════════════════\n")
+cat(sprintf("%-20s %8s %8s\n", "Parameter", "Mean", "SD"))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Habitat Med",    mu_HabitatMed,    sd_HabitatMed))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Habitat High",   mu_HabitatHigh,   sd_HabitatHigh))
+cat(sprintf("%-20s %8.4f %8.4f\n", "TrailCond Med",  mu_TrailCondMed,  sd_TrailCondMed))
+cat(sprintf("%-20s %8.4f %8.4f\n", "TrailCond High", mu_TrailCondHigh, sd_TrailCondHigh))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Crowding Med",   mu_CrowdingMed,   sd_CrowdingMed))
+cat(sprintf("%-20s %8.4f %8.4f\n", "Crowding Low",   mu_CrowdingLow,   sd_CrowdingLow))
+cat(sprintf("%-20s %8.4f %8s\n",   "Cost (fixed)",   b_cost,           "—"))
+cat(sprintf("%-20s %8.4f %8s\n",   "ASC optout",     asc_optout,       "—"))
+
+```
+
+```{r}
+# ── Step 2: Generate parametric draws ──
+# Each draw r gives one complete set of preference parameters
+# representing one "type" of individual from the population
+
+draws <- data.frame(
+  b_HabitatMed    = rnorm(n_draws, mu_HabitatMed,    sd_HabitatMed),
+  b_HabitatHigh   = rnorm(n_draws, mu_HabitatHigh,   sd_HabitatHigh),
+  b_TrailCondMed  = rnorm(n_draws, mu_TrailCondMed,  sd_TrailCondMed),
+  b_TrailCondHigh = rnorm(n_draws, mu_TrailCondHigh, sd_TrailCondHigh),
+  b_CrowdingMed   = rnorm(n_draws, mu_CrowdingMed,   sd_CrowdingMed),
+  b_CrowdingLow   = rnorm(n_draws, mu_CrowdingLow,   sd_CrowdingLow)
+)
+
+cat("\nDraws generated:", n_draws, "\n")
+cat("Verifying draw means match parameters:\n")
+cat(sprintf("  b_HabitatMed mean:    %.4f (target: %.4f)\n", 
+            mean(draws$b_HabitatMed), mu_HabitatMed))
+cat(sprintf("  b_HabitatHigh mean:   %.4f (target: %.4f)\n", 
+            mean(draws$b_HabitatHigh), mu_HabitatHigh))
+
+```
+
+```{r}
+# ── Step 3: Define logsum function ──
+# For each draw r, compute logsum per choice occasion
+# then average across choice tasks per respondent
+# then average across respondents and draws
+
+compute_cv_sim <- function(_scenario, 
+                           cost_alt1, cost_alt2,
+                           b_cost_fixed, asc_optout_fixed,
+                           draws_vec) {
+  # draws_vec: vector of length n_draws — the simulated attribute utility
+  # for this scenario under each draw
+  
+  cv_per_draw <- sapply(1:length(draws_vec), function(r) {
+    
+    # Baseline logsum (all attributes at reference = 0)
+    V1_base <- b_cost_fixed * cost_alt1
+    V2_base <- b_cost_fixed * cost_alt2
+    V3_base <- rep(asc_optout_fixed, length(cost_alt1))
+    ls_base  <- log(exp(V1_base) + exp(V2_base) + exp(V3_base))
+    
+    # Scenario logsum
+    V1_scen <- draws_vec[r] + b_cost_fixed * cost_alt1
+    V2_scen <- draws_vec[r] + b_cost_fixed * cost_alt2
+    V3_scen <- rep(asc_optout_fixed, length(cost_alt1))
+    ls_scen  <- log(exp(V1_scen) + exp(V2_scen) + exp(V3_scen))
+    
+    # CV per choice occasion
+    cv_occ <- (ls_scen - ls_base) / (-b_cost_fixed)
+    
+    # Average across choice occasions (panel)
+    mean(cv_occ)
+  })
+  
+  return(cv_per_draw)
+}
+```
+
+```{r}
+# ── Step 4: Define all scenarios ──
+# Each scenario is defined by which attribute coefficients are active
+# Attribute utility for draw r = sum of relevant beta draws
+
+cost_alt1 <- database$Cost.alt1
+cost_alt2 <- database$Cost.alt2
+
+scenarios <- list(
+  # ── Individual attribute scenarios — Baseline → Medium ──
+  "Habitat Quality: Low → Medium"   = draws$b_HabitatMed,
+  "Habitat Quality: Low → High"     = draws$b_HabitatHigh,
+  "Trail Condition: Low → Medium"   = draws$b_TrailCondMed,
+  "Trail Condition: Low → High"     = draws$b_TrailCondHigh,
+  "Crowding: High → Medium"         = draws$b_CrowdingMed,
+  "Crowding: High → Low"            = draws$b_CrowdingLow,
+  
+  # ── Individual attribute scenarios — Medium → High ──
+  # These are the DIFFERENCE between high and medium draws
+  # Correctly propagates uncertainty across both estimates
+  "Habitat Quality: Medium → High"  = draws$b_HabitatHigh - draws$b_HabitatMed,
+  "Trail Condition: Medium → High"  = draws$b_TrailCondHigh - draws$b_TrailCondMed,
+  "Crowding: Medium → Low"          = draws$b_CrowdingLow - draws$b_CrowdingMed,
+  
+  # ── Bundle scenarios ──
+  "Medium Bundle (all → Medium)"    = 
+    draws$b_HabitatMed + draws$b_TrailCondMed + draws$b_CrowdingMed,
+  
+  "High Bundle (all → High/Best)"   = 
+    draws$b_HabitatHigh + draws$b_TrailCondHigh + draws$b_CrowdingLow,
+  
+  # ── Bundle Medium → High ──
+  "Medium → High Bundle"            = 
+    (draws$b_HabitatHigh - draws$b_HabitatMed) + 
+    (draws$b_TrailCondHigh - draws$b_TrailCondMed) + 
+    (draws$b_CrowdingLow - draws$b_CrowdingMed)
+)
+```
+
+```{r}
+# ── Step 5: Compute CV for each scenario ──
+cat("\nRunning simulations...\n")
+
+results_list <- lapply(names(scenarios), function(scen_name) {
+  
+  cat("  Computing:", scen_name, "\n")
+  
+  cv_draws <- compute_cv_sim(
+    _scenario  = NULL,       # not used directly
+    cost_alt1        = cost_alt1,
+    cost_alt2        = cost_alt2,
+    b_cost_fixed     = b_cost,
+    asc_optout_fixed = asc_optout,
+    draws_vec        = scenarios[[scen_name]]
+  )
+  
+  tibble(
+    Scenario  = scen_name,
+    CV_mean   = mean(cv_draws),
+    CV_median = median(cv_draws),
+    CV_se     = sd(cv_draws),
+    CV_lo95   = quantile(cv_draws, 0.025),
+    CV_hi95   = quantile(cv_draws, 0.975)
+  )
+})
+
+welfare_results <- bind_rows(results_list)
+
+```
+
+```{r}
+# ── Step 6: Print results table ──
+cat("\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Simulation-Based Welfare Estimates (CV per person per trip)\n")
+cat("1000 parametric draws from estimated MXL parameter distributions\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat(sprintf("%-45s %8s %8s %20s\n", 
+            "Scenario", "CV Mean", "SE", "95% Sim CI"))
+cat(sprintf("%-45s %8s %8s %20s\n", 
+            "—", "($)", "($)", ""))
+cat("───────────────────────────────────────────────────────────────────────\n")
+
+for(i in 1:nrow(welfare_results)) {
+  cat(sprintf("%-45s %8.2f %8.2f   [%6.2f, %6.2f]\n",
+              welfare_results$Scenario[i],
+              welfare_results$CV_mean[i],
+              welfare_results$CV_se[i],
+              welfare_results$CV_lo95[i],
+              welfare_results$CV_hi95[i]))
+  
+  # Separators between sections
+  if(i == 6) cat("── Medium → High improvements ─────────────────────────────────────────\n")
+  if(i == 9) cat("── Bundle scenarios ────────────────────────────────────────────────────\n")
+}
+
+
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Note: CV = compensating variation. Positive values = welfare gains.\n")
+cat("SE and CI derived from simulation across 1000 parameter draws.\n")
+```
+
+```{r}
+
+# ── Step 7: Save results ──
+write.csv(welfare_results, "welfare_simulation_results.csv", row.names = FALSE)
+cat("\nResults saved to welfare_simulation_results.csv\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# DELTA METHOD CV — ATTRIBUTE BY ATTRIBUTE
+# ══════════════════════════════════════════════════════
+
+cv_single_delta <- function(model, attr_par, cost_par = "b_cost", 
+                             scenario_name, use_robust = TRUE) {
+  bhat <- model$estimate
+  Vhat <- if(use_robust) model$robvarcov else model$varcov
+  bc   <- bhat[cost_par]
+  bk   <- bhat[attr_par]
+  cv   <- bk / (-bc)
+  grad <- c(d_bk = 1/(-bc), d_bc = bk/(bc^2))
+  V2   <- as.matrix(Vhat[c(attr_par, cost_par), c(attr_par, cost_par)])
+  se_cv <- sqrt(as.numeric(t(grad) %*% V2 %*% grad))
+  tibble(Scenario = scenario_name,
+         CV       = round(cv, 2),
+         SE       = round(se_cv, 2),
+         CI_low   = round(cv - 1.96 * se_cv, 2),
+         CI_high  = round(cv + 1.96 * se_cv, 2))
+}
+
+cv_diff_delta <- function(model, attr_high, attr_med,
+                           cost_par = "b_cost",
+                           scenario_name, use_robust = TRUE) {
+  bhat   <- model$estimate
+  Vhat   <- if(use_robust) model$robvarcov else model$varcov
+  bc     <- bhat[cost_par]
+  b_high <- bhat[attr_high]
+  b_med  <- bhat[attr_med]
+  b_diff <- b_high - b_med
+  cv     <- b_diff / (-bc)
+  grad   <- c(d_bhigh = 1/(-bc), d_bmed = -1/(-bc), d_bc = b_diff/(bc^2))
+  V3     <- as.matrix(Vhat[c(attr_high, attr_med, cost_par),
+                            c(attr_high, attr_med, cost_par)])
+  se_cv  <- sqrt(as.numeric(t(grad) %*% V3 %*% grad))
+  tibble(Scenario = scenario_name,
+         CV       = round(cv, 2),
+         SE       = round(se_cv, 2),
+         CI_low   = round(cv - 1.96 * se_cv, 2),
+         CI_high  = round(cv + 1.96 * se_cv, 2))
+}
+
+cv_bundle_diff_delta <- function(model,
+                                  attr_high_pars,
+                                  attr_med_pars,
+                                  cost_par = "b_cost",
+                                  scenario_name,
+                                  use_robust = TRUE) {
+  bhat   <- model$estimate
+  Vhat   <- if(use_robust) model$robvarcov else model$varcov
+  bc     <- bhat[cost_par]
+  b_high <- sum(bhat[attr_high_pars])
+  b_med  <- sum(bhat[attr_med_pars])
+  b_diff <- b_high - b_med
+  cv     <- b_diff / (-bc)
+  grad   <- c(rep(1/(-bc),  length(attr_high_pars)),
+              rep(-1/(-bc), length(attr_med_pars)),
+              b_diff/(bc^2))
+  all_pars <- c(attr_high_pars, attr_med_pars, cost_par)
+  V_block  <- as.matrix(Vhat[all_pars, all_pars])
+  se_cv    <- sqrt(as.numeric(t(grad) %*% V_block %*% grad))
+  tibble(Scenario = scenario_name,
+         CV       = round(cv, 2),
+         SE       = round(se_cv, 2),
+         CI_low   = round(cv - 1.96 * se_cv, 2),
+         CI_high  = round(cv + 1.96 * se_cv, 2))
+}
+
+# ══════════════════════════════════════════════════════
+# Compute all CVs
+# ══════════════════════════════════════════════════════
+cv_individual <- bind_rows(
+  
+  # ── Habitat Quality ──
+  cv_single_delta(model_mxl,
+                  "b_Habitat_QualityMed",
+                  scenario_name = "Habitat Quality: Low -> Medium"),
+  cv_single_delta(model_mxl,
+                  "b_Habitat_QualityHigh",
+                  scenario_name = "Habitat Quality: Low -> High"),
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_Habitat_QualityHigh",
+                attr_med      = "b_Habitat_QualityMed",
+                scenario_name = "Habitat Quality: Medium -> High"),
+  
+  # ── Trail Condition ──
+  cv_single_delta(model_mxl,
+                  "b_Trail_ConditionMed",
+                  scenario_name = "Trail Condition: Low -> Medium"),
+  cv_single_delta(model_mxl,
+                  "b_Trail_ConditionHigh",
+                  scenario_name = "Trail Condition: Low -> High"),
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_Trail_ConditionHigh",
+                attr_med      = "b_Trail_ConditionMed",
+                scenario_name = "Trail Condition: Medium -> High"),
+  
+  # ── Crowding ──
+  cv_single_delta(model_mxl,
+                  "b_CrowdingMed",
+                  scenario_name = "Crowding: High -> Medium"),
+  cv_single_delta(model_mxl,
+                  "b_CrowdingLow",
+                  scenario_name = "Crowding: High -> Low"),
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_CrowdingLow",
+                attr_med      = "b_CrowdingMed",
+                scenario_name = "Crowding: Medium -> Low"),
+  
+  # ── Bundles ──
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityMed",
+                                "b_Trail_ConditionMed",
+                                "b_CrowdingMed"),
+              cost_par      = "b_cost",
+              scenario_name = "Medium Bundle (all -> Medium)"),
+  
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityHigh",
+                                "b_Trail_ConditionHigh",
+                                "b_CrowdingLow"),
+              cost_par      = "b_cost",
+              scenario_name = "High Bundle (all -> High/Best)"),
+  
+  # ── Medium to High Bundle ──
+  cv_bundle_diff_delta(
+    model_mxl,
+    attr_high_pars = c("b_Habitat_QualityHigh",
+                       "b_Trail_ConditionHigh",
+                       "b_CrowdingLow"),
+    attr_med_pars  = c("b_Habitat_QualityMed",
+                       "b_Trail_ConditionMed",
+                       "b_CrowdingMed"),
+    cost_par       = "b_cost",
+    scenario_name  = "Medium -> High Bundle"
+  )
+)  # <-- THIS closing parenthesis was missing before
+
+# ══════════════════════════════════════════════════════
+# Confirm row count before printing
+# ══════════════════════════════════════════════════════
+cat("Rows in cv_individual:", nrow(cv_individual), "\n")
+print(cv_individual$Scenario)
+
+# ══════════════════════════════════════════════════════
+# Print priority setting table
+# ══════════════════════════════════════════════════════
+cat("\n")
+cat("=================================================================\n")
+cat("Welfare Estimates - Attribute Priority Setting Table\n")
+cat("Delta method, mean coefficients, MXL pooled model\n")
+cat("=================================================================\n")
+cat(sprintf("%-42s %8s %8s %22s\n",
+            "Scenario", "CV ($)", "SE ($)", "95% CI"))
+cat("-----------------------------------------------------------------\n")
+
+groups <- list(
+  "Habitat Quality"  = 1:3,
+  "Trail Condition"  = 4:6,
+  "Crowding"         = 7:9,
+  "Bundle Scenarios" = 10:12
+)
+
+for(grp_name in names(groups)) {
+  cat(paste0("  [", grp_name, "]\n"))
+  idx <- groups[[grp_name]]
+  for(i in idx) {
+    cat(sprintf("  %-40s %8.2f %8.2f   [%7.2f, %7.2f]\n",
+                cv_individual$Scenario[i],
+                cv_individual$CV[i],
+                cv_individual$SE[i],
+                cv_individual$CI_low[i],
+                cv_individual$CI_high[i]))
+  }
+  cat("-----------------------------------------------------------------\n")
+}
+
+cat("Note: CV = compensating variation per person per trip.\n")
+cat("All CIs exclude zero unless marked ns.\n")
+
+# write.csv(cv_individual, "welfare_priority_table.csv", row.names = FALSE)
+# cat("Saved to welfare_priority_table.csv\n")
+
+```
+
+### Scenario simulation
+
+```{r}
+# ══════════════════════════════════════════════════════
+# COMBINED TABLE — Mean CV + Both CI types
+# ══════════════════════════════════════════════════════
+
+# ── Step 1: Run simulation for all scenarios ──
+set.seed(123)
+n_draws <- 1000
+
+# Regenerate draws
+draws <- data.frame(
+  b_HabitatMed    = rnorm(n_draws, mu_HabitatMed,    sd_HabitatMed),
+  b_HabitatHigh   = rnorm(n_draws, mu_HabitatHigh,   sd_HabitatHigh),
+  b_TrailCondMed  = rnorm(n_draws, mu_TrailCondMed,  sd_TrailCondMed),
+  b_TrailCondHigh = rnorm(n_draws, mu_TrailCondHigh, sd_TrailCondHigh),
+  b_CrowdingMed   = rnorm(n_draws, mu_CrowdingMed,   sd_CrowdingMed),
+  b_CrowdingLow   = rnorm(n_draws, mu_CrowdingLow,   sd_CrowdingLow)
+)
+
+# ── Step 2: Simulation CV per draw per scenario ──
+# For each draw r, CV = sum(b_attr_r) / (-b_cost)
+# b_cost is fixed so it doesn't vary across draws
+
+sim_cv <- data.frame(
+  
+  # Individual attributes
+  HabitatMed     = draws$b_HabitatMed    / (-b_cost),
+  HabitatHigh    = draws$b_HabitatHigh   / (-b_cost),
+  HabitatMedHigh = (draws$b_HabitatHigh - draws$b_HabitatMed) / (-b_cost),
+  
+  TrailCondMed   = draws$b_TrailCondMed  / (-b_cost),
+  TrailCondHigh  = draws$b_TrailCondHigh / (-b_cost),
+  TrailMedHigh   = (draws$b_TrailCondHigh - draws$b_TrailCondMed) / (-b_cost),
+  
+  CrowdingMed    = draws$b_CrowdingMed   / (-b_cost),
+  CrowdingLow    = draws$b_CrowdingLow   / (-b_cost),
+  CrowdingMedLow = (draws$b_CrowdingLow - draws$b_CrowdingMed) / (-b_cost),
+  
+  # Bundles
+  BundleMed      = (draws$b_HabitatMed + 
+                    draws$b_TrailCondMed + 
+                    draws$b_CrowdingMed)  / (-b_cost),
+  
+  BundleHigh     = (draws$b_HabitatHigh + 
+                    draws$b_TrailCondHigh + 
+                    draws$b_CrowdingLow)  / (-b_cost),
+  
+  BundleMedHigh  = (draws$b_HabitatHigh - draws$b_HabitatMed +
+                    draws$b_TrailCondHigh - draws$b_TrailCondMed +
+                    draws$b_CrowdingLow  - draws$b_CrowdingMed)  / (-b_cost)
+)
+
+# ── Step 3: Extract simulation CIs ──
+sim_summary <- data.frame(
+  Scenario = c(
+    "Habitat Quality: Low -> Medium",
+    "Habitat Quality: Low -> High",
+    "Habitat Quality: Medium -> High",
+    "Trail Condition: Low -> Medium",
+    "Trail Condition: Low -> High",
+    "Trail Condition: Medium -> High",
+    "Crowding: High -> Medium",
+    "Crowding: High -> Low",
+    "Crowding: Medium -> Low",
+    "Medium Bundle (all -> Medium)",
+    "High Bundle (all -> High/Best)",
+    "Medium -> High Bundle"
+  ),
+  Sim_mean   = round(colMeans(sim_cv), 2),
+  Sim_CI_low = round(apply(sim_cv, 2, quantile, 0.025), 2),
+  Sim_CI_high= round(apply(sim_cv, 2, quantile, 0.975), 2)
+)
+
+# ── Step 4: Merge with delta method results ──
+combined_table <- merge(
+  cv_individual[, c("Scenario", "CV", "CI_low", "CI_high")],
+  sim_summary[, c("Scenario", "Sim_CI_low", "Sim_CI_high")],
+  by = "Scenario",
+  sort = FALSE
+)
+
+# Restore original row order
+combined_table <- combined_table[match(cv_individual$Scenario, 
+                                        combined_table$Scenario), ]
+
+# ── Step 5: Print combined table ──
+cat("\n")
+cat("================================================================\n")
+cat("Welfare Estimates — Mean CV with Estimation and Heterogeneity CIs\n")
+cat("================================================================\n")
+cat(sprintf("%-38s %7s %18s %20s\n",
+            "Scenario", "Mean CV",
+            "Delta 95% CI",
+            "Simulation 95% CI"))
+cat(sprintf("%-38s %7s %18s %20s\n",
+            "", "($)",
+            "(estimation uncertainty)",
+            "(preference heterogeneity)"))
+cat("----------------------------------------------------------------\n")
+
+groups <- list(
+  "Habitat Quality"  = 1:3,
+  "Trail Condition"  = 4:6,
+  "Crowding"         = 7:9,
+  "Bundle Scenarios" = 10:12
+)
+
+for(grp_name in names(groups)) {
+  cat(paste0("  [", grp_name, "]\n"))
+  idx <- groups[[grp_name]]
+  for(i in idx) {
+    cat(sprintf("  %-36s %7.2f  [%6.2f, %7.2f]    [%7.2f, %7.2f]\n",
+                combined_table$Scenario[i],
+                combined_table$CV[i],
+                combined_table$CI_low[i],
+                combined_table$CI_high[i],
+                combined_table$Sim_CI_low[i],
+                combined_table$Sim_CI_high[i]))
+  }
+  cat("----------------------------------------------------------------\n")
+}
+
+cat("\nNote: Delta CI = 95% CI from delta method reflecting estimation\n")
+cat("uncertainty around mean CV. Simulation CI = 95% interval from\n")
+cat("1000 parametric draws reflecting preference heterogeneity.\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# PARTIAL IMPROVEMENT SCENARIOS
+# Management focuses on ONE attribute at a time
+# Everything else stays at baseline (reference level)
+# ══════════════════════════════════════════════════════
+
+# ── Step 1: Define partial scenario CV using delta method ──
+# These use cv_delta_se and cv_single_delta already defined
+
+partial_scenarios <- bind_rows(
+  
+  # ════════════════════════════════
+  # HABITAT QUALITY ONLY SCENARIOS
+  # Trail condition = Low (ref)
+  # Crowding = High (ref)
+  # ════════════════════════════════
+  cv_single_delta(model_mxl,
+                  "b_Habitat_QualityMed",
+                  scenario_name = "Habitat Only: Low → Medium"),
+  
+  cv_single_delta(model_mxl,
+                  "b_Habitat_QualityHigh",
+                  scenario_name = "Habitat Only: Low → High"),
+  
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_Habitat_QualityHigh",
+                attr_med      = "b_Habitat_QualityMed",
+                scenario_name = "Habitat Only: Medium → High"),
+  
+  # ════════════════════════════════
+  # TRAIL CONDITION ONLY SCENARIOS
+  # Habitat = Low (ref)
+  # Crowding = High (ref)
+  # ════════════════════════════════
+  cv_single_delta(model_mxl,
+                  "b_Trail_ConditionMed",
+                  scenario_name = "Trail Condition Only: Low → Medium"),
+  
+  cv_single_delta(model_mxl,
+                  "b_Trail_ConditionHigh",
+                  scenario_name = "Trail Condition Only: Low → High"),
+  
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_Trail_ConditionHigh",
+                attr_med      = "b_Trail_ConditionMed",
+                scenario_name = "Trail Condition Only: Medium → High"),
+  
+  # ════════════════════════════════
+  # CROWDING ONLY SCENARIOS
+  # Habitat = Low (ref)
+  # Trail condition = Low (ref)
+  # ════════════════════════════════
+  cv_single_delta(model_mxl,
+                  "b_CrowdingMed",
+                  scenario_name = "Crowding Only: High → Medium"),
+  
+  cv_single_delta(model_mxl,
+                  "b_CrowdingLow",
+                  scenario_name = "Crowding Only: High → Low"),
+  
+  cv_diff_delta(model_mxl,
+                attr_high     = "b_CrowdingLow",
+                attr_med      = "b_CrowdingMed",
+                scenario_name = "Crowding Only: Medium → Low"),
+  
+  # ════════════════════════════════
+  # HABITAT + TRAIL CONDITION (no crowding improvement)
+  # Crowding stays at High (ref)
+  # ════════════════════════════════
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityMed",
+                                "b_Trail_ConditionMed"),
+              cost_par      = "b_cost",
+              scenario_name = "Habitat + Trail: Both → Medium"),
+  
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityHigh",
+                                "b_Trail_ConditionHigh"),
+              cost_par      = "b_cost",
+              scenario_name = "Habitat + Trail: Both → High"),
+  
+  # ════════════════════════════════
+  # HABITAT + CROWDING (no trail condition improvement)
+  # Trail condition stays at Low (ref)
+  # ════════════════════════════════
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityMed",
+                                "b_CrowdingMed"),
+              cost_par      = "b_cost",
+              scenario_name = "Habitat + Crowding: Both → Medium"),
+  
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Habitat_QualityHigh",
+                                "b_CrowdingLow"),
+              cost_par      = "b_cost",
+              scenario_name = "Habitat + Crowding: Both → High"),
+  
+  # ════════════════════════════════
+  # TRAIL CONDITION + CROWDING (no habitat improvement)
+  # Habitat stays at Low (ref)
+  # ════════════════════════════════
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Trail_ConditionMed",
+                                "b_CrowdingMed"),
+              cost_par      = "b_cost",
+              scenario_name = "Trail + Crowding: Both → Medium"),
+  
+  cv_delta_se(model_mxl,
+              attr_pars     = c("b_Trail_ConditionHigh",
+                                "b_CrowdingLow"),
+              cost_par      = "b_cost",
+              scenario_name = "Trail + Crowding: Both → High")
+)
+
+# ── Step 2: Add simulation CIs for partial scenarios ──
+set.seed(123)
+
+sim_partial <- data.frame(
+  # Single attribute
+  Hab_Med_only     = draws$b_HabitatMed    / (-b_cost),
+  Hab_High_only    = draws$b_HabitatHigh   / (-b_cost),
+  Hab_MedHigh_only = (draws$b_HabitatHigh - draws$b_HabitatMed) / (-b_cost),
+  
+  Trail_Med_only   = draws$b_TrailCondMed  / (-b_cost),
+  Trail_High_only  = draws$b_TrailCondHigh / (-b_cost),
+  Trail_MedHigh_only = (draws$b_TrailCondHigh - draws$b_TrailCondMed) / (-b_cost),
+  
+  Crowd_Med_only   = draws$b_CrowdingMed   / (-b_cost),
+  Crowd_Low_only   = draws$b_CrowdingLow   / (-b_cost),
+  Crowd_MedLow_only = (draws$b_CrowdingLow - draws$b_CrowdingMed) / (-b_cost),
+  
+  # Two attribute combinations
+  HabTrail_Med     = (draws$b_HabitatMed  + draws$b_TrailCondMed)  / (-b_cost),
+  HabTrail_High    = (draws$b_HabitatHigh + draws$b_TrailCondHigh) / (-b_cost),
+  
+  HabCrowd_Med     = (draws$b_HabitatMed  + draws$b_CrowdingMed)   / (-b_cost),
+  HabCrowd_High    = (draws$b_HabitatHigh + draws$b_CrowdingLow)   / (-b_cost),
+  
+  TrailCrowd_Med   = (draws$b_TrailCondMed  + draws$b_CrowdingMed) / (-b_cost),
+  TrailCrowd_High  = (draws$b_TrailCondHigh + draws$b_CrowdingLow) / (-b_cost)
+)
+
+# ── Clean bundle naming for presentation ──
+bundle_labels <- data.frame(
+  Scenario = c(
+    # Bundle 1 — Habitat Quality only
+    "Habitat Only: Low → Medium",
+    "Habitat Only: Low → High",
+    "Habitat Only: Medium → High",
+    # Bundle 2 — Trail Condition only
+    "Trail Condition Only: Low → Medium",
+    "Trail Condition Only: Low → High",
+    "Trail Condition Only: Medium → High",
+    # Bundle 3 — Crowding only
+    "Crowding Only: High → Medium",
+    "Crowding Only: High → Low",
+    "Crowding Only: Medium → Low",
+    # Bundle 4 — Habitat + Trail Condition
+    "Habitat + Trail: Both → Medium",
+    "Habitat + Trail: Both → High",
+    # Bundle 5 — Habitat + Crowding
+    "Habitat + Crowding: Both → Medium",
+    "Habitat + Crowding: Both → High",
+    # Bundle 6 — Trail Condition + Crowding
+    "Trail + Crowding: Both → Medium",
+    "Trail + Crowding: Both → High"
+  ),
+  Bundle = c(
+    rep("Bundle 1: Habitat Quality", 3),
+    rep("Bundle 2: Trail Condition", 3),
+    rep("Bundle 3: Crowding",        3),
+    rep("Bundle 4: Habitat + Trail", 2),
+    rep("Bundle 5: Habitat + Crowding", 2),
+    rep("Bundle 6: Trail + Crowding",   2)
+  ),
+  Level = c(
+    "Low → Medium", "Low → High", "Medium → High",
+    "Low → Medium", "Low → High", "Medium → High",
+    "High → Medium", "High → Low", "Medium → Low",
+    "Both → Medium", "Both → High",
+    "Both → Medium", "Both → High",
+    "Both → Medium", "Both → High"
+  )
+)
+
+# ── Merge bundle labels into partial_combined ──
+partial_combined_labeled <- merge(
+  partial_combined,
+  bundle_labels,
+  by       = "Scenario",
+  sort     = FALSE
+)
+
+# Restore order
+partial_combined_labeled <- partial_combined_labeled[
+  match(partial_combined$Scenario, 
+        partial_combined_labeled$Scenario), ]
+
+# ── Print clean bundle table ──
+three_bundle_table <- partial_combined_labeled %>%
+  filter(Bundle %in% c(
+    "Bundle 1: Habitat Quality",
+    "Bundle 2: Trail Condition",
+    "Bundle 3: Crowding"
+  )) %>%
+  select(Bundle, Level, CV, CI_low, CI_high, 
+         Sim_CI_low, Sim_CI_high)
+
+cat("\n")
+cat("══════════════════════════════════════════════════════════════════════\n")
+cat("Single Attribute Bundles — All Improvement Levels\n")
+cat("All other attributes held at baseline (lowest level)\n")
+cat("══════════════════════════════════════════════════════════════════════\n")
+cat(sprintf("%-30s %-20s %8s %18s %22s\n",
+            "Bundle", "Improvement Level",
+            "CV ($)",
+            "Delta 95% CI",
+            "Simulation 95% CI"))
+cat("──────────────────────────────────────────────────────────────────────\n")
+
+for(bundle in unique(three_bundle_table$Bundle)) {
+  cat(paste0("  [", bundle, "]\n"))
+  bd <- three_bundle_table[three_bundle_table$Bundle == bundle, ]
+  for(i in 1:nrow(bd)) {
+    cat(sprintf("  %-30s %-20s %8.2f  [%6.2f,%7.2f]   [%7.2f,%7.2f]\n",
+                "",
+                bd$Level[i],
+                bd$CV[i],
+                bd$CI_low[i],
+                bd$CI_high[i],
+                bd$Sim_CI_low[i],
+                bd$Sim_CI_high[i]))
+  }
+  cat("──────────────────────────────────────────────────────────────────────\n")
+}
+
+cat("Note: CV = compensating variation per person per trip.\n")
+cat("Delta CI = estimation uncertainty.\n")
+cat("Simulation CI = preference heterogeneity across individuals.\n")
+
+# # ── Export labeled version ──
+# write.csv(partial_combined_labeled,
+#           "welfare_bundles_labeled.csv",
+#           row.names = FALSE)
+# cat("Saved to welfare_bundles_labeled.csv\n")
+
+
+
+```
+
+## Welfare Graph
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 1: PREPARE DATA FOR CHARTS
+# ══════════════════════════════════════════════════════
+
+# ── Add simulation CIs to cv_individual ──
+# Make sure combined_table exists from previous step
+# If not, re-merge:
+plot_data <- combined_table
+
+# ── Label cleanup for plotting ──
+plot_data$Scenario_clean <- c(
+  # Habitat
+  "Habitat:\nLow → Med",
+  "Habitat:\nLow → High",
+  "Habitat:\nMed → High",
+  # Trail Condition
+  "Trail Cond:\nLow → Med",
+  "Trail Cond:\nLow → High",
+  "Trail Cond:\nMed → High",
+  # Crowding
+  "Crowding:\nHigh → Med",
+  "Crowding:\nHigh → Low",
+  "Crowding:\nMed → Low",
+  # Bundles
+  "Medium\nBundle",
+  "High\nBundle",
+  "Med → High\nBundle"
+)
+
+# ── Split into individual and bundle ──
+plot_individual <- plot_data[1:9, ]
+plot_bundle     <- plot_data[10:12, ]
+
+# ── Add attribute grouping for color coding ──
+plot_individual$Attribute <- c(
+  rep("Habitat Quality", 3),
+  rep("Trail Condition", 3),
+  rep("Crowding", 3)
+)
+
+plot_bundle$Attribute <- rep("Bundle", 3)
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 2: CHART 1 — INDIVIDUAL ATTRIBUTES
+# ══════════════════════════════════════════════════════
+
+# Fix factor order for x axis
+plot_individual$Scenario_clean <- factor(
+  plot_individual$Scenario_clean,
+  levels = plot_individual$Scenario_clean
+)
+
+chart1 <- ggplot(plot_individual, 
+                 aes(x = Scenario_clean, y = CV, fill = Attribute)) +
+  
+  # Bars
+  geom_bar(stat = "identity", width = 0.6, alpha = 0.85) +
+  
+  # Delta method CI (estimation uncertainty) — thin black whiskers
+  geom_errorbar(aes(ymin = CI_low, ymax = CI_high),
+                width = 0.15, linewidth = 0.8, color = "black") +
+  
+  # Simulation CI (preference heterogeneity) — wider grey whiskers
+  geom_errorbar(aes(ymin = Sim_CI_low, ymax = Sim_CI_high),
+                width = 0.25, linewidth = 0.5, 
+                color = "grey40", linetype = "dashed") +
+  
+  # Zero reference line
+  geom_hline(yintercept = 0, linewidth = 0.6, color = "black") +
+  
+  # Value labels on bars
+  geom_text(aes(label = paste0("$", CV),
+                y = ifelse(CV >= 0, CV + 3, CV - 3)),
+            size = 3.2, fontface = "bold") +
+  
+  # Color scheme
+  scale_fill_manual(values = c(
+    "Habitat Quality" = "#2E8B57",   # forest green
+    "Trail Condition" = "#4682B4",   # steel blue
+    "Crowding"        = "#CD853F"    # peru/brown
+  )) +
+  
+  # Labels
+  labs(
+    title    = "Welfare Gains from Individual Trail Attribute Improvements",
+    subtitle = "Compensating variation per person per trip\nBlack bars = estimation uncertainty (delta method 95% CI)\nDashed grey bars = preference heterogeneity (simulation 95% CI)",
+    x        = NULL,
+    y        = "Compensating Variation ($ per person per trip)",
+    fill     = "Attribute"
+  ) +
+  
+  # Theme
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title      = element_text(face = "bold", size = 13),
+    plot.subtitle   = element_text(size = 9, color = "grey40"),
+    axis.text.x     = element_text(size = 9, lineheight = 1.3),
+    axis.text.y     = element_text(size = 10),
+    legend.position = "bottom",
+    legend.title    = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(chart1)
+ggsave("welfare_chart1_individual.png", chart1, 
+       width = 12, height = 7, dpi = 300, bg = "white")
+cat("Chart 1 saved\n")
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 3: CHART 2 — BUNDLE SCENARIOS
+# ══════════════════════════════════════════════════════
+
+plot_bundle$Scenario_clean <- factor(
+  plot_bundle$Scenario_clean,
+  levels = plot_bundle$Scenario_clean
+)
+
+chart2 <- ggplot(plot_bundle,
+                 aes(x = Scenario_clean, y = CV)) +
+  
+  # Bars
+  geom_bar(stat = "identity", width = 0.4, 
+           fill = "#6A5ACD", alpha = 0.85) +
+  
+  # Delta method CI
+  geom_errorbar(aes(ymin = CI_low, ymax = CI_high),
+                width = 0.08, linewidth = 0.8, color = "black") +
+  
+  # Simulation CI
+  geom_errorbar(aes(ymin = Sim_CI_low, ymax = Sim_CI_high),
+                width = 0.15, linewidth = 0.5,
+                color = "grey40", linetype = "dashed") +
+  
+  # Zero reference line
+  geom_hline(yintercept = 0, linewidth = 0.6, color = "black") +
+  
+  # Value labels
+  geom_text(aes(label = paste0("$", CV),
+                y = CV + 6),
+            size = 4, fontface = "bold") +
+  
+  # Y axis — extend to show full simulation CI
+  scale_y_continuous(
+    limits = c(
+      min(plot_bundle$Sim_CI_low) - 20,
+      max(plot_bundle$Sim_CI_high) + 40
+    )
+  ) +
+  
+  # Labels
+  labs(
+    title    = "Welfare Gains from Bundle Trail Improvement Scenarios",
+    subtitle = "Compensating variation per person per trip — all attributes improved simultaneously\nBlack bars = estimation uncertainty (delta method 95% CI)\nDashed grey bars = preference heterogeneity (simulation 95% CI)",
+    x        = NULL,
+    y        = "Compensating Variation ($ per person per trip)"
+  ) +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title         = element_text(face = "bold", size = 13),
+    plot.subtitle      = element_text(size = 9, color = "grey40"),
+    axis.text.x        = element_text(size = 11, lineheight = 1.3),
+    axis.text.y        = element_text(size = 10),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(chart2)
+ggsave("welfare_chart2_bundles.png", chart2,
+       width = 8, height = 7, dpi = 300, bg = "white")
+cat("Chart 2 saved\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 4: ACCESS VALUE CALCULATION
+# Value of having trail access vs opt-out only
+# ══════════════════════════════════════════════════════
+
+# ── Formula ──
+# Access value = [logsum(with trails) - logsum(opt-out only)] / (-b_cost)
+# logsum(opt-out only) = asc_optout (scalar, no cost term)
+# logsum(with trails)  = log[exp(V1) + exp(V2) + exp(V3)]
+
+compute_access_value <- function(, cost_alt1, cost_alt2,
+                                  b_cost, asc_optout,
+                                  scenario_name) {
+  
+  # Logsum with trail access
+  V1 <-  + b_cost * cost_alt1
+  V2 <-  + b_cost * cost_alt2
+  V3 <- rep(asc_optout, length(cost_alt1))
+  ls_access <- log(exp(V1) + exp(V2) + exp(V3))
+  
+  # Logsum without trail access (opt-out only)
+  ls_no_access <- asc_optout  # scalar
+  
+  # Access value per choice occasion
+  av_occ <- (ls_access - ls_no_access) / (-b_cost)
+  
+  # Average across choice occasions then respondents
+  database$av <- av_occ
+  av_respondent <- database %>%
+    group_by(RID) %>%
+    summarise(av = mean(av), .groups = "drop")
+  
+  tibble(
+    Scenario     = scenario_name,
+    Access_Value = round(mean(av_respondent$av), 2),
+    Min          = round(min(av_respondent$av), 2),
+    Max          = round(max(av_respondent$av), 2)
+  )
+}
+
+# ── Compute access value for each scenario ──
+access_values <- bind_rows(
+  
+  # Baseline — current degraded conditions
+  compute_access_value(
+           = 0,   # all attributes at reference level
+    cost_alt1    = database$Cost.alt1,
+    cost_alt2    = database$Cost.alt2,
+    b_cost       = b_cost,
+    asc_optout   = asc_optout,
+    scenario_name = "Baseline (current conditions)"
+  ),
+  
+  # Medium improvement
+  compute_access_value(
+           = as.numeric(bhat["b_Habitat_QualityMed"] +
+                               bhat["b_Trail_ConditionMed"] +
+                               bhat["b_CrowdingMed"]),
+    cost_alt1    = database$Cost.alt1,
+    cost_alt2    = database$Cost.alt2,
+    b_cost       = b_cost,
+    asc_optout   = asc_optout,
+    scenario_name = "Medium improvement"
+  ),
+  
+  # High improvement
+  compute_access_value(
+           = as.numeric(bhat["b_Habitat_QualityHigh"] +
+                               bhat["b_Trail_ConditionHigh"] +
+                               bhat["b_CrowdingLow"]),
+    cost_alt1    = database$Cost.alt1,
+    cost_alt2    = database$Cost.alt2,
+    b_cost       = b_cost,
+    asc_optout   = asc_optout,
+    scenario_name = "High improvement"
+  )
+)
+
+cat("\n")
+cat("═══════════════════════════════════════════════════════\n")
+cat("Access Value — Value of Trail Access vs Opt-Out\n")
+cat("Per person per trip, mean across respondents\n")
+cat("═══════════════════════════════════════════════════════\n")
+cat(sprintf("%-30s %12s %10s %10s\n",
+            "Scenario", "Access Value", "Min", "Max"))
+cat("───────────────────────────────────────────────────────\n")
+for(i in 1:nrow(access_values)) {
+  cat(sprintf("%-30s %12.2f %10.2f %10.2f\n",
+              access_values$Scenario[i],
+              access_values$Access_Value[i],
+              access_values$Min[i],
+              access_values$Max[i]))
+}
+cat("═══════════════════════════════════════════════════════\n")
+cat("Note: Access value = welfare gain from having trail\n")
+cat("alternatives available vs opt-out only.\n")
+
+```
+
+## Total welfare measure
+
+```{r}
+
+# ══════════════════════════════════════════════════════
+# TOTAL WELFARE CALCULATION
+# Pooled model CV × hiking population × Na Ala Hele share
+# ══════════════════════════════════════════════════════
+
+# ══════════════════════════════════════════════════════
+# STEP 1: POPULATION DATA
+# ══════════════════════════════════════════════════════
+
+# ── Island population and visitor data ──
+# Replace with your exact numbers
+island_data <- data.frame(
+  Island = c("Oahu", "Maui", "Hawaii (Big Island)", 
+             "Kauai"),
+  #Based on 2024 census 
+  Resident_pop = c(
+    998747,   # Oahu 
+    163769,    # Maui
+    209790	,  # Big Island
+    73840     # Kauai
+  ),
+  
+  Annual_visitors = c(
+    5794854,   # Oahu 
+    2427626,   # Maui
+    1735380,   # Big Island
+    1393101   # Kauai
+  )
+)
+
+# ── Total population (residents + visitors) ──
+island_data$Total_pop <- island_data$Resident_pop + island_data$Annual_visitors
+
+cat("═══════════════════════════════════════════════════════\n")
+cat("Island Population Summary\n")
+cat("═══════════════════════════════════════════════════════\n")
+cat(sprintf("%-22s %12s %15s %12s\n",
+            "Island", "Residents", "Visitors", "Total"))
+cat("───────────────────────────────────────────────────────\n")
+for(i in 1:nrow(island_data)) {
+  cat(sprintf("%-22s %12s %15s %12s\n",
+              island_data$Island[i],
+              format(island_data$Resident_pop[i],   big.mark=","),
+              format(island_data$Annual_visitors[i], big.mark=","),
+              format(island_data$Total_pop[i],       big.mark=",")))
+}
+cat("───────────────────────────────────────────────────────\n")
+cat(sprintf("%-22s %12s %15s %12s\n",
+            "TOTAL HAWAII",
+            format(sum(island_data$Resident_pop),   big.mark=","),
+            format(sum(island_data$Annual_visitors), big.mark=","),
+            format(sum(island_data$Total_pop),       big.mark=",")))
+cat("═══════════════════════════════════════════════════════\n")
+
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 2: PARAMETERS
+# ══════════════════════════════════════════════════════
+
+# ── Hiking participation rate ──
+hiking_rate <- 0.40   # 40% of population hikes/backpacks
+
+# ── Na Ala Hele share assumptions ──
+# Range of assumptions for sensitivity analysis
+nah_shares <- c(0.01, 0.05, 0.10)   # 1%, 5%, 10%
+nah_labels <- c("Conservative (1%)", 
+                "Moderate (5%)", 
+                "Optimistic (10%)")
+
+# ── CV values from your results ──
+# Individual attributes
+cv_values <- list(
+  # Individual attribute improvements
+  "Habitat Quality: Low -> Medium"   = combined_table$CV[
+    combined_table$Scenario == "Habitat Quality: Low -> Medium"],
+  "Habitat Quality: Low -> High"     = combined_table$CV[
+    combined_table$Scenario == "Habitat Quality: Low -> High"],
+  "Habitat Quality: Medium -> High"  = combined_table$CV[
+    combined_table$Scenario == "Habitat Quality: Medium -> High"],
+  "Trail Condition: Low -> Medium"   = combined_table$CV[
+    combined_table$Scenario == "Trail Condition: Low -> Medium"],
+  "Trail Condition: Low -> High"     = combined_table$CV[
+    combined_table$Scenario == "Trail Condition: Low -> High"],
+  "Trail Condition: Medium -> High"  = combined_table$CV[
+    combined_table$Scenario == "Trail Condition: Medium -> High"],
+  "Crowding: High -> Medium"         = combined_table$CV[
+    combined_table$Scenario == "Crowding: High -> Medium"],
+  "Crowding: High -> Low"            = combined_table$CV[
+    combined_table$Scenario == "Crowding: High -> Low"],
+  "Crowding: Medium -> Low"          = combined_table$CV[
+    combined_table$Scenario == "Crowding: Medium -> Low"],
+  # Bundle scenarios
+  "Medium Bundle (all -> Medium)"    = combined_table$CV[
+    combined_table$Scenario == "Medium Bundle (all -> Medium)"],
+  "High Bundle (all -> High/Best)"   = combined_table$CV[
+    combined_table$Scenario == "High Bundle (all -> High/Best)"],
+  "Medium -> High Bundle"            = combined_table$CV[
+    combined_table$Scenario == "Medium -> High Bundle"]
+)
+
+cat("\nCV values loaded:\n")
+for(nm in names(cv_values)) {
+  cat(sprintf("  %-40s $%.2f\n", nm, cv_values[[nm]]))
+}
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 3: TOTAL WELFARE CALCULATION
+# Formula: CV × Total_pop × hiking_rate × nah_share
+# ══════════════════════════════════════════════════════
+
+# ── Function to compute total welfare ──
+compute_welfare <- function(cv, total_pop, hiking_rate, nah_share) {
+  # Number of trail users
+  trail_users <- total_pop * hiking_rate * nah_share
+  # Total welfare
+  total_welfare <- cv * trail_users
+  return(list(
+    trail_users   = round(trail_users),
+    total_welfare = round(total_welfare)
+  ))
+}
+
+# ── Total Hawaii welfare across Na Ala Hele share scenarios ──
+total_hawaii_pop <- sum(island_data$Total_pop)
+
+cat("\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Total Welfare — State of Hawaii\n")
+cat("Based on 40% hiking participation rate\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+
+# Build results table
+welfare_results <- do.call(rbind, lapply(names(cv_values), function(scen) {
+  do.call(rbind, lapply(1:length(nah_shares), function(j) {
+    wf <- compute_welfare(cv_values[[scen]], 
+                          total_hawaii_pop,
+                          hiking_rate, 
+                          nah_shares[j])
+    data.frame(
+      Scenario      = scen,
+      NAH_share     = nah_labels[j],
+      NAH_pct       = nah_shares[j] * 100,
+      Trail_users   = wf$trail_users,
+      CV_per_trip   = cv_values[[scen]],
+      Total_welfare = wf$total_welfare,
+      stringsAsFactors = FALSE
+    )
+  }))
+}))
+
+# ── Print by scenario group ──
+scenario_groups <- list(
+  "Habitat Quality"  = grep("Habitat",  names(cv_values), value=TRUE),
+  "Trail Condition"  = grep("Trail",    names(cv_values), value=TRUE),
+  "Crowding"         = grep("Crowding", names(cv_values), value=TRUE),
+  "Bundle Scenarios" = grep("Bundle",   names(cv_values), value=TRUE)
+)
+
+for(grp in names(scenario_groups)) {
+  cat(sprintf("\n  [%s]\n", grp))
+  cat(sprintf("  %-38s %-22s %12s %18s\n",
+              "Scenario", "NAH Share Assumption",
+              "Trail Users", "Total Welfare ($)"))
+  cat("  ", paste(rep("-", 90), collapse=""), "\n")
+  
+  for(scen in scenario_groups[[grp]]) {
+    scen_data <- welfare_results[welfare_results$Scenario == scen, ]
+    for(j in 1:nrow(scen_data)) {
+      cat(sprintf("  %-38s %-22s %12s %18s\n",
+                  ifelse(j==1, scen, ""),
+                  scen_data$NAH_share[j],
+                  format(scen_data$Trail_users[j],   big.mark=","),
+                  paste0("$", format(round(scen_data$Total_welfare[j]/1e6, 2), 
+                                     big.mark=","), "M")))
+    }
+    cat("\n")
+  }
+}
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 4: ISLAND-LEVEL WELFARE BREAKDOWN
+# Focus on bundle scenarios for island breakdown
+# ══════════════════════════════════════════════════════
+
+cat("═══════════════════════════════════════════════════════════════════════\n")
+cat("Island-Level Welfare Breakdown — Bundle Scenarios\n")
+cat("Moderate assumption: 10% Na Ala Hele share\n")
+cat("═══════════════════════════════════════════════════════════════════════\n")
+
+nah_share_main <- 0.10  # use moderate assumption for island breakdown
+
+bundle_scenarios <- c(
+  "Medium Bundle (all -> Medium)",
+  "High Bundle (all -> High/Best)",
+  "Medium -> High Bundle"
+)
+
+for(scen in bundle_scenarios) {
+  cat(sprintf("\n  Scenario: %s (CV = $%.2f/person/trip)\n", 
+              scen, cv_values[[scen]]))
+  cat(sprintf("  %-22s %12s %12s %18s\n",
+              "Island", "Total Pop", "Trail Users", "Total Welfare"))
+  cat("  ", paste(rep("-", 66), collapse=""), "\n")
+  
+  island_welfare <- island_data %>%
+    mutate(
+      Trail_users   = round(Total_pop * hiking_rate * nah_share_main),
+      Total_welfare = round(cv_values[[scen]] * Trail_users)
+    )
+  
+  for(i in 1:nrow(island_welfare)) {
+    cat(sprintf("  %-22s %12s %12s %18s\n",
+                island_welfare$Island[i],
+                format(island_welfare$Total_pop[i],   big.mark=","),
+                format(island_welfare$Trail_users[i], big.mark=","),
+                paste0("$", format(round(island_welfare$Total_welfare[i]/1e6, 2),
+                                   big.mark=","), "M")))
+  }
+  cat("  ", paste(rep("-", 66), collapse=""), "\n")
+  cat(sprintf("  %-22s %12s %12s %18s\n",
+              "TOTAL HAWAII",
+              format(sum(island_welfare$Total_pop),   big.mark=","),
+              format(sum(island_welfare$Trail_users), big.mark=","),
+              paste0("$", format(round(sum(island_welfare$Total_welfare)/1e6, 2),
+                                 big.mark=","), "M")))
+}
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# STEP 5: SENSITIVITY ANALYSIS CHART
+# Show how total welfare varies across NAH share assumptions
+# Focus on bundle scenarios
+# ══════════════════════════════════════════════════════
+
+
+bundle_welfare_clean <- bundle_welfare %>%
+  filter(Scenario %in% c(
+    "Medium Bundle (all -> Medium)",
+    "High Bundle (all -> High/Best)"
+  )) %>%
+  mutate(
+    Scenario_clean = case_when(
+      grepl("Medium Bundle", Scenario) ~ "Medium\nBundle",
+      grepl("High Bundle",   Scenario) ~ "High\nBundle"
+    ),
+    Scenario_clean = factor(Scenario_clean, 
+                            levels = c("Medium\nBundle", "High\nBundle")),
+    NAH_share = factor(NAH_share, levels = nah_labels)
+  )
+
+# Verify data looks right before plotting
+cat("\nCleaned data for chart:\n")
+print(bundle_welfare_clean[, c("Scenario_clean", "NAH_share", "Total_welfare_M")])
+
+sensitivity_chart_clean <- ggplot(bundle_welfare_clean,
+                                   aes(x    = Scenario_clean,
+                                       y    = Total_welfare_M,
+                                       fill = NAH_share)) +
+  
+  geom_bar(stat     = "identity",
+           position = position_dodge(width = 0.75),
+           width    = 0.65,
+           alpha    = 0.85) +
+  
+  geom_text(aes(label = paste0("$", round(Total_welfare_M, 0), "M"),
+                y     = Total_welfare_M + 1.5),
+            position  = position_dodge(width = 0.75),
+            size      = 3.8,
+            fontface  = "bold") +
+  
+  scale_fill_manual(values = c(
+    "Conservative (1%)"  = "#CD853F",
+    "Moderate (5%)"     = "#4682B4",
+    "Optimistic (10%)"   = "#2E8B57"
+  )) +
+  
+  scale_y_continuous(
+    labels   = function(x) paste0("$", x, "M"),
+    expand   = expansion(mult = c(0, 0.15))
+  ) +
+  
+  labs(
+    title    = "Total Welfare by Policy Scenario and Na Ala Hele Trail Share Assumption",
+    subtitle = paste0(
+      "Based on 40% hiking participation rate across total Hawaii population\n",
+      "Na Ala Hele share assumptions: Conservative (1%), Moderate (5%), Optimistic (10%)"
+    ),
+    x        = "Policy Scenario",
+    y        = "Total Welfare ($ millions)",
+    fill     = "Na Ala Hele\nTrail Share"
+  ) +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title         = element_text(face = "bold", size = 13),
+    plot.subtitle      = element_text(size = 9, color = "grey40"),
+    axis.text.x        = element_text(size = 12, lineheight = 1.3),
+    axis.text.y        = element_text(size = 10),
+    legend.position    = "right",
+    legend.title       = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(sensitivity_chart_clean)
+ggsave("total_welfare_sensitivity_clean.png", sensitivity_chart_clean,
+       width = 10, height = 7, dpi = 300, bg = "white")
+cat("Clean chart saved\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# TOTAL WELFARE BY BUNDLE — STATEWIDE HAWAII
+# Single attribute bundles + combination bundles
+# ══════════════════════════════════════════════════════
+
+# ── Step 1: Verify CV values by position ──
+cat("partial_combined_labeled CV values (rows 1-9):\n")
+print(partial_combined_labeled[1:9, c("Scenario", "CV")])
+
+cat("\ncombined_table CV values (rows 10-12):\n")
+print(combined_table[10:12, c("Scenario", "CV")])
+
+# ── Step 2: Build bundle_cv using positional indexing ──
+bundle_cv <- data.frame(
+  Bundle_group = c(
+    rep("Bundle 1: Habitat Quality",   3),
+    rep("Bundle 2: Trail Condition",   3),
+    rep("Bundle 3: Crowding",          3),
+    rep("Full Bundle: All Attributes", 3)
+  ),
+  Level = c(
+    "Low → Medium",  "Low → High",  "Medium → High",
+    "Low → Medium",  "Low → High",  "Medium → High",
+    "High → Medium", "High → Low",  "Medium → Low",
+    "All → Medium",  "All → High",  "Medium → High"
+  ),
+  CV = c(
+    # Bundle 1 — Habitat only (rows 1,2,3)
+    partial_combined_labeled$CV[1],
+    partial_combined_labeled$CV[2],
+    partial_combined_labeled$CV[3],
+    # Bundle 2 — Trail condition only (rows 4,5,6)
+    partial_combined_labeled$CV[4],
+    partial_combined_labeled$CV[5],
+    partial_combined_labeled$CV[6],
+    # Bundle 3 — Crowding only (rows 7,8,9)
+    partial_combined_labeled$CV[7],
+    partial_combined_labeled$CV[8],
+    partial_combined_labeled$CV[9],
+    # Full bundles from combined_table (rows 10,11,12)
+    combined_table$CV[10],
+    combined_table$CV[11],
+    combined_table$CV[12]
+  ),
+  stringsAsFactors = FALSE
+)
+
+cat("\nBundle CV values — all should be different:\n")
+print(bundle_cv)
+
+# ── Step 3: Compute total welfare ──
+total_hawaii_pop <- sum(island_data$Total_pop)
+hiking_rate      <- 0.40
+nah_shares       <- c(0.01, 0.05, 0.10)
+nah_labels       <- c("Conservative (1%)",
+                       "Moderate (5%)",
+                       "Optimistic (10%)")
+
+welfare_bundle <- do.call(rbind, lapply(1:nrow(bundle_cv), function(i) {
+  do.call(rbind, lapply(1:length(nah_shares), function(j) {
+    trail_users   <- total_hawaii_pop * hiking_rate * nah_shares[j]
+    total_welfare <- bundle_cv$CV[i] * trail_users
+    data.frame(
+      Bundle_group    = bundle_cv$Bundle_group[i],
+      Level           = bundle_cv$Level[i],
+      CV              = bundle_cv$CV[i],
+      NAH_label       = nah_labels[j],
+      NAH_pct         = nah_shares[j] * 100,
+      Trail_users     = round(trail_users),
+      Total_welfare   = round(total_welfare),
+      Total_welfare_M = round(total_welfare / 1e6, 2),
+      stringsAsFactors = FALSE
+    )
+  }))
+}))
+
+```
+
+```{r}
+
+# ── Step 4: Print welfare table ──
+cat("\n")
+cat("══════════════════════════════════════════════════════════════════════════\n")
+cat("Total Welfare by Bundle — State of Hawaii\n")
+cat("40% hiking participation rate\n")
+cat("══════════════════════════════════════════════════════════════════════════\n")
+cat(sprintf("%-28s %-16s %-22s %12s %15s\n",
+            "Bundle", "Level", "NAH Share", "Trail Users", "Total Welfare"))
+cat("──────────────────────────────────────────────────────────────────────────\n")
+
+for(grp in unique(welfare_bundle$Bundle_group)) {
+  cat(paste0("\n  [", grp, "]\n"))
+  grp_data <- welfare_bundle[welfare_bundle$Bundle_group == grp, ]
+  
+  for(lvl in unique(grp_data$Level)) {
+    lvl_data <- grp_data[grp_data$Level == lvl, ]
+    cat(sprintf("  Improvement: %s\n", lvl))
+    
+    for(j in 1:nrow(lvl_data)) {
+      cat(sprintf("    %-22s %12s %15s\n",
+                  lvl_data$NAH_label[j],
+                  format(lvl_data$Trail_users[j], big.mark=","),
+                  paste0("$", format(lvl_data$Total_welfare_M[j],
+                                     big.mark=","), "M")))
+    }
+    cat("\n")
+  }
+  cat("──────────────────────────────────────────────────────────────────────────\n")
+}
+
+```
+
+```{r}
+# ── Step 5 - Updated chart with cleaner labels ──
+chart_data <- chart_data %>%
+  mutate(
+    Bundle_clean = case_when(
+      Bundle_group == "Bundle 1: Habitat Quality"   ~ "Bundle 1\nHabitat Quality",
+      Bundle_group == "Bundle 2: Trail Condition"   ~ "Bundle 2\nTrail Condition",
+      Bundle_group == "Bundle 3: Crowding"          ~ "Bundle 3\nCrowding",
+      Bundle_group == "Full Bundle: All Attributes" ~ "Full Bundle\nAll Attributes"
+    ),
+    Bundle_clean = factor(Bundle_clean, levels = c(
+      "Bundle 1\nHabitat Quality",
+      "Bundle 2\nTrail Condition",
+      "Bundle 3\nCrowding",
+      "Full Bundle\nAll Attributes"
+    ))
+  )
+
+bundle_welfare_chart_clean <- ggplot(chart_data,
+                                      aes(x    = Bundle_clean,
+                                          y    = Total_welfare_M,
+                                          fill = NAH_label)) +
+  
+  geom_bar(stat     = "identity",
+           position = position_dodge(width = 0.75),
+           width    = 0.65,
+           alpha    = 0.85) +
+  
+  geom_text(aes(label = paste0("$", Total_welfare_M, "M"),
+                y     = Total_welfare_M + 0.5),
+            position  = position_dodge(width = 0.75),
+            size      = 3.2,
+            fontface  = "bold") +
+  
+  scale_fill_manual(values = c(
+    "Conservative (1%)" = "#CD853F",
+    "Moderate (5%)"     = "#4682B4",
+    "Optimistic (10%)"  = "#2E8B57"
+  )) +
+  
+  scale_y_continuous(
+    labels = function(x) paste0("$", x, "M"),
+    expand = expansion(mult = c(0, 0.15))
+  ) +
+  
+  labs(
+    title    = "Total Welfare Gains by Management Bundle (Low to High Improvement)",
+    subtitle = paste0(
+      "~ 10 million visitors",
+      "40% hiking participation rate\n",
+      "Na Ala Hele share assumptions: 1% (conservative), ",
+      "5% (moderate), 10% (optimistic)"
+    ),
+    x    = "Management Bundle",
+    y    = "Total Welfare ($ millions)",
+    fill = "Na Ala Hele\nTrail Share"
+  ) +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title         = element_text(face = "bold", size = 12),
+    plot.subtitle      = element_text(size = 9, color = "grey40"),
+    axis.text.x        = element_text(size = 11, lineheight = 1.3),
+    axis.text.y        = element_text(size = 10),
+    legend.position    = "right",
+    legend.title       = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(bundle_welfare_chart_clean)
+ggsave("total_welfare_by_bundle_clean.png", bundle_welfare_chart_clean,
+       width = 12, height = 7, dpi = 300, bg = "white")
+cat("Clean chart saved\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# TOTAL WELFARE BY IMPROVEMENT LEVEL
+# Fixed NAH share = 10%
+# Focus: welfare gain as improvement level increases
+# ══════════════════════════════════════════════════════
+
+# ── Fixed parameters — 10 million annual visitors ──
+hiking_rate       <- 0.40
+total_visitors    <- 10000000  # approximate annual Hawaii visitor arrivals
+trail_users_fixed <- round(total_visitors * hiking_rate)
+
+cat("═══════════════════════════════════════════\n")
+cat("Fixed assumptions:\n")
+cat("Annual Hawaii visitors: ~10 million\n")
+cat("Hiking rate:             40%\n")
+cat("Estimated trail users:  ", format(trail_users_fixed, big.mark=","), "\n")
+cat("═══════════════════════════════════════════\n")
+
+# ── Recompute Total_welfare_M ──
+welfare_levels <- welfare_levels %>%
+  mutate(Total_welfare_M = round(CV * trail_users_fixed / 1e6, 2))
+
+# ── Refilter for chart ──
+welfare_levels_chart <- welfare_levels %>%
+  filter(Level_clean != "Baseline (No improvement)") %>%
+  mutate(
+    Bundle_clean = case_when(
+      Bundle_group == "Bundle 1: Habitat Quality"   ~ "Habitat\nQuality",
+      Bundle_group == "Bundle 2: Trail Condition"   ~ "Trail\nCondition",
+      Bundle_group == "Bundle 3: Crowding"          ~ "Crowding",
+      Bundle_group == "Full Bundle: All Attributes" ~ "All\nAttributes"
+    ),
+    Bundle_clean = factor(Bundle_clean, levels = c(
+      "Habitat\nQuality",
+      "Trail\nCondition",
+      "Crowding",
+      "All\nAttributes"
+    ))
+  )
+
+# ── Plot ──
+bundle_level_chart_visitors <- ggplot(welfare_levels_chart,
+                                       aes(x    = Bundle_clean,
+                                           y    = Total_welfare_M,
+                                           fill = Level_clean)) +
+  
+  geom_bar(stat     = "identity",
+           position = position_dodge(width = 0.75),
+           width    = 0.65,
+           alpha    = 0.85) +
+  
+  geom_text(aes(label = paste0("$", Total_welfare_M, "M"),
+                y     = Total_welfare_M + max(Total_welfare_M) * 0.03),
+            position  = position_dodge(width = 0.75),
+            size      = 4.5,
+            fontface  = "bold") +
+  
+  scale_fill_manual(values = c(
+    "Medium Improvement" = "#4682B4",
+    "High Improvement"   = "#2E8B57"
+  )) +
+  
+  scale_y_continuous(
+    labels = function(x) paste0("$", x, "M"),
+    expand = expansion(mult = c(0, 0.15))
+  ) +
+  
+labs(
+  title    = "Estimated Public Benefits of Trail Improvements by Management Focus",
+  subtitle = paste0(
+    "~10 million annual visitors | ",
+    "40% hiking participation rate\n"
+  ),
+  x    = "Management Focus",
+  y    = "Estimated Public Benefits ($ millions)",
+  fill = "Improvement Level"
+) +
+  
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title         = element_text(face = "bold", size = 14),
+    plot.subtitle      = element_text(size = 11, color = "black"),
+    axis.text.x        = element_text(size = 12, color = "black",
+                                      lineheight = 1.3),
+    axis.text.y        = element_text(size = 10),
+    legend.position    = "right",
+    legend.title       = element_text(face = "bold"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    plot.background    = element_rect(fill = "white", color = NA)
+  )
+
+print(bundle_level_chart_visitors)
+ggsave("total_welfare_by_level_clean.png", bundle_level_chart_visitors,
+       width = 12, height = 7, dpi = 300, bg = "white")
+cat("Clean chart saved\n")
+```
+
+```{r}
+# ── Verify numbers ──
+cat("\nTotal welfare check — no NAH share:\n")
+print(welfare_levels_chart[, c("Bundle_clean", "Level_clean",
+                                "CV", "Total_welfare_M")])
+```
