@@ -65,10 +65,21 @@ mlogit_clean_Residents<-mlogit_clean %>%
 mlogit_clean_Tourists<-mlogit_clean %>%
   filter(Zipverified=="Tourist")
 
+#Create mlogit for No respondents on User fee  
+
+No.fee <- mlogit_clean %>% 
+  filter(User.fee_Y.N=="No")
 
 
-  
-  
+# 
+# # 4-minute threshold (240 seconds)
+# mlogit_clean_4min<- mlogit_clean %>%
+#   filter(`Duration (in seconds)` >= 240)
+# 
+# # 7-minute threshold (420 seconds)
+# mlogit_clean_7min<- mlogit_clean  %>%
+#   filter(`Duration (in seconds)` >= 420)
+#   
   
   
   

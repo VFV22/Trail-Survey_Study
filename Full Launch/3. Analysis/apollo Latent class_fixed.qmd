@@ -155,7 +155,12 @@ apollo_fixed_lc2 <- c()
 # STEP 3 — Validate inputs
 # MUST come after apollo_control and apollo_beta are defined
 # ══════════════════════════════════════════════════════
-apollo_inputs_lc2 <- apollo_validateInputs()
+# FIX: pass objects explicitly — with no arguments Apollo looks for objects
+# literally named apollo_beta / apollo_fixed, not apollo_beta_lc2
+apollo_inputs_lc2 <- apollo_validateInputs(apollo_beta    = apollo_beta_lc2,
+                                           apollo_fixed   = apollo_fixed_lc2,
+                                           database       = database,
+                                           apollo_control = apollo_control)
 
 # ══════════════════════════════════════════════════════
 # STEP 4 — Probability function
@@ -253,7 +258,7 @@ summary(model_lc2)
 # ══════════════════════════════════════════════════════
 # STEP 6 — Record fit statistics
 # ══════════════════════════════════════════════════════
-ll_k2     <- model_lc2$LLout
+ll_k2     <- model_lc2$maximum   # FIX: LLout is per-component; maximum = final LL
 params_k2 <- length(model_lc2$estimate)
 n_obs     <- 5572
 
@@ -312,7 +317,15 @@ apollo_beta_lc3 <- c(
 
 apollo_fixed_lc3 <- c()
 
-apollo_inputs_lc3 <- apollo_validateInputs()
+# FIX: remove any global objects that share a parameter name (see posterior
+# chunk below — it used to create global delta_2 / delta_3)
+rm(list = intersect(ls(), names(apollo_beta_lc3)))
+
+# FIX: pass objects explicitly
+apollo_inputs_lc3 <- apollo_validateInputs(apollo_beta    = apollo_beta_lc3,
+                                           apollo_fixed   = apollo_fixed_lc3,
+                                           database       = database,
+                                           apollo_control = apollo_control)
 
 # ── Probability function ──
 apollo_probabilities_lc3 <- function(apollo_beta, apollo_inputs,
@@ -430,7 +443,7 @@ summary(model_lc3)
 
 ```{r}
 # ── K=3 fit statistics ──
-ll_k3     <- model_lc3$LLout
+ll_k3     <- model_lc3$maximum   # FIX: LLout is per-component; maximum = final LL
 params_k3 <- length(model_lc3$estimate)
 n_obs     <- 5572
 
@@ -442,7 +455,40 @@ cat("Parameters:", params_k3,                                          "\n")
 cat("AIC:       ", round(-2*ll_k3 + 2*params_k3, 3),                  "\n")
 cat("BIC:       ", round(-2*ll_k3 + log(n_obs)*params_k3, 3),         "\n")
 cat("CAIC:      ", round(-2*ll_k3 + (log(n_obs)+1)*params_k3, 3),     "\n")
-cat("════════════════════════════════\n")--
+cat("════════════════════════════════\n")
+```
+
+```{r}
+# ══════════════════════════════════════════════════════
+# K=3 RE-RUN from converged estimates (full precision)
+# ══════════════════════════════════════════════════════
+# Clear any global objects that mask parameter names (delta_2, delta_3, ...)
+rm(list = intersect(ls(), names(apollo_beta_lc3)))
+
+apollo_control$modelName <- "LC3_Unconditional_rerun"
+
+# Full-precision starts: from the model object if it exists in this session,
+# otherwise from the saved LC3_Unconditional_estimates.csv
+if (exists("model_lc3")) {
+  apollo_beta_lc3_rerun <- model_lc3$estimate
+} else {
+  apollo_beta_lc3_rerun <- apollo_readBeta(apollo_beta_lc3, apollo_fixed_lc3,
+                                           inputModelName = "LC3_Unconditional",
+                                           overwriteFixed = FALSE)
+}
+
+apollo_inputs_lc3 <- apollo_validateInputs(apollo_beta    = apollo_beta_lc3_rerun,
+                                           apollo_fixed   = apollo_fixed_lc3,
+                                           database       = database,
+                                           apollo_control = apollo_control)
+stopifnot(nrow(apollo_inputs_lc3$database) == 5572)
+
+# Test: LL at the converged estimates — should be -4753.51
+apollo_llCalc(apollo_beta_lc3_rerun, apollo_probabilities_lc3, apollo_inputs_lc3)
+
+model_lc3_rerun <- apollo_estimate(apollo_beta_lc3_rerun, apollo_fixed_lc3,
+                                   apollo_probabilities_lc3, apollo_inputs_lc3)
+apollo_modelOutput(model_lc3_rerun)
 ```
 
 ## K= 4
@@ -495,7 +541,11 @@ apollo_beta_lc4 <- c(
 
 apollo_fixed_lc4 <- c()
 
-apollo_inputs_lc4 <- apollo_validateInputs()
+rm(list = intersect(ls(), names(apollo_beta_lc4)))
+apollo_inputs_lc4 <- apollo_validateInputs(apollo_beta    = apollo_beta_lc4,
+                                           apollo_fixed   = apollo_fixed_lc4,
+                                           database       = database,
+                                           apollo_control = apollo_control)
 
 # ── Probability function ──
 apollo_probabilities_lc4 <- function(apollo_beta, apollo_inputs,
@@ -601,7 +651,7 @@ summary(model_lc4)
 ```{r}
 
 # ── Record fit statistics ──
-ll_k4     <- model_lc4$LLout
+ll_k4     <- model_lc4$maximum   # FIX: LLout is per-component; maximum = final LL
 params_k4 <- length(model_lc4$estimate)
 
 cat("\n════════════════════════════════\n")
@@ -616,19 +666,24 @@ cat("═════════════════════════
 ```
 
 ```{r}
-#Problems with K=4:
-
-#asc_optout_2 = -2.126e+04 — a coefficient of -21,260 is completely nonsensical. This means the optimizer hit a boundary and Class 2 collapsed
-# No standard errors computed — Apollo explicitly couldn't compute SEs, confirming non-convergence
-# Multiple LL values reported (-5321, -6178, -Inf, -13467) — these are intermediate iteration values, not a final solution. The -Inf confirms the likelihood hit zero at some point
-# Modelled outcomes = 27,860 vs your expected 5,572 — something went wrong with the data dimensions
-# The fit statistics show multiple values instead of single numbers — direct result of non-convergence
-# 
-# The conclusion is clear: K=4 did not converge and should be discarded.
-
-# Choose K=3 as main latent class model
-# 
-# While information criteria marginally favored the two-class solution, the K=2 model produced a degenerate class with unstable parameter estimates and no meaningful behavioral interpretation. The three-class solution yielded well-identified classes with theoretically coherent preference profiles and stable standard errors, and was therefore selected as the preferred specification. The K=4 model failed to converge, further supporting K=3 as the optimal solution.
+# Model-selection notes (revised)
+#
+# K=2: Relative function convergence, LL = -4761.10, 17 params.
+#      Hessian check -> saddle point. Class 1 (32.8%) unidentified:
+#      robust SEs 10-25x BHHH SEs, no significant attribute coefficients.
+# K=3: Converged, LL = -4753.51, 26 params, SEs computed.
+#      Class 3 (10.9%) unstable: opt-out ASC and several coefficients 16-19.
+# K=4: Relative function convergence, LL = -4752.56, 35 params.
+#      Boundary solution: asc_optout_2 = -21,260; BHHH singular, no SEs.
+#      Improves LL by < 1 unit over K=3 for 9 more parameters.
+#
+# The multiple LL values printed earlier (-5321, -13467, ...) came from
+# model$LLout (one LL per component), not from non-convergence.
+# Modelled outcomes = (K+1) x 5,572 is Apollo counting each element of P.
+#
+# Conclusion: AIC and BIC favor K=2, but every specification has one
+# class that does not stabilize. LC output is reported as an exploratory
+# diagnostic only; MXL is the main heterogeneity model.
 
 ```
 
@@ -638,13 +693,16 @@ est <- model_lc3$estimate
 
 # ── Compute class membership probabilities manually ──
 # Using the softmax formula from our probability function
-delta_2 <- est["delta_2"]
-delta_3 <- est["delta_3"]
+# FIX: do NOT name these delta_2 / delta_3. Global objects with a parameter's
+# name mask the attached parameter inside apollo_probabilities, so the
+# optimizer can't move it -> zero Hessian row -> no covariance matrix.
+d2 <- unname(est["delta_2"])
+d3 <- unname(est["delta_3"])
 
-denom <- 1 + exp(delta_2) + exp(delta_3)
-pi_1  <- 1            / denom
-pi_2  <- exp(delta_2) / denom
-pi_3  <- exp(delta_3) / denom
+denom <- 1 + exp(d2) + exp(d3)
+pi_1  <- 1       / denom
+pi_2  <- exp(d2) / denom
+pi_3  <- exp(d3) / denom
 
 cat("═══════════════════════════════════\n")
 cat("Unconditional Class Probabilities:\n")
@@ -771,13 +829,14 @@ chosen_prob3 <- ifelse(database$choice == 1, exp(U3_alt1)/denom3,
                                              exp(U3_alt3)/denom3))
 
 # ── Step 4: Panel product — multiply across choice tasks per respondent ──
-database$chosen_prob1 <- chosen_prob1
-database$chosen_prob2 <- chosen_prob2
-database$chosen_prob3 <- chosen_prob3
+# FIX: keep these out of `database` — modifying database after
+# apollo_validateInputs() triggers the "global environment differs" warning
+cp_df <- data.frame(RID = database$RID,
+                    chosen_prob1, chosen_prob2, chosen_prob3)
 
 panel_probs <- aggregate(
   cbind(chosen_prob1, chosen_prob2, chosen_prob3) ~ RID,
-  data    = database,
+  data    = cp_df,
   FUN     = prod
 )
 

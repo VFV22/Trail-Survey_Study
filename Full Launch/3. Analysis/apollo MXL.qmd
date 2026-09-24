@@ -187,13 +187,14 @@ apollo_beta <- c(
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
   b_cost                = 0,
+  asc_optout  = 0,   
 
   # sociodems (fixed)
-  b_resident  = 0,
-  b_age       = 0,
-  b_education = 0,
-  b_income    = 0,
-  b_sex       = 0,
+  # b_resident  = 0,
+  # b_age       = 0,
+  # b_education = 0,
+  # b_income    = 0,
+  # b_sex       = 0,
 
   # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
   sd_Habitat_QualityMed  = 0.1,
@@ -266,12 +267,12 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
   b_CrowdingMed_R         * CrowdingM.alt1 +
   b_CrowdingLow_R         * CrowdingL.alt1 +
-  b_cost                  * Cost.alt1 +
-  b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
+  b_cost                  * Cost.alt1 
+  # b_resident   * Resident +
+  # b_age        * Demo_Age_num +
+  # b_education  * CollegePlus +
+  # b_income     * HHIncome_num +
+  # b_sex        * Sex_binary
 
   
   # Utility for alt2
@@ -282,15 +283,14 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
   b_CrowdingMed_R         * CrowdingM.alt2 +
   b_CrowdingLow_R         * CrowdingL.alt2 +
-  b_cost                  * Cost.alt2 +
-  b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
+  b_cost                  * Cost.alt2 
+  # b_resident   * Resident +
+  # b_age        * Demo_Age_num +
+  # b_education  * CollegePlus +
+  # b_income     * HHIncome_num +
+  # b_sex        * Sex_binary
   
-  # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -998,23 +998,33 @@ b_HHIncome_num = 0,
 ```{r}
 
 apollo_beta <- c(
+  # means
   b_Habitat_QualityMed  = 0,
   b_Habitat_QualityHigh = 0,
   b_Trail_ConditionMed  = 0,
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
-  b_CrowdingLow        = 0,
+  b_CrowdingLow         = 0,
   b_cost                = 0,
-  b_age                 = 0,
-  b_education           = 0,
-  #b_environment = 0, 
-  b_income              = 0, 
-  b_sex = 0
+  asc_optout = 0,
+
+  # # sociodems (fixed)
+  # #b_resident  = 0,
+  #   b_age       = 0,
+  #   b_education = 0,
+  #   b_income    = 0,
+  #   b_sex       = 0,
+
+
+  # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
+  sd_Habitat_QualityMed  = 0.1,
+  sd_Habitat_QualityHigh = 0.1,
+  sd_Trail_ConditionMed  = 0.1,
+  sd_Trail_ConditionHigh = 0.1,
+  sd_CrowdingMed         = 0.1,
+  sd_CrowdingLow         = 0.1
 )
 apollo_fixed <- c()
-
-
-apollo_inputs<-apollo_validateInputs()
 ```
 
 ```{r}
@@ -1034,16 +1044,16 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
     b_CrowdingMed         * CrowdingM.alt1 +
     b_CrowdingLow         * CrowdingL.alt1 +
-    b_cost                * Cost.alt1 +
+    b_cost                * Cost.alt1 
     
     # person-specific covariates (shift alt1 vs opt-out)
     #b_resident   * Resident +
-    b_age        * Demo_Age_num +
-    b_education  * CollegePlus +
-   #b_environment* Member.Environment_binary +
-    #b_userfee    * WTP_User.fee_binary +
-    b_income     * HHIncome_num +
-    b_sex        * Sex_binary
+   #  b_age        * Demo_Age_num +
+   #  b_education  * CollegePlus +
+   # #b_environment* Member.Environment_binary +
+   #  #b_userfee    * WTP_User.fee_binary +
+   #  b_income     * HHIncome_num +
+   #  b_sex        * Sex_binary
   
   # Utility for alt2
   V[["alt2"]]  =
@@ -1053,19 +1063,20 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
     b_CrowdingMed         * CrowdingM.alt2 +
     b_CrowdingLow         * CrowdingL.alt2 +
-    b_cost                * Cost.alt2 +
+    b_cost                * Cost.alt2 
     
-    # person-specific covariates (shift alt2 vs opt-out)
-   # b_resident   * Resident +
-    b_age        * Demo_Age_num +
-    b_education  * CollegePlus +
-    #b_environment* Member.Environment_binary +
-   #b_userfee    * WTP_User.fee_binary +
-    b_income     * HHIncome_num +
-    b_sex        * Sex_binary
+   #  # person-specific covariates (shift alt2 vs opt-out)
+   # # b_resident   * Resident +
+   #  b_age        * Demo_Age_num +
+   #  b_education  * CollegePlus +
+   #  #b_environment* Member.Environment_binary +
+   # #b_userfee    * WTP_User.fee_binary +
+   #  b_income     * HHIncome_num +
+   #  b_sex        * Sex_binary
   
   # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  # utility for alt 3 
+V[["alt3"]] = asc_optout
   
   mnl_settings = list(
     alternatives  = c(alt1=1, alt2=2, alt3=3),
@@ -1074,12 +1085,18 @@ apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimat
     utilities     = V
   )
   
-  P[["model"]] = apollo_mnl(mnl_settings, functionality)
-  P = apollo_panelProd(P, apollo_inputs, functionality)
-  P = apollo_prepareProb(P, apollo_inputs, functionality)
+P[["model"]] = apollo_mnl(mnl_settings, functionality)
+
+P = apollo_panelProd(P, apollo_inputs, functionality)
+
+P = apollo_avgInterDraws(P, apollo_inputs, functionality)  # <-- mixed logit integration  
+
+P = apollo_prepareProb(P, apollo_inputs, functionality)
+
   
   return(P)
 }
+
 ```
 
 ```{r}

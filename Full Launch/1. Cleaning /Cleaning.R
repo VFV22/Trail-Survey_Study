@@ -156,13 +156,22 @@ Full.data $Zipverified <- ifelse(Full.data $Zipverified == "1", "Resident", "Tou
 Full.data  %<>% 
   filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
 
-#Filter out incomplete / failed attention check 
-# Full.data.Incomplete <-Full.data  %<>% 
-#   filter(gc==2)
+#Filter incomplete" attention check and 5.5 minute restriction. 
+Full.data %<>%
+  filter(gc == 1)
 
-#Filter out incomplete / failed attention check 
-Full.data  %<>% 
-  filter(gc==1)
+# #Filter incomplete" attention check and 5.5 minute restriction. 
+# Full.data %>%
+#   filter(gc == 1) %>%
+#   distinct(RID, .keep_all = TRUE) %>%
+#   summarise(
+#     failed_attention_only = sum(Attention.Check != "Agree" & 
+#                                   `Duration (in seconds)` >= 330),
+#     failed_time_only = sum(Attention.Check == "Agree" & 
+#                              `Duration (in seconds)` < 330),
+#     failed_both = sum(Attention.Check != "Agree" & 
+#                         `Duration (in seconds)` < 330)
+#   )
 
 
 

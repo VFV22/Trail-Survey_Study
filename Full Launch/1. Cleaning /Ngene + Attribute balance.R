@@ -11,6 +11,7 @@ library(tidyverse)   # dplyr, tidyr, ggplot2, readr etc.
 library(magrittr)    # pipe (%<>%) used in original script
 library(readxl)      # read_excel
 library(corrplot)    # corrplot visualization
+library(read_excel)
 
 # ------------------------------
 # 0 — Load data
@@ -339,7 +340,6 @@ corr_mat_edited <- cor(corr_matrix_edited)
 
 # Visualize correlation matrix
 corrplot(corr_mat_edited, method = "color", type = "upper", tl.col = "black", tl.srt = 45)
-
 
 
 #After scripted balancing edits the final design shows imbalance = 10 from the original imbalance of 19.93, 

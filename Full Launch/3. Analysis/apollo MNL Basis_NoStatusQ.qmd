@@ -8,7 +8,6 @@ editor: visual
 library(apollo)
 
 apollo_initialise()
-apollo_inputs <- apollo_validateInputs()
 
 ```
 
@@ -187,6 +186,8 @@ b_HHIncome_num = 0,
 
 ```{r}
 
+apollo_inputs <- apollo_validateInputs()
+
 apollo_beta <- c(
   b_Habitat_QualityMed  = 0,
   b_Habitat_QualityHigh = 0,
@@ -205,8 +206,6 @@ apollo_beta <- c(
 )
 apollo_fixed <- c()
 
-
-apollo_inputs<-apollo_validateInputs()
 ```
 
 ```{r}
