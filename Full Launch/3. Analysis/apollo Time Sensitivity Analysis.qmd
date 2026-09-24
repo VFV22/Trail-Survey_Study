@@ -18,6 +18,11 @@ Here need to make the data into wide format to create the utility functions.
 ```{r}
 #after running Analysis
 
+#Run
+#  7-minute threshold (420 seconds)
+ mlogit_clean_7min<- mlogit_clean  %>%
+   filter(`Duration (in seconds)` >= 420)
+ 
 
 mlogit_clean_7min=mlogit_clean_7min[c(1:11,15,19,38:47,71)]
 mlogit_clean_7min$Alternative[which(mlogit_clean_7min$Alternative==1)]="alt1"
@@ -354,6 +359,10 @@ Here need to make the data into wide format to create the utility functions.
 
 ```{r}
 #after running Analysis
+
+#  4-minute threshold (240 seconds)
+ mlogit_clean_4min<- mlogit_clean %>%
+  filter(`Duration (in seconds)` >= 240)
 
 
 mlogit_clean_4min=mlogit_clean_4min[c(1:11,15,19,38:47, 71)]

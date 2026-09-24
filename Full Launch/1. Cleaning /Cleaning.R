@@ -160,7 +160,9 @@ Full.data  %<>%
 Full.data %<>%
   filter(gc == 1)
 
-# #Filter incomplete" attention check and 5.5 minute restriction. 
+
+# Run this filter instead for time threshold sensitivity analysis 
+
 # Full.data %>%
 #   filter(gc == 1) %>%
 #   distinct(RID, .keep_all = TRUE) %>%
