@@ -442,7 +442,67 @@ design %<>%
 
 
 # ------------------------------
-# 10 — Export final layout (final)
+# 10 — Produce Fielded Design for Manuscrtip (final)
+# ------------------------------
+
+# Run this in R to check your actual fielded design
+design <- read.csv("0. Data/Ngene_reshape_edited.csv")
+
+# Check structure
+head(design)
+names(design)
+
+# Check number of blocks
+table(design$block)
+
+# Check cost levels actually used
+table(design$Cost)
+
+# Check number of choice sets
+n_distinct(design$Choice.Task)
+
+# Check alternatives per choice set
+table(design$Alternative)
+
+# Export to html 
+
+
+# Filter out opt-out rows for cleaner presentation
+design_table <- design %>%
+  filter(Alternative != 3) %>%
+  mutate(
+    Habitat_Quality = case_when(
+      Habitat_Quality == 1 ~ "Low",
+      Habitat_Quality == 2 ~ "Medium", 
+      Habitat_Quality == 3 ~ "High"),
+    Trail_Condition = case_when(
+      Trail_Condition == 1 ~ "Low",
+      Trail_Condition == 2 ~ "Medium",
+      Trail_Condition == 3 ~ "High"),
+    Crowding = case_when(
+      Crowding == 1 ~ "Low",
+      Crowding == 2 ~ "Medium",
+      Crowding == 3 ~ "High"),
+    Cost = paste0("$", Cost)
+  ) %>%
+  select(block, Choice.Task, Alternative, 
+         Habitat_Quality, Trail_Condition, Crowding, Cost)
+
+# Export
+library(kableExtra)
+design_table %>%
+  kable(
+    format = "html",
+    col.names = c("Block", "Choice Task", "Alternative",
+                  "Habitat Quality", "Trail Condition", 
+                  "Crowding", "Cost"),
+    caption = "Table B.1. Final Fielded Experimental Design (Ngene_reshape_edited)"
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  save_kable("Table_B1_Design.html")
+
+# ------------------------------
+# 11 — Export final layout (final)
 # ------------------------------
 write.csv(design, "ngene.output_edited.csv",row.names = FALSE)
 write.csv(design_final, "Ngene_reshape_edited.csv", row.names = FALSE)

@@ -1,0 +1,382 @@
+---
+title: "index"
+format: html
+editor: visual
+---
+
+```{r}
+packageVersion("apollo")
+ls("package:apollo")
+apollo_initialise()
+
+```
+
+Here need to make the data into wide format to create the utility functions.
+
+```{r}
+#after running Analysis
+
+mlogit_cleann=mlogit_clean[c(1:11,15,19,38:47,71)]
+mlogit_clean$Alternative[which(mlogit_clean$Alternative==1)]="alt1"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="2")]="alt2"
+mlogit_clean$Alternative[which(mlogit_clean$Alternative=="3")]="alt3"
+#mlogit_clean$Choice.Binary=NULL
+#Note design_ngene still says 50
+# mlogit_clean$Cost[which(mlogit_clean$Cost==50)]=40
+mlogit_clean_wide=reshape(mlogit_clean,timevar = "Alternative",
+idvar = c(1:3,5,7),
+direction = "wide" ) # Each respondent-choice task becomes one row, with separate columns for each alternative’s attributes.
+
+apollo_control <- list(
+  modelName  = "Trail_Choice",
+  modelDescr = "Simple MNL model with trail alternatives",
+  indivID    = "RID" ,
+  panelData = TRUE
+)
+database=mlogit_clean_wide
+
+```
+
+```{apollo_control = list(}
+  
+  modelName       = "resident_submodel",   
+  
+  modelDescr      = "Resident-only submodel for Swait-Louviere test",
+  
+  indivID         = "RID",                  # ID respondent ID column
+  
+  outputDirectory = "output"
+  
+)
+
+
+
+database_resident <- subset(database, Resident == 1)
+
+database_tourist  <- subset(database, Resident == 0)
+
+
+# first run resident
+
+apollo_beta_sub <- c(
+  
+  b_Habitat_QualityMed  = 0,
+  
+  b_Habitat_QualityHigh = 0,
+  
+  b_Trail_ConditionMed  = 0,
+  
+  b_Trail_ConditionHigh = 0,
+  
+  b_CrowdingMed         = 0,
+  
+  b_CrowdingLow         = 0,
+  
+  b_cost                = 0,
+  
+  asc_optout            = 0,
+  
+  b_age                 = 0,
+  
+  b_education           = 0,
+  
+  b_income              = 0,
+  
+  b_sex                 = 0
+  
+)
+
+apollo_fixed_sub <- c()
+
+
+apollo_probabilities_sub <- function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  
+  
+  P = list()
+  
+  V = list()
+  
+  
+  
+  V[["alt1"]] =
+    
+    b_Habitat_QualityMed  * Habitat_QualityM.alt1 +
+    
+    b_Habitat_QualityHigh * Habitat_QualityH.alt1 +
+    
+    b_Trail_ConditionMed  * Trail_ConditionM.alt1 +
+    
+    b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
+    
+    b_CrowdingMed         * CrowdingM.alt1 +
+    
+    b_CrowdingLow         * CrowdingL.alt1 +
+    
+    b_cost                * Cost.alt1 +
+    
+    b_age        * Demo_Age_num +
+    
+    b_education  * CollegePlus +
+    
+    b_income     * HHIncome_num +
+    
+    b_sex        * Sex_binary
+  
+  
+  
+  V[["alt2"]] =
+    
+    b_Habitat_QualityMed  * Habitat_QualityM.alt2 +
+    
+    b_Habitat_QualityHigh * Habitat_QualityH.alt2 +
+    
+    b_Trail_ConditionMed  * Trail_ConditionM.alt2 +
+    
+    b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
+    
+    b_CrowdingMed         * CrowdingM.alt2 +
+    
+    b_CrowdingLow         * CrowdingL.alt2 +
+    
+    b_cost                * Cost.alt2 +
+    
+    b_age        * Demo_Age_num +
+    
+    b_education  * CollegePlus +
+    
+    b_income     * HHIncome_num +
+    
+    b_sex        * Sex_binary
+  
+  
+  
+  V[["alt3"]] = asc_optout
+  
+  
+  
+  mnl_settings = list(
+    
+    alternatives = c(alt1=1, alt2=2, alt3=3),
+    
+    avail        = list(alt1=1, alt2=1, alt3=1),
+    
+    choiceVar    = choice,
+    
+    utilities    = V
+    
+  )
+  
+  
+  
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  
+  return(P)
+  
+}
+
+
+#estimate resident
+
+apollo_control$modelName <- "resident_submodel"
+
+database <- database_resident
+
+apollo_inputs_resident <- apollo_validateInputs()
+
+
+model_resident <- apollo_estimate(apollo_beta_sub, apollo_fixed_sub,
+                                  
+                                  apollo_probabilities_sub, apollo_inputs_resident)
+
+
+apollo_modelOutput(model_resident)
+
+
+#tourist only model
+
+apollo_control$modelName <- "tourist_submodel"
+
+database <- database_tourist
+
+apollo_inputs_tourist <- apollo_validateInputs()
+
+
+model_tourist <- apollo_estimate(apollo_beta_sub, apollo_fixed_sub,
+                                 
+                                 apollo_probabilities_sub, apollo_inputs_tourist)
+
+
+apollo_modelOutput(model_tourist)
+
+
+LL_resident <- model_resident$maximum
+
+LL_tourist  <- model_tourist$maximum
+
+LL_unrestricted <- LL_resident + LL_tourist
+
+K <- length(apollo_beta_sub)   # 12
+
+
+#adding free scale lamda for tourist
+
+apollo_beta_scale <- c(apollo_beta_sub, lambda_tourist = 1)
+
+apollo_fixed_scale <- c()
+
+
+apollo_probabilities_scale <- function(apollo_beta, apollo_inputs, functionality="estimate"){
+  
+  
+  
+  apollo_attach(apollo_beta, apollo_inputs)
+  
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  
+  
+  P = list()
+  
+  V = list()
+  
+  
+  
+  scale = ifelse(Resident==1, 1, lambda_tourist)
+  
+  
+  
+  V[["alt1"]] = scale * (
+    
+    b_Habitat_QualityMed  * Habitat_QualityM.alt1 +
+      
+      b_Habitat_QualityHigh * Habitat_QualityH.alt1 +
+      
+      b_Trail_ConditionMed  * Trail_ConditionM.alt1 +
+      
+      b_Trail_ConditionHigh * Trail_ConditionH.alt1 +
+      
+      b_CrowdingMed         * CrowdingM.alt1 +
+      
+      b_CrowdingLow         * CrowdingL.alt1 +
+      
+      b_cost                * Cost.alt1 +
+      
+      b_age        * Demo_Age_num +
+      
+      b_education  * CollegePlus +
+      
+      b_income     * HHIncome_num +
+      
+      b_sex        * Sex_binary
+    
+  )
+  
+  
+  
+  V[["alt2"]] = scale * (
+    
+    b_Habitat_QualityMed  * Habitat_QualityM.alt2 +
+      
+      b_Habitat_QualityHigh * Habitat_QualityH.alt2 +
+      
+      b_Trail_ConditionMed  * Trail_ConditionM.alt2 +
+      
+      b_Trail_ConditionHigh * Trail_ConditionH.alt2 +
+      
+      b_CrowdingMed         * CrowdingM.alt2 +
+      
+      b_CrowdingLow         * CrowdingL.alt2 +
+      
+      b_cost                * Cost.alt2 +
+      
+      b_age        * Demo_Age_num +
+      
+      b_education  * CollegePlus +
+      
+      b_income     * HHIncome_num +
+      
+      b_sex        * Sex_binary
+    
+  )
+  
+  
+  
+  V[["alt3"]] = scale * asc_optout
+  
+  
+  
+  mnl_settings = list(
+    
+    alternatives = c(alt1=1, alt2=2, alt3=3),
+    
+    avail        = list(alt1=1, alt2=1, alt3=1),
+    
+    choiceVar    = choice,
+    
+    utilities    = V
+    
+  )
+  
+  
+  
+  P[["model"]] = apollo_mnl(mnl_settings, functionality)
+  
+  P = apollo_panelProd(P, apollo_inputs, functionality)
+  
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  
+  return(P)
+  
+}
+
+
+apollo_control$modelName <- "pooled_scale_model"
+
+database <- rbind(database_resident, database_tourist)   
+
+#backed to pool
+
+apollo_inputs_full <- apollo_validateInputs()
+
+
+model_pooled_scale <- apollo_estimate(apollo_beta_scale, apollo_fixed_scale,
+                                      
+                                      apollo_probabilities_scale, apollo_inputs_full)
+
+
+apollo_modelOutput(model_pooled_scale)
+
+
+LL_restricted <- model_pooled_scale$maximum
+
+
+
+#  Swait-Louviere likelihood ratio test
+
+
+LR_stat <- -2 * (LL_restricted - LL_unrestricted)
+
+df      <- K - 1
+
+p_value <- pchisq(LR_stat, df, lower.tail = FALSE)
+
+
+cat("LR statistic:", LR_stat, "\n")
+
+cat("df:", df, "\n")
+
+cat("p-value:", p_value, "\n")
+
+cat("Estimated tourist scale (lambda):", model_pooled_scale$estimate["lambda_tourist"], "\n")
+```

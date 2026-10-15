@@ -1,0 +1,109 @@
+---
+output: 
+  html_document:
+    code_folding: hide   # all code hidden by default, expandable
+---
+
+```{r setup, include=FALSE}
+# Setup global chunk options
+knitr::opts_chunk$set(
+  echo = FALSE,       # hide code by default
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+
+```{r load-analysis, echo=FALSE}
+setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
+source("3. Analysis/Analysis.R")
+```
+
+
+```{r}
+# ── F.1 User Fee Support ──────────────────────────────────────────────────────
+
+summary_data <- mlogit_clean %>%
+  distinct(RID, .keep_all = TRUE) %>%
+  group_by(Zipverified, User.fee_Y.N) %>%
+  summarise(
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),
+    prop  = n / total * 100
+  ) %>%
+  ungroup() %>%
+  # Clean up labels for publication
+  mutate(
+    Zipverified = factor(Zipverified, 
+                         levels = c("Resident", "Tourist"),
+                         labels = c("Residents", "Tourists")),
+    User.fee_Y.N = factor(User.fee_Y.N,
+                          levels = c("Yes", "No"),
+                          labels = c("Yes", "No"))
+  )
+
+f1 <- ggplot(summary_data, 
+             aes(x = User.fee_Y.N, y = prop, fill = Zipverified)) +
+  geom_col(position = position_dodge(0.9), width = 0.7) +
+  geom_text(
+    aes(label = paste0("n = ", n)),
+    position = position_dodge(0.9),
+    vjust     = 1.4,
+    size      = 3,
+    color     = "white",
+    fontface  = "bold"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Residents" = "#c87620",
+      "Tourists"  = "#5992c6"
+    )
+  ) +
+  scale_y_continuous(
+    labels = function(x) paste0(x, "%"),
+    limits = c(0, 100),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  labs(
+    title = "Would you be willing to support a user fee mechanism to enhance trail management efforts?",
+    x     = "",
+    y     = "Percentage of respondents (%)",
+    fill  = ""
+  ) +
+theme_minimal(base_size = 10) +
+theme(
+    axis.text.x      = element_text(angle = 0, hjust = 0.5, 
+                                    size = 9, face = "bold"),
+    plot.title       = element_text(size = 8, face = "bold", 
+                                    hjust = 0.5),
+    legend.position  = "top",
+    legend.text      = element_text(size = 9),
+    panel.grid.major.x = element_blank()
+  )
+
+# ── Export at journal quality ─────────────────────────────────────────────────
+ggsave(
+  filename = "Figure_F1_UserFeeSupport.tiff",
+  plot     = f1,
+  width    = 140,      # single column width in mm
+  height   = 100,
+  units    = "mm",
+  dpi      = 300,
+  compression = "lzw"  # lossless compression for TIFF
+)
+
+# Also save as PDF for vector quality option
+ggsave(
+  filename = "Figure_F1_UserFeeSupport.pdf",
+  plot     = f1,
+  width    = 140,
+  height   = 100,
+  units    = "mm"
+)
+
+print(f1)
+```

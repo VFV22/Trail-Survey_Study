@@ -2342,6 +2342,115 @@ html_content <- gsub("< br/> ", "<br/>", html_content, fixed = TRUE)
 writeLines(html_content, "WTP_table.CI.html")
 ```
 
+# WTP difference test TC and HQ
+
+```{r}
+# ══════════════════════════════════════════════════════
+# Between-group WTP difference test (Resident vs Tourist)
+# Models are independent → cov(WTP_res, WTP_tour) = 0
+# SE_diff = sqrt(var_WTP_res + var_WTP_tour)
+# ══════════════════════════════════════════════════════
+
+wtp_diff_test <- function(wtp_res, wtp_tour, 
+                          model_res, model_tour,
+                          wtp_pars, cost_par = "b_cost",
+                          use_robust = TRUE) {
+  
+  # Get variance for each WTP estimate from each model
+  get_var_wtp <- function(model, par) {
+    bhat <- model$estimate
+    Vhat <- if(use_robust) (model$robvarcov %||% model$varcov) else model$varcov
+    
+    bc <- as.numeric(bhat[cost_par])
+    bk <- as.numeric(bhat[par])
+    
+    g <- c(d_bk = -1/bc, d_bc = bk/(bc^2))
+    V2 <- as.matrix(Vhat[c(par, cost_par), c(par, cost_par)])
+    as.numeric(t(g) %*% V2 %*% g)
+  }
+  
+  results <- lapply(wtp_pars, function(p) {
+    # WTP estimates
+    wtp_r <- wtp_res$wtp[wtp_res$Attribute == p]
+    wtp_t <- wtp_tour$wtp[wtp_tour$Attribute == p]
+    
+    # Variances from each model
+    var_r <- get_var_wtp(model_res, p)
+    var_t <- get_var_wtp(model_tour, p)
+    
+    # Difference and SE
+    # Covariance = 0 since models estimated independently
+    diff <- wtp_t - wtp_r
+    se_diff <- sqrt(var_r + var_t)
+    
+    # Two-sided z-test
+    z_stat <- diff / se_diff
+    p_val <- 2 * (1 - pnorm(abs(z_stat)))
+    
+    # Significance stars
+    stars <- case_when(
+      p_val < 0.001 ~ "***",
+      p_val < 0.01  ~ "**",
+      p_val < 0.05  ~ "*",
+      p_val < 0.1   ~ ".",
+      TRUE          ~ ""
+    )
+    
+    tibble(
+      Attribute     = p,
+      WTP_Resident  = round(wtp_r, 2),
+      WTP_Tourist   = round(wtp_t, 2),
+      Difference    = round(diff, 2),
+      SE_diff       = round(se_diff, 2),
+      Z_stat        = round(z_stat, 3),
+      P_value       = round(p_val, 4),
+      Significance  = stars
+    )
+  })
+  
+  bind_rows(results)
+}
+
+# ══════════════════════════════════════════════════════
+# Run the test
+# ══════════════════════════════════════════════════════
+wtp_diff_results <- wtp_diff_test(
+  wtp_res   = wtp_res_delta,
+  wtp_tour  = wtp_tour_delta,
+  model_res = model_mxl_Resident,
+  model_tour = model_mxl_Tourist,
+  wtp_pars  = wtp_pars,
+  cost_par  = cost_par
+)
+
+print(wtp_diff_results)
+
+```
+
+```{r}
+library(knitr)
+library(kableExtra)
+
+wtp_diff_results %>%
+  mutate(
+    Attribute = c("Habitat Quality: Medium", "Habitat Quality: High",
+                  "Trail Condition: Medium", "Trail Condition: High",
+                  "Crowding: Medium", "Crowding: Low"),
+    WTP_Resident = paste0("$", WTP_Resident),
+    WTP_Tourist  = paste0("$", WTP_Tourist),
+    Difference   = paste0("$", Difference, Significance)
+  ) %>%
+  select(Attribute, WTP_Resident, WTP_Tourist, Difference, SE_diff, Z_stat, P_value) %>%
+  kable(
+    format = "html",
+    col.names = c("Attribute", "Resident WTP", "Tourist WTP", 
+                  "Difference (T−R)", "SE", "Z", "p-value"),
+    caption = "Table H.3. Between-Group WTP Difference Tests: Residents vs. Tourists (Delta Method)"
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  save_kable("WTP_diff_test.html")
+```
+
 # WTP Graph: TC and HQ
 
 ```{r}

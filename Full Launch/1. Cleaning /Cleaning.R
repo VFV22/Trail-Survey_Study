@@ -156,24 +156,24 @@ Full.data $Zipverified <- ifelse(Full.data $Zipverified == "1", "Resident", "Tou
 Full.data  %<>% 
   filter(!is.na(RID) & grepl("^[0-9a-f\\-]+$", RID))
 
-#Filter incomplete" attention check and 5.5 minute restriction. 
-Full.data %<>%
-  filter(gc == 1)
+#Filter incomplete" attention check and 5.5 minute restriction. #Run filter below for time sensitivity analysis 
+ Full.data %<>%
+   filter(gc == 1)
 
 
-# Run this filter instead for time threshold sensitivity analysis 
-
-# Full.data %>%
-#   filter(gc == 1) %>%
+#check how many failed attention only, time only and failed both 
+# 
+#  Full.data %>%
+#    filter(gc == 1) %>%
 #   distinct(RID, .keep_all = TRUE) %>%
-#   summarise(
-#     failed_attention_only = sum(Attention.Check != "Agree" & 
+#    summarise(
+#      failed_attention_only = sum(Attention.Check != "Agree" & 
 #                                   `Duration (in seconds)` >= 330),
-#     failed_time_only = sum(Attention.Check == "Agree" & 
-#                              `Duration (in seconds)` < 330),
-#     failed_both = sum(Attention.Check != "Agree" & 
-#                         `Duration (in seconds)` < 330)
-#   )
+#      failed_time_only = sum(Attention.Check == "Agree" & 
+#                               `Duration (in seconds)` < 330),
+#      failed_both = sum(Attention.Check != "Agree" & 
+#                          `Duration (in seconds)` < 330)
+#    )
 
 
 

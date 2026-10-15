@@ -1,0 +1,135 @@
+---
+output:
+  html_document:
+    code_folding: hide
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+# Setup global chunk options
+knitr::opts_chunk$set(
+  echo = FALSE,       # hide code by default
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+
+```{r load-analysis, echo=FALSE}
+setwd("~/Documents/GitHub/Trail-Survey_Study/Full Launch")
+source("3. Analysis/Analysis.R")
+```
+
+
+
+```{r}
+# ── F.5 Preferred Supplemental Funding Methods ────────────────────────────────
+
+library(patchwork)
+
+summary_data_f5 <- mlogit_clean %>%
+  distinct(RID, .keep_all = TRUE) %>%
+  filter(User.fee_Payment.Method != "Other (Please enter answer in the box)") %>%
+  group_by(Zipverified, User.fee_Payment.Method) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Zipverified) %>%
+  mutate(
+    total = sum(n),
+    prop  = n / total
+  ) %>%
+  ungroup() %>%
+  mutate(
+    User.fee_Payment.Method = case_when(
+      User.fee_Payment.Method == "Centralized payment (pay at a staffed location such as a visitor center or hotel lobby before visiting the trail)" ~
+        "Centralized payment (pay at a staffed location)",
+      User.fee_Payment.Method == "On-site payment (pay at the trail entrance using a kiosk, QR code, or cash drop box)" ~
+        "On-site payment (pay at the trail entrance using a kiosk / QR code)",
+      User.fee_Payment.Method == "Online pre-payment (pay before your visit through a website or mobile app)" ~
+        "Online pre-payment (pay before your visit through a website / mobile app)",
+      TRUE ~ User.fee_Payment.Method
+    ),
+    Zipverified = factor(Zipverified,
+                         levels = c("Resident", "Tourist"),
+                         labels = c("Residents", "Tourists"))
+  )
+
+tourist_data  <- summary_data_f5 %>% filter(Zipverified == "Tourists")
+resident_data <- summary_data_f5 %>% filter(Zipverified == "Residents")
+
+custom_colors <- c(
+  "Centralized payment (pay at a staffed location)"                            = "#6a906c",
+  "On-site payment (pay at the trail entrance using a kiosk / QR code)"        = "#ae9864",
+  "Online pre-payment (pay before your visit through a website / mobile app)"  = "#503440"
+)
+
+p1 <- ggplot(tourist_data,
+             aes(x = 2, y = prop, fill = User.fee_Payment.Method)) +
+  geom_col(width = 1, color = "white") +
+  geom_text(
+    aes(label = paste0(round(prop * 100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size  = 2.5,
+    color = "white"
+  ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +
+  labs(title = "Tourists", fill = "Payment method") +
+  theme_void() +
+  theme(
+    plot.title      = element_text(hjust = 0.5, face = "bold", size = 8),
+    legend.position = "none"
+  )
+
+p2 <- ggplot(resident_data,
+             aes(x = 2, y = prop, fill = User.fee_Payment.Method)) +
+  geom_col(width = 1, color = "white") +
+  geom_text(
+    aes(label = paste0(round(prop * 100, 1), "%")),
+    position = position_stack(vjust = 0.5),
+    size  = 2.5,
+    color = "white"
+  ) +
+  coord_polar(theta = "y") +
+  xlim(0.5, 2.5) +
+  scale_fill_manual(values = custom_colors) +
+  labs(title = "Residents", fill = "Payment method") +
+  theme_void() +
+  theme(
+    plot.title      = element_text(hjust = 0.5, face = "bold", size = 8),
+    legend.position = "right",
+    legend.text     = element_text(size = 6),
+    legend.title    = element_text(size = 7, face = "bold"),
+    legend.key.size = unit(0.4, "cm")
+  )
+
+f5 <- p1 + p2 +
+  plot_annotation(
+    title = "If user fee mechanisms were implemented, which payment method would you prefer?",
+    theme = theme(
+      plot.title = element_text(size = 8, face = "bold", hjust = 0.5)
+    )
+  )
+
+# ── Export ────────────────────────────────────────────────────────────────────
+ggsave(
+  filename    = "Figure_F5_FundingMethods.tiff",
+  plot        = f5,
+  width       = 160,
+  height      = 100,
+  units       = "mm",
+  dpi         = 300,
+  compression = "lzw"
+)
+
+ggsave(
+  filename = "Figure_F5_FundingMethods.pdf",
+  plot     = f5,
+  width    = 160,
+  height   = 100,
+  units    = "mm"
+)
+
+print(f5)
+rm(summary_data_f5, tourist_data, resident_data)
+```

@@ -103,15 +103,23 @@ Need to create some demographic info to control in the regression.
 database$Choice.Task.alt1
 
 
-#Resident 
-database <- database %>% mutate( viewpoint = if_else(as.numeric(Choice.Task.alt2) %%2 == 0,1,0))
+# ══════════════════════════════════════════════════════
+# Viewpoint dummy — keep as is
+# ══════════════════════════════════════════════════════
+database <- database %>% 
+  mutate(viewpoint = if_else(as.numeric(Choice.Task.alt2) %% 2 == 0, 1, 0))
 
-#Interaction dummy for crowding with waterfall - Create combined indicator 
-database$CrowdingAny.alt1 = database$CrowdingM.alt1 + database$CrowdingL.alt1
-database$CrowdingAny.alt2 = database$CrowdingM.alt2 + database$CrowdingL.alt2
-# Create interaction 
-database$Crowding_WF.alt1 = database$CrowdingAny.alt1 * database$viewpoint
-database$Crowding_WF.alt2 = database$CrowdingAny.alt2 * database$viewpoint
+# ══════════════════════════════════════════════════════
+# Separate interaction terms — one per crowding dummy
+# ══════════════════════════════════════════════════════
+
+# CrowdingMed × Viewpoint
+database$CrowdingM_WF.alt1 <- database$CrowdingM.alt1 * database$viewpoint
+database$CrowdingM_WF.alt2 <- database$CrowdingM.alt2 * database$viewpoint
+
+# CrowdingLow × Viewpoint
+database$CrowdingL_WF.alt1 <- database$CrowdingL.alt1 * database$viewpoint
+database$CrowdingL_WF.alt2 <- database$CrowdingL.alt2 * database$viewpoint
 
 
 #Resident
@@ -184,24 +192,30 @@ b_HHIncome_num = 0,
 ```{r}
 
 apollo_beta <- c(
-  # means
+  # means (random)
   b_Habitat_QualityMed  = 0,
   b_Habitat_QualityHigh = 0,
   b_Trail_ConditionMed  = 0,
   b_Trail_ConditionHigh = 0,
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
+  
+  # Crowding x Viewpoint interactions — TWO terms, one per dummy
+  b_CrowdingMed_WF      = 0,   # CrowdingMed × Waterfall viewpoint
+  b_CrowdingLow_WF      = 0,   # CrowdingLow × Waterfall viewpoint
+  
+  # cost and ASC
   b_cost                = 0,
-  b_Crowding_WF         = 0, 
-
-  # sociodems (fixed)
-  b_resident  = 0,
-  b_age       = 0,
-  b_education = 0,
-  b_income    = 0,
-  b_sex       = 0,
-
-  # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
+  asc_optout            = 0,   # restored — must match main model spec
+  
+  # sociodemographics (fixed)
+  b_resident            = 0,
+  b_age                 = 0,
+  b_education           = 0,
+  b_income              = 0,
+  b_sex                 = 0,
+  
+  # SDs for random coefficients
   sd_Habitat_QualityMed  = 0.1,
   sd_Habitat_QualityHigh = 0.1,
   sd_Trail_ConditionMed  = 0.1,
@@ -209,6 +223,7 @@ apollo_beta <- c(
   sd_CrowdingMed         = 0.1,
   sd_CrowdingLow         = 0.1
 )
+
 apollo_fixed <- c()
 
 ```
@@ -255,68 +270,62 @@ apollo_randCoeff <- function(apollo_beta, apollo_inputs){
 ```
 
 ```{r}
-apollo_probabilities=function(apollo_beta, apollo_inputs, functionality="estimate"){
+apollo_probabilities <- function(apollo_beta, apollo_inputs, functionality = "estimate"){
   
   apollo_attach(apollo_beta, apollo_inputs)
   on.exit(apollo_detach(apollo_beta, apollo_inputs))
   
-  P = list()
-  V = list()
+  P <- list()
+  V <- list()
   
   # Utility for alt1
-
-V[["alt1"]]  =
-  b_Habitat_QualityMed_R  * Habitat_QualityM.alt1 +
-  b_Habitat_QualityHigh_R * Habitat_QualityH.alt1 +
-  b_Trail_ConditionMed_R  * Trail_ConditionM.alt1 +
-  b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
-  b_CrowdingMed_R         * CrowdingM.alt1 +
-  b_CrowdingLow_R         * CrowdingL.alt1 +
-  b_Crowding_WF           * Crowding_WF.alt1 +
-  b_cost                  * Cost.alt1 +
-  #b_viewpoint  * viewpoint +
-  b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
-
+  V[["alt1"]] <-
+    b_Habitat_QualityMed_R  * Habitat_QualityM.alt1 +
+    b_Habitat_QualityHigh_R * Habitat_QualityH.alt1 +
+    b_Trail_ConditionMed_R  * Trail_ConditionM.alt1 +
+    b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
+    b_CrowdingMed_R         * CrowdingM.alt1 +
+    b_CrowdingLow_R         * CrowdingL.alt1 +
+    b_CrowdingMed_WF        * CrowdingM.alt1 * viewpoint +  # Med × Viewpoint
+    b_CrowdingLow_WF        * CrowdingL.alt1 * viewpoint +  # Low × Viewpoint
+    b_cost                  * Cost.alt1 +
+    b_resident              * Resident +
+    b_age                   * Demo_Age_num +
+    b_education             * CollegePlus +
+    b_income                * HHIncome_num +
+    b_sex                   * Sex_binary
   
   # Utility for alt2
-  V[["alt2"]]  =
-  b_Habitat_QualityMed_R  * Habitat_QualityM.alt2 +
-  b_Habitat_QualityHigh_R * Habitat_QualityH.alt2 +
-  b_Trail_ConditionMed_R  * Trail_ConditionM.alt2 +
-  b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
-  b_CrowdingMed_R         * CrowdingM.alt2 +
-  b_CrowdingLow_R         * CrowdingL.alt2 +
-  b_Crowding_WF           * Crowding_WF.alt2 +
-  b_cost                  * Cost.alt2 +
-  #b_viewpoint  * viewpoint +
-  b_resident   * Resident +
-  b_age        * Demo_Age_num +
-  b_education  * CollegePlus +
-  b_income     * HHIncome_num +
-  b_sex        * Sex_binary
+  V[["alt2"]] <-
+    b_Habitat_QualityMed_R  * Habitat_QualityM.alt2 +
+    b_Habitat_QualityHigh_R * Habitat_QualityH.alt2 +
+    b_Trail_ConditionMed_R  * Trail_ConditionM.alt2 +
+    b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
+    b_CrowdingMed_R         * CrowdingM.alt2 +
+    b_CrowdingLow_R         * CrowdingL.alt2 +
+    b_CrowdingMed_WF        * CrowdingM.alt2 * viewpoint +  # Med × Viewpoint
+    b_CrowdingLow_WF        * CrowdingL.alt2 * viewpoint +  # Low × Viewpoint
+    b_cost                  * Cost.alt2 +
+    b_resident              * Resident +
+    b_age                   * Demo_Age_num +
+    b_education             * CollegePlus +
+    b_income                * HHIncome_num +
+    b_sex                   * Sex_binary
   
-  # Opt-out / status quo fixed at 0
-  V[["alt3"]] = 0
+  # Opt-out with ASC — matches main model specification
+  V[["alt3"]] <- asc_optout
   
-  mnl_settings = list(
-    alternatives  = c(alt1=1, alt2=2, alt3=3),
-    avail         = list(alt1=1, alt2=1, alt3=1),
-    choiceVar     = choice,
-    utilities     = V
+  mnl_settings <- list(
+    alternatives = c(alt1 = 1, alt2 = 2, alt3 = 3),
+    avail        = list(alt1 = 1, alt2 = 1, alt3 = 1),
+    choiceVar    = choice,
+    utilities    = V
   )
   
-P[["model"]] = apollo_mnl(mnl_settings, functionality)
-
-P = apollo_panelProd(P, apollo_inputs, functionality)
-
-P = apollo_avgInterDraws(P, apollo_inputs, functionality)  # <-- mixed logit integration  
-
-P = apollo_prepareProb(P, apollo_inputs, functionality)
-
+  P[["model"]] <- apollo_mnl(mnl_settings, functionality)
+  P <- apollo_panelProd(P, apollo_inputs, functionality)
+  P <- apollo_avgInterDraws(P, apollo_inputs, functionality)
+  P <- apollo_prepareProb(P, apollo_inputs, functionality)
   
   return(P)
 }
@@ -445,26 +454,37 @@ align_to <- function(x, order) {
 
 # ── 2. Extract from model ─────────────────────────────────────────────────────
 v_all <- get_apollo_stargazer_inputs(model_mxl_crowd, robust = TRUE, p_sided = 2)
-
 # ── 3. Coefficient order and display labels ───────────────────────────────────
 order <- c(
   "b_Habitat_QualityMed",  "b_Habitat_QualityHigh",
   "b_Trail_ConditionMed",  "b_Trail_ConditionHigh",
   "b_CrowdingMed",         "b_CrowdingLow",
-  "b_Crowding_WF",
+  "b_CrowdingMed_WF",      # Medium × Viewpoint — NEW
+  "b_CrowdingLow_WF",      # Low × Viewpoint — NEW
+  "b_cost_resident",       # add if present in this model
   "b_cost",
+  "asc_optout",            # add ASC as advisor requested
   "b_resident",
-  "b_age", "b_education", "b_income", "b_sex"
+  "b_age", "b_education", "b_income", "b_sex",
+  "sd_Habitat_QualityMed",  "sd_Habitat_QualityHigh",
+  "sd_Trail_ConditionMed",  "sd_Trail_ConditionHigh",
+  "sd_CrowdingMed",         "sd_CrowdingLow"
 )
 
 labels <- c(
   "Habitat quality (Medium)", "Habitat quality (High)",
   "Trail condition (Medium)", "Trail condition (High)",
   "Crowding (Medium)",        "Crowding (Low)",
-  "Crowding \u00d7 Viewpoint",
+  "Crowding Med \u00d7 Viewpoint",   # Medium interaction
+  "Crowding Low \u00d7 Viewpoint",   # Low interaction
+  "Cost \u00d7 Resident",
   "Cost",
+  "ASC",
   "Resident",
-  "Age", "Education", "Income", "Sex"
+  "Age", "Education", "Income", "Sex",
+  "SD: Habitat quality (Medium)", "SD: Habitat quality (High)",
+  "SD: Trail condition (Medium)", "SD: Trail condition (High)",
+  "SD: Crowding (Medium)",        "SD: Crowding (Low)"
 )
 
 # ── 4. Align vectors ──────────────────────────────────────────────────────────
@@ -473,21 +493,14 @@ se_list   <- list(align_to(v_all$se, order))
 p_list    <- list(align_to(v_all$p,  order))
 
 # ── 5. Dummy OLS model ────────────────────────────────────────────────────────
-make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
-  set.seed(seed)
-  K <- length(coef_names)
-  X <- as.data.frame(matrix(rnorm(n * K), nrow = n, ncol = K))
-  names(X) <- coef_names
-  X$y <- rnorm(n)
-  lm(y ~ 0 + ., data = X)
-}
-
 d1 <- make_dummy_lm_named(order, seed = 1)
 
-# ── 6. Model fit statistics ───────────────────────────────────────────────────
+# ── 6. Model fit statistics — add LL and BIC as advisor requested ─────────────
 obs         <- model_mxl_crowd$nObs
 respondents <- model_mxl_crowd$nIndivs
+ll          <- round(model_mxl_crowd$LLout, 2)
 aic         <- round(model_mxl_crowd$AIC, 2)
+bic         <- round(model_mxl_crowd$BIC, 2)
 
 # ── 7. Render table ───────────────────────────────────────────────────────────
 stargazer(
@@ -506,9 +519,11 @@ stargazer(
   add.lines = list(
     c("Observations",  obs),
     c("Respondents",   respondents),
-    c("AIC",           aic)
+    c("LL",            ll),
+    c("AIC",           aic),
+    c("BIC",           bic)
   ),
-  notes        = "Robust standard errors in parentheses.",
+  notes = "Robust standard errors in parentheses. * p < 0.05, ** p < 0.01, *** p < 0.001.",
   notes.append = FALSE
 )
 ```

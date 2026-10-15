@@ -168,10 +168,6 @@ database$choice=as.numeric(
 database$choice=as.numeric(database$choice)
 ```
 
-```{r}
-apollo_inputs <- apollo_validateInputs()
-```
-
 # Apollo code
 
 b_HHIncome_num = 0,
@@ -187,14 +183,15 @@ apollo_beta <- c(
   b_CrowdingMed         = 0,
   b_CrowdingLow         = 0,
   b_cost                = 0,
+  b_cost_resident       = 0,   # Cost × Resident 
   asc_optout  = 0,   
 
   # sociodems (fixed)
-  # b_resident  = 0,
-  # b_age       = 0,
-  # b_education = 0,
-  # b_income    = 0,
-  # b_sex       = 0,
+   b_resident  = 0,
+   b_age       = 0,
+   b_education = 0,
+   b_income    = 0,
+   b_sex       = 0,
 
   # SDs for random coeffs (start close to zero but allow heterogeneity to grow if the data support it)
   sd_Habitat_QualityMed  = 0.1,
@@ -206,6 +203,10 @@ apollo_beta <- c(
 )
 apollo_fixed <- c()
 
+```
+
+```{r}
+apollo_inputs <- apollo_validateInputs()
 ```
 
 ```{r}
@@ -267,12 +268,13 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt1 +
   b_CrowdingMed_R         * CrowdingM.alt1 +
   b_CrowdingLow_R         * CrowdingL.alt1 +
-  b_cost                  * Cost.alt1 
-  # b_resident   * Resident +
-  # b_age        * Demo_Age_num +
-  # b_education  * CollegePlus +
-  # b_income     * HHIncome_num +
-  # b_sex        * Sex_binary
+  b_cost                  * Cost.alt1 +
+  b_cost_resident         * Cost.alt1 * Resident +  # Cost x Resident — NEW
+   b_resident   * Resident +
+   b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+   b_income     * HHIncome_num +
+   b_sex        * Sex_binary
 
   
   # Utility for alt2
@@ -283,12 +285,13 @@ V[["alt1"]]  =
   b_Trail_ConditionHigh_R * Trail_ConditionH.alt2 +
   b_CrowdingMed_R         * CrowdingM.alt2 +
   b_CrowdingLow_R         * CrowdingL.alt2 +
-  b_cost                  * Cost.alt2 
-  # b_resident   * Resident +
-  # b_age        * Demo_Age_num +
-  # b_education  * CollegePlus +
-  # b_income     * HHIncome_num +
-  # b_sex        * Sex_binary
+  b_cost                  * Cost.alt2 +
+  b_cost_resident         * Cost.alt2 * Resident +  # Cost x Resident — NEW
+   b_resident   * Resident +
+   b_age        * Demo_Age_num +
+   b_education  * CollegePlus +
+   b_income     * HHIncome_num +
+   b_sex        * Sex_binary
   
   V[["alt3"]] = asc_optout
   

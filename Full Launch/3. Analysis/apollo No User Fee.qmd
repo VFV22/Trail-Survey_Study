@@ -202,7 +202,6 @@ apollo_beta <- c(
 )
 apollo_fixed <- c()
 
-apollo_inputs<-apollo_validateInputs()
 
 ```
 
@@ -312,6 +311,10 @@ P = apollo_prepareProb(P, apollo_inputs, functionality)
 ```
 
 ```{r}
+apollo_inputs <- apollo_validateInputs()
+```
+
+```{r}
 model_mxl <- apollo_estimate(apollo_beta, apollo_fixed, apollo_probabilities, apollo_inputs)
 summary(model_mxl)
 
@@ -381,140 +384,79 @@ get_apollo_stargazer_inputs <- function(model, robust = TRUE, p_sided = 2) {
 ```{r}
 library(stargazer)
 
-# Extract
-v_all  <- get_apollo_stargazer_inputs(model_mxl,      robust = TRUE, p_sided = 2)
- # v_res  <- get_apollo_stargazer_inputs(model_residents, robust = TRUE, p_sided = 2)
- # v_tour <- get_apollo_stargazer_inputs(model_tourists,  robust = TRUE, p_sided = 2)
+# ── 1. Extract from NON-SUPPORTER model (not model_mxl) ──────────────────────
+# Replace model_mxl_nonsupport with your actual non-supporter model object name
+v_nonsupport <- get_apollo_stargazer_inputs(model_mxl, 
+                                            robust = TRUE, p_sided = 2)
 
-# Choose your row order (edit if needed)
 order <- c(
-  "b_Habitat_QualityMed","b_Habitat_QualityHigh",
-  "b_Trail_ConditionMed","b_Trail_ConditionHigh",
-  "b_CrowdingMed","b_CrowdingLow",
+  "b_Habitat_QualityMed",  "b_Habitat_QualityHigh",
+  "b_Trail_ConditionMed",  "b_Trail_ConditionHigh",
+  "b_CrowdingMed",         "b_CrowdingLow",
   "b_cost",
+  "asc_optout",            # ASC — required by advisor
   "b_resident",
-  "b_age","b_education","b_income","b_sex"
+  "b_age", "b_education", "b_income", "b_sex",
+  "sd_Habitat_QualityMed",  "sd_Habitat_QualityHigh",  # SDs — required
+  "sd_Trail_ConditionMed",  "sd_Trail_ConditionHigh",
+  "sd_CrowdingMed",         "sd_CrowdingLow"
 )
 
-# Labels to print (same length/order as 'order')
 labels <- c(
-  "Habitat quality (Medium)","Habitat quality (High)",
-  "Trail condition (Medium)","Trail condition (High)",
-  "Crowding (Medium)","Crowding (Low)",
+  "Habitat quality (Medium)", "Habitat quality (High)",
+  "Trail condition (Medium)", "Trail condition (High)",
+  "Crowding (Medium)",        "Crowding (Low)",
   "Cost",
+  "ASC",
   "Resident",
-  "Age","Education","Income","Sex"
+  "Age", "Education", "Income", "Sex",
+  "SD: Habitat quality (Medium)", "SD: Habitat quality (High)",
+  "SD: Trail condition (Medium)", "SD: Trail condition (High)",
+  "SD: Crowding (Medium)",        "SD: Crowding (Low)"
 )
 
-# Align each model’s vectors to the same coefficient list
-coef_list <- list(
-  align_to(v_all$b,  order)
-)
+# ── 3. Align to order ─────────────────────────────────────────────────────────
+coef_list <- list(align_to(v_nonsupport$b,  order))
+se_list   <- list(align_to(v_nonsupport$se, order))
+p_list    <- list(align_to(v_nonsupport$p,  order))
 
-se_list <- list(
-  align_to(v_all$se,  order)
-)
-
-p_list <- list(
-  align_to(v_all$p,  order)
-)
-
-# Dummy models for stargazer
-make_dummy_lm_named <- function(coef_names, n = 100, seed = 1) {
-  set.seed(seed)
-  K <- length(coef_names)
-  X <- as.data.frame(matrix(rnorm(n * K), nrow = n, ncol = K))
-  names(X) <- coef_names
-  X$y <- rnorm(n)
-  lm(y ~ 0 + ., data = X)  # no intercept, so exactly K coefs with these names
-}
-
+# ── 4. Dummy model ────────────────────────────────────────────────────────────
 d1 <- make_dummy_lm_named(order, seed = 1)
-d2 <- make_dummy_lm_named(order, seed = 2)
-d3 <- make_dummy_lm_named(order, seed = 3)
 
+# ── 5. Fit statistics from non-supporter model only ───────────────────────────
+obs         <- model_mxl$nObs
+respondents <- model_mxl$nIndivs  
+ll          <- round(model_mxl$LLout, 2)
+aic         <- round(model_mxl$AIC, 2)
+bic         <- round(model_mxl$BIC, 2)
 
-```
-
-```{r}
-align_to <- function(x, order) {
-  out <- rep(NA_real_, length(order))
-  names(out) <- order
-  out[names(x)] <- x
-  out
-}
-
-coef_list <- list(
-  align_to(v_all$b,  order),
-  align_to(v_res$b,  order),
-  align_to(v_tour$b, order)
-)
-se_list <- list(
-  align_to(v_all$se,  order),
-  align_to(v_res$se,  order),
-  align_to(v_tour$se, order)
-)
-p_list <- list(
-  align_to(v_all$p,  order),
-  align_to(v_res$p,  order),
-  align_to(v_tour$p, order)
-)
-```
-
-```{r}
-obs <- c(
-  model_mxl$nObs
-  # model_residents$nObs,
-  # model_tourists$nObs
-)
-
-respondents <- c(
- model_mxl$nIndivs
-  # model_residents$nIndivs,
-  # model_tourists$nIndivs
-)
-
-aic <- round(c(model_mxl$AIC, model_mxl_Resident$AIC, model_mxl_Tourist$AIC), 2)
-
-ll  <- round(c(model_mxl$LLout, model_residents$LLout, model_tourists$LLout,
-                model_mxl$LLout, model_mxl_Resident$LLout, model_mxl_Tourist$LLout), 2)
-
-bic <- round(c(model_mxl$BIC, model_residents$BIC, model_tourists$BIC,
-                model_mxl$BIC, model_mxl_Resident$BIC, model_mxl_Tourist$BIC), 2)
-
-```
-
-```{r}
+# ── 6. Render table ───────────────────────────────────────────────────────────
 stargazer(
   d1,
-  type = "html",
-  out  = "mxl_NonFeeSupporters.html",
-  title = "MXL Model on Non-Fee Supporters",
-  column.labels = c("All Respondents"),
+  type  = "html",
+  out   = "mxl_NonFeeSupporters.html",
+  title = "Table D.4. Mixed Logit Model: Non-Supporter Subsample (Protest Response Analysis)",
+  
+  column.labels          = c("Non-Supporter Subsample (n = 167)"),
   dep.var.labels.include = FALSE,
+  
   covariate.labels = labels,
   coef = coef_list,
   se   = se_list,
   p    = p_list,
-  digits = 3,
-  omit.stat = c("n","f","ser","adj.rsq","rsq"),
+  digits    = 3,
+  omit.stat = c("n", "f", "ser", "adj.rsq", "rsq"),
+  
   add.lines = list(
-    c("Observations", obs),
-    c("Respondents", respondents),
+    c("Observations",  obs),
+    c("Respondents",   respondents),
     c("Log-likelihood", ll),
-    c("AIC", aic),
-    c("BIC", bic)
+    c("AIC",           aic),
+    c("BIC",           bic)
   ),
-  notes = "Robust standard errors in parentheses.",
+  
+  notes = "Robust standard errors in parentheses. Model estimated to distinguish protest responses from true zero WTP. See Sections 3.5 and 4.4. * p < 0.05, ** p < 0.01, *** p < 0.001.",
   notes.append = FALSE
-)
-
-# install.packages("webshot2")
-webshot2::webshot(
-  "mxl_NonFeeSupporters.html",
-  file  = "mxl_NonFeeSupporters.png",
-  zoom  = 3.125,   # ~96 dpi baseline x 3.125 ≈ 300 "effective" dpi
-  vwidth = 450
 )
 
 ```
